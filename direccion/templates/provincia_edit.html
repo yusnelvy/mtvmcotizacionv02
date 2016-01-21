@@ -1,0 +1,34 @@
+<title>Provincia</title>
+
+  <h2>Editar la Provincia {{form_edit_provincia.provincia.value|lower}}</h2>
+<form action="" method="post" id="myformEdit">
+    {% csrf_token %}
+<ul class="pager">
+    {% if provincia_previous %}
+        <li class="previous">
+            <a href="{% url 'udirecciones:edit_provincia' provincia_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+    {% else %}
+        <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+    {% endif %}
+
+    {% if provincia_next %}
+        <li class="next">
+            <a href="{% url 'udirecciones:edit_provincia' provincia_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+    {% else %}
+        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+    {% endif %}
+</ul>
+<div class="form-group">
+
+  {{ form.as_p }}
+
+</div>
+
+<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
+<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
+<script type="text/javascript">
+document.getElementById('id_provincia').focus()
+</script>
+</form>

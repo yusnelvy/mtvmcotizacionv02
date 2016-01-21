@@ -1,0 +1,20 @@
+<title>Estado de documento</title>
+
+  <h2>Agregar estado de documento</h2>
+
+
+<form action="" method="post" id="myformEdit">
+    {% csrf_token %}
+
+<div class="form-group">
+
+  {{ form.as_p }}
+
+</div>
+<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
+<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
+<script type="text/javascript">
+document.getElementById('id_estado_de_documento').focus()
+</script>
+</form>
+
