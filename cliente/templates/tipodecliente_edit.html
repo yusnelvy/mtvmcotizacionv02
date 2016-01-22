@@ -1,28 +1,47 @@
-<title>Tipo de cliente</title>
+{% extends "base_editar.html" %}
 
-  <h2>Editar el tipo de cliente {{form.tipo_de_cliente.value|lower}}</h2>
+{% block titulo_form %}
+
+Editar el tipo de cliente {{form.tipo_de_cliente.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
+
     {% csrf_token %}
+
 <ul class="pager">
+
     {% if tipodecliente_previous %}
+
         <li class="previous">
             <a href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
         </li>
+
     {% else %}
+
         <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+
     {% endif %}
 
     {% if tipodecliente_next %}
+
         <li class="next">
             <a href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
         </li>
+
     {% else %}
+
         <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+
     {% endif %}
+
 </ul>
 
 <div class="form-group">
+
   {{ form.as_p }}
 
 </div>
@@ -35,3 +54,4 @@ document.getElementById('id_sexo').focus()
 </script>
 </form>
 
+{% endblock formulario %}

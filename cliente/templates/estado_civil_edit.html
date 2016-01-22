@@ -1,28 +1,48 @@
-<title>Estado civil</title>
+{% extends "base_editar.html" %}
 
-  <h2>Editar el estado civil {{form.estado_civil.value|lower}}</h2>
+{% block titulo_form %}
+
+  Editar el estado civil {{form.estado_civil.value|lower}}
+
+{% endblock titulo_form %}
+
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
+
     {% csrf_token %}
+
 <ul class="pager">
+
     {% if estado_civil_previous %}
+
         <li class="previous">
             <a href="{% url 'uclientes:edit_estado_civil' estado_civil_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
         </li>
+
     {% else %}
+
         <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+
     {% endif %}
 
     {% if estado_civil_next %}
+
         <li class="next">
             <a href="{% url 'uclientes:edit_estado_civil' estado_civil_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
         </li>
+
     {% else %}
+
         <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+
     {% endif %}
+
 </ul>
 
 <div class="form-group">
+
   {{ form.as_p }}
 
 </div>
@@ -35,3 +55,4 @@ document.getElementById('id_estado_civil').focus()
 </script>
 </form>
 
+{% endblock formulario %}

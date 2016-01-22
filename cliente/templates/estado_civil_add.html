@@ -1,9 +1,15 @@
-<title>Estado civil</title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar estado civil</h2>
+{% block titulo_form %}
 
+Agregar Estado Civil
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
+
     {% csrf_token %}
 
 <div class="form-group">
@@ -18,3 +24,4 @@ document.getElementById('id_estado_civil').focus()
 </script>
 </form>
 
+{% endblock formulario %}
