@@ -1,7 +1,18 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<title>Barrio</title>
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Barrio
+
+{% endblock titulo %}
+
+{% block titulo_form %}
 
   <h2>Agregar barrio</h2>
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
@@ -19,3 +30,4 @@ document.getElementById('id_ciudad').focus()
 
 </form>
 
+{% endblock formulario %}
