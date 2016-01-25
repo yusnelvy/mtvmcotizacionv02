@@ -1,4 +1,12 @@
-<title>Contenedor</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Contenedor
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Contenedores</h2>
 
@@ -6,3 +14,4 @@
    {% include "contenedor_lista_search.html" %}
  </div>
 
+{% endblock lista %}

@@ -1,4 +1,12 @@
-<title>Tipo de inmueble</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+     Tipo de inmueble
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Tipos de inmueble</h2>
 
@@ -6,6 +14,7 @@
    {% include "tipodeinmueble_lista_search.html" %}
  </div>
 
+{% endblock lista %}
 {% comment %}
   <script>
 $(function(){
