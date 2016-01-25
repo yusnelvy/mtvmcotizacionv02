@@ -2,18 +2,30 @@
 
 {% block contenido %}
 
-<div class="container-fluid">
-<div class="row">
 <div class="col-md-12">
-        <br>
-        <input class="form-control hidden-print buscarLista" type="text" id="search" name="search" placeholder="Buscar...">
+    <br>
+    <input class="form-control hidden-print buscarLista" type="text" id="search" name="search" placeholder="Buscar...">
 
-{% block lista %}{% endblock lista %}
+    {% block titulo_lista %}{% endblock titulo_lista %}
 
-</div>
-</div>
+    <a href="nuevo/" class="pull-left">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+    <nav class="nav-pagination hidden-print">
+        <ul class="pagination" >
+
+            {% block paginacion %}{% endblock paginacion %}
+
+        </ul>
+    </nav>
+    <table class="table table-hover table-bordered textAlignCenter" id="tabla">
+
+        {% block lista %}{% endblock lista %}
+
+    </table>
 </div>
 <script type="text/javascript">
 document.getElementById('search').focus();
 </script>
+
 {% endblock contenido %}

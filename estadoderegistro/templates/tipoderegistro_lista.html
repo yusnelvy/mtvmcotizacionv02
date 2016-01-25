@@ -1,4 +1,12 @@
-<title>Tipo de registro</title>
+{% extends "base_lista.html"%}
+
+{% block titulo %}
+
+    Tipo de registro
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Tipos de registro</h2>
 
@@ -6,3 +14,4 @@
    {% include "tipoderegistro_lista_search.html" %}
  </div>
 
+{% endblock lista %}

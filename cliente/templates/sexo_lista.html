@@ -1,8 +1,20 @@
-<title>Sexo</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Sexo
+
+{% endblock titulo%}
+
+{% block lista %}
 
 <h2>Listado de Sexos</h2>
 
- <div id="search-results">
-   {% include "sexo_lista_search.html" %}
- </div>
+<div id="search-results">
+ {% include "sexo_lista_search.html" %}
+</div>
+
+{% endblock lista%}
+
+
 

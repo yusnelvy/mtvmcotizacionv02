@@ -1,4 +1,4 @@
-{% block cantidad_tabla %}
+
 
 <h6>Cantidad de Tipos de mueble encontrados:
   <span class="badge" id="count_reg">
@@ -8,9 +8,10 @@
   </span>
 </h6>
 
-{% endblock cantidad_tabla %}
 
-{% block pagination %}
+
+{% block titulo_tabla %} <p>titulo tabla</p>{% endblock titulo_tabla %}
+
 
 <nav class="nav-pagination hidden-print">
 <ul class="pagination" >
@@ -148,9 +149,6 @@
    </ul>
 </nav>
 
-{% endblock pagination %}
-
-{% block cuerpo_tabla %}
 
 <table class="table table-hover table-bordered textAlignCenter" id="tabla">
 
@@ -207,7 +205,7 @@
 
 {% endif %}
 
-{% endblock cuerpo_tabla %}
+
 
 <script>
 //ocultarASCDesc('tipo_de_mueble');

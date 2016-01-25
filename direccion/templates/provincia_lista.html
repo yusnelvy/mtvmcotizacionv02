@@ -1,33 +1,19 @@
-<title>Provincia</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+Provincia
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de provincias</h2>
 
- <div id="search-results">
-   {% include "provincia_lista_search.html" %}
- </div>
+<div id="search-results">
 
-{% comment %}
-  <script>
-$(function(){
+  {% include "provincia_lista_search.html" %}
 
-  $('#search').keyup(function(){
-    $.ajax({
-      type: "POST",
-      url: "{% url 'udirecciones:search_provincia' %}",
-      data: {
-        'search_text': $('#search').val(),
-        'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
-      },
-      success: searchSuccess,
-      dataType: 'Html'
-    });
-  });
-});
+</div>
 
-function searchSuccess(data, textStatus, jqXHR){
-  $('#search-results').html(data);
-}
-
-</script>
-{% endcomment %}
-
+{% endblock lista %}

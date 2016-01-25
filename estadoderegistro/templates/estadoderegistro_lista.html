@@ -1,4 +1,12 @@
-<title>Estado de registro</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+Estado de registro
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Estados de registro</h2>
 
@@ -6,3 +14,4 @@
    {% include "estadoderegistro_lista_search.html" %}
  </div>
 
+{% endblock lista %}

@@ -1,6 +1,18 @@
-<title>Estado de documento</title>
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Estado de documento
+
+{% endblock titulo %}
+
+{% block titulo_form %}
 
   <h2>Editar el Estado de documento {{form.estado_de_documento.value|lower}}</h2>
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
@@ -35,3 +47,4 @@ document.getElementById('id_estado_de_documento').focus()
 </script>
 </form>
 
+{% endblock formulario %}

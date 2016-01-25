@@ -1,5 +1,12 @@
-<title>Zona</title>
+{% extends "base_lista.html" %}
 
+{% block titulo %}
+
+    Zona
+
+{% endblock titulo%}
+
+{% block lista %}
 
 <h2>Listado de zonas </h2>
 
@@ -8,3 +15,4 @@
    {% include "barrio_lista_search.html" %}
  </div>
 
+{% endblock lista %}

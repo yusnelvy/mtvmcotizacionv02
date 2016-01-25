@@ -1,8 +1,18 @@
-<title>Estado de documento</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Estado de documento
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Estados de documento</h2>
 
  <div id="search-results">
    {% include "estadodedocumento_lista_search.html" %}
  </div>
+
+ {% endblock lista %}
 

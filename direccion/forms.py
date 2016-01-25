@@ -3,7 +3,8 @@ Docstring documentación pendiente
 
 """
 
-from django.forms import ModelForm, TextInput
+
+from django.forms import ModelForm, TextInput, Select
 from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificio, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
@@ -20,6 +21,9 @@ class PaisForm(ModelForm):
         labels = {
             'pais': ('País')
         }
+        widgets = {
+            'pais': TextInput(attrs={'class': 'form-control'}),
+            }
 
 
 class ProvinciaForm(ModelForm):
@@ -81,6 +85,12 @@ class BarrioForm(ModelForm):
             'provincia': ('Provincia'),
             'pais': ('País')
         }
+        widgets = {
+            'barrio': TextInput(attrs={'class': 'form-control'}),
+            'pais': Select(attrs={'class': 'form-control'}),
+            'ciudad': Select(attrs={'class': 'form-control'}),
+            'provincia': Select(attrs={'class': 'form-control'}),
+            }
 
 
 class DireccionForm(ModelForm):
