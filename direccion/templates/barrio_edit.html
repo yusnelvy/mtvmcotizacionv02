@@ -1,4 +1,13 @@
-<title>Barrio</title>
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Barrio
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
   <h2>Editar barrio</h2>
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
@@ -32,3 +41,5 @@ document.getElementById('id_barrio').focus()
 </script>
 
 </form>
+
+{% endblock titulo_form %}

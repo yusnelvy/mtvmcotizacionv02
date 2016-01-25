@@ -3,7 +3,7 @@ Docstring documentación pendiente
 
 """
 
-from django.forms import ModelForm
+from django.forms import ModelForm, TextInput
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
     TipoDeContacto, TipoDeInformacionDeContacto
 
@@ -15,6 +15,9 @@ class SexoForm(ModelForm):
     class Meta:
         model = Sexo
         fields = '__all__'
+        widgets = {
+            'sexo': TextInput(attrs={'class': 'form-control'}),
+            }
 
 
 class EstadoCivilForm(ModelForm):
@@ -54,3 +57,7 @@ class TipoDeInformacionDeContactoForm(ModelForm):
     class Meta:
         model = TipoDeInformacionDeContacto
         fields = '__all__'
+        widgets = {
+            'tipo_de_informacion_de_contacto': TextInput(attrs={'class': 'form-control'}),
+            'descripcion': TextInput(attrs={'class': 'form-control'})
+             }

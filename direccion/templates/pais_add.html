@@ -1,7 +1,18 @@
-<title>País</title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar país</h2>
+{% block titulo %}
 
+  País
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+<h2>Agregar país</h2>
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
@@ -18,3 +29,4 @@ document.getElementById('id_pais').focus()
 </script>
 </form>
 
+{% endblock formulario %}

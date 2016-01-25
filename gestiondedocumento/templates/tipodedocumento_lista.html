@@ -1,4 +1,12 @@
-<title>Tipo de documento</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+  Tipo de documento
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Tipos de documento</h2>
 
@@ -6,3 +14,4 @@
    {% include "tipodedocumento_lista_search.html" %}
  </div>
 
+{% endblock lista %}
