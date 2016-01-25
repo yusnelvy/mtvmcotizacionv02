@@ -1,4 +1,12 @@
-<title>Estado civil</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Estado civil
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de estados civil</h2>
 
@@ -6,3 +14,4 @@
    {% include "estado_civil_lista_search.html" %}
  </div>
 
+{% endblock lista %}

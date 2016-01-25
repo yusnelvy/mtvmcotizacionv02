@@ -3,6 +3,7 @@ Docstring documentación pendiente
 
 """
 
+
 from django.forms import ModelForm, TextInput, Select
 from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificio, \
@@ -59,7 +60,11 @@ class CiudadForm(ModelForm):
             'provincia': ('Provincia'),
             'pais': ('País')
         }
-
+        widgets = {
+            'ciudad': TextInput(attrs={'class': 'form-control'}),
+            'provincia': TextInput(attrs={'class': 'form-control'}),
+            'pais': TextInput(attrs={'class': 'form-control'})
+        }
 
 class BarrioForm(ModelForm):
     """
@@ -118,7 +123,10 @@ class TipoDeEdificacionForm(ModelForm):
         labels = {
             'tipo_de_edificacion': ('Nombre del tipo de edificación')
         }
-
+        widgets = {
+            'tipo_de_edificacion': TextInput(attrs={'class': 'form-control'}),
+            'descripcion': TextInput(attrs={'class': 'form-control'})
+        }
 
 class EdificioForm(ModelForm):
     """
@@ -136,7 +144,10 @@ class TipoDeAscensorForm(ModelForm):
     class Meta:
         model = TipoDeAscensor
         fields = '__all__'
-
+        widgets = {
+            'tipo_de_ascensor': TextInput(attrs={'class': 'form-control'}),
+            'descripcion': TextInput(attrs={'class': 'form-control'})
+        }
 
 class AscensorForm(ModelForm):
     """
@@ -157,7 +168,10 @@ class TipoDeInmuebleForm(ModelForm):
         labels = {
             'tipo_de_inmueble': ('Nombre del tipo de inmueble')
         }
-
+        widgets = {
+            'tipo_de_inmueble': TextInput(attrs={'class': 'form-control'}),
+            'descripcion': TextInput(attrs={'class': 'form-control'})
+        }
 
 class EspecificacionDeInmuebleForm(ModelForm):
     """

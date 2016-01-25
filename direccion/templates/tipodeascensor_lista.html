@@ -1,10 +1,20 @@
-<title>Tipo de ascensor</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Ascensor
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Tipos de ascensor</h2>
 
  <div id="search-results">
    {% include "tipodeascensor_lista_search.html" %}
  </div>
+
+ {% endblock lista %}
 
 {% comment %}
   <script>

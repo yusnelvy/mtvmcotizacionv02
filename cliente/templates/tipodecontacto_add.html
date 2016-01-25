@@ -1,9 +1,15 @@
-<title>Tipo de contacto </title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar tipo de contacto</h2>
+{% block titulo_form %}
 
+Agregar tipo contacto
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
+
     {% csrf_token %}
 
 <div class="form-group">
@@ -18,3 +24,4 @@ document.getElementById('id_tipo_de_contacto').focus()
 </script>
 </form>
 
+{% endblock formulario %}

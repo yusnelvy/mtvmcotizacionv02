@@ -1,11 +1,18 @@
-<title>Ciudad</title>
+{% extends "base_lista.html" %}
 
-<h2>Listado de ciudades </h2>
+{% block titulo %}
+
+     Ciudad
+
+{% endblock titulo %}
+
+{% block lista %}
+
+<h2>Listado de ciudades</h2>
 
  <div id="search-results">
-
     {% include "ciudad_lista_search.html" %}
-
  </div>
 
+{% endblock lista %}
 

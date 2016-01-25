@@ -1,3 +1,5 @@
+{% block cantidad_tabla %}
+
 <h6>Cantidad de Estados civil encontrados:
   <span class="badge" id="count_reg">
 
@@ -5,6 +7,10 @@
 
   </span>
 </h6>
+
+{% endblock cantidad_tabla %}
+
+{% block pagination %}
 
 <nav class="nav-pagination hidden-print">
 <ul class="pagination" >
@@ -142,22 +148,27 @@
    </ul>
 </nav>
 
-{% if estados_civil %}
+{% endblock pagination %}
+
+{% block cuerpo_tabla %}
 
 <table class="table table-hover table-bordered textAlignCenter" id="tabla">
+
+{% if estados_civil %}
 
   <tr class="active">
     <th>
       Estado civil
+
       {% if request.GET.page %}
 
         <a href="?order_by=estado_civil&page={{request.GET.page}}" id="estado_civil" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-        <a href="?order_by=-estado_civil&page={{request.GET.page}}" id="-estado_civil"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+        <a href="?order_by=-estado_civil&page={{request.GET.page}}" id="-estado_civil"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
 
       {% else %}
 
-        <a href="?order_by=estado_civil" id="estado_civil" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-        <a href="?order_by=-estado_civil" id="-estado_civil"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+        <a href="?order_by=estado_civil" id="estado_civil" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-estado_civil" id="-estado_civil"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
 
       {% endif %}
 
@@ -175,26 +186,30 @@
 
     </td>
     <td width="80px">
-      <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">Edit</a>
+      <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
     <td width="80px">
-      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">elim</a>
+      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
   </tr>
 
   {% endfor %}
 
 </table>
+
 {% else %}
 
 <table class="table table-hover table-bordered textAlignCenter" id="tabla">
+
 <tr><td> No se encontraron registros</td>
 </tr>
 </table>
 
 {% endif %}
 
+{% endblock cuerpo_tabla %}
+
 <script>
-ocultarASCDesc('estado_civil');
+//ocultarASCDesc('estado_civil');
 </script>
 

@@ -30,6 +30,9 @@ class EstadoCivilForm(ModelForm):
         labels = {
             'estado_civil': ('Nombre del Estado civil')
         }
+        widgets = {
+            'estado_civil': TextInput(attrs={'class': 'form-control'})
+            }
 
 
 class TipoDeClienteForm(ModelForm):
@@ -39,6 +42,10 @@ class TipoDeClienteForm(ModelForm):
     class Meta:
         model = TipoDeCliente
         fields = '__all__'
+        widgets = {
+            'tipo_de_cliente': TextInput(attrs={'class': 'form-control'}),
+            'descripcion': TextInput(attrs={'class': 'form-control'})
+            }
 
 
 class TipoDeContactoForm(ModelForm):
@@ -48,6 +55,10 @@ class TipoDeContactoForm(ModelForm):
     class Meta:
         model = TipoDeContacto
         fields = '__all__'
+        widgets = {
+            'tipo_de_contacto': TextInput(attrs={'class': 'form-control'}),
+            'descripcion': TextInput(attrs={'class': 'form-control'})
+            }
 
 
 class TipoDeInformacionDeContactoForm(ModelForm):

@@ -1,4 +1,12 @@
-<title>Tipo de contacto</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Tipo de contacto
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Tipos de contacto</h2>
 
@@ -6,3 +14,4 @@
    {% include "tipodecontacto_lista_search.html" %}
  </div>
 
+{% endblock lista %}
