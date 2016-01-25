@@ -22,10 +22,8 @@
 </head>
 <body>
     <div id="wrapper">
-
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-
             <ul class="sidebar-nav">
                 <a href="#menu-toggle" class="glyphicon glyphicon-remove navbar-brand menu-toggle btn-menuSidebar" id="" title="Cerrar"></a>
                 <li class="sidebar-brand">
@@ -38,7 +36,15 @@
                     <a href="#">Dashboard</a>
                 </li>
 
-                {% block link_navegacion %}{% endblock link_navegacion %}
+                {% block link_navegacion %}
+
+                <li>
+                    <a href="/mueble/tipo_de_mueble/">Tipo de muebles</a>
+                </li>
+
+                {% endblock link_navegacion %}
+
+                {% block sidebar_widget %}{% endblock sidebar_widget %}
 
             </ul>
 
@@ -46,7 +52,6 @@
 
         </div>
         <!-- /#sidebar-wrapper -->
-
         <!-- Page Content -->
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -58,19 +63,20 @@
                 {% block acceso_rapido %}{% endblock acceso_rapido %}
 
                 <a href="#menu-toggle" class="glyphicon glyphicon-menu-hamburger navbar-brand menu-toggle" id="menuSidebar"></a>
-
-
             </div>
         </nav>
         <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
 
-            {% block encabezado %}{% endblock encabezado %}
+                    {% block encabezado %}{% endblock encabezado %}
 
-            {% block contenido %}{% endblock contenido %}
+                    {% block contenido %}{% endblock contenido %}
 
+                </div>
+            </div>
         </div>
         <!-- /#page-content-wrapper -->
-
     </div>
 
     {% include "script.html" %}

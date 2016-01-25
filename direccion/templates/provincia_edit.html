@@ -1,6 +1,14 @@
-<title>Provincia</title>
+{% extends "base_editar.html" %}
+
+{% block titulo_form %}
 
   <h2>Editar la Provincia {{form_edit_provincia.provincia.value|lower}}</h2>
+
+{% endblock titulo_form %}
+
+
+{% block formulario %}
+
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
 <ul class="pager">
@@ -32,3 +40,5 @@
 document.getElementById('id_provincia').focus()
 </script>
 </form>
+
+{% endblock formulario %}

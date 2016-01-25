@@ -1,6 +1,19 @@
-<title>Provincia</title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar Provincia</h2>
+{% block titulo %}
+
+    Provincia
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar Provincia
+
+{% endblock titulo_form %}
+
+{% block formulario %}
+
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
 <div class="form-group">
@@ -14,3 +27,6 @@
 document.getElementById('id_provincia').focus()
 </script>
 </form>
+
+
+{% endblock formulario %}

@@ -2,22 +2,29 @@
 
 {% block contenido %}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>
+<div class="col-md-6">
+    <h2>
 
-            {% block titulo_form %}{% endblock titulo_form %}
+        {% block titulo_form %}{% endblock titulo_form %}
 
-            </h2>
+    </h2>
+    <ul class="pager">
 
-            <div class="form-group">
+        {% block nav_lista %}{% endblock nav_lista %}
+
+    </ul>
+    <form action="" method="post" id="myformEdit">
+
+        {% csrf_token %}
+
+        <div class="form-group">
 
             {% block formulario %}{% endblock formulario %}
 
-            </div>
         </div>
-    </div>
+        <button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
+        <button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
+    </form>
 </div>
 
 {% endblock contenido %}
