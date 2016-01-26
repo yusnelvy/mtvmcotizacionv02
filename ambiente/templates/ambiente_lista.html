@@ -1,8 +1,18 @@
-<title>Ambiente</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Ambiente
+
+{% endblock titulo %}
+
+{% block lista %}
 
 <h2>Listado de Ambientes</h2>
 
  <div id="search-results">
    {% include "ambiente_lista_search.html" %}
  </div>
+
+ {% endblock lista%}
 

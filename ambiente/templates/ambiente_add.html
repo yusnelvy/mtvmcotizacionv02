@@ -1,7 +1,18 @@
-<title>Ambiente</title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar ambiente</h2>
+{% block titulo %}
 
+    Ambiente
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+    <h2>Agregar ambiente</h2>
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
@@ -18,3 +29,4 @@ document.getElementById('id_ambiente').focus()
 </script>
 </form>
 
+{% endblock formulario %}

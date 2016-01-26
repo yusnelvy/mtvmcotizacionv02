@@ -158,7 +158,7 @@
 
   <tr class="active">
     <th>
-      Sexo
+      Tipo de Informacion
       {% if request.GET.page %}
 
         <a href="?order_by=tipo_de_informacion_de_contacto&page={{request.GET.page}}" id="tipo_de_informacion_de_contacto" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
@@ -172,6 +172,7 @@
       {% endif %}
 
     </th>
+    <th>Descripcion</th>
     <th width="80px">Editar</th>
     <th width="80px">Eliminar</th>
   </tr>
@@ -182,6 +183,11 @@
     <td>
 
       {{ i.tipo_de_informacion_de_contacto }}
+
+    </td>
+    <td>
+
+      {{ i.descripcion }}
 
     </td>
     <td width="80px">

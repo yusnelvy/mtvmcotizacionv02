@@ -1,7 +1,18 @@
-<title>Tipo de documento</title>
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Tipo de documento
+
+{% endblock titulo %}
+
+{% block titulo_form %}
 
   <h2>Agregar tipo de documento</h2>
 
+{% endblock titulo_form %}
+
+{% block formulario%}
 
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
@@ -18,3 +29,4 @@ document.getElementById('id_tipo_de_documento').focus()
 </script>
 </form>
 
+{% endblock formulario%}

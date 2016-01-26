@@ -1,6 +1,19 @@
-<title>Estado</title>
+{% extends "base_editar.html" %}
+
+
+{% block titulo %}
+
+    Estado
+
+{% endblock titulo %}
+
+{% block titulo_form %}
 
   <h2>Editar el Estado {{form.estado.value|lower}}</h2>
+
+{% endblock titulo_form %}
+
+{% block formulario %}
 
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
@@ -35,3 +48,4 @@ document.getElementById('id_estado').focus()
 </script>
 </form>
 
+{% endblock formulario %}
