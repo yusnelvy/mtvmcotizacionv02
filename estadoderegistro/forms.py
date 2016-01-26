@@ -17,7 +17,7 @@ class EstadoForm(ModelForm):
         fields = '__all__'
         widgets = {
             'estado': TextInput(attrs={'class': 'form-control'}),
-            'direccion': TextInput(attrs={'class': 'form-control'}),
+            'descripcion': TextInput(attrs={'class': 'form-control'}),
             }
 
 
