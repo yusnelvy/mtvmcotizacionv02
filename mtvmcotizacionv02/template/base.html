@@ -6,13 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>
 
         {% block titulo %}{% endblock titulo %}
 
     </title>
-
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 
     {% include "jquery.html" %}
@@ -25,15 +23,11 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <a href="#menu-toggle" class="glyphicon glyphicon-remove navbar-brand menu-toggle btn-menuSidebar" id="" title="Cerrar"></a>
+                <a href="#menu-toggle" class="menu-toggle" title="Cerrar"></a>
                 <li class="sidebar-brand">
-
                     <a href="#">
                         Start Bootstrap
                     </a>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
                 </li>
 
                 {% block link_navegacion %}
@@ -53,16 +47,17 @@
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        <nav class="navbar navbar-default">
+        <nav class="navbarapp">
             <div class="container-fluid">
-
+                <a tilte="Mudarte" class="navbar-brand">Mudarte <span class="glyphicon glyphicon-road"></span></a>
                 <a class="navbar-brand" href="#">
                     <!--<img alt="" src="...">-->
                 </a>
+                <span class="divide"></span>
 
                 {% block acceso_rapido %}{% endblock acceso_rapido %}
 
-                <a href="#menu-toggle" class="glyphicon glyphicon-menu-hamburger navbar-brand menu-toggle" id="menuSidebar"></a>
+                <a href="#menu-toggle" class="menu-toggle menuSidebar" id="menuSidebar"></a>
             </div>
         </nav>
         <div id="page-content-wrapper">
