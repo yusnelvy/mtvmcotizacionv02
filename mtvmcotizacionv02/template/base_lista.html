@@ -1,24 +1,35 @@
 {% extends "base.html" %}
 
+{% block acceso_rapido %}
+
+<a title="Volver" class="navbar-brand" href="#">
+<span class="volver"></span>
+</a>
+<a title="Nuevo" class="navbar-brand" href="nuevo/">
+    <span class="plus"></span>
+</a>
+<a title="Imprimir" class="navbar-brand" onclick="window.print();">
+    <span class="imprimir"></span>
+</a>
+
+{% endblock acceso_rapido %}
+
 {% block contenido %}
 
 <div class="col-md-12">
     <br>
-    <input class="form-control hidden-print buscarLista" type="text" id="search" name="search" placeholder="Buscar...">
+    <input class="buscarEnLista" type="text" id="search" name="search" placeholder="Buscar...">
 
     {% block titulo_lista %}{% endblock titulo_lista %}
 
-    <a href="nuevo/" class="pull-left">
-        <span class="glyphicon glyphicon-plus"></span>
-    </a>
-    <nav class="nav-pagination hidden-print">
-        <ul class="pagination" >
+    <nav class="paginacionLista">
+        <ul>
 
             {% block paginacion %}{% endblock paginacion %}
 
         </ul>
     </nav>
-    <table class="table table-hover table-bordered textAlignCenter" id="tabla">
+    <table id="tabla">
 
         {% block lista %}{% endblock lista %}
 
@@ -26,6 +37,13 @@
 </div>
 <script type="text/javascript">
 document.getElementById('search').focus();
+function ocultarASCDesc(id){
+    if ('{{request.GET.order_by}}' == id){
+        $('#'+id).css('display', 'none');
+    }else{
+        $('#-'+id).css('display', 'none');
+    }
+}
 </script>
 
 {% endblock contenido %}

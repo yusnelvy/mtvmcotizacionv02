@@ -1,5 +1,5 @@
 from django.db import models
-#from direccion.models import EspecificacionDeInmueble
+from direccion.models import EspecificacionDeInmueble
 
 
 # Create your models here.
@@ -22,22 +22,22 @@ class Ambiente(models.Model):
         ordering = ["ambiente"]
 
 
-# class AmbientesPorTipoDeInmueble(models.Model):
-#     """docstring for AmbientesPorTipoDeInmueble"""
-#     def __init__(self, *args, **kwargs):
-#         super(AmbientesPorTipoDeInmueble, self).__init__(*args, **kwargs)
+class AmbientePorTipoDeInmueble(models.Model):
+    """docstring for AmbientePorTipoDeInmueble"""
+    def __init__(self, *args, **kwargs):
+        super(AmbientePorTipoDeInmueble, self).__init__(*args, **kwargs)
 
-#     ambiente = models.ForeignKey(Ambiente, on_delete=models.PROTECT)
-#     especificacion_de_inmueble = models.ForeignKey(EspecificacionDeInmueble,
-#                                                    on_delete=models.PROTECT)
-#     predeterminado = models.BooleanField(default=False)
+    ambiente = models.ForeignKey(Ambiente, on_delete=models.PROTECT)
+    especificacion_de_inmueble = models.ForeignKey(EspecificacionDeInmueble,
+                                                   on_delete=models.PROTECT)
+    predeterminado = models.BooleanField(default=False)
 
-#     def __str__(self):
-#         return u' %s - %s' % (self.ambiente, self.especificacion_de_inmueble)
+    def __str__(self):
+        return u' %s - %s' % (self.ambiente, self.especificacion_de_inmueble)
 
-#     class Meta:
-#         verbose_name = "Ambiente por tipo inmueble"
-#         verbose_name_plural = "Ambientes por tipos de inmueble"
-#         ordering = ["especificacion_de_inmueble", "ambiente"]
-#         unique_together = (("ambiente", "especificacion_de_inmueble"),)
-#         # evaluar si se coloca unique together o no
+    class Meta:
+        verbose_name = "Ambiente por tipo inmueble"
+        verbose_name_plural = "Ambientes por tipos de inmueble"
+        ordering = ["especificacion_de_inmueble", "ambiente"]
+        #unique_together = (("ambiente", "especificacion_de_inmueble"),)
+        # evaluar si se coloca unique together o no
