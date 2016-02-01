@@ -1,3 +1,5 @@
+{% block cantidad_tabla %}
+
 <h6>Cantidad de provincias encontradas:
   <span class="badge" id="count_reg">
 
@@ -6,141 +8,148 @@
   </span>
 </h6>
 
+{% endblock cantidad_tabla %}
+
+{% block pagination %}
+
 <nav class="nav-pagination hidden-print">
-<ul class="pagination" >
+  <ul class="pagination" >
 
-{% if request.GET.page == "0" %}
+    {% if request.GET.page == "0" %}
 
-<li><a href="?page=1">Paginar</a></li>
+    <li><a href="?page=1">Paginar</a></li>
 
-{% else %}
+    {% else %}
 
-{% if page_obj.has_previous %}
+    {% if page_obj.has_previous %}
 
-{% if request.GET.order_by %}
+    {% if request.GET.order_by %}
 
-<li>
-  <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-</li>
+    <li>
+      <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
 
-{% else %}
+    {% else %}
 
-<li>
-  <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-</li>
+    <li>
+      <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
 
-{% endif %}
+    {% endif %}
 
-{% else %}
+    {% else %}
 
-{% if request.GET.order_by %}
+    {% if request.GET.order_by %}
 
-<li class="btn-disabled">
-  <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-</li>
+    <li class="btn-disabled">
+      <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
 
-{% else %}
+    {% else %}
 
-<li class="btn-disabled">
-  <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-</li>
+    <li class="btn-disabled">
+      <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
 
-{% endif %}
+    {% endif %}
 
-{% endif %}
+    {% endif %}
 
-{% if request.GET.page == "1" %}
+    {% if request.GET.page == "1" %}
 
-<li class="btn-disabled">
-  <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
-</li>
+    <li class="btn-disabled">
+      <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    </li>
 
-{% else %}
+    {% else %}
 
-<li class="">
-  <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
-</li>
+    <li class="">
+      <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    </li>
 
-{% endif %}
+    {% endif %}
+
+    {% for p in page_range2 %}
+
+    {% if p == page_obj.number %}
+
+    <li class="active">
+      <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    </li>
+
+    {% else %}
+
+    <li>
+      <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    </li>
+
+    {% endif %}
 
 
-{% for p in page_range2 %}
+    {% endfor %}
 
-{% if p == page_obj.number %}
+    {% if page_obj.paginator.num_pages %}
 
-<li class="active">
-  <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
-</li>
+    {% if request.GET.page == ultimo %}
 
-{% else %}
+    <li class="btn-disabled">
+      <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    </li>
 
-<li>
-  <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
-</li>
+    {% else %}
 
-{% endif %}
+    <li class="">
+      <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    </li>
 
+    {% endif %}
 
-{% endfor %}
+    {% endif %}
 
-{% if page_obj.paginator.num_pages %}
+    {% if page_obj.has_next %}
 
-{% if request.GET.page == ultimo %}
+    {% if request.GET.order_by %}
 
-<li class="btn-disabled">
-  <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
-</li>
+    <li>
+      <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
 
-{% else %}
+    {% else %}
 
-<li class="">
-  <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
-</li>
+    <li>
+      <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
 
-{% endif %}
+    {% endif %}
 
-{% endif %}
+    {% else %}
 
-{% if page_obj.has_next %}
+    {% if request.GET.order_by %}
 
-{% if request.GET.order_by %}
+    <li class="btn-disabled">
+      <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
 
-<li>
-  <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-</li>
+    {% else %}
 
-{% else %}
+    <li class="btn-disabled">
+      <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
 
-<li>
-  <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-</li>
+    {% endif %}
 
-{% endif %}
+    {% endif %}
 
-{% else %}
+    <li><a href="?page=0">Ver todo</a></li>
 
-{% if request.GET.order_by %}
+    {% endif %}
 
-<li class="btn-disabled">
-  <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-</li>
-
-{% else %}
-
-<li class="btn-disabled">
-  <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-</li>
-
-{% endif %}
-
-{% endif %}
-
-<li><a href="?page=0">Ver todo</a></li>
-
-{% endif %}
-
-   </ul>
+  </ul>
 </nav>
+
+{% endblock pagination %}
+
+{% block cuerpo_tabla %}
 
 {% if provincias %}
 
@@ -148,13 +157,13 @@
   <tr class="active">
     <th>
       Provincia
-      <a href="?order_by=provincia" id="provincia" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-      <a href="?order_by=-provincia" id="-provincia"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+      <a href="?order_by=provincia" id="provincia" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+      <a href="?order_by=-provincia" id="-provincia"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
     </th>
     <th width="30%">
       Pais
-      <a href="?order_by=pais" id="pais" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-      <a href="?order_by=-pais" id="-pais"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+      <a href="?order_by=pais" id="pais" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+      <a href="?order_by=-pais" id="-pais"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
     </th>
     <th width="80px">Editar</th>
     <th width="80px">Eliminar</th>
@@ -163,11 +172,11 @@
   {% for i in provincias %}
 
   <tr id="tr{{i.id}}">
-      <td>{{ i.provincia }}</td>
-      <td>{{ i.pais }}</td>
-      <td width="80px"><a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_provincia' i.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">edit</a></td>
-      <td width="80px">
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_provincia' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">elim</a>
+    <td>{{ i.provincia }}</td>
+    <td>{{ i.pais }}</td>
+    <td width="80px"><a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_provincia' i.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a></td>
+    <td width="80px">
+      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_provincia' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
 
     </td>
   </tr>
@@ -178,14 +187,16 @@
 {% else %}
 
 <table class="table table-hover table-bordered textAlignCenter" id="tabla">
-<tr><td> No se encontraron registros</td>
-</tr>
+  <tr><td> No se encontraron registros</td>
+  </tr>
 </table>
 
 {% endif %}
 
+{% endblock cuerpo_tabla %}
+
 <script>
-ocultarASCDesc('provincia');
-ocultarASCDesc('pais');
+//ocultarASCDesc('provincia');
+//ocultarASCDesc('pais');
 </script>
 

@@ -1,37 +1,45 @@
-<title>Tipo de cliente</title>
+{% extends "base_editar.html" %}
 
-  <h2>Editar el tipo de cliente {{form.tipo_de_cliente.value|lower}}</h2>
+{% block titulo_form %}
 
-<form action="" method="post" id="myformEdit">
-    {% csrf_token %}
-<ul class="pager">
+Editar el tipo de cliente {{form.tipo_de_cliente.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
     {% if tipodecliente_previous %}
+
         <li class="previous">
             <a href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
         </li>
+
     {% else %}
+
         <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+
     {% endif %}
 
     {% if tipodecliente_next %}
+
         <li class="next">
             <a href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
         </li>
-    {% else %}
-        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
-    {% endif %}
-</ul>
 
-<div class="form-group">
+    {% else %}
+
+        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+
+    {% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
   {{ form.as_p }}
 
-</div>
-
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
-
 <script type="text/javascript">
-document.getElementById('id_sexo').focus()
+document.getElementById('id_tipo_de_cliente').focus()
 </script>
-</form>
 
+{% endblock formulario %}

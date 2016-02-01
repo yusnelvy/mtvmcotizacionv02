@@ -1,11 +1,250 @@
-<title>Ciudad</title>
+{% extends "base_lista.html" %}
 
-<h2>Listado de ciudades </h2>
+{% block titulo %}
 
- <div id="search-results">
+     Ciudad
 
-    {% include "ciudad_lista_search.html" %}
+{% endblock titulo %}
 
- </div>
+{% block titulo_lista %}
+
+<h2>Listado de ciudades</h2>
+
+<h6>Cantidad de Ciudades:
+    <span class="badge" id="count_reg">
+
+        {{ ciudades.count }}
+
+    </span>
+</h6>
+
+{% endblock titulo_lista %}
+
+{% block paginacion %}
+
+{% if request.GET.page == "0" %}
+
+<li><a href="?page=1">Paginar</a></li>
+
+{% else %}
+
+{% if page_obj.has_previous %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+{% if request.GET.order_by %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% else %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+{% if request.GET.page == "1" %}
+
+<li class="btn-disabled">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% endif %}
+
+{% for p in page_range2 %}
+
+{% if p == page_obj.number %}
+
+<li class="active">
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% endif %}
+
+{% endfor %}
+
+{% if page_obj.paginator.num_pages %}
+
+{% if request.GET.page == ultimo %}
+
+<li class="btn-disabled">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+{% if page_obj.has_next %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+{% if request.GET.order_by %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+<li><a href="?page=0">Ver todo</a></li>
+
+{% endif %}
+
+{% endblock paginacion %}
+
+{% block lista %}
+
+{% if ciudades %}
+
+<tr class="active">
+    <th>
+        Pais
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=pais&page={{request.GET.page}}" id="pais" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-pais&page={{request.GET.page}}" id="-pais"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+        {% else %}
+
+        <a href="?order_by=pais" id="pais" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-pais" id="-pais"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Ciudad
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=ciudad&page={{request.GET.page}}" id="ciudad" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-ciudad&page={{request.GET.page}}" id="-ciudad"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+        {% else %}
+
+        <a href="?order_by=ciudad" id="ciudad" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-ciudad" id="-ciudad"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Provincia
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=provincia&page={{request.GET.page}}" id="provincia" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-provincia&page={{request.GET.page}}" id="-provincia"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+        {% else %}
+
+        <a href="?order_by=provincia" id="provincia" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-provincia" id="-provincia"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+        {% endif %}
+
+    </th>
+    <th width="80px">Editar</th>
+    <th width="80px">Eliminar</th>
+</tr>
+
+{% for i in ciudades %}
+
+<tr id="tr{{i.pk}}">
+    <td>
+
+        {{ i.pais }}
+
+    </td>
+    <td>
+
+        {{ i.ciudad }}
+
+    </td>
+    <td>
+
+        {{ i.provincia }}
+
+    </td>
+    <td width="80px">
+        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_ciudad' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    </td>
+    <td width="80px">
+        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_ciudad' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    </td>
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+    <td> No se encontraron registros</td>
+</tr>
+
+{% endif %}
+
+{% endblock lista %}
 
 

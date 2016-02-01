@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block acceso_rapido %}
+
+<a title="Volver" class="navbar-brand" role="button" aria-expanded="true" href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}"><span class="volver"></span></a>
+
+{% endblock acceso_rapido %}
+
+{% block contenido %}
+
+<div class="col-md-6">
+    <h2>
+
+        {% block titulo_form %}{% endblock titulo_form %}
+
+    </h2>
+    <ul class="pager">
+
+        {% block nav_lista %}{% endblock nav_lista %}
+
+    </ul>
+    <form action="" method="post" id="myformEdit">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+
+            {% block formulario %}{% endblock formulario %}
+
+        </div>
+        <button type="submit" name="reg">Registrar</button>
+        <button type="submit" name="regEdit">Registrar y seguir editando</button>
+    </form>
+</div>
+
+{% endblock contenido %}
