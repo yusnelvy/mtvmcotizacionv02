@@ -41,7 +41,10 @@ class ProvinciaForm(ModelForm):
             'provincia': ('Provincia'),
             'pais': ('País')
         }
-
+        widgets = {
+            'pais': TextInput(attrs={'class': 'form-control'}),
+            'provincia': TextInput(attrs={'class': 'form-control'})
+            }
 
 class CiudadForm(ModelForm):
     """

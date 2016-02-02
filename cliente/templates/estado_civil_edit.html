@@ -6,14 +6,7 @@
 
 {% endblock titulo_form %}
 
-
-{% block formulario %}
-
-<form action="" method="post" id="myformEdit">
-
-    {% csrf_token %}
-
-<ul class="pager">
+{% block nav_lista %}
 
     {% if estado_civil_previous %}
 
@@ -37,22 +30,16 @@
 
         <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
 
-    {% endif %}
+   {% endif %}
 
-</ul>
+{% endblock nav_lista %}
 
-<div class="form-group">
+{% block formulario %}
 
-  {{ form.as_p }}
-
-</div>
-
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
+{{ form.as_p }}
 
 <script type="text/javascript">
 document.getElementById('id_estado_civil').focus()
 </script>
-</form>
 
 {% endblock formulario %}
