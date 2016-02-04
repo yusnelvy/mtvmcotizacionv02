@@ -26,10 +26,10 @@ class TipoDeDocumento(models.Model):
 
 class EstadoDeDocumento(models.Model):
     """docstring"""
-    tipo_de_documento = models.ForeignKey(TipoDeDocumento)
-    orden = models.IntegerField()
+    tipo_de_documento = models.ForeignKey(TipoDeDocumento, on_delete=models.PROTECT)
     estado_de_documento = models.CharField(max_length=100)
     descripcion = models.TextField()
+    orden = models.IntegerField()
     observacion = models.TextField(blank=True)
 
     def __str__(self):

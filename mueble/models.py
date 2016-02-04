@@ -31,7 +31,7 @@ class Mueble(models.Model):
         super(Mueble, self).__init__(*args, **kwargs)
     mueble = models.CharField(max_length=100, unique=True)
     descripcion = models.TextField(blank=True)
-    tipo_de_mueble = models.ForeignKey(TipoDeMueble)
+    tipo_de_mueble = models.ForeignKey(TipoDeMueble, on_delete=models.PROTECT)
     trasladable = models.BooleanField(default=None)
 
     def __str__(self):
@@ -47,7 +47,7 @@ class EspecificacionDeMueble(models.Model):
     """docstring for EspecificacionDeMueble"""
     def __init__(self, *args, **kwargs):
         super(EspecificacionDeMueble, self).__init__(*args, **kwargs)
-    mueble = models.ForeignKey(Mueble)
+    mueble = models.ForeignKey(Mueble, on_delete=models.PROTECT)
     especificacion_de_mueble = models.CharField(max_length=100)
     descripcion = models.TextField(blank=True)
     ancho = models.DecimalField(max_digits=7, decimal_places=2)
@@ -59,6 +59,10 @@ class EspecificacionDeMueble(models.Model):
     def __str__(self):
         return self.especificacion_de_mueble
 
+    def _get_volumendemueble(self):
+        return round((self.ancho*self.alto*self.largo)/1000000, 3)
+    volumen_de_mueble = property(_get_volumendemueble)
+
     class Meta:
         verbose_name = "Especificación del mueble"
         verbose_name_plural = "Especificaciones del mueble"
@@ -69,8 +73,8 @@ class MueblePorAmbiente(models.Model):
     """docstring for MueblePorAmbiente"""
     def __init__(self, *args, **kwargs):
         super(MueblePorAmbiente, self).__init__(*args, **kwargs)
-    especificacion_de_mueble = models.ForeignKey(EspecificacionDeMueble)
-    ambiente_por_tipo_de_inmueble = models.ForeignKey(AmbientePorTipoDeInmueble)
+    especificacion_de_mueble = models.ForeignKey(EspecificacionDeMueble, on_delete=models.PROTECT)
+    ambiente_por_tipo_de_inmueble = models.ForeignKey(AmbientePorTipoDeInmueble, on_delete=models.PROTECT)
     predefinido = models.BooleanField(default=None)
 
     def __str__(self):
@@ -78,5 +82,5 @@ class MueblePorAmbiente(models.Model):
 
     class Meta:
         verbose_name = "Mueble por ambiente"
-        verbose_name_plural = "Muebles por ambiente "
+        verbose_name_plural = "Muebles por ambientes"
         ordering = ['especificacion_de_mueble', 'ambiente_por_tipo_de_inmueble']

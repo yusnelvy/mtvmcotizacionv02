@@ -4,7 +4,17 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.db.models import Q
 from django.template import RequestContext
 import re
-#from premisas.models import PerzonalizacionVisual
+from premisas.models import PersonalizacionVisual
+
+
+def pantalla_inicial(request):
+    """Docstring"""
+    return render(request, 'index.html')
+
+
+def guia_de_estilo(request):
+    """Docstring"""
+    return render(request, 'guiadeestilo.html')
 
 
 def logout_page(request):
@@ -60,38 +70,38 @@ def get_query(query_string, search_fields):
     return query
 
 
-# def valor_Personalizacionvisual(usuario, tipo):
-#     valor = PerzonalizacionVisual.objects.values('valor').filter(usuario=usuario,
-#                                                                  tipo=tipo)
-#     if len(nropag) == 0:
-#         valor = PerzonalizacionVisual.objects.values('valor').filter(usuario__username="std",
-#                                                                      tipo=tipo)
-#     valor = valor[0]['valor']
-#     return valor
+def valor_Personalizacionvisual(usuario, tipo):
+    valor = PersonalizacionVisual.objects.values('valor').filter(usuario=usuario,
+                                                                 tipo=tipo)
+    if len(valor) == 0:
+        valor = PersonalizacionVisual.objects.values('valor').filter(usuario__username="std",
+                                                                     tipo=tipo)
+    valor = valor[0]['valor']
+    return valor
 
 
-# def sidebarUpdate(request):
-#     """e"""
-#     sidebarStatus = PerzonalizacionVisual.objects.filter(usuario__username="std",
-#                                                          tipo="sidebarClosedOpen")
+def sidebarUpdate(request):
+    """e"""
+    sidebarStatus = PersonalizacionVisual.objects.filter(usuario__username="std",
+                                                         tipo="sidebarClosedOpen")
 
-#     if sidebarStatus[0].valor == '0':
-#         sidebarStatus.update(valor=1)
-#     else:
-#         sidebarStatus.update(valor=0)
+    if sidebarStatus[0].valor == '0':
+        sidebarStatus.update(valor=1)
+    else:
+        sidebarStatus.update(valor=0)
 
-#     sidebarStatus = PerzonalizacionVisual.objects.values('valor').filter(usuario__username="std",
-#                                                                          tipo="sidebarClosedOpen")
+    sidebarStatus = PersonalizacionVisual.objects.values('valor').filter(usuario__username="std",
+                                                                         tipo="sidebarClosedOpen")
 
-#     mensaje = {'estatus': 'ok', 'msj': 'Registro guardado', 'sidebarStatus': sidebarStatus[0]['valor']}
-#     return JsonResponse(mensaje, safe=False)
+    mensaje = {'estatus': 'ok', 'msj': 'Registro guardado', 'sidebarStatus': sidebarStatus[0]['valor']}
+    return JsonResponse(mensaje, safe=False)
 
 
-# def sidebar(request):
-#     """e"""
-#     all_categories = PerzonalizacionVisual.objects.values('valor').filter(usuario__username="std",
-#                                                                           tipo="sidebarClosedOpen")
+def sidebar(request):
+    """e"""
+    all_categories = PersonalizacionVisual.objects.values('valor').filter(usuario__username="std",
+                                                                          tipo="sidebarClosedOpen")
 
-#     return {
-#         'sidebar': all_categories[0]['valor'],
-#     }
+    return {
+        'sidebar': all_categories[0]['valor'],
+    }

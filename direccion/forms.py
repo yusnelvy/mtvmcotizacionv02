@@ -6,7 +6,7 @@ Docstring documentación pendiente
 
 from django.forms import ModelForm, TextInput, Select
 from direccion.models import Pais, Provincia, Ciudad, \
-    Barrio, Direccion, TipoDeEdificacion, Edificio, \
+    Barrio, Direccion, TipoDeEdificacion, Edificacion, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
     EspecificacionDeInmueble, Inmueble
 
@@ -44,6 +44,7 @@ class ProvinciaForm(ModelForm):
         widgets = {
             'provincia': TextInput(attrs={'class': 'form-control'}),
             }
+
 
 class CiudadForm(ModelForm):
     """
@@ -125,12 +126,12 @@ class TipoDeEdificacionForm(ModelForm):
             'descripcion': TextInput(attrs={'class': 'form-control'})
         }
 
-class EdificioForm(ModelForm):
+class EdificacionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
     class Meta:
-        model = Edificio
+        model = Edificacion
         fields = '__all__'
 
 

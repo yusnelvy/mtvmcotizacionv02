@@ -2,10 +2,13 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
-    TipoDeContacto, TipoDeInformacionDeContacto
+    TipoDeRelacion, TipoDeInformacionDeContacto, Cliente, Contacto, \
+    InformacionDeContacto, ClienteDireccion, ClienteEstadoDeRegistro
 from cliente.forms import SexoForm, EstadoCivilForm, TipoDeClienteForm, \
-    TipoDeContactoForm, TipoDeInformacionDeContactoForm
-#from mtvmcotizacionv02.views import valor_Personalizacionvisual
+    TipoDeRelacionForm, TipoDeInformacionDeContactoForm, ClienteForm, \
+    ContactoForm, InformacionDeContactoForm, ClienteDireccionForm, \
+    ClienteEstadoDeRegistroForm
+from mtvmcotizacionv02.views import valor_Personalizacionvisual
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -19,29 +22,29 @@ class SexoListView(ListView):
     context_object_name = 'sexos'
     template_name = 'sexo_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(SexoListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+        #range_gap = 3
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_sexo = Sexo.objects.all().order_by(order_by)
@@ -120,11 +123,11 @@ class SexoUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(SexoUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+        #nropag = 10
 
         sexo = Sexo.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -249,29 +252,29 @@ class EstadoCivilListView(ListView):
     context_object_name = 'estados_civil'
     template_name = 'estado_civil_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(EstadoCivilListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+        #range_gap = 3
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_estado_civil = EstadoCivil.objects.all().order_by(order_by)
@@ -350,11 +353,11 @@ class EstadoCivilUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(EstadoCivilUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+        #nropag = 10
 
         estado_civil = EstadoCivil.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -479,29 +482,29 @@ class TipoDeClienteListView(ListView):
     context_object_name = 'tiposdecliente'
     template_name = 'tipodecliente_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TipoDeClienteListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+        #range_gap = 3
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_tipodecliente = TipoDeCliente.objects.all().order_by(order_by)
@@ -580,11 +583,11 @@ class TipoDeClienteUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TipoDeClienteUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+        #nropag = 10
 
         tipodecliente = TipoDeCliente.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -702,43 +705,43 @@ class TipoDeClienteDelete(DeleteView):
             return render_to_response(self.template_name, self.get_context_data())
 
 
-# app tipo de contacto
-class TipoDeContactoListView(ListView):
-    model = TipoDeContacto
+# app tipo de relacion
+class TipoDeRelacionListView(ListView):
+    model = TipoDeRelacion
     paginate_by = 10
-    context_object_name = 'tiposdecontacto'
-    template_name = 'tipodecontacto_lista.html'
+    context_object_name = 'tiposderelacion'
+    template_name = 'tipoderelacion_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(TipoDeContactoListView, self).get_context_data(**kwargs)
+        context = super(TipoDeRelacionListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+        #range_gap = 3
         order_by = self.request.GET.get('order_by')
         if order_by:
-            lista_tipodecontacto = TipoDeContacto.objects.all().order_by(order_by)
+            lista_tipoderelacion = TipoDeRelacion.objects.all().order_by(order_by)
         else:
-            lista_tipodecontacto = TipoDeContacto.objects.all()
+            lista_tipoderelacion = TipoDeRelacion.objects.all()
 
-        paginator = Paginator(lista_tipodecontacto, 10)
+        paginator = Paginator(lista_tipoderelacion, 10)
         page = self.request.GET.get('page')
         if page:
 
@@ -770,16 +773,16 @@ class TipoDeContactoListView(ListView):
 
         order_by = self.request.GET.get('order_by')
         if order_by:
-            queryset = TipoDeContacto.objects.all().order_by(order_by)
+            queryset = TipoDeRelacion.objects.all().order_by(order_by)
         else:
-            queryset = TipoDeContacto.objects.all()
+            queryset = TipoDeRelacion.objects.all()
 
         return queryset
 
 
-class TipoDeContactoView(View):
-    form_class = TipoDeContactoForm
-    template_name = 'tipodecontacto_add.html'
+class TipoDeRelacionView(View):
+    form_class = TipoDeRelacionForm
+    template_name = 'tipoderelacion_add.html'
 
     def get(self, request, *args, **kwargs):
         """docstring"""
@@ -794,29 +797,29 @@ class TipoDeContactoView(View):
 
             if 'regEdit' in request.POST:
                 messages.success(request, "Registro guardado.")
-                return HttpResponseRedirect(reverse('uclientes:edit_tipo_de_contacto',
+                return HttpResponseRedirect(reverse('uclientes:edit_tipo_de_relacion',
                                                     args=(id_reg.id,)))
             else:
-                return HttpResponseRedirect(reverse('uclientes:list_tipo_de_contacto'))
+                return HttpResponseRedirect(reverse('uclientes:list_tipo_de_relacion'))
 
         return render(request, self.template_name, {'form': form})
 
 
-class TipoDeContactoUpdate(UpdateView):
-    template_name = 'tipodecontacto_edit.html'
-    form_class = TipoDeContactoForm
-    model = TipoDeContacto
+class TipoDeRelacionUpdate(UpdateView):
+    template_name = 'tipoderelacion_edit.html'
+    form_class = TipoDeRelacionForm
+    model = TipoDeRelacion
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(TipoDeContactoUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        context = super(TipoDeRelacionUpdate, self).get_context_data(**kwargs)
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+        #nropag = 10
 
-        tipodecontacto = TipoDeContacto.objects.get(pk=self.object.pk)
+        tipoderelacion = TipoDeRelacion.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
         order_by = self.request.REQUEST.get('order_by', '')
         page = self.request.REQUEST.get('page', '')
@@ -836,66 +839,66 @@ class TipoDeContactoUpdate(UpdateView):
                 order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
 
         if order_by:
-            lista_tipodecontacto = TipoDeContacto.objects.all().order_by(order_by)
+            lista_tipoderelacion = TipoDeRelacion.objects.all().order_by(order_by)
         else:
-            lista_tipodecontacto = TipoDeContacto.objects.all()
+            lista_tipoderelacion = TipoDeRelacion.objects.all()
 
-        paginator = Paginator(lista_tipodecontacto, nropag)
+        paginator = Paginator(lista_tipoderelacion, nropag)
         # Show 25 contacts per page
 
         if page == '0':
-            tiposdecontacto = lista_tipodecontacto
+            tiposderelacion = lista_tipoderelacion
         else:
             try:
-                tiposdecontacto = paginator.page(page)
+                tiposderelacion = paginator.page(page)
             except PageNotAnInteger:
                 # If page is not an integer, deliver first page.
-                tiposdecontacto = paginator.page(1)
+                tiposderelacion = paginator.page(1)
             except EmptyPage:
                 # If page is out of range (e.g. 9999), deliver last page of results.
-                tiposdecontacto = paginator.page(paginator.num_pages)
+                tiposderelacion = paginator.page(paginator.num_pages)
 
         if page != '0':
             countitem = int(nropag)
             for i in range(0, countitem):
-                if(tiposdecontacto.object_list[i].id == tipodecontacto.id):
-                    if tiposdecontacto.has_previous:
+                if(tiposderelacion.object_list[i].id == tipoderelacion.id):
+                    if tiposderelacion.has_previous:
                         try:
-                            previousitem = tiposdecontacto.object_list[i-1].id
+                            previousitem = tiposderelacion.object_list[i-1].id
                         except:
                             previousitem = None
 
-                    if tiposdecontacto.has_next:
+                    if tiposderelacion.has_next:
                         try:
-                            nextitem = tiposdecontacto.object_list[i+1].id
+                            nextitem = tiposderelacion.object_list[i+1].id
                         except:
                             nextitem = None
                     break
         else:
-            countitem = len(tiposdecontacto)
+            countitem = len(tiposderelacion)
             for i in range(0, countitem):
-                if(tiposdecontacto[i].id == tiposdecontacto.id):
+                if(tiposderelacion[i].id == tiposderelacion.id):
                     try:
-                        previousitem = tiposdecontacto[i-1].id
+                        previousitem = tiposderelacion[i-1].id
                     except:
                         previousitem = None
                     try:
-                        nextitem = tiposdecontacto[i+1].id
+                        nextitem = tiposderelacion[i+1].id
                     except:
                         nextitem = None
                     break
 
         try:
-            tipodecontacto_previous = TipoDeContacto.objects.get(pk=previousitem)
+            tipoderelacion_previous = TipoDeRelacion.objects.get(pk=previousitem)
         except:
-            tipodecontacto_previous = None
+            tipoderelacion_previous = None
         try:
-            tipodecontacto_next = TipoDeContacto.objects.get(pk=nextitem)
+            tipoderelacion_next = TipoDeRelacion.objects.get(pk=nextitem)
         except:
-            tipodecontacto_next = None
+            tipoderelacion_next = None
 
-        context['tipodecontacto_previous'] = tipodecontacto_previous
-        context['tipodecontacto_next'] = tipodecontacto_next
+        context['tipoderelacion_previous'] = tipoderelacion_previous
+        context['tipoderelacion_next'] = tipoderelacion_next
 
         return context
 
@@ -916,9 +919,9 @@ class TipoDeContactoUpdate(UpdateView):
                 return render_to_response(self.template_name, self.get_context_data())
 
 
-class TipoDeContactoDelete(DeleteView):
-    model = TipoDeContacto
-    form_class = TipoDeContactoForm
+class TipoDeRelacionDelete(DeleteView):
+    model = TipoDeRelacion
+    form_class = TipoDeRelacionForm
     template_name = 'server_confirm_delete.html'
 
     def delete(self, request, *args, **kwargs):
@@ -939,29 +942,29 @@ class TipoDeInformacionDeContactoListView(ListView):
     context_object_name = 'tiposdeinformaciondecontacto'
     template_name = 'tipodeinformaciondecontacto_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TipoDeInformacionDeContactoListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+        #range_gap = 3
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.all().order_by(order_by)
@@ -1040,11 +1043,11 @@ class TipoDeInformacionDeContactoUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TipoDeInformacionDeContactoUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+        #nropag = 10
 
         tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
