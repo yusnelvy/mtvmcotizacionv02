@@ -1,5 +1,11 @@
 {% extends "base_editar.html" %}
 
+{% block titulo %}
+
+Ambiente
+
+{% endblock titulo %}
+
 {% block titulo_form %}
 
 Editar ambiente {{form.ambiente.value|lower}}
@@ -16,7 +22,7 @@ Editar ambiente {{form.ambiente.value|lower}}
 
 {% else %}
 
-<li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+<li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
 
 {% endif %}
 
@@ -28,7 +34,7 @@ Editar ambiente {{form.ambiente.value|lower}}
 
 {% else %}
 
-<li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+<li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
 
 {% endif %}
 
@@ -36,7 +42,11 @@ Editar ambiente {{form.ambiente.value|lower}}
 
 {% block formulario %}
 
+<div class="prueba">
+
 {{ form.as_p }}
+
+</div>
 
 <script type="text/javascript">
 document.getElementById('id_ambiente').focus()

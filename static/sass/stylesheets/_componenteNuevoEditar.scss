@@ -1,7 +1,7 @@
 /*
  * componentes de crear nuevo y editar
  */
-.botonRegistrar, button {
+.botonRegistrar {
     @extend .btn;
     @extend .btn-default;
 }
@@ -13,8 +13,17 @@
     @extend .next;
     @extend .disabled;
 }
-.form-group input, .form-group select, .form-group textarea {
-    @extend .form-control;
+.checbook{
+    background: $brand-success;
+}
+.prueba {
+    @extend .form-group;
+    input[type="text"]{
+        @extend .form-control;
+    }
+    input[type="checkbox"]{
+         @extend .checbook;
+    }
 }
 /*
  * componentes de listas
@@ -31,7 +40,17 @@
         @extend .pagination;
     }
 }
-table {
+.tablaLista {
+    @extend .table;
+    @extend .table-hover;
+    @extend .table-bordered;
+    text-align: center;
+    background: #fff;
+    th {
+        text-align: center;
+    }
+}
+.tablaInfoRelacionada {
     @extend .table;
     @extend .table-hover;
     @extend .table-bordered;

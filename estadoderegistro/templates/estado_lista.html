@@ -162,13 +162,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=estado&page={{request.GET.page}}" id="estado" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-estado&page={{request.GET.page}}" id="-estado"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=estado&page={{request.GET.page}}" id="estado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-estado&page={{request.GET.page}}" id="-estado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=estado" id="estado" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-estado" id="-estado"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=estado" id="estado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-estado" id="-estado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -178,19 +178,19 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=descripcion" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th width="80px">Editar</th>
-    <th width="80px">Eliminar</th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in estados %}
@@ -223,5 +223,12 @@
 </tr>
 
 {% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('estado');
+        ocultarASCDesc('descripcion');
+    })
+</script>
 
 {% endblock lista %}
