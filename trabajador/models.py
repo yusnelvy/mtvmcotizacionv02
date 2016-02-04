@@ -9,7 +9,7 @@ class CargoTrabajador(models.Model):
 
     cargo_trabajador = models.CharField(max_length=100, unique=True)
     descripcion = models.TextField()
-    cargo_padre = models.ForeignKey("self", blank=True, related_name='cargochild_set')
+    cargo_padre = models.ForeignKey("self", null=True, blank=True, related_name='cargochild_set')
 
     def __str__(self):
         return self.cargo_trabajador

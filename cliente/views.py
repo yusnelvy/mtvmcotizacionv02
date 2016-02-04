@@ -25,10 +25,8 @@ class SexoListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -127,7 +125,6 @@ class SexoUpdate(UpdateView):
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-        #nropag = 10
 
         sexo = Sexo.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -357,7 +354,6 @@ class EstadoCivilUpdate(UpdateView):
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-        #nropag = 10
 
         estado_civil = EstadoCivil.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -587,7 +583,6 @@ class TipoDeClienteUpdate(UpdateView):
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-        #nropag = 10
 
         tipodecliente = TipoDeCliente.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -817,7 +812,6 @@ class TipoDeRelacionUpdate(UpdateView):
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-        #nropag = 10
 
         tipoderelacion = TipoDeRelacion.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -1047,7 +1041,6 @@ class TipoDeInformacionDeContactoUpdate(UpdateView):
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-        #nropag = 10
 
         tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')

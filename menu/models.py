@@ -14,7 +14,7 @@ class Menu(models.Model):
     name = models.CharField(max_length=100, blank=True)
     nivel = models.IntegerField()
     padre = models.BooleanField(default=False)
-    menu_padre = models.ForeignKey("self", blank=True, related_name='nenuchild_set')
+    menu_padre = models.ForeignKey("self", null=True, blank=True, related_name='nenuchild_set')
 
     def __str__(self):
         return self.menu
