@@ -162,13 +162,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=contenedor&page={{request.GET.page}}" id="contenedor" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-contenedor&page={{request.GET.page}}" id="-contenedor"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=contenedor&page={{request.GET.page}}" id="contenedor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-contenedor&page={{request.GET.page}}" id="-contenedor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=contenedor" id="contenedor" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-contenedor" id="-contenedor"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=contenedor" id="contenedor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-contenedor" id="-contenedor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -178,13 +178,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=descripcion" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -194,13 +194,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=capacidad_de_volumen&page={{request.GET.page}}" id="capacidad_de_volumen" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-capacidad_de_volumen&page={{request.GET.page}}" id="-capacidad_de_volumen"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=capacidad_de_volumen&page={{request.GET.page}}" id="capacidad_de_volumen" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_volumen&page={{request.GET.page}}" id="-capacidad_de_volumen"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=capacidad_de_volumen" id="capacidad_de_volumen" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-capacidad_de_volumen" id="-capacidad_de_volumen"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=capacidad_de_volumen" id="capacidad_de_volumen" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_volumen" id="-capacidad_de_volumen"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -210,13 +210,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=capacidad_de_peso&page={{request.GET.page}}" id="capacidad_de_peso" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-capacidad_de_peso&page={{request.GET.page}}" id="-capacidad_de_peso"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=capacidad_de_peso&page={{request.GET.page}}" id="capacidad_de_peso" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_peso&page={{request.GET.page}}" id="-capacidad_de_peso"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=capacidad_de_peso" id="capacidad_de_peso" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-capacidad_de_peso" id="-capacidad_de_peso"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=capacidad_de_peso" id="capacidad_de_peso" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_peso" id="-capacidad_de_peso"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -226,13 +226,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=ancho&page={{request.GET.page}}" id="ancho" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-ancho&page={{request.GET.page}}" id="-ancho"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=ancho&page={{request.GET.page}}" id="ancho" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho&page={{request.GET.page}}" id="-ancho"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=ancho" id="ancho" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-ancho" id="-ancho"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=ancho" id="ancho" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho" id="-ancho"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -242,13 +242,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=largo&page={{request.GET.page}}" id="largo" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-largo&page={{request.GET.page}}" id="-largo"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=largo&page={{request.GET.page}}" id="largo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo&page={{request.GET.page}}" id="-largo"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=largo" id="largo" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-largo" id="-largo"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=largo" id="largo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo" id="-largo"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -258,13 +258,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=alto&page={{request.GET.page}}" id="alto" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-alto&page={{request.GET.page}}" id="-alto"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=alto&page={{request.GET.page}}" id="alto" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto&page={{request.GET.page}}" id="-alto"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=alto" id="alto" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-alto" id="-alto"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=alto" id="alto" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto" id="-alto"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -274,19 +274,19 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=volumen_en_camion&page={{request.GET.page}}" id="volumen_en_camion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-volumen_en_camion&page={{request.GET.page}}" id="-volumen_en_camion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=volumen_en_camion&page={{request.GET.page}}" id="volumen_en_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion&page={{request.GET.page}}" id="-volumen_en_camion"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=volumen_en_camion" id="volumen_en_camion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-volumen_en_camion" id="-volumen_en_camion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=volumen_en_camion" id="volumen_en_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion" id="-volumen_en_camion"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th width="80px">Editar</th>
-    <th width="80px">Eliminar</th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in contenedores %}
@@ -332,10 +332,10 @@
         {{ i.volumen_en_camion }}
 
     </td>
-    <td width="80px">
+    <td>
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'ucontenedores:edit_contenedor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
-    <td width="80px">
+    <td>
         <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucontenedores:eliminar_contenedor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
@@ -349,5 +349,18 @@
 </tr>
 
 {% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('contenedor');
+        ocultarASCDesc('descripcion');
+        ocultarASCDesc('capacidad_de_volumen');
+        ocultarASCDesc('capacidad_de_peso');
+        ocultarASCDesc('ancho');
+        ocultarASCDesc('largo');
+        ocultarASCDesc('alto');
+        ocultarASCDesc('volumen_en_camion');
+    })
+</script>
 
 {% endblock lista %}

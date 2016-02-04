@@ -42,8 +42,7 @@ class ProvinciaForm(ModelForm):
             'pais': ('País')
         }
         widgets = {
-            'pais': TextInput(attrs={'class': 'form-control'}),
-            'provincia': TextInput(attrs={'class': 'form-control'})
+            'provincia': TextInput(attrs={'class': 'form-control'}),
             }
 
 class CiudadForm(ModelForm):
@@ -65,8 +64,6 @@ class CiudadForm(ModelForm):
         }
         widgets = {
             'ciudad': TextInput(attrs={'class': 'form-control'}),
-            'provincia': TextInput(attrs={'class': 'form-control'}),
-            'pais': TextInput(attrs={'class': 'form-control'})
         }
 
 class BarrioForm(ModelForm):
@@ -89,10 +86,7 @@ class BarrioForm(ModelForm):
             'pais': ('País')
         }
         widgets = {
-            'barrio': TextInput(attrs={'class': 'form-control'}),
-            'pais': Select(attrs={'class': 'form-control'}),
-            'ciudad': Select(attrs={'class': 'form-control'}),
-            'provincia': Select(attrs={'class': 'form-control'}),
+            'barrio': TextInput(attrs={'class': 'form-control'})
             }
 
 

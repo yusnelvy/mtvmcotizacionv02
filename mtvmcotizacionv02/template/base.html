@@ -32,15 +32,16 @@
 
                 {% block link_navegacion %}
 
-                <li>
-                    <a href="/mueble/tipo_de_mueble/">Tipo de muebles</a>
-                </li>
-
                 {% endblock link_navegacion %}
 
-                {% block sidebar_widget %}{% endblock sidebar_widget %}
+
+            {% block widget_menu_general %}
+            {% include "Menu_general.html" %}
+            {% endblock widget_menu_general %}
+
 
             </ul>
+
 
             {% block widget_sidebar %}{% endblock widget_sidebar %}
 
@@ -63,8 +64,6 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-
-                    {% block encabezado %}{% endblock encabezado %}
 
                     {% block contenido %}{% endblock contenido %}
 

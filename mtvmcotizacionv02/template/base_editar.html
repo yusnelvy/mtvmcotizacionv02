@@ -23,13 +23,10 @@
 
         {% csrf_token %}
 
-        <div class="form-group">
-
             {% block formulario %}{% endblock formulario %}
 
-        </div>
-        <button type="submit" name="reg">Registrar</button>
-        <button type="submit" name="regEdit">Registrar y seguir editando</button>
+        <button class="botonRegistrar" type="submit" name="reg">Registrar</button>
+        <button class="botonRegistrar" type="submit" name="regEdit">Registrar y seguir editando</button>
     </form>
 </div>
 

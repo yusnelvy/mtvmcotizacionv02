@@ -1,5 +1,11 @@
 {% extends "base_editar.html" %}
 
+{% block titulo %}
+
+     Tipo de inmueble
+
+{% endblock titulo %}
+
 {% block titulo_form %}
 
 Editar el tipo de inmueble {{form.tipo_de_inmueble.value|lower}}
@@ -16,7 +22,7 @@ Editar el tipo de inmueble {{form.tipo_de_inmueble.value|lower}}
 
     {% else %}
 
-        <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
 
     {% endif %}
 
@@ -28,7 +34,7 @@ Editar el tipo de inmueble {{form.tipo_de_inmueble.value|lower}}
 
     {% else %}
 
-        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
 
     {% endif %}
 
