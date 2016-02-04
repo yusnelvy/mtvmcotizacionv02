@@ -4,7 +4,8 @@ Docstring documentación pendiente
 """
 
 from django.forms import ModelForm, TextInput
-from mueble.models import TipoDeMueble
+from mueble.models import TipoDeMueble, Mueble, \
+    EspecificacionDeMueble, MueblePorAmbiente
 
 
 class TipoDeMuebleForm(ModelForm):
@@ -15,6 +16,32 @@ class TipoDeMuebleForm(ModelForm):
         model = TipoDeMueble
         fields = '__all__'
         widgets = {
-            'tipo_de_mueble': TextInput(attrs={'class': 'form-control'}),
-            'descripcion': TextInput(attrs={'class': 'form-control'})
+            'descripcion': TextInput()
             }
+
+
+class MuebleForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = Mueble
+        fields = '__all__'
+
+
+class EspecificacionDeMuebleForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = EspecificacionDeMueble
+        fields = '__all__'
+
+
+class MueblePorAmbienteForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = MueblePorAmbiente
+        fields = '__all__'

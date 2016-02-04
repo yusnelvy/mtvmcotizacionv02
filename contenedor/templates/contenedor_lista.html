@@ -1,8 +1,366 @@
-<title>Contenedor</title>
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+    Contenedor
+
+{% endblock titulo %}
+
+{% block titulo_lista %}
 
 <h2>Listado de Contenedores</h2>
 
- <div id="search-results">
-   {% include "contenedor_lista_search.html" %}
- </div>
+ <h6>Cantidad de Contenedores:
+    <span class="badge" id="count_reg">
 
+        {{ contenedores.count }}
+
+    </span>
+</h6>
+
+{% endblock titulo_lista %}
+
+{% block paginacion %}
+
+{% if request.GET.page == "0" %}
+
+<li><a href="?page=1">Paginar</a></li>
+
+{% else %}
+
+{% if page_obj.has_previous %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+{% if request.GET.order_by %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% else %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+{% if request.GET.page == "1" %}
+
+<li class="btn-disabled">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% endif %}
+
+{% for p in page_range2 %}
+
+{% if p == page_obj.number %}
+
+<li class="active">
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% endif %}
+
+{% endfor %}
+
+{% if page_obj.paginator.num_pages %}
+
+{% if request.GET.page == ultimo %}
+
+<li class="btn-disabled">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+{% if page_obj.has_next %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+{% if request.GET.order_by %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+<li><a href="?page=0">Ver todo</a></li>
+
+{% endif %}
+
+{% endblock paginacion %}
+
+{% block lista %}
+
+{% if contenedores %}
+
+<tr class="active">
+    <th>
+        Contenedor
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=contenedor&page={{request.GET.page}}" id="contenedor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-contenedor&page={{request.GET.page}}" id="-contenedor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=contenedor" id="contenedor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-contenedor" id="-contenedor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Descripción
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Volumen
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=capacidad_de_volumen&page={{request.GET.page}}" id="capacidad_de_volumen" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_volumen&page={{request.GET.page}}" id="-capacidad_de_volumen"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=capacidad_de_volumen" id="capacidad_de_volumen" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_volumen" id="-capacidad_de_volumen"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Peso
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=capacidad_de_peso&page={{request.GET.page}}" id="capacidad_de_peso" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_peso&page={{request.GET.page}}" id="-capacidad_de_peso"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=capacidad_de_peso" id="capacidad_de_peso" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-capacidad_de_peso" id="-capacidad_de_peso"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Ancho
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=ancho&page={{request.GET.page}}" id="ancho" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho&page={{request.GET.page}}" id="-ancho"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=ancho" id="ancho" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho" id="-ancho"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Largo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=largo&page={{request.GET.page}}" id="largo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo&page={{request.GET.page}}" id="-largo"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=largo" id="largo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo" id="-largo"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Alto
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=alto&page={{request.GET.page}}" id="alto" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto&page={{request.GET.page}}" id="-alto"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=alto" id="alto" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto" id="-alto"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Volumen en camión
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=volumen_en_camion&page={{request.GET.page}}" id="volumen_en_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion&page={{request.GET.page}}" id="-volumen_en_camion"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=volumen_en_camion" id="volumen_en_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion" id="-volumen_en_camion"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
+</tr>
+
+{% for i in contenedores %}
+
+<tr id="tr{{i.pk}}">
+    <td>
+
+        {{ i.contenedor }}
+
+    </td>
+    <td>
+
+        {{ i.descripcion }}
+
+    </td>
+    <td>
+
+        {{ i.capacidad_de_volumen }}
+
+    </td>
+    <td>
+
+        {{ i.capacidad_de_peso }}
+
+    </td>
+    <td>
+
+        {{ i.ancho }}
+
+    </td>
+    <td>
+
+        {{ i.largo }}
+
+    </td>
+    <td>
+
+        {{ i.alto }}
+
+    </td>
+    <td>
+
+        {{ i.volumen_en_camion }}
+
+    </td>
+    <td>
+        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'ucontenedores:edit_contenedor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucontenedores:eliminar_contenedor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    </td>
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+    <td> No se encontraron registros</td>
+</tr>
+
+{% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('contenedor');
+        ocultarASCDesc('descripcion');
+        ocultarASCDesc('capacidad_de_volumen');
+        ocultarASCDesc('capacidad_de_peso');
+        ocultarASCDesc('ancho');
+        ocultarASCDesc('largo');
+        ocultarASCDesc('alto');
+        ocultarASCDesc('volumen_en_camion');
+    })
+</script>
+
+{% endblock lista %}

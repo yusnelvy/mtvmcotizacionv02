@@ -1,0 +1,25 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Ambiente por Tipo de Inmueble
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar ambiente por tipo de inmueble
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_ambiente').focus()
+</script>
+
+{% endblock formulario %}

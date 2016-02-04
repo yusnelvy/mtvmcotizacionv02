@@ -1,0 +1,150 @@
+/*
+ * componentes de crear nuevo y editar
+ */
+.botonRegistrar {
+    @extend .btn;
+    @extend .btn-default;
+}
+.previousBloqueado {
+    @extend .previous;
+    @extend .disabled;
+}
+.nextBloqueado {
+    @extend .next;
+    @extend .disabled;
+}
+.checbook{
+    background: $brand-success;
+}
+.prueba {
+    @extend .form-group;
+    input[type="text"]{
+        @extend .form-control;
+    }
+    input[type="checkbox"]{
+         @extend .checbook;
+    }
+}
+/*
+ * componentes de listas
+ */
+.buscarEnLista {
+    @extend .form-control;
+    @extend .hidden-print;
+    @extend .buscarLista;
+}
+.paginacionLista {
+    @extend .nav-pagination;
+    @extend .hidden-print;
+    ul {
+        @extend .pagination;
+    }
+}
+.tablaLista {
+    @extend .table;
+    @extend .table-hover;
+    @extend .table-bordered;
+    text-align: center;
+    background: #fff;
+    th {
+        text-align: center;
+    }
+}
+.tablaInfoRelacionada {
+    @extend .table;
+    @extend .table-hover;
+    @extend .table-bordered;
+    text-align: center;
+    background: #fff;
+    th {
+        text-align: center;
+    }
+}
+.ascendenteAlfabetico {
+     @extend .glyphicon;
+     @extend .glyphicon-sort-by-alphabet;
+     @extend .btn-ordenarLista;
+}
+.descendenteAlfabetico {
+     @extend .glyphicon;
+     @extend .glyphicon-sort-by-alphabet-alt;
+     @extend .btn-ordenarLista;
+}
+.ascendenteNumerico {
+     @extend .glyphicon;
+     @extend .glyphicon-sort-by-order;
+     @extend .btn-ordenarLista;
+}
+.descendenteNumerico {
+     @extend .glyphicon;
+     @extend .glyphicon-sort-by-order-alt;
+     @extend .btn-ordenarLista;
+}
+.controlLista {
+    width: 80px;
+}
+/*
+ * iconos
+ */
+.plus {
+    @extend .glyphicon;
+    @extend .glyphicon-plus;
+}
+.volver {
+    @extend .glyphicon;
+    @extend .glyphicon-chevron-left;
+}
+.imprimir {
+    @extend .glyphicon;
+    @extend .glyphicon-print;
+}
+/*!
+ * general
+ */
+.btn-disabled {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+    pointer-events: none;
+}
+.btn-ordenarLista {
+  float: right;
+  font-size: 16px;
+}
+.menu-toggle {
+    @extend .glyphicon;
+    @extend .glyphicon-remove;
+    @extend .navbar-brand;
+    z-index:1;
+    color:#fff;
+    float: right;
+    &:hover {
+        color:#fff;
+    }
+}
+.menuSidebar {
+    @extend .glyphicon;
+    @extend .glyphicon-menu-hamburger;
+    @extend .navbar-brand;
+    z-index:1;
+    color:#fff!important;
+    float: right;
+}
+/*!
+ * navbar
+ */
+.navbarapp {
+    @extend .navbar;
+    @extend .navbar-default;
+    div a {
+        color: #fff!important;
+    }
+}
+.divide {
+    height: $navbar-height;
+    border-left: 1px solid #fff;
+    @extend .navbar-brand;
+    margin:0 25px 0 0;
+}

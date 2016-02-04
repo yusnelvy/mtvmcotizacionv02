@@ -1,21 +1,25 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<title>Ciudad</title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar ciudad</h2>
-<form action="" method="post" id="myformEdit">
-    {% csrf_token %}
-<div class="form-group">
+{% block titulo %}
+
+     Ciudad
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar ciudad
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
 
   {{ form.as_p }}
-
-</div>
-
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
 
 <script type="text/javascript">
 document.getElementById('id_ciudad').focus()
 </script>
 
-</form>
-
+{% endblock formulario %}

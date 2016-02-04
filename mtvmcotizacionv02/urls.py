@@ -16,8 +16,13 @@ Including another URLconf
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from django.conf import settings
+from mtvmcotizacionv02 import views
 
 urlpatterns = [
+    url(r'^$', views.pantalla_inicial,
+        name='pantalla_inicial'),
+    url(r'^guia_de_estilo/', views.guia_de_estilo,
+        name='guia_de_estilos'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^direccion/',
         include('direccion.urls', namespace="udirecciones")),
@@ -33,6 +38,14 @@ urlpatterns = [
         include('gestiondedocumento.urls', namespace="ugestiondedocumentos")),
     url(r'^estadoderegistro/',
         include('estadoderegistro.urls', namespace="uestadoderegistros")),
+    url(r'^complejidadriesgo/',
+        include('complejidadriesgo.urls', namespace="ucomplejidadriesgos")),
+    url(r'^mensaje/',
+        include('mensaje.urls', namespace="umensajes")),
+    url(r'^premisas/',
+        include('premisas.urls', namespace="upremisas")),
+    url(r'^promocion/',
+        include('promocion.urls', namespace="upromociones")),
     url(r'^chaining/',
         include('smart_selects.urls')),
 ]

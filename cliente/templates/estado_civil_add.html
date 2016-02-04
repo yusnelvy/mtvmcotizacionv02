@@ -1,20 +1,25 @@
-<title>Estado civil</title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar estado civil</h2>
+{% block titulo %}
 
+Estado Civil
 
-<form action="" method="post" id="myformEdit">
-    {% csrf_token %}
+{% endblock titulo %}
 
-<div class="form-group">
+{% block titulo_form %}
+
+Agregar Estado Civil
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
 
   {{ form.as_p }}
 
-</div>
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
 <script type="text/javascript">
 document.getElementById('id_estado_civil').focus()
 </script>
-</form>
 
+{% endblock formulario %}

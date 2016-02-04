@@ -1,20 +1,25 @@
-<title>Estado de documento</title>
+{% extends "base_editar.html" %}
 
-  <h2>Agregar estado de documento</h2>
+{% block titulo %}
 
+    Estado de documento
 
-<form action="" method="post" id="myformEdit">
-    {% csrf_token %}
+{% endblock titulo %}
 
-<div class="form-group">
+{% block titulo_form %}
+
+Agregar estado de documento
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
 
   {{ form.as_p }}
 
-</div>
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
 <script type="text/javascript">
-document.getElementById('id_estado_de_documento').focus()
+document.getElementById('id_tipo_de_documento').focus()
 </script>
-</form>
 
+{% endblock formulario %}

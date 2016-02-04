@@ -1,3 +1,5 @@
+{% block cantidad_tabla %}
+
 <h6>Cantidad de Tipos de inmueble encontrados:
   <span class="badge" id="count_reg">
 
@@ -5,6 +7,10 @@
 
   </span>
 </h6>
+
+{% endblock cantidad_tabla %}
+
+{% block pagination %}
 
 <nav class="nav-pagination hidden-print">
 <ul class="pagination" >
@@ -142,22 +148,27 @@
    </ul>
 </nav>
 
-{% if tiposdeinmuebles %}
+{% endblock pagination %}
+
+{% block cuerpo_tabla %}
 
 <table class="table table-hover table-bordered textAlignCenter" id="tabla">
+
+{% if tiposdeinmuebles %}
 
   <tr class="active">
     <th>
       Tipo de inmueble
+
       {% if request.GET.page %}
 
-        <a href="?order_by=tipo_de_inmueble&page={{request.GET.page}}" id="tipo_de_inmueble" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-        <a href="?order_by=-tipo_de_inmueble&page={{request.GET.page}}" id="-tipo_de_inmueble"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+        <a href="?order_by=tipo_de_inmueble&page={{request.GET.page}}" id="tipo_de_inmueble" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-tipo_de_inmueble&page={{request.GET.page}}" id="-tipo_de_inmueble"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
 
       {% else %}
 
-        <a href="?order_by=tipo_de_inmueble" id="tipo_de_inmueble" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-        <a href="?order_by=-tipo_de_inmueble" id="-tipo_de_inmueble"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+        <a href="?order_by=tipo_de_inmueble" id="tipo_de_inmueble" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+        <a href="?order_by=-tipo_de_inmueble" id="-tipo_de_inmueble"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
 
       {% endif %}
 
@@ -175,26 +186,30 @@
 
     </td>
     <td width="80px">
-      <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_tipo_de_inmueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">Edit</a>
+      <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_tipo_de_inmueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
     <td width="80px">
-      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_tipo_de_inmueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">elim</a>
+      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_tipo_de_inmueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
   </tr>
 
   {% endfor %}
 
 </table>
+
 {% else %}
 
 <table class="table table-hover table-bordered textAlignCenter" id="tabla">
+
 <tr><td> No se encontraron registros</td>
 </tr>
 </table>
 
 {% endif %}
 
+{% endblock cuerpo_tabla %}
+
 <script>
-ocultarASCDesc('tipo_de_inmueble');
+//ocultarASCDesc('tipo_de_inmueble');
 </script>
 

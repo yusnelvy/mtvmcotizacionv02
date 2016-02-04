@@ -1,3 +1,5 @@
+{% block cantidad_tabla %}
+
 <h6>Cantidad de barrios encontradas:
   <span class="badge" id="count_reg">
 
@@ -5,6 +7,10 @@
 
   </span>
 </h6>
+
+{% endblock cantidad_tabla %}
+
+{% block pagination %}
 
 <nav class="nav-pagination hidden-print">
 <ul class="pagination" >
@@ -142,20 +148,35 @@
    </ul>
 </nav>
 
+{% endblock pagination %}
+
+{% block cuerpo_tabla%}
+
 {% if barrios %}
 
 <table class="table table-hover table-bordered tablesorter textAlignCenter" id="tabla">
   <tr class="active">
     <th>
-      Zona
-      <a href="?order_by=barrio" id="barrio" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-      <a href="?order_by=-barrio" id="-barrio"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+      Pais
+      <a href="?order_by=pais" id="pais" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+      <a href="?order_by=-pais" id="-pais"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+    </th>
+    <th>
+      Provincial
+      <a href="?order_by=provincia" id="provincia" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+      <a href="?order_by=-provincia" id="-provincia"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
     </th>
     <th width="30%">
       Ciudad
-      <a href="?order_by=ciudad" id="ciudad" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-      <a href="?order_by=-ciudad" id="-ciudad"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+      <a href="?order_by=ciudad" id="ciudad" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+      <a href="?order_by=-ciudad" id="-ciudad"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
     </th>
+    <th>
+      Zona
+      <a href="?order_by=barrio" id="barrio" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+      <a href="?order_by=-barrio" id="-barrio"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+    </th>
+
     <th width="80px">Editar</th>
     <th width="80px">Eliminar</th>
   </tr>
@@ -163,11 +184,13 @@
   {% for i in barrios %}
 
   <tr id="tr{{i.id}}">
-    <td>{{ i.barrio }}</td>
+    <td>{{ i.pais }}</td>
+    <td>{{ i.provincia }}</td>
     <td>{{ i.ciudad }}</td>
-    <td width="80px"><a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_barrio' i.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">edit</a></td>
+    <td>{{ i.barrio }}</td>
+    <td width="80px"><a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_barrio' i.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a></td>
     <td width="80px">
-      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_barrio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">elim</a>
+      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_barrio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
   </tr>
 
@@ -183,10 +206,14 @@
 
 {% endif %}
 
+{% endblock cuerpo_tabla%}
 
 <script>
 ocultarASCDesc('barrio');
 ocultarASCDesc('ciudad');
+ocultarASCDesc('pais');
+ocultarASCDesc('ciudad');
+ocultarASCDesc('provincia');
 </script>
 
 

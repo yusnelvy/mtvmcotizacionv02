@@ -7,7 +7,9 @@ from direccion.views import PaisListView, ProvinciaListView, \
     TipoDeEdificacionView, TipoDeEdificacionUpdate, TipoDeEdificacionDelete, \
     TipoDeAscensorListView, TipoDeAscensorView, TipoDeAscensorUpdate, \
     TipoDeAscensorDelete, TipoDeInmuebleListView, TipoDeInmuebleView, \
-    TipoDeInmuebleUpdate, TipoDeInmuebleDelete
+    TipoDeInmuebleUpdate, TipoDeInmuebleDelete, EspecificacionDeInmuebleListView, \
+    EspecificacionDeInmuebleView, EspecificacionDeInmuebleUpdate, \
+    EspecificacionDeInmuebleDelete
 
 
 urlpatterns = patterns('',
@@ -49,7 +51,7 @@ urlpatterns = patterns('',
                            name='eliminar_ciudad'),
                        url(r'^barrio/$',
                            BarrioListView.as_view(),
-                           name='BarrioListView'),
+                           name='list_barrio'),
                        url(r'^barrio/nuevo',
                            BarrioView.as_view(),
                            name='add_barrio'),
@@ -98,5 +100,16 @@ urlpatterns = patterns('',
                        url(r'^tipo_de_inmueble/eliminar/(?P<pk>\d+)/$',
                            TipoDeInmuebleDelete.as_view(),
                            name='eliminar_tipo_de_inmueble'),
-
+                       url(r'^especificacion_de_inmueble/$',
+                           EspecificacionDeInmuebleListView.as_view(),
+                           name='list_especificaciondeinmueble'),
+                       url(r'^especificacion_de_inmueble/nuevo',
+                           EspecificacionDeInmuebleView.as_view(),
+                           name='add_especificaciondeinmueble'),
+                       url(r'^especificacion_de_inmueble/editar/(?P<pk>\d+)/$',
+                           EspecificacionDeInmuebleUpdate.as_view(),
+                           name='edit_especificaciondeinmueble'),
+                       url(r'^especificacion_de_inmueble/eliminar/(?P<pk>\d+)/$',
+                           EspecificacionDeInmuebleDelete.as_view(),
+                           name='eliminar_especificaciondeinmueble'),
                        )

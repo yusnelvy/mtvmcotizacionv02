@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -13,34 +14,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EstadoDeDocumento',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('orden', models.IntegerField()),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('estado_de_documento', models.CharField(max_length=100)),
                 ('descripcion', models.TextField()),
+                ('orden', models.IntegerField()),
                 ('observacion', models.TextField(blank=True)),
             ],
             options={
-                'verbose_name_plural': 'Estados de documentos',
-                'ordering': ['tipo_de_documento', 'estado_de_documento'],
                 'verbose_name': 'Estado de documento',
+                'ordering': ['tipo_de_documento', 'estado_de_documento'],
+                'verbose_name_plural': 'Estados de documentos',
             },
         ),
         migrations.CreateModel(
             name='TipoDeDocumento',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tipo_de_documento', models.CharField(unique=True, max_length=100)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('tipo_de_documento', models.CharField(max_length=100, unique=True)),
                 ('descripcion', models.TextField()),
             ],
             options={
-                'verbose_name_plural': 'Tipos de documento',
-                'ordering': ['tipo_de_documento'],
                 'verbose_name': 'Tipo de documento',
+                'ordering': ['tipo_de_documento'],
+                'verbose_name_plural': 'Tipos de documento',
             },
         ),
         migrations.AddField(
             model_name='estadodedocumento',
             name='tipo_de_documento',
-            field=models.ForeignKey(to='gestiondedocumento.TipoDeDocumento'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='gestiondedocumento.TipoDeDocumento'),
         ),
     ]

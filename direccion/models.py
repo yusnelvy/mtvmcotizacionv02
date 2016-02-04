@@ -14,7 +14,8 @@ class Pais(models.Model):
     def __init__(self, *args, **kwargs):
         super(Pais, self).__init__(*args, **kwargs)
 
-    pais = models.CharField(max_length=250, unique=True)
+    pais = models.CharField(max_length=100, unique=True)
+    codigo_telefonico = models.CharField(max_length=10)
 
     def __str__(self):
         return self.pais
@@ -32,6 +33,7 @@ class Provincia(models.Model):
 
     provincia = models.CharField(max_length=100)
     pais = models.ForeignKey(Pais, on_delete=models.PROTECT)
+    codigo_telefonico = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return self.provincia
@@ -94,8 +96,8 @@ class Direccion(models.Model):
     provincia = ChainedForeignKey(Provincia, chained_field='pais', chained_model_field='pais')
     pais = models.ForeignKey(Pais, on_delete=models.PROTECT)
     zip = models.CharField(max_length=100)
-    punto_referencia = models.CharField(max_length=250)
-    adicional = models.CharField(max_length=250, blank=True)
+    punto_referencia = models.TextField(blank=True)
+    observacion = models.TextField(blank=True)
 
     def __str__(self):
 
@@ -109,7 +111,7 @@ class Direccion(models.Model):
                                                     "Punto de referencia "+self.punto_referencia)
 
     class Meta:
-        verbose_name = "Direccion"
+        verbose_name = "Dirección"
         verbose_name_plural = "Direcciones"
 
 
@@ -129,12 +131,13 @@ class TipoDeEdificacion(models.Model):
         verbose_name_plural = "Tipos de edificación"
 
 
-class Edificio(models.Model):
+class Edificacion(models.Model):
     """docstring for Edificio"""
     def __init__(self, *args, **kwargs):
         super(Edificio, self).__init__(*args, **kwargs)
 
-    nombre_de_edificio = models.CharField(max_length=100)
+    direccion = models.ForeignKey(Direccion)
+    nombre_de_edificio = models.CharField(max_length=250)
     tipo_de_edificacion = models.ForeignKey(TipoDeEdificacion, on_delete=models.PROTECT)
     cantidad_de_pisos = models.IntegerField()
     cantidad_de_inmuebles_por_piso = models.IntegerField()
@@ -146,11 +149,11 @@ class Edificio(models.Model):
     escalon_grande = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.tipo_de_edificacion
+        return self.nombre_de_edificio
 
     class Meta:
-        verbose_name = "Tipo de edificación"
-        verbose_name_plural = "Tipos de edificación"
+        verbose_name = "Edificación"
+        verbose_name_plural = "Edificaciones"
 
 
 class TipoDeAscensor(models.Model):
@@ -174,14 +177,18 @@ class Ascensor(models.Model):
     def __init__(self, *args, **kwargs):
         super(Ascensor, self).__init__(*args, **kwargs)
 
-    edificio = models.ForeignKey(Edificio)
-    tipo_de_ascensor = models.ForeignKey(TipoDeAscensor)
+    edificacion = models.ForeignKey(Edificacion)
+    tipo_de_ascensor = models.ForeignKey(TipoDeAscensor, on_delete=models.PROTECT)
     cantidad = models.IntegerField()
     piso_ascensor = models.IntegerField()
     velocidad_por_piso = models.DecimalField(max_digits=7, decimal_places=2)
+    ancho = models.DecimalField(max_digits=7, decimal_places=2)
+    largo = models.DecimalField(max_digits=7, decimal_places=2)
+    alto = models.DecimalField(max_digits=7, decimal_places=2)
+    capacidad_carga = models.DecimalField(max_digits=8, decimal_places=3)
 
     def __str__(self):
-        return u' %s - %s' % (self.edificio, self.tipo_de_ascensor)
+        return u' %s - %s' % (self.edificacion, self.tipo_de_ascensor)
 
     class Meta:
         verbose_name = "Ascensor"
@@ -211,8 +218,9 @@ class EspecificacionDeInmueble(models.Model):
         super(EspecificacionDeInmueble, self).__init__(*args, **kwargs)
 
     tipo_de_inmueble = models.ForeignKey(TipoDeInmueble, on_delete=models.PROTECT)
-    especificacion_de_inmueble = models.CharField(max_length=100)
+    especificacion_de_inmueble = models.CharField(max_length=250)
     descripcion = models.TextField()
+    predeterminado = models.BooleanField(default=None)
 
     def __str__(self):
         return self.especificacion_de_inmueble
@@ -228,9 +236,9 @@ class Inmueble(models.Model):
     def __init__(self, *args, **kwargs):
         super(Inmueble, self).__init__(*args, **kwargs)
 
-    edificio = models.ForeignKey(Edificio)
+    edificacion = models.ForeignKey(Edificacion)
     especificacion_de_inmueble = models.ForeignKey(EspecificacionDeInmueble, on_delete=models.PROTECT)
-    numero_de_inmueble = models.IntegerField()
+    numero_de_inmueble = models.CharField(max_length=100)
     numero_de_pisos = models.IntegerField()
     nombre_del_piso = models.CharField(max_length=100)
     cantidad_de_ambientes = models.IntegerField()
@@ -247,3 +255,48 @@ class Inmueble(models.Model):
         verbose_name = "Inmueble"
         verbose_name_plural = "Inmuebles"
         ordering = ['numero_de_inmueble']
+
+
+class HorarioDisponible(models.Model):
+    """docstring for HorarioDisponible"""
+    def __init__(self, *args, **kwargs):
+        super(HorarioDisponible, self).__init__(*args, **kwargs)
+
+    edificacion = models.ForeignKey(Edificacion)
+    lunes = models.BooleanField(default=None)
+    martes = models.BooleanField(default=None)
+    miercoles = models.BooleanField(default=None)
+    jueves = models.BooleanField(default=None)
+    viernes = models.BooleanField(default=None)
+    sabado = models.BooleanField(default=None)
+    domingo = models.BooleanField(default=None)
+    hora_desde = models.TimeField()
+    hora_hasta = models.TimeField()
+    edificio = models.BooleanField(default=None)
+    ascensor = models.BooleanField(default=None)
+    observacion = models.TextField(blank=True)
+
+    def __str__(self):
+        return str(self.edificacion)
+
+    class Meta:
+        verbose_name = "Horario disponible"
+        verbose_name_plural = "Horarios disponibles"
+
+
+class Calle(models.Model):
+    """docstring for Calle"""
+    def __init__(self, *args, **kwargs):
+        super(Calle, self).__init__(*args, **kwargs)
+
+    ciudad = models.ForeignKey(Ciudad)
+    calle = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.calle
+
+    class Meta:
+        verbose_name = "Calle"
+        verbose_name_plural = "Calles"
+        ordering = ['ciudad', 'calle']
+        unique_together = (("calle", "ciudad"),)
