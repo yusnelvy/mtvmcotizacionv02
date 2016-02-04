@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.template import RequestContext
 import re
 from premisas.models import PersonalizacionVisual
+from menu.models import Menu
 
 
 def pantalla_inicial(request):
@@ -105,3 +106,17 @@ def sidebar(request):
     return {
         'sidebar': all_categories[0]['valor'],
     }
+
+
+
+def lista_ambiente(request):
+    """docstring"""
+    nivel1 =  Menu.objects.filter(nivel=1)
+
+    nivel2 =  Menu.objects.filter(nivel=2)
+
+    nivel3 =  Menu.objects.filter(nivel=3)
+
+    context = {'nivel1': nivel1, 'nivel2': nivel2,
+               'nivel3': nivel3}
+    return render_to_response('Menu_general.html', context)

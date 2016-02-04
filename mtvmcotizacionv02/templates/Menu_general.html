@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block widget_menu_general %}
+
+    {% for nivel1 in menu_list %}
+        <ul>
+        <li><a>{{nivel1.menu}}</a>
+
+            {% for nivel2 in menu_list %}
+
+                {% if nivel2.idPadre = nivel1.id %}
+
+                <ul>
+                <li><a href="{% url 'nivel2.namespace:nivel2.name' %}">{{nivel2.menu}}</a>
+
+                {% endif %}
+
+                    {% for nivel3 in menu_list %}
+
+                        {% if nivel3.idPadre = nivel2.id %}
+
+                        <ul>
+                        <li><a href="{% url 'nivel3.namespace:nivel3.name' %}">{{nivel3.menu}}</a>
+                        </li>
+                        </ul>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </li>
+                </ul>
+            {% endfor %}
+
+        </li>
+        </ul>
+    {% endfor %}
+
+{% endblock widget_menu_general %}
