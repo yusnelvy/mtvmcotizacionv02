@@ -5,7 +5,9 @@ Docstring documentación pendiente
 
 from django.forms import ModelForm, TextInput
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
-    TipoDeContacto, TipoDeInformacionDeContacto
+    TipoDeRelacion, TipoDeInformacionDeContacto, Cliente, \
+    Contacto, InformacionDeContacto, ClienteDireccion, \
+    ClienteEstadoDeRegistro
 
 
 class SexoForm(ModelForm):
@@ -48,15 +50,15 @@ class TipoDeClienteForm(ModelForm):
             }
 
 
-class TipoDeContactoForm(ModelForm):
+class TipoDeRelacionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
     class Meta:
-        model = TipoDeContacto
+        model = TipoDeRelacion
         fields = '__all__'
         widgets = {
-            'tipo_de_contacto': TextInput(attrs={'class': 'form-control'}),
+            'tipo_de_relacion': TextInput(attrs={'class': 'form-control'}),
             'descripcion': TextInput(attrs={'class': 'form-control'})
             }
 
@@ -71,4 +73,49 @@ class TipoDeInformacionDeContactoForm(ModelForm):
         widgets = {
             'tipo_de_informacion_de_contacto': TextInput(attrs={'class': 'form-control'}),
             'descripcion': TextInput(attrs={'class': 'form-control'})
-             }
+            }
+
+
+class ClienteForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = Cliente
+        fields = '__all__'
+
+
+class ContactoForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = Contacto
+        fields = '__all__'
+
+
+class InformacionDeContactoForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = InformacionDeContacto
+        fields = '__all__'
+
+
+class ClienteDireccionForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = ClienteDireccion
+        fields = '__all__'
+
+
+class ClienteEstadoDeRegistroForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = ClienteEstadoDeRegistro
+        fields = '__all__'

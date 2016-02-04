@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -13,47 +14,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Estado',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('estado', models.CharField(unique=True, max_length=100)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('estado', models.CharField(max_length=100, unique=True)),
                 ('descripcion', models.TextField()),
             ],
             options={
-                'verbose_name_plural': 'Estados',
-                'ordering': ['estado'],
                 'verbose_name': 'Estado',
+                'ordering': ['estado'],
+                'verbose_name_plural': 'Estados',
             },
         ),
         migrations.CreateModel(
             name='EstadoDeRegistro',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('orden', models.IntegerField()),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('model', models.CharField(max_length=100)),
                 ('descripcion', models.TextField()),
                 ('observacion', models.TextField(blank=True)),
-                ('estado', models.ForeignKey(to='estadoderegistro.Estado')),
+                ('estado', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='estadoderegistro.Estado')),
             ],
             options={
-                'verbose_name_plural': 'Estados de registros',
-                'ordering': ['tipo_de_registro', 'estado'],
                 'verbose_name': 'Estado de registro',
+                'ordering': ['model', 'estado'],
+                'verbose_name_plural': 'Estados de registros',
             },
-        ),
-        migrations.CreateModel(
-            name='TipoDeRegistro',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tipo_de_registro', models.CharField(unique=True, max_length=100)),
-                ('descripcion', models.TextField()),
-            ],
-            options={
-                'verbose_name_plural': 'Tipos de registro',
-                'ordering': ['tipo_de_registro'],
-                'verbose_name': 'Tipo de Registro',
-            },
-        ),
-        migrations.AddField(
-            model_name='estadoderegistro',
-            name='tipo_de_registro',
-            field=models.ForeignKey(to='estadoderegistro.TipoDeRegistro'),
         ),
     ]

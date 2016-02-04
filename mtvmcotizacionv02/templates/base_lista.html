@@ -5,7 +5,7 @@
 <a title="Volver" class="navbar-brand" href="#">
 <span class="volver"></span>
 </a>
-<a title="Nuevo" class="navbar-brand" href="nuevo/">
+<a title="Nuevo" class="navbar-brand" href="nuevo/?next={{request.get_full_path}}">
     <span class="plus"></span>
 </a>
 <a title="Imprimir" class="navbar-brand" onclick="window.print();">

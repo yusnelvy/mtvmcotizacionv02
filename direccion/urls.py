@@ -12,7 +12,6 @@ from direccion.views import PaisListView, ProvinciaListView, \
     EspecificacionDeInmuebleDelete
 
 
-
 urlpatterns = patterns('',
                        url(r'^pais/$',
                            PaisListView.as_view(),
