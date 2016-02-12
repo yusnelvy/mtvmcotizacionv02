@@ -14,22 +14,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 
 SET NAMES 'utf8';
-USE db_mtvmcotizacionv2_prd;
-
---
--- Drop table direccion_edificio
---
-DROP TABLE direccion_edificio;
-
---
--- Drop table estadoderegistro_tipoderegistro
---
-DROP TABLE estadoderegistro_tipoderegistro;
-
---
--- Drop table cliente_tipodecontacto
---
-DROP TABLE cliente_tipodecontacto;
+USE db_mtvmcotizacionv2;
 
 --
 -- Alter table menu_menu

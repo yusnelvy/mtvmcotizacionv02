@@ -5,12 +5,14 @@ Docstring documentación pendiente
 
 from django.forms import ModelForm
 from mensaje.models import TipoDeMensaje, Mensaje
+from base.forms import BaseFormMd
 
 
-class TipoDeMensajeForm(ModelForm):
+class TipoDeMensajeForm(ModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
+
     class Meta:
         model = TipoDeMensaje
         fields = '__all__'
