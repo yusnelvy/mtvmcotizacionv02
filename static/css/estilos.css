@@ -234,31 +234,32 @@ th {
   .navbar, .navbarapp {
     display: none; }
 
-  .btn > .caret, .botonRegistrar > .caret, button > .caret,
+  .btn > .caret, .botonRegistrar > .caret,
   .dropup > .btn > .caret,
-  .dropup > .botonRegistrar > .caret,
-  .dropup > button > .caret {
+  .dropup > .botonRegistrar > .caret {
     border-top-color: #000 !important; }
 
   .label {
     border: 1px solid #000; }
 
-  .table, table {
+  .table, .tablaLista, .tablaInfoRelacionada {
     border-collapse: collapse !important; }
-    .table td, table td,
+    .table td, .tablaLista td, .tablaInfoRelacionada td,
     .table th,
-    table th {
+    .tablaLista th,
+    .tablaInfoRelacionada th {
       background-color: #fff !important; }
 
-  .table-bordered th, table th,
+  .table-bordered th, .tablaLista th, .tablaInfoRelacionada th,
   .table-bordered td,
-  table td {
+  .tablaLista td,
+  .tablaInfoRelacionada td {
     border: 1px solid #ddd !important; } }
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-.glyphicon, .ascendenteAlfabetico, .descendenteAlfabetico, .ascendenteNumerico, .descendenteNumerico, .plus, .volver, .imprimir, .menu-toggle, .menuSidebar {
+.glyphicon, .ascendenteAlfabetico, .descendenteAlfabetico, .ascendenteNumerico, .descendenteNumerico, .plus, .volver, .imprimir, .volver-right, .descargar, .menu-toggle, .menuSidebar {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -360,7 +361,7 @@ th {
 .glyphicon-road:before {
   content: "\e024"; }
 
-.glyphicon-download-alt:before {
+.glyphicon-download-alt:before, .descargar:before {
   content: "\e025"; }
 
 .glyphicon-download:before {
@@ -522,7 +523,7 @@ th {
 .glyphicon-chevron-left:before, .volver:before {
   content: "\e079"; }
 
-.glyphicon-chevron-right:before {
+.glyphicon-chevron-right:before, .volver-right:before {
   content: "\e080"; }
 
 .glyphicon-plus-sign:before {
@@ -2196,43 +2197,53 @@ caption {
 th {
   text-align: left; }
 
-.table, table {
+.table, .tablaLista, .tablaInfoRelacionada {
   width: 100%;
   max-width: 100%;
   margin-bottom: 20px; }
-  .table > thead > tr > th, table > thead > tr > th,
+  .table > thead > tr > th, .tablaLista > thead > tr > th, .tablaInfoRelacionada > thead > tr > th,
   .table > thead > tr > td,
-  table > thead > tr > td,
+  .tablaLista > thead > tr > td,
+  .tablaInfoRelacionada > thead > tr > td,
   .table > tbody > tr > th,
-  table > tbody > tr > th,
+  .tablaLista > tbody > tr > th,
+  .tablaInfoRelacionada > tbody > tr > th,
   .table > tbody > tr > td,
-  table > tbody > tr > td,
+  .tablaLista > tbody > tr > td,
+  .tablaInfoRelacionada > tbody > tr > td,
   .table > tfoot > tr > th,
-  table > tfoot > tr > th,
+  .tablaLista > tfoot > tr > th,
+  .tablaInfoRelacionada > tfoot > tr > th,
   .table > tfoot > tr > td,
-  table > tfoot > tr > td {
+  .tablaLista > tfoot > tr > td,
+  .tablaInfoRelacionada > tfoot > tr > td {
     padding: 8px;
     line-height: 1.42857;
     vertical-align: top;
     border-top: 1px solid #ddd; }
-  .table > thead > tr > th, table > thead > tr > th {
+  .table > thead > tr > th, .tablaLista > thead > tr > th, .tablaInfoRelacionada > thead > tr > th {
     vertical-align: bottom;
     border-bottom: 2px solid #ddd; }
-  .table > caption + thead > tr:first-child > th, table > caption + thead > tr:first-child > th,
+  .table > caption + thead > tr:first-child > th, .tablaLista > caption + thead > tr:first-child > th, .tablaInfoRelacionada > caption + thead > tr:first-child > th,
   .table > caption + thead > tr:first-child > td,
-  table > caption + thead > tr:first-child > td,
+  .tablaLista > caption + thead > tr:first-child > td,
+  .tablaInfoRelacionada > caption + thead > tr:first-child > td,
   .table > colgroup + thead > tr:first-child > th,
-  table > colgroup + thead > tr:first-child > th,
+  .tablaLista > colgroup + thead > tr:first-child > th,
+  .tablaInfoRelacionada > colgroup + thead > tr:first-child > th,
   .table > colgroup + thead > tr:first-child > td,
-  table > colgroup + thead > tr:first-child > td,
+  .tablaLista > colgroup + thead > tr:first-child > td,
+  .tablaInfoRelacionada > colgroup + thead > tr:first-child > td,
   .table > thead:first-child > tr:first-child > th,
-  table > thead:first-child > tr:first-child > th,
+  .tablaLista > thead:first-child > tr:first-child > th,
+  .tablaInfoRelacionada > thead:first-child > tr:first-child > th,
   .table > thead:first-child > tr:first-child > td,
-  table > thead:first-child > tr:first-child > td {
+  .tablaLista > thead:first-child > tr:first-child > td,
+  .tablaInfoRelacionada > thead:first-child > tr:first-child > td {
     border-top: 0; }
-  .table > tbody + tbody, table > tbody + tbody {
+  .table > tbody + tbody, .tablaLista > tbody + tbody, .tablaInfoRelacionada > tbody + tbody {
     border-top: 2px solid #ddd; }
-  .table .table, table .table, .table table, table table {
+  .table .table, .tablaLista .table, .tablaInfoRelacionada .table, .table .tablaLista, .tablaLista .tablaLista, .tablaInfoRelacionada .tablaLista, .table .tablaInfoRelacionada, .tablaLista .tablaInfoRelacionada, .tablaInfoRelacionada .tablaInfoRelacionada {
     background-color: #eee; }
 
 .table-condensed > thead > tr > th,
@@ -2243,29 +2254,35 @@ th {
 .table-condensed > tfoot > tr > td {
   padding: 5px; }
 
-.table-bordered, table {
+.table-bordered, .tablaLista, .tablaInfoRelacionada {
   border: 1px solid #ddd; }
-  .table-bordered > thead > tr > th, table > thead > tr > th,
+  .table-bordered > thead > tr > th, .tablaLista > thead > tr > th, .tablaInfoRelacionada > thead > tr > th,
   .table-bordered > thead > tr > td,
-  table > thead > tr > td,
+  .tablaLista > thead > tr > td,
+  .tablaInfoRelacionada > thead > tr > td,
   .table-bordered > tbody > tr > th,
-  table > tbody > tr > th,
+  .tablaLista > tbody > tr > th,
+  .tablaInfoRelacionada > tbody > tr > th,
   .table-bordered > tbody > tr > td,
-  table > tbody > tr > td,
+  .tablaLista > tbody > tr > td,
+  .tablaInfoRelacionada > tbody > tr > td,
   .table-bordered > tfoot > tr > th,
-  table > tfoot > tr > th,
+  .tablaLista > tfoot > tr > th,
+  .tablaInfoRelacionada > tfoot > tr > th,
   .table-bordered > tfoot > tr > td,
-  table > tfoot > tr > td {
+  .tablaLista > tfoot > tr > td,
+  .tablaInfoRelacionada > tfoot > tr > td {
     border: 1px solid #ddd; }
-  .table-bordered > thead > tr > th, table > thead > tr > th,
+  .table-bordered > thead > tr > th, .tablaLista > thead > tr > th, .tablaInfoRelacionada > thead > tr > th,
   .table-bordered > thead > tr > td,
-  table > thead > tr > td {
+  .tablaLista > thead > tr > td,
+  .tablaInfoRelacionada > thead > tr > td {
     border-bottom-width: 2px; }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #f9f9f9; }
 
-.table-hover > tbody > tr:hover, table > tbody > tr:hover {
+.table-hover > tbody > tr:hover, .tablaLista > tbody > tr:hover, .tablaInfoRelacionada > tbody > tr:hover {
   background-color: #f5f5f5; }
 
 table col[class*="col-"] {
@@ -2279,134 +2296,184 @@ table th[class*="col-"] {
   float: none;
   display: table-cell; }
 
-.table > thead > tr > td.active, table > thead > tr > td.active,
+.table > thead > tr > td.active, .tablaLista > thead > tr > td.active, .tablaInfoRelacionada > thead > tr > td.active,
 .table > thead > tr > th.active,
-table > thead > tr > th.active, .table > thead > tr.active > td, table > thead > tr.active > td, .table > thead > tr.active > th, table > thead > tr.active > th,
+.tablaLista > thead > tr > th.active,
+.tablaInfoRelacionada > thead > tr > th.active, .table > thead > tr.active > td, .tablaLista > thead > tr.active > td, .tablaInfoRelacionada > thead > tr.active > td, .table > thead > tr.active > th, .tablaLista > thead > tr.active > th, .tablaInfoRelacionada > thead > tr.active > th,
 .table > tbody > tr > td.active,
-table > tbody > tr > td.active,
+.tablaLista > tbody > tr > td.active,
+.tablaInfoRelacionada > tbody > tr > td.active,
 .table > tbody > tr > th.active,
-table > tbody > tr > th.active,
+.tablaLista > tbody > tr > th.active,
+.tablaInfoRelacionada > tbody > tr > th.active,
 .table > tbody > tr.active > td,
-table > tbody > tr.active > td,
+.tablaLista > tbody > tr.active > td,
+.tablaInfoRelacionada > tbody > tr.active > td,
 .table > tbody > tr.active > th,
-table > tbody > tr.active > th,
+.tablaLista > tbody > tr.active > th,
+.tablaInfoRelacionada > tbody > tr.active > th,
 .table > tfoot > tr > td.active,
-table > tfoot > tr > td.active,
+.tablaLista > tfoot > tr > td.active,
+.tablaInfoRelacionada > tfoot > tr > td.active,
 .table > tfoot > tr > th.active,
-table > tfoot > tr > th.active,
+.tablaLista > tfoot > tr > th.active,
+.tablaInfoRelacionada > tfoot > tr > th.active,
 .table > tfoot > tr.active > td,
-table > tfoot > tr.active > td,
+.tablaLista > tfoot > tr.active > td,
+.tablaInfoRelacionada > tfoot > tr.active > td,
 .table > tfoot > tr.active > th,
-table > tfoot > tr.active > th {
+.tablaLista > tfoot > tr.active > th,
+.tablaInfoRelacionada > tfoot > tr.active > th {
   background-color: #f5f5f5; }
 
-.table-hover > tbody > tr > td.active:hover, table > tbody > tr > td.active:hover,
+.table-hover > tbody > tr > td.active:hover, .tablaLista > tbody > tr > td.active:hover, .tablaInfoRelacionada > tbody > tr > td.active:hover,
 .table-hover > tbody > tr > th.active:hover,
-table > tbody > tr > th.active:hover, .table-hover > tbody > tr.active:hover > td, table > tbody > tr.active:hover > td, .table-hover > tbody > tr:hover > .active, table > tbody > tr:hover > .active, .table-hover > tbody > tr.active:hover > th, table > tbody > tr.active:hover > th {
+.tablaLista > tbody > tr > th.active:hover,
+.tablaInfoRelacionada > tbody > tr > th.active:hover, .table-hover > tbody > tr.active:hover > td, .tablaLista > tbody > tr.active:hover > td, .tablaInfoRelacionada > tbody > tr.active:hover > td, .table-hover > tbody > tr:hover > .active, .tablaLista > tbody > tr:hover > .active, .tablaInfoRelacionada > tbody > tr:hover > .active, .table-hover > tbody > tr.active:hover > th, .tablaLista > tbody > tr.active:hover > th, .tablaInfoRelacionada > tbody > tr.active:hover > th {
   background-color: #e8e8e8; }
 
-.table > thead > tr > td.success, table > thead > tr > td.success,
+.table > thead > tr > td.success, .tablaLista > thead > tr > td.success, .tablaInfoRelacionada > thead > tr > td.success,
 .table > thead > tr > th.success,
-table > thead > tr > th.success, .table > thead > tr.success > td, table > thead > tr.success > td, .table > thead > tr.success > th, table > thead > tr.success > th,
+.tablaLista > thead > tr > th.success,
+.tablaInfoRelacionada > thead > tr > th.success, .table > thead > tr.success > td, .tablaLista > thead > tr.success > td, .tablaInfoRelacionada > thead > tr.success > td, .table > thead > tr.success > th, .tablaLista > thead > tr.success > th, .tablaInfoRelacionada > thead > tr.success > th,
 .table > tbody > tr > td.success,
-table > tbody > tr > td.success,
+.tablaLista > tbody > tr > td.success,
+.tablaInfoRelacionada > tbody > tr > td.success,
 .table > tbody > tr > th.success,
-table > tbody > tr > th.success,
+.tablaLista > tbody > tr > th.success,
+.tablaInfoRelacionada > tbody > tr > th.success,
 .table > tbody > tr.success > td,
-table > tbody > tr.success > td,
+.tablaLista > tbody > tr.success > td,
+.tablaInfoRelacionada > tbody > tr.success > td,
 .table > tbody > tr.success > th,
-table > tbody > tr.success > th,
+.tablaLista > tbody > tr.success > th,
+.tablaInfoRelacionada > tbody > tr.success > th,
 .table > tfoot > tr > td.success,
-table > tfoot > tr > td.success,
+.tablaLista > tfoot > tr > td.success,
+.tablaInfoRelacionada > tfoot > tr > td.success,
 .table > tfoot > tr > th.success,
-table > tfoot > tr > th.success,
+.tablaLista > tfoot > tr > th.success,
+.tablaInfoRelacionada > tfoot > tr > th.success,
 .table > tfoot > tr.success > td,
-table > tfoot > tr.success > td,
+.tablaLista > tfoot > tr.success > td,
+.tablaInfoRelacionada > tfoot > tr.success > td,
 .table > tfoot > tr.success > th,
-table > tfoot > tr.success > th {
+.tablaLista > tfoot > tr.success > th,
+.tablaInfoRelacionada > tfoot > tr.success > th {
   background-color: #dff0d8; }
 
-.table-hover > tbody > tr > td.success:hover, table > tbody > tr > td.success:hover,
+.table-hover > tbody > tr > td.success:hover, .tablaLista > tbody > tr > td.success:hover, .tablaInfoRelacionada > tbody > tr > td.success:hover,
 .table-hover > tbody > tr > th.success:hover,
-table > tbody > tr > th.success:hover, .table-hover > tbody > tr.success:hover > td, table > tbody > tr.success:hover > td, .table-hover > tbody > tr:hover > .success, table > tbody > tr:hover > .success, .table-hover > tbody > tr.success:hover > th, table > tbody > tr.success:hover > th {
+.tablaLista > tbody > tr > th.success:hover,
+.tablaInfoRelacionada > tbody > tr > th.success:hover, .table-hover > tbody > tr.success:hover > td, .tablaLista > tbody > tr.success:hover > td, .tablaInfoRelacionada > tbody > tr.success:hover > td, .table-hover > tbody > tr:hover > .success, .tablaLista > tbody > tr:hover > .success, .tablaInfoRelacionada > tbody > tr:hover > .success, .table-hover > tbody > tr.success:hover > th, .tablaLista > tbody > tr.success:hover > th, .tablaInfoRelacionada > tbody > tr.success:hover > th {
   background-color: #d0e9c6; }
 
-.table > thead > tr > td.info, table > thead > tr > td.info,
+.table > thead > tr > td.info, .tablaLista > thead > tr > td.info, .tablaInfoRelacionada > thead > tr > td.info,
 .table > thead > tr > th.info,
-table > thead > tr > th.info, .table > thead > tr.info > td, table > thead > tr.info > td, .table > thead > tr.info > th, table > thead > tr.info > th,
+.tablaLista > thead > tr > th.info,
+.tablaInfoRelacionada > thead > tr > th.info, .table > thead > tr.info > td, .tablaLista > thead > tr.info > td, .tablaInfoRelacionada > thead > tr.info > td, .table > thead > tr.info > th, .tablaLista > thead > tr.info > th, .tablaInfoRelacionada > thead > tr.info > th,
 .table > tbody > tr > td.info,
-table > tbody > tr > td.info,
+.tablaLista > tbody > tr > td.info,
+.tablaInfoRelacionada > tbody > tr > td.info,
 .table > tbody > tr > th.info,
-table > tbody > tr > th.info,
+.tablaLista > tbody > tr > th.info,
+.tablaInfoRelacionada > tbody > tr > th.info,
 .table > tbody > tr.info > td,
-table > tbody > tr.info > td,
+.tablaLista > tbody > tr.info > td,
+.tablaInfoRelacionada > tbody > tr.info > td,
 .table > tbody > tr.info > th,
-table > tbody > tr.info > th,
+.tablaLista > tbody > tr.info > th,
+.tablaInfoRelacionada > tbody > tr.info > th,
 .table > tfoot > tr > td.info,
-table > tfoot > tr > td.info,
+.tablaLista > tfoot > tr > td.info,
+.tablaInfoRelacionada > tfoot > tr > td.info,
 .table > tfoot > tr > th.info,
-table > tfoot > tr > th.info,
+.tablaLista > tfoot > tr > th.info,
+.tablaInfoRelacionada > tfoot > tr > th.info,
 .table > tfoot > tr.info > td,
-table > tfoot > tr.info > td,
+.tablaLista > tfoot > tr.info > td,
+.tablaInfoRelacionada > tfoot > tr.info > td,
 .table > tfoot > tr.info > th,
-table > tfoot > tr.info > th {
+.tablaLista > tfoot > tr.info > th,
+.tablaInfoRelacionada > tfoot > tr.info > th {
   background-color: #d9edf7; }
 
-.table-hover > tbody > tr > td.info:hover, table > tbody > tr > td.info:hover,
+.table-hover > tbody > tr > td.info:hover, .tablaLista > tbody > tr > td.info:hover, .tablaInfoRelacionada > tbody > tr > td.info:hover,
 .table-hover > tbody > tr > th.info:hover,
-table > tbody > tr > th.info:hover, .table-hover > tbody > tr.info:hover > td, table > tbody > tr.info:hover > td, .table-hover > tbody > tr:hover > .info, table > tbody > tr:hover > .info, .table-hover > tbody > tr.info:hover > th, table > tbody > tr.info:hover > th {
+.tablaLista > tbody > tr > th.info:hover,
+.tablaInfoRelacionada > tbody > tr > th.info:hover, .table-hover > tbody > tr.info:hover > td, .tablaLista > tbody > tr.info:hover > td, .tablaInfoRelacionada > tbody > tr.info:hover > td, .table-hover > tbody > tr:hover > .info, .tablaLista > tbody > tr:hover > .info, .tablaInfoRelacionada > tbody > tr:hover > .info, .table-hover > tbody > tr.info:hover > th, .tablaLista > tbody > tr.info:hover > th, .tablaInfoRelacionada > tbody > tr.info:hover > th {
   background-color: #c4e3f3; }
 
-.table > thead > tr > td.warning, table > thead > tr > td.warning,
+.table > thead > tr > td.warning, .tablaLista > thead > tr > td.warning, .tablaInfoRelacionada > thead > tr > td.warning,
 .table > thead > tr > th.warning,
-table > thead > tr > th.warning, .table > thead > tr.warning > td, table > thead > tr.warning > td, .table > thead > tr.warning > th, table > thead > tr.warning > th,
+.tablaLista > thead > tr > th.warning,
+.tablaInfoRelacionada > thead > tr > th.warning, .table > thead > tr.warning > td, .tablaLista > thead > tr.warning > td, .tablaInfoRelacionada > thead > tr.warning > td, .table > thead > tr.warning > th, .tablaLista > thead > tr.warning > th, .tablaInfoRelacionada > thead > tr.warning > th,
 .table > tbody > tr > td.warning,
-table > tbody > tr > td.warning,
+.tablaLista > tbody > tr > td.warning,
+.tablaInfoRelacionada > tbody > tr > td.warning,
 .table > tbody > tr > th.warning,
-table > tbody > tr > th.warning,
+.tablaLista > tbody > tr > th.warning,
+.tablaInfoRelacionada > tbody > tr > th.warning,
 .table > tbody > tr.warning > td,
-table > tbody > tr.warning > td,
+.tablaLista > tbody > tr.warning > td,
+.tablaInfoRelacionada > tbody > tr.warning > td,
 .table > tbody > tr.warning > th,
-table > tbody > tr.warning > th,
+.tablaLista > tbody > tr.warning > th,
+.tablaInfoRelacionada > tbody > tr.warning > th,
 .table > tfoot > tr > td.warning,
-table > tfoot > tr > td.warning,
+.tablaLista > tfoot > tr > td.warning,
+.tablaInfoRelacionada > tfoot > tr > td.warning,
 .table > tfoot > tr > th.warning,
-table > tfoot > tr > th.warning,
+.tablaLista > tfoot > tr > th.warning,
+.tablaInfoRelacionada > tfoot > tr > th.warning,
 .table > tfoot > tr.warning > td,
-table > tfoot > tr.warning > td,
+.tablaLista > tfoot > tr.warning > td,
+.tablaInfoRelacionada > tfoot > tr.warning > td,
 .table > tfoot > tr.warning > th,
-table > tfoot > tr.warning > th {
+.tablaLista > tfoot > tr.warning > th,
+.tablaInfoRelacionada > tfoot > tr.warning > th {
   background-color: #fcf8e3; }
 
-.table-hover > tbody > tr > td.warning:hover, table > tbody > tr > td.warning:hover,
+.table-hover > tbody > tr > td.warning:hover, .tablaLista > tbody > tr > td.warning:hover, .tablaInfoRelacionada > tbody > tr > td.warning:hover,
 .table-hover > tbody > tr > th.warning:hover,
-table > tbody > tr > th.warning:hover, .table-hover > tbody > tr.warning:hover > td, table > tbody > tr.warning:hover > td, .table-hover > tbody > tr:hover > .warning, table > tbody > tr:hover > .warning, .table-hover > tbody > tr.warning:hover > th, table > tbody > tr.warning:hover > th {
+.tablaLista > tbody > tr > th.warning:hover,
+.tablaInfoRelacionada > tbody > tr > th.warning:hover, .table-hover > tbody > tr.warning:hover > td, .tablaLista > tbody > tr.warning:hover > td, .tablaInfoRelacionada > tbody > tr.warning:hover > td, .table-hover > tbody > tr:hover > .warning, .tablaLista > tbody > tr:hover > .warning, .tablaInfoRelacionada > tbody > tr:hover > .warning, .table-hover > tbody > tr.warning:hover > th, .tablaLista > tbody > tr.warning:hover > th, .tablaInfoRelacionada > tbody > tr.warning:hover > th {
   background-color: #faf2cc; }
 
-.table > thead > tr > td.danger, table > thead > tr > td.danger,
+.table > thead > tr > td.danger, .tablaLista > thead > tr > td.danger, .tablaInfoRelacionada > thead > tr > td.danger,
 .table > thead > tr > th.danger,
-table > thead > tr > th.danger, .table > thead > tr.danger > td, table > thead > tr.danger > td, .table > thead > tr.danger > th, table > thead > tr.danger > th,
+.tablaLista > thead > tr > th.danger,
+.tablaInfoRelacionada > thead > tr > th.danger, .table > thead > tr.danger > td, .tablaLista > thead > tr.danger > td, .tablaInfoRelacionada > thead > tr.danger > td, .table > thead > tr.danger > th, .tablaLista > thead > tr.danger > th, .tablaInfoRelacionada > thead > tr.danger > th,
 .table > tbody > tr > td.danger,
-table > tbody > tr > td.danger,
+.tablaLista > tbody > tr > td.danger,
+.tablaInfoRelacionada > tbody > tr > td.danger,
 .table > tbody > tr > th.danger,
-table > tbody > tr > th.danger,
+.tablaLista > tbody > tr > th.danger,
+.tablaInfoRelacionada > tbody > tr > th.danger,
 .table > tbody > tr.danger > td,
-table > tbody > tr.danger > td,
+.tablaLista > tbody > tr.danger > td,
+.tablaInfoRelacionada > tbody > tr.danger > td,
 .table > tbody > tr.danger > th,
-table > tbody > tr.danger > th,
+.tablaLista > tbody > tr.danger > th,
+.tablaInfoRelacionada > tbody > tr.danger > th,
 .table > tfoot > tr > td.danger,
-table > tfoot > tr > td.danger,
+.tablaLista > tfoot > tr > td.danger,
+.tablaInfoRelacionada > tfoot > tr > td.danger,
 .table > tfoot > tr > th.danger,
-table > tfoot > tr > th.danger,
+.tablaLista > tfoot > tr > th.danger,
+.tablaInfoRelacionada > tfoot > tr > th.danger,
 .table > tfoot > tr.danger > td,
-table > tfoot > tr.danger > td,
+.tablaLista > tfoot > tr.danger > td,
+.tablaInfoRelacionada > tfoot > tr.danger > td,
 .table > tfoot > tr.danger > th,
-table > tfoot > tr.danger > th {
+.tablaLista > tfoot > tr.danger > th,
+.tablaInfoRelacionada > tfoot > tr.danger > th {
   background-color: #f2dede; }
 
-.table-hover > tbody > tr > td.danger:hover, table > tbody > tr > td.danger:hover,
+.table-hover > tbody > tr > td.danger:hover, .tablaLista > tbody > tr > td.danger:hover, .tablaInfoRelacionada > tbody > tr > td.danger:hover,
 .table-hover > tbody > tr > th.danger:hover,
-table > tbody > tr > th.danger:hover, .table-hover > tbody > tr.danger:hover > td, table > tbody > tr.danger:hover > td, .table-hover > tbody > tr:hover > .danger, table > tbody > tr:hover > .danger, .table-hover > tbody > tr.danger:hover > th, table > tbody > tr.danger:hover > th {
+.tablaLista > tbody > tr > th.danger:hover,
+.tablaInfoRelacionada > tbody > tr > th.danger:hover, .table-hover > tbody > tr.danger:hover > td, .tablaLista > tbody > tr.danger:hover > td, .tablaInfoRelacionada > tbody > tr.danger:hover > td, .table-hover > tbody > tr:hover > .danger, .tablaLista > tbody > tr:hover > .danger, .tablaInfoRelacionada > tbody > tr:hover > .danger, .table-hover > tbody > tr.danger:hover > th, .tablaLista > tbody > tr.danger:hover > th, .tablaInfoRelacionada > tbody > tr.danger:hover > th {
   background-color: #ebcccc; }
 
 .table-responsive {
@@ -2419,53 +2486,71 @@ table > tbody > tr > th.danger:hover, .table-hover > tbody > tr.danger:hover > t
       overflow-y: hidden;
       -ms-overflow-style: -ms-autohiding-scrollbar;
       border: 1px solid #ddd; }
-      .table-responsive > .table, .table-responsive > table {
+      .table-responsive > .table, .table-responsive > .tablaLista, .table-responsive > .tablaInfoRelacionada {
         margin-bottom: 0; }
-        .table-responsive > .table > thead > tr > th, .table-responsive > table > thead > tr > th,
+        .table-responsive > .table > thead > tr > th, .table-responsive > .tablaLista > thead > tr > th, .table-responsive > .tablaInfoRelacionada > thead > tr > th,
         .table-responsive > .table > thead > tr > td,
-        .table-responsive > table > thead > tr > td,
+        .table-responsive > .tablaLista > thead > tr > td,
+        .table-responsive > .tablaInfoRelacionada > thead > tr > td,
         .table-responsive > .table > tbody > tr > th,
-        .table-responsive > table > tbody > tr > th,
+        .table-responsive > .tablaLista > tbody > tr > th,
+        .table-responsive > .tablaInfoRelacionada > tbody > tr > th,
         .table-responsive > .table > tbody > tr > td,
-        .table-responsive > table > tbody > tr > td,
+        .table-responsive > .tablaLista > tbody > tr > td,
+        .table-responsive > .tablaInfoRelacionada > tbody > tr > td,
         .table-responsive > .table > tfoot > tr > th,
-        .table-responsive > table > tfoot > tr > th,
+        .table-responsive > .tablaLista > tfoot > tr > th,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr > th,
         .table-responsive > .table > tfoot > tr > td,
-        .table-responsive > table > tfoot > tr > td {
+        .table-responsive > .tablaLista > tfoot > tr > td,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr > td {
           white-space: nowrap; }
-      .table-responsive > .table-bordered, .table-responsive > table {
+      .table-responsive > .table-bordered, .table-responsive > .tablaLista, .table-responsive > .tablaInfoRelacionada {
         border: 0; }
-        .table-responsive > .table-bordered > thead > tr > th:first-child, .table-responsive > table > thead > tr > th:first-child,
+        .table-responsive > .table-bordered > thead > tr > th:first-child, .table-responsive > .tablaLista > thead > tr > th:first-child, .table-responsive > .tablaInfoRelacionada > thead > tr > th:first-child,
         .table-responsive > .table-bordered > thead > tr > td:first-child,
-        .table-responsive > table > thead > tr > td:first-child,
+        .table-responsive > .tablaLista > thead > tr > td:first-child,
+        .table-responsive > .tablaInfoRelacionada > thead > tr > td:first-child,
         .table-responsive > .table-bordered > tbody > tr > th:first-child,
-        .table-responsive > table > tbody > tr > th:first-child,
+        .table-responsive > .tablaLista > tbody > tr > th:first-child,
+        .table-responsive > .tablaInfoRelacionada > tbody > tr > th:first-child,
         .table-responsive > .table-bordered > tbody > tr > td:first-child,
-        .table-responsive > table > tbody > tr > td:first-child,
+        .table-responsive > .tablaLista > tbody > tr > td:first-child,
+        .table-responsive > .tablaInfoRelacionada > tbody > tr > td:first-child,
         .table-responsive > .table-bordered > tfoot > tr > th:first-child,
-        .table-responsive > table > tfoot > tr > th:first-child,
+        .table-responsive > .tablaLista > tfoot > tr > th:first-child,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr > th:first-child,
         .table-responsive > .table-bordered > tfoot > tr > td:first-child,
-        .table-responsive > table > tfoot > tr > td:first-child {
+        .table-responsive > .tablaLista > tfoot > tr > td:first-child,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr > td:first-child {
           border-left: 0; }
-        .table-responsive > .table-bordered > thead > tr > th:last-child, .table-responsive > table > thead > tr > th:last-child,
+        .table-responsive > .table-bordered > thead > tr > th:last-child, .table-responsive > .tablaLista > thead > tr > th:last-child, .table-responsive > .tablaInfoRelacionada > thead > tr > th:last-child,
         .table-responsive > .table-bordered > thead > tr > td:last-child,
-        .table-responsive > table > thead > tr > td:last-child,
+        .table-responsive > .tablaLista > thead > tr > td:last-child,
+        .table-responsive > .tablaInfoRelacionada > thead > tr > td:last-child,
         .table-responsive > .table-bordered > tbody > tr > th:last-child,
-        .table-responsive > table > tbody > tr > th:last-child,
+        .table-responsive > .tablaLista > tbody > tr > th:last-child,
+        .table-responsive > .tablaInfoRelacionada > tbody > tr > th:last-child,
         .table-responsive > .table-bordered > tbody > tr > td:last-child,
-        .table-responsive > table > tbody > tr > td:last-child,
+        .table-responsive > .tablaLista > tbody > tr > td:last-child,
+        .table-responsive > .tablaInfoRelacionada > tbody > tr > td:last-child,
         .table-responsive > .table-bordered > tfoot > tr > th:last-child,
-        .table-responsive > table > tfoot > tr > th:last-child,
+        .table-responsive > .tablaLista > tfoot > tr > th:last-child,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr > th:last-child,
         .table-responsive > .table-bordered > tfoot > tr > td:last-child,
-        .table-responsive > table > tfoot > tr > td:last-child {
+        .table-responsive > .tablaLista > tfoot > tr > td:last-child,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr > td:last-child {
           border-right: 0; }
-        .table-responsive > .table-bordered > tbody > tr:last-child > th, .table-responsive > table > tbody > tr:last-child > th,
+        .table-responsive > .table-bordered > tbody > tr:last-child > th, .table-responsive > .tablaLista > tbody > tr:last-child > th, .table-responsive > .tablaInfoRelacionada > tbody > tr:last-child > th,
         .table-responsive > .table-bordered > tbody > tr:last-child > td,
-        .table-responsive > table > tbody > tr:last-child > td,
+        .table-responsive > .tablaLista > tbody > tr:last-child > td,
+        .table-responsive > .tablaInfoRelacionada > tbody > tr:last-child > td,
         .table-responsive > .table-bordered > tfoot > tr:last-child > th,
-        .table-responsive > table > tfoot > tr:last-child > th,
+        .table-responsive > .tablaLista > tfoot > tr:last-child > th,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr:last-child > th,
         .table-responsive > .table-bordered > tfoot > tr:last-child > td,
-        .table-responsive > table > tfoot > tr:last-child > td {
+        .table-responsive > .tablaLista > tfoot > tr:last-child > td,
+        .table-responsive > .tablaInfoRelacionada > tfoot > tr:last-child > td {
           border-bottom: 0; } }
 
 fieldset {
@@ -2715,20 +2800,17 @@ input[type="checkbox"] {
   .form-control-static.input-lg, .input-group-lg > .form-control-static.form-control, .prueba .input-group-lg > input.form-control-static[type="text"], .input-group-lg > .form-control-static.buscarEnLista,
   .input-group-lg > .form-control-static.input-group-addon,
   .input-group-lg > .input-group-btn > .form-control-static.btn,
-  .input-group-lg > .input-group-btn > .form-control-static.botonRegistrar,
-  .input-group-lg > .input-group-btn > button.form-control-static, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control, .prueba .input-group-sm > input.form-control-static[type="text"], .input-group-sm > .form-control-static.buscarEnLista,
+  .input-group-lg > .input-group-btn > .form-control-static.botonRegistrar, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control, .prueba .input-group-sm > input.form-control-static[type="text"], .input-group-sm > .form-control-static.buscarEnLista,
   .input-group-sm > .form-control-static.input-group-addon,
   .input-group-sm > .input-group-btn > .form-control-static.btn,
-  .input-group-sm > .input-group-btn > .form-control-static.botonRegistrar,
-  .input-group-sm > .input-group-btn > button.form-control-static {
+  .input-group-sm > .input-group-btn > .form-control-static.botonRegistrar {
     padding-left: 0;
     padding-right: 0; }
 
 .input-sm, .input-group-sm > .form-control, .prueba .input-group-sm > input[type="text"], .input-group-sm > .buscarEnLista,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
-.input-group-sm > .input-group-btn > .botonRegistrar,
-.input-group-sm > .input-group-btn > button {
+.input-group-sm > .input-group-btn > .botonRegistrar {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -2777,8 +2859,7 @@ select[multiple].input-sm,
 .input-lg, .input-group-lg > .form-control, .prueba .input-group-lg > input[type="text"], .input-group-lg > .buscarEnLista,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
-.input-group-lg > .input-group-btn > .botonRegistrar,
-.input-group-lg > .input-group-btn > button {
+.input-group-lg > .input-group-btn > .botonRegistrar {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -2845,7 +2926,6 @@ select[multiple].input-lg,
 .input-group-lg > .input-group-addon + .form-control-feedback,
 .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
 .input-group-lg > .input-group-btn > .botonRegistrar + .form-control-feedback,
-.input-group-lg > .input-group-btn > button + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
 .form-group-lg .form-control + .form-control-feedback,
 .form-group-lg .prueba input[type="text"] + .form-control-feedback,
@@ -2859,7 +2939,6 @@ select[multiple].input-lg,
 .input-group-sm > .input-group-addon + .form-control-feedback,
 .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
 .input-group-sm > .input-group-btn > .botonRegistrar + .form-control-feedback,
-.input-group-sm > .input-group-btn > button + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
 .form-group-sm .form-control + .form-control-feedback,
 .form-group-sm .prueba input[type="text"] + .form-control-feedback,
@@ -3022,7 +3101,7 @@ select[multiple].input-lg,
     padding-top: 6px;
     font-size: 12px; } }
 
-.btn, .botonRegistrar, button {
+.btn, .botonRegistrar {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -3041,19 +3120,19 @@ select[multiple].input-lg,
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-  .btn:focus, .botonRegistrar:focus, button:focus, .btn.focus, .focus.botonRegistrar, button.focus, .btn:active:focus, .botonRegistrar:active:focus, button:active:focus, .btn:active.focus, .botonRegistrar:active.focus, button:active.focus, .btn.active:focus, .active.botonRegistrar:focus, button.active:focus, .btn.active.focus, .active.focus.botonRegistrar, button.active.focus {
+  .btn:focus, .botonRegistrar:focus, .btn.focus, .focus.botonRegistrar, .btn:active:focus, .botonRegistrar:active:focus, .btn:active.focus, .botonRegistrar:active.focus, .btn.active:focus, .active.botonRegistrar:focus, .btn.active.focus, .active.focus.botonRegistrar {
     outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
-  .btn:hover, .botonRegistrar:hover, button:hover, .btn:focus, .botonRegistrar:focus, button:focus, .btn.focus, .focus.botonRegistrar, button.focus {
+  .btn:hover, .botonRegistrar:hover, .btn:focus, .botonRegistrar:focus, .btn.focus, .focus.botonRegistrar {
     color: #333;
     text-decoration: none; }
-  .btn:active, .botonRegistrar:active, button:active, .btn.active, .active.botonRegistrar, button.active {
+  .btn:active, .botonRegistrar:active, .btn.active, .active.botonRegistrar {
     outline: 0;
     background-image: none;
     -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
-  .btn.disabled, .disabled.botonRegistrar, .botonRegistrar.previousBloqueado, .botonRegistrar.nextBloqueado, button.disabled, button.previousBloqueado, button.nextBloqueado, .btn.previousBloqueado, .btn.nextBloqueado, .btn[disabled], [disabled].botonRegistrar, button[disabled], fieldset[disabled] .btn, fieldset[disabled] .botonRegistrar, fieldset[disabled] button {
+  .btn.disabled, .disabled.botonRegistrar, .botonRegistrar.previousBloqueado, .botonRegistrar.nextBloqueado, .btn.previousBloqueado, .btn.nextBloqueado, .btn[disabled], [disabled].botonRegistrar, fieldset[disabled] .btn, fieldset[disabled] .botonRegistrar {
     cursor: not-allowed;
     opacity: 0.65;
     filter: alpha(opacity=65);
@@ -3063,32 +3142,32 @@ select[multiple].input-lg,
 a.btn.disabled, a.disabled.botonRegistrar, a.botonRegistrar.previousBloqueado, a.botonRegistrar.nextBloqueado, a.btn.previousBloqueado, a.btn.nextBloqueado, fieldset[disabled] a.btn, fieldset[disabled] a.botonRegistrar {
   pointer-events: none; }
 
-.btn-default, .botonRegistrar, button {
+.btn-default, .botonRegistrar {
   color: #333;
   background-color: #fff;
   border-color: #ccc; }
-  .btn-default:focus, .botonRegistrar:focus, button:focus, .btn-default.focus, .focus.botonRegistrar, button.focus {
+  .btn-default:focus, .botonRegistrar:focus, .btn-default.focus, .focus.botonRegistrar {
     color: #333;
     background-color: #e6e6e6;
     border-color: #8c8c8c; }
-  .btn-default:hover, .botonRegistrar:hover, button:hover {
+  .btn-default:hover, .botonRegistrar:hover {
     color: #333;
     background-color: #e6e6e6;
     border-color: #adadad; }
-  .btn-default:active, .botonRegistrar:active, button:active, .btn-default.active, .active.botonRegistrar, button.active, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.botonRegistrar, .open > button.dropdown-toggle {
+  .btn-default:active, .botonRegistrar:active, .btn-default.active, .active.botonRegistrar, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.botonRegistrar {
     color: #333;
     background-color: #e6e6e6;
     border-color: #adadad; }
-    .btn-default:active:hover, .botonRegistrar:active:hover, button:active:hover, .btn-default:active:focus, .botonRegistrar:active:focus, button:active:focus, .btn-default:active.focus, .botonRegistrar:active.focus, button:active.focus, .btn-default.active:hover, .active.botonRegistrar:hover, button.active:hover, .btn-default.active:focus, .active.botonRegistrar:focus, button.active:focus, .btn-default.active.focus, .active.focus.botonRegistrar, button.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .dropdown-toggle.botonRegistrar:hover, .open > button.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .dropdown-toggle.botonRegistrar:focus, .open > button.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus, .open > .dropdown-toggle.focus.botonRegistrar, .open > button.dropdown-toggle.focus {
+    .btn-default:active:hover, .botonRegistrar:active:hover, .btn-default:active:focus, .botonRegistrar:active:focus, .btn-default:active.focus, .botonRegistrar:active.focus, .btn-default.active:hover, .active.botonRegistrar:hover, .btn-default.active:focus, .active.botonRegistrar:focus, .btn-default.active.focus, .active.focus.botonRegistrar, .open > .btn-default.dropdown-toggle:hover, .open > .dropdown-toggle.botonRegistrar:hover, .open > .btn-default.dropdown-toggle:focus, .open > .dropdown-toggle.botonRegistrar:focus, .open > .btn-default.dropdown-toggle.focus, .open > .dropdown-toggle.focus.botonRegistrar {
       color: #333;
       background-color: #d4d4d4;
       border-color: #8c8c8c; }
-  .btn-default:active, .botonRegistrar:active, button:active, .btn-default.active, .active.botonRegistrar, button.active, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.botonRegistrar, .open > button.dropdown-toggle {
+  .btn-default:active, .botonRegistrar:active, .btn-default.active, .active.botonRegistrar, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.botonRegistrar {
     background-image: none; }
-  .btn-default.disabled:hover, .disabled.botonRegistrar:hover, .botonRegistrar.previousBloqueado:hover, .botonRegistrar.nextBloqueado:hover, button.disabled:hover, button.previousBloqueado:hover, button.nextBloqueado:hover, .btn-default.previousBloqueado:hover, .btn-default.nextBloqueado:hover, .btn-default.disabled:focus, .disabled.botonRegistrar:focus, .botonRegistrar.previousBloqueado:focus, .botonRegistrar.nextBloqueado:focus, button.disabled:focus, button.previousBloqueado:focus, button.nextBloqueado:focus, .btn-default.previousBloqueado:focus, .btn-default.nextBloqueado:focus, .btn-default.disabled.focus, .disabled.focus.botonRegistrar, .focus.botonRegistrar.previousBloqueado, .focus.botonRegistrar.nextBloqueado, button.disabled.focus, button.focus.previousBloqueado, button.focus.nextBloqueado, .btn-default.focus.previousBloqueado, .btn-default.focus.nextBloqueado, .btn-default[disabled]:hover, [disabled].botonRegistrar:hover, button[disabled]:hover, .btn-default[disabled]:focus, [disabled].botonRegistrar:focus, button[disabled]:focus, .btn-default[disabled].focus, [disabled].focus.botonRegistrar, button[disabled].focus, fieldset[disabled] .btn-default:hover, fieldset[disabled] .botonRegistrar:hover, fieldset[disabled] button:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .botonRegistrar:focus, fieldset[disabled] button:focus, fieldset[disabled] .btn-default.focus, fieldset[disabled] .focus.botonRegistrar, fieldset[disabled] button.focus {
+  .btn-default.disabled:hover, .disabled.botonRegistrar:hover, .botonRegistrar.previousBloqueado:hover, .botonRegistrar.nextBloqueado:hover, .btn-default.previousBloqueado:hover, .btn-default.nextBloqueado:hover, .btn-default.disabled:focus, .disabled.botonRegistrar:focus, .botonRegistrar.previousBloqueado:focus, .botonRegistrar.nextBloqueado:focus, .btn-default.previousBloqueado:focus, .btn-default.nextBloqueado:focus, .btn-default.disabled.focus, .disabled.focus.botonRegistrar, .focus.botonRegistrar.previousBloqueado, .focus.botonRegistrar.nextBloqueado, .btn-default.focus.previousBloqueado, .btn-default.focus.nextBloqueado, .btn-default[disabled]:hover, [disabled].botonRegistrar:hover, .btn-default[disabled]:focus, [disabled].botonRegistrar:focus, .btn-default[disabled].focus, [disabled].focus.botonRegistrar, fieldset[disabled] .btn-default:hover, fieldset[disabled] .botonRegistrar:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .botonRegistrar:focus, fieldset[disabled] .btn-default.focus, fieldset[disabled] .focus.botonRegistrar {
     background-color: #fff;
     border-color: #ccc; }
-  .btn-default .badge, .botonRegistrar .badge, button .badge {
+  .btn-default .badge, .botonRegistrar .badge {
     color: #fff;
     background-color: #333; }
 
@@ -3255,19 +3334,19 @@ a.btn.disabled, a.disabled.botonRegistrar, a.botonRegistrar.previousBloqueado, a
     color: #777777;
     text-decoration: none; }
 
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .botonRegistrar, .btn-group-lg > button {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .botonRegistrar {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33333;
   border-radius: 6px; }
 
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .botonRegistrar, .btn-group-sm > button {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .botonRegistrar {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px; }
 
-.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .botonRegistrar, .btn-group-xs > button {
+.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .botonRegistrar {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -3447,34 +3526,27 @@ tbody.collapse.in {
   position: relative;
   display: inline-block;
   vertical-align: middle; }
-  .btn-group > .btn, .btn-group > .botonRegistrar, .btn-group > button,
+  .btn-group > .btn, .btn-group > .botonRegistrar,
   .btn-group-vertical > .btn,
-  .btn-group-vertical > .botonRegistrar,
-  .btn-group-vertical > button {
+  .btn-group-vertical > .botonRegistrar {
     position: relative;
     float: left; }
-    .btn-group > .btn:hover, .btn-group > .botonRegistrar:hover, .btn-group > button:hover, .btn-group > .btn:focus, .btn-group > .botonRegistrar:focus, .btn-group > button:focus, .btn-group > .btn:active, .btn-group > .botonRegistrar:active, .btn-group > button:active, .btn-group > .btn.active, .btn-group > .active.botonRegistrar, .btn-group > button.active,
+    .btn-group > .btn:hover, .btn-group > .botonRegistrar:hover, .btn-group > .btn:focus, .btn-group > .botonRegistrar:focus, .btn-group > .btn:active, .btn-group > .botonRegistrar:active, .btn-group > .btn.active, .btn-group > .active.botonRegistrar,
     .btn-group-vertical > .btn:hover,
     .btn-group-vertical > .botonRegistrar:hover,
-    .btn-group-vertical > button:hover,
     .btn-group-vertical > .btn:focus,
     .btn-group-vertical > .botonRegistrar:focus,
-    .btn-group-vertical > button:focus,
     .btn-group-vertical > .btn:active,
     .btn-group-vertical > .botonRegistrar:active,
-    .btn-group-vertical > button:active,
     .btn-group-vertical > .btn.active,
-    .btn-group-vertical > .active.botonRegistrar,
-    .btn-group-vertical > button.active {
+    .btn-group-vertical > .active.botonRegistrar {
       z-index: 2; }
 
-.btn-group .btn + .btn, .btn-group .botonRegistrar + .btn, .btn-group button + .btn, .btn-group .btn + .botonRegistrar, .btn-group .botonRegistrar + .botonRegistrar, .btn-group button + .botonRegistrar, .btn-group .btn + button, .btn-group .botonRegistrar + button, .btn-group button + button,
+.btn-group .btn + .btn, .btn-group .botonRegistrar + .btn, .btn-group .btn + .botonRegistrar, .btn-group .botonRegistrar + .botonRegistrar,
 .btn-group .btn + .btn-group,
 .btn-group .botonRegistrar + .btn-group,
-.btn-group button + .btn-group,
 .btn-group .btn-group + .btn,
 .btn-group .btn-group + .botonRegistrar,
-.btn-group .btn-group + button,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px; }
 
@@ -3485,25 +3557,25 @@ tbody.collapse.in {
     display: table; }
   .btn-toolbar:after {
     clear: both; }
-  .btn-toolbar .btn, .btn-toolbar .botonRegistrar, .btn-toolbar button,
+  .btn-toolbar .btn, .btn-toolbar .botonRegistrar,
   .btn-toolbar .btn-group,
   .btn-toolbar .input-group {
     float: left; }
-  .btn-toolbar > .btn, .btn-toolbar > .botonRegistrar, .btn-toolbar > button,
+  .btn-toolbar > .btn, .btn-toolbar > .botonRegistrar,
   .btn-toolbar > .btn-group,
   .btn-toolbar > .input-group {
     margin-left: 5px; }
 
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .botonRegistrar:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > button:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .botonRegistrar:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0; }
 
-.btn-group > .btn:first-child, .btn-group > .botonRegistrar:first-child, .btn-group > button:first-child {
+.btn-group > .btn:first-child, .btn-group > .botonRegistrar:first-child {
   margin-left: 0; }
-  .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .botonRegistrar:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > button:first-child:not(:last-child):not(.dropdown-toggle) {
+  .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .botonRegistrar:first-child:not(:last-child):not(.dropdown-toggle) {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0; }
 
-.btn-group > .btn:last-child:not(:first-child), .btn-group > .botonRegistrar:last-child:not(:first-child), .btn-group > button:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .botonRegistrar:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0; }
@@ -3511,15 +3583,15 @@ tbody.collapse.in {
 .btn-group > .btn-group {
   float: left; }
 
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .botonRegistrar, .btn-group > .btn-group:not(:first-child):not(:last-child) > button {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .botonRegistrar {
   border-radius: 0; }
 
-.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .botonRegistrar:last-child, .btn-group > .btn-group:first-child:not(:last-child) > button:last-child,
+.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .botonRegistrar:last-child,
 .btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0; }
 
-.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .botonRegistrar:first-child, .btn-group > .btn-group:last-child:not(:first-child) > button:first-child {
+.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .botonRegistrar:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0; }
 
@@ -3527,11 +3599,11 @@ tbody.collapse.in {
 .btn-group.open .dropdown-toggle {
   outline: 0; }
 
-.btn-group > .btn + .dropdown-toggle, .btn-group > .botonRegistrar + .dropdown-toggle, .btn-group > button + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .btn-group > .botonRegistrar + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px; }
 
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .botonRegistrar + .dropdown-toggle, .btn-group-lg.btn-group > button + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .botonRegistrar + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px; }
 
@@ -3542,21 +3614,20 @@ tbody.collapse.in {
     -webkit-box-shadow: none;
     box-shadow: none; }
 
-.btn .caret, .botonRegistrar .caret, button .caret {
+.btn .caret, .botonRegistrar .caret {
   margin-left: 0; }
 
-.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .botonRegistrar .caret, .btn-group-lg > button .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .botonRegistrar .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0; }
 
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .botonRegistrar .caret, .dropup .btn-group-lg > button .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .botonRegistrar .caret {
   border-width: 0 5px 5px; }
 
-.btn-group-vertical > .btn, .btn-group-vertical > .botonRegistrar, .btn-group-vertical > button,
+.btn-group-vertical > .btn, .btn-group-vertical > .botonRegistrar,
 .btn-group-vertical > .btn-group,
 .btn-group-vertical > .btn-group > .btn,
-.btn-group-vertical > .btn-group > .botonRegistrar,
-.btn-group-vertical > .btn-group > button {
+.btn-group-vertical > .btn-group > .botonRegistrar {
   display: block;
   float: none;
   width: 100%;
@@ -3566,41 +3637,39 @@ tbody.collapse.in {
   display: table; }
 .btn-group-vertical > .btn-group:after {
   clear: both; }
-.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .botonRegistrar, .btn-group-vertical > .btn-group > button {
+.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .botonRegistrar {
   float: none; }
-.btn-group-vertical > .btn + .btn, .btn-group-vertical > .botonRegistrar + .btn, .btn-group-vertical > button + .btn, .btn-group-vertical > .btn + .botonRegistrar, .btn-group-vertical > .botonRegistrar + .botonRegistrar, .btn-group-vertical > button + .botonRegistrar, .btn-group-vertical > .btn + button, .btn-group-vertical > .botonRegistrar + button, .btn-group-vertical > button + button,
+.btn-group-vertical > .btn + .btn, .btn-group-vertical > .botonRegistrar + .btn, .btn-group-vertical > .btn + .botonRegistrar, .btn-group-vertical > .botonRegistrar + .botonRegistrar,
 .btn-group-vertical > .btn + .btn-group,
 .btn-group-vertical > .botonRegistrar + .btn-group,
-.btn-group-vertical > button + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
 .btn-group-vertical > .btn-group + .botonRegistrar,
-.btn-group-vertical > .btn-group + button,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0; }
 
-.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .botonRegistrar:not(:first-child):not(:last-child), .btn-group-vertical > button:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .botonRegistrar:not(:first-child):not(:last-child) {
   border-radius: 0; }
-.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .botonRegistrar:first-child:not(:last-child), .btn-group-vertical > button:first-child:not(:last-child) {
+.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .botonRegistrar:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0; }
-.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .botonRegistrar:last-child:not(:first-child), .btn-group-vertical > button:last-child:not(:first-child) {
+.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .botonRegistrar:last-child:not(:first-child) {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px; }
 
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .botonRegistrar, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > button {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .botonRegistrar {
   border-radius: 0; }
 
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .botonRegistrar:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > button:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .botonRegistrar:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0; }
 
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .botonRegistrar:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > button:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .botonRegistrar:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0; }
 
@@ -3609,26 +3678,23 @@ tbody.collapse.in {
   width: 100%;
   table-layout: fixed;
   border-collapse: separate; }
-  .btn-group-justified > .btn, .btn-group-justified > .botonRegistrar, .btn-group-justified > button,
+  .btn-group-justified > .btn, .btn-group-justified > .botonRegistrar,
   .btn-group-justified > .btn-group {
     float: none;
     display: table-cell;
     width: 1%; }
-  .btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .botonRegistrar, .btn-group-justified > .btn-group button {
+  .btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .botonRegistrar {
     width: 100%; }
   .btn-group-justified > .btn-group .dropdown-menu {
     left: auto; }
 
-[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .botonRegistrar input[type="radio"], [data-toggle="buttons"] > button input[type="radio"],
+[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .botonRegistrar input[type="radio"],
 [data-toggle="buttons"] > .btn input[type="checkbox"],
 [data-toggle="buttons"] > .botonRegistrar input[type="checkbox"],
-[data-toggle="buttons"] > button input[type="checkbox"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
 [data-toggle="buttons"] > .btn-group > .botonRegistrar input[type="radio"],
-[data-toggle="buttons"] > .btn-group > button input[type="radio"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"],
-[data-toggle="buttons"] > .btn-group > .botonRegistrar input[type="checkbox"],
-[data-toggle="buttons"] > .btn-group > button input[type="checkbox"] {
+[data-toggle="buttons"] > .btn-group > .botonRegistrar input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none; }
@@ -3684,16 +3750,14 @@ tbody.collapse.in {
   .input-group-addon.input-sm, .prueba .input-group-sm > input.input-group-addon[type="text"],
   .input-group-sm > .input-group-addon,
   .input-group-sm > .input-group-btn > .input-group-addon.btn,
-  .input-group-sm > .input-group-btn > .input-group-addon.botonRegistrar,
-  .input-group-sm > .input-group-btn > button.input-group-addon {
+  .input-group-sm > .input-group-btn > .input-group-addon.botonRegistrar {
     padding: 5px 10px;
     font-size: 12px;
     border-radius: 3px; }
   .input-group-addon.input-lg, .prueba .input-group-lg > input.input-group-addon[type="text"],
   .input-group-lg > .input-group-addon,
   .input-group-lg > .input-group-btn > .input-group-addon.btn,
-  .input-group-lg > .input-group-btn > .input-group-addon.botonRegistrar,
-  .input-group-lg > .input-group-btn > button.input-group-addon {
+  .input-group-lg > .input-group-btn > .input-group-addon.botonRegistrar {
     padding: 10px 16px;
     font-size: 18px;
     border-radius: 6px; }
@@ -3705,17 +3769,13 @@ tbody.collapse.in {
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .botonRegistrar,
-.input-group-btn:first-child > button,
 .input-group-btn:first-child > .btn-group > .btn,
 .input-group-btn:first-child > .btn-group > .botonRegistrar,
-.input-group-btn:first-child > .btn-group > button,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .botonRegistrar:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > button:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > .btn,
-.input-group-btn:last-child > .btn-group:not(:last-child) > .botonRegistrar,
-.input-group-btn:last-child > .btn-group:not(:last-child) > button {
+.input-group-btn:last-child > .btn-group:not(:last-child) > .botonRegistrar {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0; }
 
@@ -3726,17 +3786,13 @@ tbody.collapse.in {
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .botonRegistrar,
-.input-group-btn:last-child > button,
 .input-group-btn:last-child > .btn-group > .btn,
 .input-group-btn:last-child > .btn-group > .botonRegistrar,
-.input-group-btn:last-child > .btn-group > button,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
 .input-group-btn:first-child > .botonRegistrar:not(:first-child),
-.input-group-btn:first-child > button:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > .btn,
-.input-group-btn:first-child > .btn-group:not(:first-child) > .botonRegistrar,
-.input-group-btn:first-child > .btn-group:not(:first-child) > button {
+.input-group-btn:first-child > .btn-group:not(:first-child) > .botonRegistrar {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0; }
 
@@ -3747,16 +3803,16 @@ tbody.collapse.in {
   position: relative;
   font-size: 0;
   white-space: nowrap; }
-  .input-group-btn > .btn, .input-group-btn > .botonRegistrar, .input-group-btn > button {
+  .input-group-btn > .btn, .input-group-btn > .botonRegistrar {
     position: relative; }
-    .input-group-btn > .btn + .btn, .input-group-btn > .botonRegistrar + .btn, .input-group-btn > button + .btn, .input-group-btn > .btn + .botonRegistrar, .input-group-btn > .botonRegistrar + .botonRegistrar, .input-group-btn > button + .botonRegistrar, .input-group-btn > .btn + button, .input-group-btn > .botonRegistrar + button, .input-group-btn > button + button {
+    .input-group-btn > .btn + .btn, .input-group-btn > .botonRegistrar + .btn, .input-group-btn > .btn + .botonRegistrar, .input-group-btn > .botonRegistrar + .botonRegistrar {
       margin-left: -1px; }
-    .input-group-btn > .btn:hover, .input-group-btn > .botonRegistrar:hover, .input-group-btn > button:hover, .input-group-btn > .btn:focus, .input-group-btn > .botonRegistrar:focus, .input-group-btn > button:focus, .input-group-btn > .btn:active, .input-group-btn > .botonRegistrar:active, .input-group-btn > button:active {
+    .input-group-btn > .btn:hover, .input-group-btn > .botonRegistrar:hover, .input-group-btn > .btn:focus, .input-group-btn > .botonRegistrar:focus, .input-group-btn > .btn:active, .input-group-btn > .botonRegistrar:active {
       z-index: 2; }
-  .input-group-btn:first-child > .btn, .input-group-btn:first-child > .botonRegistrar, .input-group-btn:first-child > button,
+  .input-group-btn:first-child > .btn, .input-group-btn:first-child > .botonRegistrar,
   .input-group-btn:first-child > .btn-group {
     margin-right: -1px; }
-  .input-group-btn:last-child > .btn, .input-group-btn:last-child > .botonRegistrar, .input-group-btn:last-child > button,
+  .input-group-btn:last-child > .btn, .input-group-btn:last-child > .botonRegistrar,
   .input-group-btn:last-child > .btn-group {
     z-index: 2;
     margin-left: -1px; }
@@ -4136,10 +4192,10 @@ tbody.collapse.in {
 .navbar-btn {
   margin-top: 8px;
   margin-bottom: 8px; }
-  .navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.botonRegistrar, .btn-group-sm > button.navbar-btn {
+  .navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.botonRegistrar {
     margin-top: 10px;
     margin-bottom: 10px; }
-  .navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.botonRegistrar, .btn-group-xs > button.navbar-btn {
+  .navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.botonRegistrar {
     margin-top: 14px;
     margin-bottom: 14px; }
 
@@ -4466,7 +4522,7 @@ tbody.collapse.in {
   border-radius: .25em; }
   .label:empty {
     display: none; }
-  .btn .label, .botonRegistrar .label, button .label {
+  .btn .label, .botonRegistrar .label {
     position: relative;
     top: -1px; }
 
@@ -4520,10 +4576,10 @@ a.label:hover, a.label:focus {
   border-radius: 10px; }
   .badge:empty {
     display: none; }
-  .btn .badge, .botonRegistrar .badge, button .badge {
+  .btn .badge, .botonRegistrar .badge {
     position: relative;
     top: -1px; }
-  .btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .botonRegistrar .badge, .btn-group-xs > button .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .botonRegistrar .badge, .btn-group-xs > button .badge {
+  .btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .botonRegistrar .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .botonRegistrar .badge {
     top: 0;
     padding: 1px 5px; }
   .list-group-item.active > .badge, .nav-pills > .active > a > .badge {
@@ -5013,204 +5069,283 @@ button.list-group-item-danger {
 .list-group + .panel-footer {
   border-top-width: 0; }
 
-.panel > .table, .panel > table,
+.panel > .table, .panel > .tablaLista, .panel > .tablaInfoRelacionada,
 .panel > .table-responsive > .table,
-.panel > .table-responsive > table,
+.panel > .table-responsive > .tablaLista,
+.panel > .table-responsive > .tablaInfoRelacionada,
 .panel > .panel-collapse > .table,
-.panel > .panel-collapse > table {
+.panel > .panel-collapse > .tablaLista,
+.panel > .panel-collapse > .tablaInfoRelacionada {
   margin-bottom: 0; }
-  .panel > .table caption, .panel > table caption,
+  .panel > .table caption, .panel > .tablaLista caption, .panel > .tablaInfoRelacionada caption,
   .panel > .table-responsive > .table caption,
-  .panel > .table-responsive > table caption,
+  .panel > .table-responsive > .tablaLista caption,
+  .panel > .table-responsive > .tablaInfoRelacionada caption,
   .panel > .panel-collapse > .table caption,
-  .panel > .panel-collapse > table caption {
+  .panel > .panel-collapse > .tablaLista caption,
+  .panel > .panel-collapse > .tablaInfoRelacionada caption {
     padding-left: 15px;
     padding-right: 15px; }
-.panel > .table:first-child, .panel > table:first-child,
+.panel > .table:first-child, .panel > .tablaLista:first-child, .panel > .tablaInfoRelacionada:first-child,
 .panel > .table-responsive:first-child > .table:first-child,
-.panel > .table-responsive:first-child > table:first-child {
+.panel > .table-responsive:first-child > .tablaLista:first-child,
+.panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px; }
-  .panel > .table:first-child > thead:first-child > tr:first-child, .panel > table:first-child > thead:first-child > tr:first-child,
+  .panel > .table:first-child > thead:first-child > tr:first-child, .panel > .tablaLista:first-child > thead:first-child > tr:first-child, .panel > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child,
   .panel > .table:first-child > tbody:first-child > tr:first-child,
-  .panel > table:first-child > tbody:first-child > tr:first-child,
+  .panel > .tablaLista:first-child > tbody:first-child > tr:first-child,
+  .panel > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child,
   .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,
-  .panel > .table-responsive:first-child > table:first-child > thead:first-child > tr:first-child,
+  .panel > .table-responsive:first-child > .tablaLista:first-child > thead:first-child > tr:first-child,
+  .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child,
   .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child,
-  .panel > .table-responsive:first-child > table:first-child > tbody:first-child > tr:first-child {
+  .panel > .table-responsive:first-child > .tablaLista:first-child > tbody:first-child > tr:first-child,
+  .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
-    .panel > .table:first-child > thead:first-child > tr:first-child td:first-child, .panel > table:first-child > thead:first-child > tr:first-child td:first-child,
+    .panel > .table:first-child > thead:first-child > tr:first-child td:first-child, .panel > .tablaLista:first-child > thead:first-child > tr:first-child td:first-child, .panel > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child td:first-child,
     .panel > .table:first-child > thead:first-child > tr:first-child th:first-child,
-    .panel > table:first-child > thead:first-child > tr:first-child th:first-child,
+    .panel > .tablaLista:first-child > thead:first-child > tr:first-child th:first-child,
+    .panel > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child th:first-child,
     .panel > .table:first-child > tbody:first-child > tr:first-child td:first-child,
-    .panel > table:first-child > tbody:first-child > tr:first-child td:first-child,
+    .panel > .tablaLista:first-child > tbody:first-child > tr:first-child td:first-child,
+    .panel > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child td:first-child,
     .panel > .table:first-child > tbody:first-child > tr:first-child th:first-child,
-    .panel > table:first-child > tbody:first-child > tr:first-child th:first-child,
+    .panel > .tablaLista:first-child > tbody:first-child > tr:first-child th:first-child,
+    .panel > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child th:first-child,
     .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,
-    .panel > .table-responsive:first-child > table:first-child > thead:first-child > tr:first-child td:first-child,
+    .panel > .table-responsive:first-child > .tablaLista:first-child > thead:first-child > tr:first-child td:first-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child td:first-child,
     .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,
-    .panel > .table-responsive:first-child > table:first-child > thead:first-child > tr:first-child th:first-child,
+    .panel > .table-responsive:first-child > .tablaLista:first-child > thead:first-child > tr:first-child th:first-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child th:first-child,
     .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:first-child,
-    .panel > .table-responsive:first-child > table:first-child > tbody:first-child > tr:first-child td:first-child,
+    .panel > .table-responsive:first-child > .tablaLista:first-child > tbody:first-child > tr:first-child td:first-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child td:first-child,
     .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child,
-    .panel > .table-responsive:first-child > table:first-child > tbody:first-child > tr:first-child th:first-child {
+    .panel > .table-responsive:first-child > .tablaLista:first-child > tbody:first-child > tr:first-child th:first-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child th:first-child {
       border-top-left-radius: 3px; }
-    .panel > .table:first-child > thead:first-child > tr:first-child td:last-child, .panel > table:first-child > thead:first-child > tr:first-child td:last-child,
+    .panel > .table:first-child > thead:first-child > tr:first-child td:last-child, .panel > .tablaLista:first-child > thead:first-child > tr:first-child td:last-child, .panel > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child td:last-child,
     .panel > .table:first-child > thead:first-child > tr:first-child th:last-child,
-    .panel > table:first-child > thead:first-child > tr:first-child th:last-child,
+    .panel > .tablaLista:first-child > thead:first-child > tr:first-child th:last-child,
+    .panel > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child th:last-child,
     .panel > .table:first-child > tbody:first-child > tr:first-child td:last-child,
-    .panel > table:first-child > tbody:first-child > tr:first-child td:last-child,
+    .panel > .tablaLista:first-child > tbody:first-child > tr:first-child td:last-child,
+    .panel > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child td:last-child,
     .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child,
-    .panel > table:first-child > tbody:first-child > tr:first-child th:last-child,
+    .panel > .tablaLista:first-child > tbody:first-child > tr:first-child th:last-child,
+    .panel > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child th:last-child,
     .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:last-child,
-    .panel > .table-responsive:first-child > table:first-child > thead:first-child > tr:first-child td:last-child,
+    .panel > .table-responsive:first-child > .tablaLista:first-child > thead:first-child > tr:first-child td:last-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child td:last-child,
     .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,
-    .panel > .table-responsive:first-child > table:first-child > thead:first-child > tr:first-child th:last-child,
+    .panel > .table-responsive:first-child > .tablaLista:first-child > thead:first-child > tr:first-child th:last-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > thead:first-child > tr:first-child th:last-child,
     .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child td:last-child,
-    .panel > .table-responsive:first-child > table:first-child > tbody:first-child > tr:first-child td:last-child,
+    .panel > .table-responsive:first-child > .tablaLista:first-child > tbody:first-child > tr:first-child td:last-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child td:last-child,
     .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child,
-    .panel > .table-responsive:first-child > table:first-child > tbody:first-child > tr:first-child th:last-child {
+    .panel > .table-responsive:first-child > .tablaLista:first-child > tbody:first-child > tr:first-child th:last-child,
+    .panel > .table-responsive:first-child > .tablaInfoRelacionada:first-child > tbody:first-child > tr:first-child th:last-child {
       border-top-right-radius: 3px; }
-.panel > .table:last-child, .panel > table:last-child,
+.panel > .table:last-child, .panel > .tablaLista:last-child, .panel > .tablaInfoRelacionada:last-child,
 .panel > .table-responsive:last-child > .table:last-child,
-.panel > .table-responsive:last-child > table:last-child {
+.panel > .table-responsive:last-child > .tablaLista:last-child,
+.panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px; }
-  .panel > .table:last-child > tbody:last-child > tr:last-child, .panel > table:last-child > tbody:last-child > tr:last-child,
+  .panel > .table:last-child > tbody:last-child > tr:last-child, .panel > .tablaLista:last-child > tbody:last-child > tr:last-child, .panel > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child,
   .panel > .table:last-child > tfoot:last-child > tr:last-child,
-  .panel > table:last-child > tfoot:last-child > tr:last-child,
+  .panel > .tablaLista:last-child > tfoot:last-child > tr:last-child,
+  .panel > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child,
   .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,
-  .panel > .table-responsive:last-child > table:last-child > tbody:last-child > tr:last-child,
+  .panel > .table-responsive:last-child > .tablaLista:last-child > tbody:last-child > tr:last-child,
+  .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child,
   .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child,
-  .panel > .table-responsive:last-child > table:last-child > tfoot:last-child > tr:last-child {
+  .panel > .table-responsive:last-child > .tablaLista:last-child > tfoot:last-child > tr:last-child,
+  .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px; }
-    .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child, .panel > table:last-child > tbody:last-child > tr:last-child td:first-child,
+    .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child, .panel > .tablaLista:last-child > tbody:last-child > tr:last-child td:first-child, .panel > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child td:first-child,
     .panel > .table:last-child > tbody:last-child > tr:last-child th:first-child,
-    .panel > table:last-child > tbody:last-child > tr:last-child th:first-child,
+    .panel > .tablaLista:last-child > tbody:last-child > tr:last-child th:first-child,
+    .panel > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child th:first-child,
     .panel > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
-    .panel > table:last-child > tfoot:last-child > tr:last-child td:first-child,
+    .panel > .tablaLista:last-child > tfoot:last-child > tr:last-child td:first-child,
+    .panel > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child td:first-child,
     .panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
-    .panel > table:last-child > tfoot:last-child > tr:last-child th:first-child,
+    .panel > .tablaLista:last-child > tfoot:last-child > tr:last-child th:first-child,
+    .panel > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child th:first-child,
     .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:first-child,
-    .panel > .table-responsive:last-child > table:last-child > tbody:last-child > tr:last-child td:first-child,
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tbody:last-child > tr:last-child td:first-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child td:first-child,
     .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,
-    .panel > .table-responsive:last-child > table:last-child > tbody:last-child > tr:last-child th:first-child,
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tbody:last-child > tr:last-child th:first-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child th:first-child,
     .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:first-child,
-    .panel > .table-responsive:last-child > table:last-child > tfoot:last-child > tr:last-child td:first-child,
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tfoot:last-child > tr:last-child td:first-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child td:first-child,
     .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
-    .panel > .table-responsive:last-child > table:last-child > tfoot:last-child > tr:last-child th:first-child {
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tfoot:last-child > tr:last-child th:first-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child th:first-child {
       border-bottom-left-radius: 3px; }
-    .panel > .table:last-child > tbody:last-child > tr:last-child td:last-child, .panel > table:last-child > tbody:last-child > tr:last-child td:last-child,
+    .panel > .table:last-child > tbody:last-child > tr:last-child td:last-child, .panel > .tablaLista:last-child > tbody:last-child > tr:last-child td:last-child, .panel > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child td:last-child,
     .panel > .table:last-child > tbody:last-child > tr:last-child th:last-child,
-    .panel > table:last-child > tbody:last-child > tr:last-child th:last-child,
+    .panel > .tablaLista:last-child > tbody:last-child > tr:last-child th:last-child,
+    .panel > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child th:last-child,
     .panel > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
-    .panel > table:last-child > tfoot:last-child > tr:last-child td:last-child,
+    .panel > .tablaLista:last-child > tfoot:last-child > tr:last-child td:last-child,
+    .panel > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child td:last-child,
     .panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
-    .panel > table:last-child > tfoot:last-child > tr:last-child th:last-child,
+    .panel > .tablaLista:last-child > tfoot:last-child > tr:last-child th:last-child,
+    .panel > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child th:last-child,
     .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child td:last-child,
-    .panel > .table-responsive:last-child > table:last-child > tbody:last-child > tr:last-child td:last-child,
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tbody:last-child > tr:last-child td:last-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child td:last-child,
     .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,
-    .panel > .table-responsive:last-child > table:last-child > tbody:last-child > tr:last-child th:last-child,
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tbody:last-child > tr:last-child th:last-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tbody:last-child > tr:last-child th:last-child,
     .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child td:last-child,
-    .panel > .table-responsive:last-child > table:last-child > tfoot:last-child > tr:last-child td:last-child,
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tfoot:last-child > tr:last-child td:last-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child td:last-child,
     .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
-    .panel > .table-responsive:last-child > table:last-child > tfoot:last-child > tr:last-child th:last-child {
+    .panel > .table-responsive:last-child > .tablaLista:last-child > tfoot:last-child > tr:last-child th:last-child,
+    .panel > .table-responsive:last-child > .tablaInfoRelacionada:last-child > tfoot:last-child > tr:last-child th:last-child {
       border-bottom-right-radius: 3px; }
-.panel > .panel-body + .table, .panel > .panel-body + table,
+.panel > .panel-body + .table, .panel > .panel-body + .tablaLista, .panel > .panel-body + .tablaInfoRelacionada,
 .panel > .panel-body + .table-responsive,
 .panel > .table + .panel-body,
-.panel > table + .panel-body,
+.panel > .tablaLista + .panel-body,
+.panel > .tablaInfoRelacionada + .panel-body,
 .panel > .table-responsive + .panel-body {
   border-top: 1px solid #ddd; }
-.panel > .table > tbody:first-child > tr:first-child th, .panel > table > tbody:first-child > tr:first-child th,
+.panel > .table > tbody:first-child > tr:first-child th, .panel > .tablaLista > tbody:first-child > tr:first-child th, .panel > .tablaInfoRelacionada > tbody:first-child > tr:first-child th,
 .panel > .table > tbody:first-child > tr:first-child td,
-.panel > table > tbody:first-child > tr:first-child td {
+.panel > .tablaLista > tbody:first-child > tr:first-child td,
+.panel > .tablaInfoRelacionada > tbody:first-child > tr:first-child td {
   border-top: 0; }
-.panel > .table-bordered, .panel > table,
+.panel > .table-bordered, .panel > .tablaLista, .panel > .tablaInfoRelacionada,
 .panel > .table-responsive > .table-bordered,
-.panel > .table-responsive > table {
+.panel > .table-responsive > .tablaLista,
+.panel > .table-responsive > .tablaInfoRelacionada {
   border: 0; }
-  .panel > .table-bordered > thead > tr > th:first-child, .panel > table > thead > tr > th:first-child,
+  .panel > .table-bordered > thead > tr > th:first-child, .panel > .tablaLista > thead > tr > th:first-child, .panel > .tablaInfoRelacionada > thead > tr > th:first-child,
   .panel > .table-bordered > thead > tr > td:first-child,
-  .panel > table > thead > tr > td:first-child,
+  .panel > .tablaLista > thead > tr > td:first-child,
+  .panel > .tablaInfoRelacionada > thead > tr > td:first-child,
   .panel > .table-bordered > tbody > tr > th:first-child,
-  .panel > table > tbody > tr > th:first-child,
+  .panel > .tablaLista > tbody > tr > th:first-child,
+  .panel > .tablaInfoRelacionada > tbody > tr > th:first-child,
   .panel > .table-bordered > tbody > tr > td:first-child,
-  .panel > table > tbody > tr > td:first-child,
+  .panel > .tablaLista > tbody > tr > td:first-child,
+  .panel > .tablaInfoRelacionada > tbody > tr > td:first-child,
   .panel > .table-bordered > tfoot > tr > th:first-child,
-  .panel > table > tfoot > tr > th:first-child,
+  .panel > .tablaLista > tfoot > tr > th:first-child,
+  .panel > .tablaInfoRelacionada > tfoot > tr > th:first-child,
   .panel > .table-bordered > tfoot > tr > td:first-child,
-  .panel > table > tfoot > tr > td:first-child,
+  .panel > .tablaLista > tfoot > tr > td:first-child,
+  .panel > .tablaInfoRelacionada > tfoot > tr > td:first-child,
   .panel > .table-responsive > .table-bordered > thead > tr > th:first-child,
-  .panel > .table-responsive > table > thead > tr > th:first-child,
+  .panel > .table-responsive > .tablaLista > thead > tr > th:first-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > thead > tr > th:first-child,
   .panel > .table-responsive > .table-bordered > thead > tr > td:first-child,
-  .panel > .table-responsive > table > thead > tr > td:first-child,
+  .panel > .table-responsive > .tablaLista > thead > tr > td:first-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > thead > tr > td:first-child,
   .panel > .table-responsive > .table-bordered > tbody > tr > th:first-child,
-  .panel > .table-responsive > table > tbody > tr > th:first-child,
+  .panel > .table-responsive > .tablaLista > tbody > tr > th:first-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr > th:first-child,
   .panel > .table-responsive > .table-bordered > tbody > tr > td:first-child,
-  .panel > .table-responsive > table > tbody > tr > td:first-child,
+  .panel > .table-responsive > .tablaLista > tbody > tr > td:first-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr > td:first-child,
   .panel > .table-responsive > .table-bordered > tfoot > tr > th:first-child,
-  .panel > .table-responsive > table > tfoot > tr > th:first-child,
+  .panel > .table-responsive > .tablaLista > tfoot > tr > th:first-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tfoot > tr > th:first-child,
   .panel > .table-responsive > .table-bordered > tfoot > tr > td:first-child,
-  .panel > .table-responsive > table > tfoot > tr > td:first-child {
+  .panel > .table-responsive > .tablaLista > tfoot > tr > td:first-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tfoot > tr > td:first-child {
     border-left: 0; }
-  .panel > .table-bordered > thead > tr > th:last-child, .panel > table > thead > tr > th:last-child,
+  .panel > .table-bordered > thead > tr > th:last-child, .panel > .tablaLista > thead > tr > th:last-child, .panel > .tablaInfoRelacionada > thead > tr > th:last-child,
   .panel > .table-bordered > thead > tr > td:last-child,
-  .panel > table > thead > tr > td:last-child,
+  .panel > .tablaLista > thead > tr > td:last-child,
+  .panel > .tablaInfoRelacionada > thead > tr > td:last-child,
   .panel > .table-bordered > tbody > tr > th:last-child,
-  .panel > table > tbody > tr > th:last-child,
+  .panel > .tablaLista > tbody > tr > th:last-child,
+  .panel > .tablaInfoRelacionada > tbody > tr > th:last-child,
   .panel > .table-bordered > tbody > tr > td:last-child,
-  .panel > table > tbody > tr > td:last-child,
+  .panel > .tablaLista > tbody > tr > td:last-child,
+  .panel > .tablaInfoRelacionada > tbody > tr > td:last-child,
   .panel > .table-bordered > tfoot > tr > th:last-child,
-  .panel > table > tfoot > tr > th:last-child,
+  .panel > .tablaLista > tfoot > tr > th:last-child,
+  .panel > .tablaInfoRelacionada > tfoot > tr > th:last-child,
   .panel > .table-bordered > tfoot > tr > td:last-child,
-  .panel > table > tfoot > tr > td:last-child,
+  .panel > .tablaLista > tfoot > tr > td:last-child,
+  .panel > .tablaInfoRelacionada > tfoot > tr > td:last-child,
   .panel > .table-responsive > .table-bordered > thead > tr > th:last-child,
-  .panel > .table-responsive > table > thead > tr > th:last-child,
+  .panel > .table-responsive > .tablaLista > thead > tr > th:last-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > thead > tr > th:last-child,
   .panel > .table-responsive > .table-bordered > thead > tr > td:last-child,
-  .panel > .table-responsive > table > thead > tr > td:last-child,
+  .panel > .table-responsive > .tablaLista > thead > tr > td:last-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > thead > tr > td:last-child,
   .panel > .table-responsive > .table-bordered > tbody > tr > th:last-child,
-  .panel > .table-responsive > table > tbody > tr > th:last-child,
+  .panel > .table-responsive > .tablaLista > tbody > tr > th:last-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr > th:last-child,
   .panel > .table-responsive > .table-bordered > tbody > tr > td:last-child,
-  .panel > .table-responsive > table > tbody > tr > td:last-child,
+  .panel > .table-responsive > .tablaLista > tbody > tr > td:last-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr > td:last-child,
   .panel > .table-responsive > .table-bordered > tfoot > tr > th:last-child,
-  .panel > .table-responsive > table > tfoot > tr > th:last-child,
+  .panel > .table-responsive > .tablaLista > tfoot > tr > th:last-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tfoot > tr > th:last-child,
   .panel > .table-responsive > .table-bordered > tfoot > tr > td:last-child,
-  .panel > .table-responsive > table > tfoot > tr > td:last-child {
+  .panel > .table-responsive > .tablaLista > tfoot > tr > td:last-child,
+  .panel > .table-responsive > .tablaInfoRelacionada > tfoot > tr > td:last-child {
     border-right: 0; }
-  .panel > .table-bordered > thead > tr:first-child > td, .panel > table > thead > tr:first-child > td,
+  .panel > .table-bordered > thead > tr:first-child > td, .panel > .tablaLista > thead > tr:first-child > td, .panel > .tablaInfoRelacionada > thead > tr:first-child > td,
   .panel > .table-bordered > thead > tr:first-child > th,
-  .panel > table > thead > tr:first-child > th,
+  .panel > .tablaLista > thead > tr:first-child > th,
+  .panel > .tablaInfoRelacionada > thead > tr:first-child > th,
   .panel > .table-bordered > tbody > tr:first-child > td,
-  .panel > table > tbody > tr:first-child > td,
+  .panel > .tablaLista > tbody > tr:first-child > td,
+  .panel > .tablaInfoRelacionada > tbody > tr:first-child > td,
   .panel > .table-bordered > tbody > tr:first-child > th,
-  .panel > table > tbody > tr:first-child > th,
+  .panel > .tablaLista > tbody > tr:first-child > th,
+  .panel > .tablaInfoRelacionada > tbody > tr:first-child > th,
   .panel > .table-responsive > .table-bordered > thead > tr:first-child > td,
-  .panel > .table-responsive > table > thead > tr:first-child > td,
+  .panel > .table-responsive > .tablaLista > thead > tr:first-child > td,
+  .panel > .table-responsive > .tablaInfoRelacionada > thead > tr:first-child > td,
   .panel > .table-responsive > .table-bordered > thead > tr:first-child > th,
-  .panel > .table-responsive > table > thead > tr:first-child > th,
+  .panel > .table-responsive > .tablaLista > thead > tr:first-child > th,
+  .panel > .table-responsive > .tablaInfoRelacionada > thead > tr:first-child > th,
   .panel > .table-responsive > .table-bordered > tbody > tr:first-child > td,
-  .panel > .table-responsive > table > tbody > tr:first-child > td,
+  .panel > .table-responsive > .tablaLista > tbody > tr:first-child > td,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr:first-child > td,
   .panel > .table-responsive > .table-bordered > tbody > tr:first-child > th,
-  .panel > .table-responsive > table > tbody > tr:first-child > th {
+  .panel > .table-responsive > .tablaLista > tbody > tr:first-child > th,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr:first-child > th {
     border-bottom: 0; }
-  .panel > .table-bordered > tbody > tr:last-child > td, .panel > table > tbody > tr:last-child > td,
+  .panel > .table-bordered > tbody > tr:last-child > td, .panel > .tablaLista > tbody > tr:last-child > td, .panel > .tablaInfoRelacionada > tbody > tr:last-child > td,
   .panel > .table-bordered > tbody > tr:last-child > th,
-  .panel > table > tbody > tr:last-child > th,
+  .panel > .tablaLista > tbody > tr:last-child > th,
+  .panel > .tablaInfoRelacionada > tbody > tr:last-child > th,
   .panel > .table-bordered > tfoot > tr:last-child > td,
-  .panel > table > tfoot > tr:last-child > td,
+  .panel > .tablaLista > tfoot > tr:last-child > td,
+  .panel > .tablaInfoRelacionada > tfoot > tr:last-child > td,
   .panel > .table-bordered > tfoot > tr:last-child > th,
-  .panel > table > tfoot > tr:last-child > th,
+  .panel > .tablaLista > tfoot > tr:last-child > th,
+  .panel > .tablaInfoRelacionada > tfoot > tr:last-child > th,
   .panel > .table-responsive > .table-bordered > tbody > tr:last-child > td,
-  .panel > .table-responsive > table > tbody > tr:last-child > td,
+  .panel > .table-responsive > .tablaLista > tbody > tr:last-child > td,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr:last-child > td,
   .panel > .table-responsive > .table-bordered > tbody > tr:last-child > th,
-  .panel > .table-responsive > table > tbody > tr:last-child > th,
+  .panel > .table-responsive > .tablaLista > tbody > tr:last-child > th,
+  .panel > .table-responsive > .tablaInfoRelacionada > tbody > tr:last-child > th,
   .panel > .table-responsive > .table-bordered > tfoot > tr:last-child > td,
-  .panel > .table-responsive > table > tfoot > tr:last-child > td,
+  .panel > .table-responsive > .tablaLista > tfoot > tr:last-child > td,
+  .panel > .table-responsive > .tablaInfoRelacionada > tfoot > tr:last-child > td,
   .panel > .table-responsive > .table-bordered > tfoot > tr:last-child > th,
-  .panel > .table-responsive > table > tfoot > tr:last-child > th {
+  .panel > .table-responsive > .tablaLista > tfoot > tr:last-child > th,
+  .panel > .table-responsive > .tablaInfoRelacionada > tfoot > tr:last-child > th {
     border-bottom: 0; }
 .panel > .table-responsive {
   border: 0;
@@ -5479,10 +5614,10 @@ button.close {
     display: table; }
   .modal-footer:after {
     clear: both; }
-  .modal-footer .btn + .btn, .modal-footer .botonRegistrar + .btn, .modal-footer button + .btn, .modal-footer .btn + .botonRegistrar, .modal-footer .botonRegistrar + .botonRegistrar, .modal-footer button + .botonRegistrar, .modal-footer .btn + button, .modal-footer .botonRegistrar + button, .modal-footer button + button {
+  .modal-footer .btn + .btn, .modal-footer .botonRegistrar + .btn, .modal-footer .btn + .botonRegistrar, .modal-footer .botonRegistrar + .botonRegistrar {
     margin-left: 5px;
     margin-bottom: 0; }
-  .modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .botonRegistrar + .btn, .modal-footer .btn-group button + .btn, .modal-footer .btn-group .btn + .botonRegistrar, .modal-footer .btn-group .botonRegistrar + .botonRegistrar, .modal-footer .btn-group button + .botonRegistrar, .modal-footer .btn-group .btn + button, .modal-footer .btn-group .botonRegistrar + button, .modal-footer .btn-group button + button {
+  .modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .botonRegistrar + .btn, .modal-footer .btn-group .btn + .botonRegistrar, .modal-footer .btn-group .botonRegistrar + .botonRegistrar {
     margin-left: -1px; }
   .modal-footer .btn-block + .btn-block {
     margin-left: 0; }
@@ -5833,7 +5968,8 @@ button.close {
   .carousel-control .icon-next,
   .carousel-control .glyphicon-chevron-left,
   .carousel-control .volver,
-  .carousel-control .glyphicon-chevron-right {
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .volver-right {
     position: absolute;
     top: 50%;
     margin-top: -10px;
@@ -5845,7 +5981,8 @@ button.close {
     left: 50%;
     margin-left: -10px; }
   .carousel-control .icon-next,
-  .carousel-control .glyphicon-chevron-right {
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .volver-right {
     right: 50%;
     margin-right: -10px; }
   .carousel-control .icon-prev,
@@ -5897,12 +6034,13 @@ button.close {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); }
-  .carousel-caption .btn, .carousel-caption .botonRegistrar, .carousel-caption button {
+  .carousel-caption .btn, .carousel-caption .botonRegistrar {
     text-shadow: none; }
 
 @media screen and (min-width: 768px) {
   .carousel-control .glyphicon-chevron-left, .carousel-control .volver,
   .carousel-control .glyphicon-chevron-right,
+  .carousel-control .volver-right,
   .carousel-control .icon-prev,
   .carousel-control .icon-next {
     width: 30px;
@@ -5912,7 +6050,7 @@ button.close {
   .carousel-control .glyphicon-chevron-left, .carousel-control .volver,
   .carousel-control .icon-prev {
     margin-left: -10px; }
-  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .glyphicon-chevron-right, .carousel-control .volver-right,
   .carousel-control .icon-next {
     margin-right: -10px; }
 
@@ -6248,10 +6386,16 @@ body {
 /*
  * componentes de listas
  */
-table {
+.tablaLista {
   text-align: center;
   background: #fff; }
-  table th {
+  .tablaLista th {
+    text-align: center; }
+
+.tablaInfoRelacionada {
+  text-align: center;
+  background: #fff; }
+  .tablaInfoRelacionada th {
     text-align: center; }
 
 .controlLista {

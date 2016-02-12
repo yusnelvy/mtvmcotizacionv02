@@ -1,39 +1,42 @@
 {% extends "base.html" %}
 
+{% load menu_extras %}
+
 {% block widget_menu_general %}
+<div class="">
 
-    {% for nivel1 in menu_list %}
-        <ul>
-        <li><a>{{nivel1.menu}}</a>
 
-            {% for nivel2 in menu_list %}
+    {% for i in nivel1 %}
+    <ul>
+        <li><a>{{ i.menu }}</a>
 
-                {% if nivel2.idPadre = nivel1.id %}
+            {% for j in nivel2 %}
 
-                <ul>
-                <li><a href="{% url 'nivel2.namespace:nivel2.name' %}">{{nivel2.menu}}</a>
+            {% if j.menu_padre.id = i.id %}
 
-                {% endif %}
+            <ul>
+                <li><a>{{ j.menu }}</a>
 
-                    {% for nivel3 in menu_list %}
+                    {% for k in nivel3 %}
 
-                        {% if nivel3.idPadre = nivel2.id %}
+                    {% if k.menu_padre.id = j.id %}
 
-                        <ul>
-                        <li><a href="{% url 'nivel3.namespace:nivel3.name' %}">{{nivel3.menu}}</a>
+                    <ul>
+                        <li><a href="{% url_Menu k.namespace k.name %}">{{ k.menu }}</a>
+
                         </li>
-                        </ul>
-
-                        {% endif %}
-
+                    </ul>
+                    {% endif %}
                     {% endfor %}
 
                 </li>
-                </ul>
+            </ul>
+            {% endif %}
             {% endfor %}
 
         </li>
-        </ul>
+    </ul>
     {% endfor %}
+</div>
 
 {% endblock widget_menu_general %}

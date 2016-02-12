@@ -109,7 +109,7 @@ def sidebar(request):
 
 
 
-def lista_ambiente(request):
+def lista_Menu(request):
     """docstring"""
     nivel1 =  Menu.objects.filter(nivel=1)
 
@@ -118,5 +118,17 @@ def lista_ambiente(request):
     nivel3 =  Menu.objects.filter(nivel=3)
 
     context = {'nivel1': nivel1, 'nivel2': nivel2,
+               'nivel3': nivel3}
+    return render_to_response('Menu_general.html', context)
+
+
+def lista_Relacion(request):
+    """docstring"""
+
+    nivel2 =  Menu.objects.filter(nivel=2)
+
+    nivel3 =  Menu.objects.filter(nivel=3)
+
+    context = {'nivel2': nivel2,
                'nivel3': nivel3}
     return render_to_response('Menu_general.html', context)
