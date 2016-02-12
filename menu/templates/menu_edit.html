@@ -1,0 +1,51 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Menú
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar el menú {{form.menu.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
+    {% if menu_previous %}
+
+        <li class="previous">
+            <a href="{% url 'umenus:edit_menu' menu_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+
+    {% else %}
+
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
+    {% endif %}
+
+    {% if menu_next %}
+
+        <li class="next">
+            <a href="{% url 'umenus:edit_menu' menu_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+
+    {% else %}
+
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
+    {% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
+{{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_menu').focus()
+</script>
+
+{% endblock formulario %}

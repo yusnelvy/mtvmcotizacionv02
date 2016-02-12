@@ -1,0 +1,51 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Mensaje
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar el mensaje {{form.mensaje.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
+    {% if mensaje_previous %}
+
+        <li class="previous">
+            <a href="{% url 'umensajes:edit_mensaje' mensaje_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+
+    {% else %}
+
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
+    {% endif %}
+
+    {% if mensaje_next %}
+
+        <li class="next">
+            <a href="{% url 'umensajes:edit_mensaje' mensaje_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+
+    {% else %}
+
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
+    {% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
+{{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_tipo_de_mensaje').focus()
+</script>
+
+{% endblock formulario %}

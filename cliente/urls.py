@@ -11,10 +11,16 @@ from cliente.views import SexoListView, SexoView, SexoUpdate, \
     TipoDeRelacionListView, TipoDeRelacionView, TipoDeRelacionUpdate, \
     TipoDeRelacionDelete, TipoDeInformacionDeContactoListView, \
     TipoDeInformacionDeContactoView, TipoDeInformacionDeContactoUpdate, \
-    TipoDeInformacionDeContactoDelete
+    TipoDeInformacionDeContactoDelete, ClienteView, ClienteListView
 
 
 urlpatterns = patterns('',
+                       url(r'^$',
+                           ClienteListView.as_view(),
+                           name='list_cliente'),
+                       url(r'^nuevo',
+                           ClienteView.as_view(),
+                           name='add_cliente'),
                        url(r'^sexo/$',
                            SexoListView.as_view(),
                            name='list_sexo'),

@@ -8,8 +8,8 @@ class Menu(models.Model):
     def __init__(self, *args, **kwargs):
         super(Menu, self).__init__(*args, **kwargs)
 
-    menu = models.CharField(max_length=250, unique=True)
-    transaccion = models.CharField(max_length=20)
+    menu = models.CharField(max_length=250)
+    transaccion = models.CharField(max_length=20, unique=True)
     namespace = models.CharField(max_length=100, blank=True)
     name = models.CharField(max_length=100, blank=True)
     nivel = models.IntegerField()
@@ -42,3 +42,20 @@ class MenuFavorito(models.Model):
         verbose_name = "Menu favorito"
         verbose_name_plural = "Menus favoritos"
         ordering = ["usuario", "menu", "grupo"]
+
+
+class Relacion(models.Model):
+    """docstring for Relación"""
+    def __init__(self, *args, **kwargs):
+        super(Relacion, self).__init__(*args, **kwargs)
+
+    item_origen = models.ForeignKey(Menu, related_name="item_origen")
+    item_relacion = models.ForeignKey(Menu, related_name="item_relacion")
+    nombre = models.CharField(max_length=250)
+
+    def __str__(self):
+        return u' %s - %s - %s' % (self.item_origen, self.item_relacion, self.nombre)
+
+    class Meta:
+        verbose_name = "Relación"
+        verbose_name_plural = "Relaciones"
