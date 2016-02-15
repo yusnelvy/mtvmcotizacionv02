@@ -1,0 +1,51 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Contenedor típico por mueble
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar el contenedor típico por mueble {{form.contenedor.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
+    {% if contenedortipico_previous %}
+
+        <li class="previous">
+            <a href="{% url 'ucontenedores:edit_contenedortipico' contenedortipico_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+
+    {% else %}
+
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
+    {% endif %}
+
+    {% if contenedortipico_next %}
+
+        <li class="next">
+            <a href="{% url 'ucontenedores:edit_contenedortipico' contenedortipico_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+
+    {% else %}
+
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
+    {% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
+{{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_contenedor').focus()
+</script>
+
+{% endblock formulario %}

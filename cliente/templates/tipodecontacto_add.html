@@ -1,5 +1,11 @@
 {% extends "base_editar.html" %}
 
+{% block titulo %}
+
+    Tipo de contacto
+
+{% endblock titulo %}
+
 {% block titulo_form %}
 
 Agregar tipo contacto
@@ -13,7 +19,7 @@ Agregar tipo contacto
   {{ form.as_p }}
 
 <script type="text/javascript">
-document.getElementById('id_tipo_de_contacto').focus()
+document.getElementById('id_tipo_de_relacion').focus()
 </script>
 
 {% endblock formulario %}

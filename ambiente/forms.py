@@ -14,11 +14,6 @@ class AmbienteForm(ModelForm):
     class Meta:
         model = Ambiente
         fields = '__all__'
-        widgets = {
-            'ambiente': TextInput(attrs={'class': 'form-control'}),
-            'descripcion': TextInput(attrs={'class': 'form-control'}),
-            }
-
 
 class AmbientePorTipoDeInmuebleForm(ModelForm):
     """

@@ -1,8 +1,14 @@
 {% extends "base_editar.html" %}
 
+{% block titulo %}
+
+    Tipo de contacto
+
+{% endblock titulo %}
+
 {% block titulo_form %}
 
-Editar el tipo de contacto {{form.tipo_de_contacto.value|lower}}
+Editar el tipo de contacto {{form.tipo_de_relacion.value|lower}}
 
 {% endblock titulo_form %}
 
@@ -11,24 +17,24 @@ Editar el tipo de contacto {{form.tipo_de_contacto.value|lower}}
     {% if tipodecontacto_previous %}
 
         <li class="previous">
-            <a href="{% url 'uclientes:edit_tipo_de_contacto' tipodecontacto_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+            <a href="{% url 'uclientes:edit_tipo_de_relacion' tipodecontacto_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
         </li>
 
     {% else %}
 
-        <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
 
     {% endif %}
 
     {% if tipodecontacto_next %}
 
         <li class="next">
-            <a href="{% url 'uclientes:edit_tipo_de_contacto' tipodecontacto_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+            <a href="{% url 'uclientes:edit_tipo_de_relacion' tipodecontacto_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
-        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+      <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
 
   {% endif %}
 
@@ -39,7 +45,7 @@ Editar el tipo de contacto {{form.tipo_de_contacto.value|lower}}
 {{ form.as_p }}
 
 <script type="text/javascript">
-document.getElementById('id_tipo_de_contacto').focus()
+document.getElementById('id_tipo_de_relacion').focus()
 </script>
 
 {% endblock formulario %}

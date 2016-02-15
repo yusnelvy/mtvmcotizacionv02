@@ -4,7 +4,7 @@ Docstring documentación pendiente
 """
 
 from django.forms import ModelForm, TextInput
-from contenedor.models import Contenedor
+from contenedor.models import Contenedor, ContenedorTipicoPorMueble
 
 
 class ContenedorForm(ModelForm):
@@ -16,11 +16,14 @@ class ContenedorForm(ModelForm):
         fields = '__all__'
         widgets = {
             'contenedor': TextInput(attrs={'class': 'form-control'}),
-            'descripcion': TextInput(attrs={'class': 'form-control'}),
-            'capacidad_de_volumen': TextInput(attrs={'class': 'form-control'}),
-            'capacidad_de_peso': TextInput(attrs={'class': 'form-control'}),
-            'ancho': TextInput(attrs={'class': 'form-control'}),
-            'largo': TextInput(attrs={'class': 'form-control'}),
-            'alto': TextInput(attrs={'class': 'form-control'}),
-            'volumen_en_camion': TextInput(attrs={'class': 'form-control'})
+            'descripcion': TextInput(attrs={'class': 'form-control'})
             }
+
+
+class ContenedorTipicoPorMuebleForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = ContenedorTipicoPorMueble
+        fields = '__all__'

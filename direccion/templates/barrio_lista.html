@@ -157,18 +157,18 @@ Barrio
 {% if barrios %}
 
 <tr class="active">
-    <th>
+     <th>
         Pais
 
         {% if request.GET.page %}
 
-        <a href="?order_by=pais&page={{request.GET.page}}" id="pais" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-pais&page={{request.GET.page}}" id="-pais"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=pais&page={{request.GET.page}}" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pais&page={{request.GET.page}}" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=pais" id="pais" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-pais" id="-pais"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=pais" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pais" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -178,13 +178,13 @@ Barrio
 
         {% if request.GET.page %}
 
-        <a href="?order_by=provincia&page={{request.GET.page}}" id="provincia" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-provincia&page={{request.GET.page}}" id="-provincia"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=provincia&page={{request.GET.page}}" id="provincia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-provincia&page={{request.GET.page}}" id="-provincia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=provincia" id="provincia" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-provincia" id="-provincia"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=provincia" id="provincia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-provincia" id="-provincia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -194,13 +194,13 @@ Barrio
 
         {% if request.GET.page %}
 
-        <a href="?order_by=ciudad&page={{request.GET.page}}" id="ciudad" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-ciudad&page={{request.GET.page}}" id="-ciudad"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=ciudad&page={{request.GET.page}}" id="ciudad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ciudad&page={{request.GET.page}}" id="-ciudad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=ciudad" id="ciudad" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-ciudad" id="-ciudad"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=ciudad" id="ciudad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ciudad" id="-ciudad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -210,19 +210,19 @@ Barrio
 
         {% if request.GET.page %}
 
-        <a href="?order_by=barrio&page={{request.GET.page}}" id="barrio" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-barrio&page={{request.GET.page}}" id="-barrio"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=barrio&page={{request.GET.page}}" id="barrio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-barrio&page={{request.GET.page}}" id="-barrio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=barrio" id="barrio" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-barrio" id="-barrio"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=barrio" id="barrio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-barrio" id="-barrio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th width="80px">Editar</th>
-    <th width="80px">Eliminar</th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in barrios %}
@@ -248,10 +248,10 @@ Barrio
         {{ i.barrio }}
 
     </td>
-    <td width="80px">
+    <td>
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_barrio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
-    <td width="80px">
+    <td>
         <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_barrio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
@@ -265,5 +265,14 @@ Barrio
 </tr>
 
 {% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('pais');
+        ocultarASCDesc('provincia');
+        ocultarASCDesc('ciudad');
+        ocultarASCDesc('barrio');
+    })
+</script>
 
 {% endblock lista %}

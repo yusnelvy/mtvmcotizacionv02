@@ -1,37 +1,51 @@
-<title>Ambiente por tipo de inmueble</title>
+{% extends "base_editar.html" %}
 
-  <h2>Editar el ambiente ambiente por tipo de inmueble {{form.ambiente.value|lower}}</h2>
+{% block titulo %}
 
-<form action="" method="post" id="myformEdit">
-    {% csrf_token %}
-<ul class="pager">
+Ambiente por Tipo de Inmueble
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar el ambiente ambiente por tipo de inmueble {{form.ambiente.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
     {% if ambienteportipoinmueble_previous %}
+
         <li class="previous">
             <a href="{% url 'uambientes:edit_ambienteportipoinmueble' ambienteportipoinmueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
         </li>
+
     {% else %}
-        <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+
+       <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
     {% endif %}
 
     {% if ambienteportipoinmueble_next %}
+
         <li class="next">
             <a href="{% url 'uambientes:edit_ambienteportipoinmueble' ambienteportipoinmueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
         </li>
+
     {% else %}
-        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
     {% endif %}
-</ul>
 
-<div class="form-group">
-  {{ form.as_p }}
+{% endblock nav_lista %}
 
-</div>
+{% block formulario %}
 
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
+{{ form.as_p }}
 
 <script type="text/javascript">
 document.getElementById('id_ambiente').focus()
 </script>
-</form>
 
+{% endblock formulario %}

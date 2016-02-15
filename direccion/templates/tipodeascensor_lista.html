@@ -162,13 +162,13 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=tipo_de_ascensor&page={{request.GET.page}}" id="tipo_de_ascensor" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-tipo_de_ascensor&page={{request.GET.page}}" id="-tipo_de_ascensor"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=tipo_de_ascensor&page={{request.GET.page}}" id="tipo_de_ascensor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tipo_de_ascensor&page={{request.GET.page}}" id="-tipo_de_ascensor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
 
         {% else %}
 
-        <a href="?order_by=tipo_de_ascensor" id="tipo_de_ascensor" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-tipo_de_ascensor" id="-tipo_de_ascensor"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=tipo_de_ascensor" id="tipo_de_ascensor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tipo_de_ascensor" id="-tipo_de_ascensor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
 
         {% endif %}
 
@@ -178,19 +178,19 @@
 
         {% if request.GET.page %}
 
-        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
 
         {% else %}
 
-        <a href="?order_by=descripcion" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
 
         {% endif %}
 
     </th>
-    <th width="80px">Editar</th>
-    <th width="80px">Eliminar</th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in tiposdeascensores %}
@@ -206,10 +206,10 @@
         {{ i.descripcion }}
 
     </td>
-    <td width="80px">
+    <td>
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_tipo_de_ascensor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
-    <td width="80px">
+    <td>
         <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_tipo_de_ascensor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
@@ -223,5 +223,12 @@
 </tr>
 
 {% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('tipo_de_ascensor');
+        ocultarASCDesc('descripcion');
+    })
+</script>
 
 {% endblock lista %}

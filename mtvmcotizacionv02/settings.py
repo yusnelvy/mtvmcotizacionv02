@@ -43,7 +43,14 @@ INSTALLED_APPS = (
     'contenedor',
     'mueble',
     'gestiondedocumento',
-    'estadoderegistro'
+    'estadoderegistro',
+    'complejidadriesgo',
+    'mensaje',
+    'premisas',
+    'promocion',
+    'menu',
+    'trabajador',
+    'vehiculo'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,7 +75,7 @@ TEMPLATES = [
         # DIRS: Lista de directorios donde el engine debe encontrar
         # los archivos de Templates
         'DIRS': [
-            os.path.join(os.path.dirname(__file__), 'template').replace('\\', '/'),
+            os.path.join(os.path.dirname(__file__), 'templates').replace('\\', '/'),
         ],
         # APP_DIRS: Lista de directorios donde se deben buscar los
         # templates específicos de aplicaciones en una carpeta llamada
@@ -89,7 +96,8 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request'
+                'django.template.context_processors.request',
+                'base.forms.BaseForm2',
             ]
             # 'allowed_include_roots': [
             #

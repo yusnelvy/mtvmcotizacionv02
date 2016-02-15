@@ -46,19 +46,13 @@ Ambiente
 
 {% else %}
 
-{% if request.GET.order_by %}
+
 
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
-{% else %}
 
-<li class="btn-disabled">
-    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-</li>
-
-{% endif %}
 
 {% endif %}
 
@@ -162,13 +156,13 @@ Ambiente
 
         {% if request.GET.page %}
 
-        <a href="?order_by=ambiente&page={{request.GET.page}}" id="ambiente" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-ambiente&page={{request.GET.page}}" id="-ambiente"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=ambiente&page={{request.GET.page}}" id="ambiente" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ambiente&page={{request.GET.page}}" id="-ambiente"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=ambiente" id="ambiente" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-ambiente" id="-ambiente"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=ambiente" id="ambiente" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ambiente" id="-ambiente"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -178,35 +172,35 @@ Ambiente
 
         {% if request.GET.page %}
 
-        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=descripcion" id="descripcion" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-descripcion" id="-descripcion"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th>
-        Conteo de Ambientes
+     <th>
+        Conteo de Ambiente
 
         {% if request.GET.page %}
 
-        <a href="?order_by=conteo_de_ambientes&page={{request.GET.page}}" id="conteo_de_ambientes" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-conteo_de_ambientes&page={{request.GET.page}}" id="-conteo_de_ambientes"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=conteo_de_ambientes&page={{request.GET.page}}" id="conteo_de_ambientes" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-conteo_de_ambientes&page={{request.GET.page}}" id="-conteo_de_ambientes"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=conteo_de_ambientes" id="conteo_de_ambientes" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-conteo_de_ambientes" id="-conteo_de_ambientes"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=conteo_de_ambientes" id="conteo_de_ambientes" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-conteo_de_ambientes" id="-conteo_de_ambientes"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th width="80px">Editar</th>
-    <th width="80px">Eliminar</th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in ambientes %}
@@ -227,11 +221,11 @@ Ambiente
         {{ i.conteo_de_ambientes }}
 
     </td>
-    <td width="80px">
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uambientes:edit_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:edit_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
-    <td width="80px">
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uambientes:eliminar_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:eliminar_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
 
@@ -245,5 +239,13 @@ Ambiente
 </tr>
 
 {% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('ambiente');
+        ocultarASCDesc('descripcion');
+        ocultarASCDesc('conteo_de_ambientes');
+    })
+</script>
 
 {% endblock lista %}

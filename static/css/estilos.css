@@ -2590,12 +2590,16 @@ output {
   line-height: 1.42857;
   color: #555555; }
 
+<<<<<<< HEAD
 .form-control, .grupoInput p input[type=text],
 .grupoInput p input[type=number],
 .grupoInput p input[type=password],
 .grupoInput p input[type=email],
 .grupoInput p input[type=date],
 .grupoInput p select, .grupoInput p textarea, .buscarEnLista {
+=======
+.form-control, .prueba input[type="text"], .buscarEnLista {
+>>>>>>> master
   display: block;
   width: 100%;
   height: 34px;
@@ -2612,16 +2616,21 @@ output {
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
+<<<<<<< HEAD
   .form-control:focus, .grupoInput p input[type=text]:focus,
   .grupoInput p input[type=number]:focus,
   .grupoInput p input[type=password]:focus,
   .grupoInput p input[type=email]:focus,
   .grupoInput p input[type=date]:focus,
   .grupoInput p select:focus, .grupoInput p textarea:focus, .buscarEnLista:focus {
+=======
+  .form-control:focus, .prueba input[type="text"]:focus, .buscarEnLista:focus {
+>>>>>>> master
     border-color: #66afe9;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
+<<<<<<< HEAD
   .form-control::-moz-placeholder, .grupoInput p input[type=text]::-moz-placeholder,
   .grupoInput p input[type=number]::-moz-placeholder,
   .grupoInput p input[type=password]::-moz-placeholder,
@@ -2694,12 +2703,32 @@ output {
     cursor: not-allowed; }
 
 textarea.form-control, .grupoInput p textarea, textarea.buscarEnLista {
+=======
+  .form-control::-moz-placeholder, .prueba input[type="text"]::-moz-placeholder, .buscarEnLista::-moz-placeholder {
+    color: #999;
+    opacity: 1; }
+  .form-control:-ms-input-placeholder, .prueba input[type="text"]:-ms-input-placeholder, .buscarEnLista:-ms-input-placeholder {
+    color: #999; }
+  .form-control::-webkit-input-placeholder, .prueba input[type="text"]::-webkit-input-placeholder, .buscarEnLista::-webkit-input-placeholder {
+    color: #999; }
+  .form-control::-ms-expand, .prueba input[type="text"]::-ms-expand, .buscarEnLista::-ms-expand {
+    border: 0;
+    background-color: transparent; }
+  .form-control[disabled], .prueba input[disabled][type="text"], [disabled].buscarEnLista, .form-control[readonly], .prueba input[readonly][type="text"], [readonly].buscarEnLista, fieldset[disabled] .form-control, fieldset[disabled] .prueba input[type="text"], .prueba fieldset[disabled] input[type="text"], fieldset[disabled] .buscarEnLista {
+    background-color: #eeeeee;
+    opacity: 1; }
+  .form-control[disabled], .prueba input[disabled][type="text"], [disabled].buscarEnLista, fieldset[disabled] .form-control, fieldset[disabled] .prueba input[type="text"], .prueba fieldset[disabled] input[type="text"], fieldset[disabled] .buscarEnLista {
+    cursor: not-allowed; }
+
+textarea.form-control, textarea.buscarEnLista {
+>>>>>>> master
   height: auto; }
 
 input[type="search"] {
   -webkit-appearance: none; }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
+<<<<<<< HEAD
   input[type="date"].form-control, .grupoInput p input[type="date"][type=text],
   .grupoInput p input[type="date"][type=number],
   .grupoInput p input[type="date"][type=password],
@@ -2732,17 +2761,35 @@ input[type="search"] {
   .grupoInput p .input-group-sm > input[type="date"][type=password],
   .grupoInput p .input-group-sm > input[type="date"][type=email],
   .grupoInput p .input-group-sm > input[type="date"][type=date], .input-group-sm > input[type="date"].buscarEnLista,
+=======
+  input[type="date"].form-control, .prueba input[type="date"][type="text"], input[type="date"].buscarEnLista,
+  input[type="time"].form-control,
+  .prueba input[type="time"][type="text"],
+  input[type="time"].buscarEnLista,
+  input[type="datetime-local"].form-control,
+  .prueba input[type="datetime-local"][type="text"],
+  input[type="datetime-local"].buscarEnLista,
+  input[type="month"].form-control,
+  .prueba input[type="month"][type="text"],
+  input[type="month"].buscarEnLista {
+    line-height: 34px; }
+  input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control, .prueba .input-group-sm > input[type="date"][type="text"], .input-group-sm > input[type="date"].buscarEnLista,
+>>>>>>> master
   .input-group-sm > input[type="date"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="date"].btn,
   .input-group-sm > .input-group-btn > input[type="date"].btnSuccess,
   .input-group-sm > .input-group-btn > input[type="date"].btnDefault, .input-group-sm input[type="date"],
   input[type="time"].input-sm,
   .input-group-sm > input[type="time"].form-control,
+<<<<<<< HEAD
   .grupoInput p .input-group-sm > input[type="time"][type=text],
   .grupoInput p .input-group-sm > input[type="time"][type=number],
   .grupoInput p .input-group-sm > input[type="time"][type=password],
   .grupoInput p .input-group-sm > input[type="time"][type=email],
   .grupoInput p .input-group-sm > input[type="time"][type=date],
+=======
+  .prueba .input-group-sm > input[type="time"][type="text"],
+>>>>>>> master
   .input-group-sm > input[type="time"].buscarEnLista,
   .input-group-sm > input[type="time"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="time"].btn,
@@ -2751,11 +2798,15 @@ input[type="search"] {
   input[type="time"],
   input[type="datetime-local"].input-sm,
   .input-group-sm > input[type="datetime-local"].form-control,
+<<<<<<< HEAD
   .grupoInput p .input-group-sm > input[type="datetime-local"][type=text],
   .grupoInput p .input-group-sm > input[type="datetime-local"][type=number],
   .grupoInput p .input-group-sm > input[type="datetime-local"][type=password],
   .grupoInput p .input-group-sm > input[type="datetime-local"][type=email],
   .grupoInput p .input-group-sm > input[type="datetime-local"][type=date],
+=======
+  .prueba .input-group-sm > input[type="datetime-local"][type="text"],
+>>>>>>> master
   .input-group-sm > input[type="datetime-local"].buscarEnLista,
   .input-group-sm > input[type="datetime-local"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
@@ -2764,11 +2815,15 @@ input[type="search"] {
   input[type="datetime-local"],
   input[type="month"].input-sm,
   .input-group-sm > input[type="month"].form-control,
+<<<<<<< HEAD
   .grupoInput p .input-group-sm > input[type="month"][type=text],
   .grupoInput p .input-group-sm > input[type="month"][type=number],
   .grupoInput p .input-group-sm > input[type="month"][type=password],
   .grupoInput p .input-group-sm > input[type="month"][type=email],
   .grupoInput p .input-group-sm > input[type="month"][type=date],
+=======
+  .prueba .input-group-sm > input[type="month"][type="text"],
+>>>>>>> master
   .input-group-sm > input[type="month"].buscarEnLista,
   .input-group-sm > input[type="month"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="month"].btn,
@@ -2776,22 +2831,30 @@ input[type="search"] {
   .input-group-sm > .input-group-btn > input[type="month"].btnDefault, .input-group-sm
   input[type="month"] {
     line-height: 30px; }
+<<<<<<< HEAD
   input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control, .grupoInput p .input-group-lg > input[type="date"][type=text],
   .grupoInput p .input-group-lg > input[type="date"][type=number],
   .grupoInput p .input-group-lg > input[type="date"][type=password],
   .grupoInput p .input-group-lg > input[type="date"][type=email],
   .grupoInput p .input-group-lg > input[type="date"][type=date], .input-group-lg > input[type="date"].buscarEnLista,
+=======
+  input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control, .prueba .input-group-lg > input[type="date"][type="text"], .input-group-lg > input[type="date"].buscarEnLista,
+>>>>>>> master
   .input-group-lg > input[type="date"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="date"].btn,
   .input-group-lg > .input-group-btn > input[type="date"].btnSuccess,
   .input-group-lg > .input-group-btn > input[type="date"].btnDefault, .input-group-lg input[type="date"],
   input[type="time"].input-lg,
   .input-group-lg > input[type="time"].form-control,
+<<<<<<< HEAD
   .grupoInput p .input-group-lg > input[type="time"][type=text],
   .grupoInput p .input-group-lg > input[type="time"][type=number],
   .grupoInput p .input-group-lg > input[type="time"][type=password],
   .grupoInput p .input-group-lg > input[type="time"][type=email],
   .grupoInput p .input-group-lg > input[type="time"][type=date],
+=======
+  .prueba .input-group-lg > input[type="time"][type="text"],
+>>>>>>> master
   .input-group-lg > input[type="time"].buscarEnLista,
   .input-group-lg > input[type="time"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="time"].btn,
@@ -2800,11 +2863,15 @@ input[type="search"] {
   input[type="time"],
   input[type="datetime-local"].input-lg,
   .input-group-lg > input[type="datetime-local"].form-control,
+<<<<<<< HEAD
   .grupoInput p .input-group-lg > input[type="datetime-local"][type=text],
   .grupoInput p .input-group-lg > input[type="datetime-local"][type=number],
   .grupoInput p .input-group-lg > input[type="datetime-local"][type=password],
   .grupoInput p .input-group-lg > input[type="datetime-local"][type=email],
   .grupoInput p .input-group-lg > input[type="datetime-local"][type=date],
+=======
+  .prueba .input-group-lg > input[type="datetime-local"][type="text"],
+>>>>>>> master
   .input-group-lg > input[type="datetime-local"].buscarEnLista,
   .input-group-lg > input[type="datetime-local"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
@@ -2813,11 +2880,15 @@ input[type="search"] {
   input[type="datetime-local"],
   input[type="month"].input-lg,
   .input-group-lg > input[type="month"].form-control,
+<<<<<<< HEAD
   .grupoInput p .input-group-lg > input[type="month"][type=text],
   .grupoInput p .input-group-lg > input[type="month"][type=number],
   .grupoInput p .input-group-lg > input[type="month"][type=password],
   .grupoInput p .input-group-lg > input[type="month"][type=email],
   .grupoInput p .input-group-lg > input[type="month"][type=date],
+=======
+  .prueba .input-group-lg > input[type="month"][type="text"],
+>>>>>>> master
   .input-group-lg > input[type="month"].buscarEnLista,
   .input-group-lg > input[type="month"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="month"].btn,
@@ -2825,7 +2896,11 @@ input[type="search"] {
   .input-group-lg > .input-group-btn > input[type="month"].btnDefault, .input-group-lg
   input[type="month"] {
     line-height: 46px; } }
+<<<<<<< HEAD
 .form-group, .grupoInput p {
+=======
+.form-group, .prueba {
+>>>>>>> master
   margin-bottom: 15px; }
 
 .radio,
@@ -2896,6 +2971,7 @@ input[type="checkbox"] {
   padding-bottom: 7px;
   margin-bottom: 0;
   min-height: 34px; }
+<<<<<<< HEAD
   .form-control-static.input-lg, .input-group-lg > .form-control-static.form-control, .grupoInput p .input-group-lg > input.form-control-static[type=text],
   .grupoInput p .input-group-lg > input.form-control-static[type=number],
   .grupoInput p .input-group-lg > input.form-control-static[type=password],
@@ -2912,6 +2988,13 @@ input[type="checkbox"] {
   .grupoInput p .input-group-sm > input.form-control-static[type=email],
   .grupoInput p .input-group-sm > input.form-control-static[type=date],
   .grupoInput p .input-group-sm > select.form-control-static, .grupoInput p .input-group-sm > textarea.form-control-static, .input-group-sm > .form-control-static.buscarEnLista,
+=======
+  .form-control-static.input-lg, .input-group-lg > .form-control-static.form-control, .prueba .input-group-lg > input.form-control-static[type="text"], .input-group-lg > .form-control-static.buscarEnLista,
+  .input-group-lg > .form-control-static.input-group-addon,
+  .input-group-lg > .input-group-btn > .form-control-static.btn,
+  .input-group-lg > .input-group-btn > .form-control-static.botonRegistrar,
+  .input-group-lg > .input-group-btn > button.form-control-static, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control, .prueba .input-group-sm > input.form-control-static[type="text"], .input-group-sm > .form-control-static.buscarEnLista,
+>>>>>>> master
   .input-group-sm > .form-control-static.input-group-addon,
   .input-group-sm > .input-group-btn > .form-control-static.btn,
   .input-group-sm > .botonRegistrar.input-group-btn > button.form-control-static,
@@ -2920,12 +3003,16 @@ input[type="checkbox"] {
     padding-left: 0;
     padding-right: 0; }
 
+<<<<<<< HEAD
 .input-sm, .input-group-sm > .form-control, .grupoInput p .input-group-sm > input[type=text],
 .grupoInput p .input-group-sm > input[type=number],
 .grupoInput p .input-group-sm > input[type=password],
 .grupoInput p .input-group-sm > input[type=email],
 .grupoInput p .input-group-sm > input[type=date],
 .grupoInput p .input-group-sm > select, .grupoInput p .input-group-sm > textarea, .input-group-sm > .buscarEnLista,
+=======
+.input-sm, .input-group-sm > .form-control, .prueba .input-group-sm > input[type="text"], .input-group-sm > .buscarEnLista,
+>>>>>>> master
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
 .input-group-sm > .botonRegistrar.input-group-btn > button,
@@ -2937,8 +3024,12 @@ input[type="checkbox"] {
   line-height: 1.5;
   border-radius: 3px; }
 
+<<<<<<< HEAD
 select.input-sm, .input-group-sm > select.form-control,
 .grupoInput p .input-group-sm > select, .input-group-sm > select.buscarEnLista,
+=======
+select.input-sm, .input-group-sm > select.form-control, .input-group-sm > select.buscarEnLista,
+>>>>>>> master
 .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-btn > select.btn,
 .input-group-sm > .input-group-btn > select.btnSuccess,
@@ -2946,14 +3037,21 @@ select.input-sm, .input-group-sm > select.form-control,
   height: 30px;
   line-height: 30px; }
 
+<<<<<<< HEAD
 textarea.input-sm, .input-group-sm > textarea.form-control, .grupoInput p .input-group-sm > textarea, .input-group-sm > textarea.buscarEnLista,
+=======
+textarea.input-sm, .input-group-sm > textarea.form-control, .input-group-sm > textarea.buscarEnLista,
+>>>>>>> master
 .input-group-sm > textarea.input-group-addon,
 .input-group-sm > .input-group-btn > textarea.btn,
 .input-group-sm > .input-group-btn > textarea.btnSuccess,
 .input-group-sm > .input-group-btn > textarea.btnDefault,
 select[multiple].input-sm,
 .input-group-sm > select[multiple].form-control,
+<<<<<<< HEAD
 .grupoInput p .input-group-sm > select[multiple],
+=======
+>>>>>>> master
 .input-group-sm > select[multiple].buscarEnLista,
 .input-group-sm > select[multiple].input-group-addon,
 .input-group-sm > .input-group-btn > select[multiple].btn,
@@ -2961,6 +3059,7 @@ select[multiple].input-sm,
 .input-group-sm > .input-group-btn > select[multiple].btnDefault {
   height: auto; }
 
+<<<<<<< HEAD
 .form-group-sm .form-control, .form-group-sm .grupoInput p input[type=text], .grupoInput p .form-group-sm input[type=text],
 .form-group-sm .grupoInput p input[type=number],
 .grupoInput p .form-group-sm input[type=number],
@@ -2972,11 +3071,15 @@ select[multiple].input-sm,
 .grupoInput p .form-group-sm input[type=date],
 .form-group-sm .grupoInput p select,
 .grupoInput p .form-group-sm select, .form-group-sm .grupoInput p textarea, .grupoInput p .form-group-sm textarea, .form-group-sm .buscarEnLista {
+=======
+.form-group-sm .form-control, .form-group-sm .prueba input[type="text"], .prueba .form-group-sm input[type="text"], .form-group-sm .buscarEnLista {
+>>>>>>> master
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px; }
+<<<<<<< HEAD
 .form-group-sm select.form-control,
 .form-group-sm .grupoInput p select,
 .grupoInput p .form-group-sm select, .form-group-sm select.buscarEnLista {
@@ -2986,6 +3089,13 @@ select[multiple].input-sm,
 .form-group-sm select[multiple].form-control,
 .form-group-sm .grupoInput p select[multiple],
 .grupoInput p .form-group-sm select[multiple],
+=======
+.form-group-sm select.form-control, .form-group-sm select.buscarEnLista {
+  height: 30px;
+  line-height: 30px; }
+.form-group-sm textarea.form-control, .form-group-sm textarea.buscarEnLista,
+.form-group-sm select[multiple].form-control,
+>>>>>>> master
 .form-group-sm select[multiple].buscarEnLista {
   height: auto; }
 .form-group-sm .form-control-static {
@@ -2995,12 +3105,16 @@ select[multiple].input-sm,
   font-size: 12px;
   line-height: 1.5; }
 
+<<<<<<< HEAD
 .input-lg, .input-group-lg > .form-control, .grupoInput p .input-group-lg > input[type=text],
 .grupoInput p .input-group-lg > input[type=number],
 .grupoInput p .input-group-lg > input[type=password],
 .grupoInput p .input-group-lg > input[type=email],
 .grupoInput p .input-group-lg > input[type=date],
 .grupoInput p .input-group-lg > select, .grupoInput p .input-group-lg > textarea, .input-group-lg > .buscarEnLista,
+=======
+.input-lg, .input-group-lg > .form-control, .prueba .input-group-lg > input[type="text"], .input-group-lg > .buscarEnLista,
+>>>>>>> master
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
 .input-group-lg > .botonRegistrar.input-group-btn > button,
@@ -3012,8 +3126,12 @@ select[multiple].input-sm,
   line-height: 1.33333;
   border-radius: 6px; }
 
+<<<<<<< HEAD
 select.input-lg, .input-group-lg > select.form-control,
 .grupoInput p .input-group-lg > select, .input-group-lg > select.buscarEnLista,
+=======
+select.input-lg, .input-group-lg > select.form-control, .input-group-lg > select.buscarEnLista,
+>>>>>>> master
 .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-btn > select.btn,
 .input-group-lg > .input-group-btn > select.btnSuccess,
@@ -3021,14 +3139,21 @@ select.input-lg, .input-group-lg > select.form-control,
   height: 46px;
   line-height: 46px; }
 
+<<<<<<< HEAD
 textarea.input-lg, .input-group-lg > textarea.form-control, .grupoInput p .input-group-lg > textarea, .input-group-lg > textarea.buscarEnLista,
+=======
+textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > textarea.buscarEnLista,
+>>>>>>> master
 .input-group-lg > textarea.input-group-addon,
 .input-group-lg > .input-group-btn > textarea.btn,
 .input-group-lg > .input-group-btn > textarea.btnSuccess,
 .input-group-lg > .input-group-btn > textarea.btnDefault,
 select[multiple].input-lg,
 .input-group-lg > select[multiple].form-control,
+<<<<<<< HEAD
 .grupoInput p .input-group-lg > select[multiple],
+=======
+>>>>>>> master
 .input-group-lg > select[multiple].buscarEnLista,
 .input-group-lg > select[multiple].input-group-addon,
 .input-group-lg > .input-group-btn > select[multiple].btn,
@@ -3036,6 +3161,7 @@ select[multiple].input-lg,
 .input-group-lg > .input-group-btn > select[multiple].btnDefault {
   height: auto; }
 
+<<<<<<< HEAD
 .form-group-lg .form-control, .form-group-lg .grupoInput p input[type=text], .grupoInput p .form-group-lg input[type=text],
 .form-group-lg .grupoInput p input[type=number],
 .grupoInput p .form-group-lg input[type=number],
@@ -3047,11 +3173,15 @@ select[multiple].input-lg,
 .grupoInput p .form-group-lg input[type=date],
 .form-group-lg .grupoInput p select,
 .grupoInput p .form-group-lg select, .form-group-lg .grupoInput p textarea, .grupoInput p .form-group-lg textarea, .form-group-lg .buscarEnLista {
+=======
+.form-group-lg .form-control, .form-group-lg .prueba input[type="text"], .prueba .form-group-lg input[type="text"], .form-group-lg .buscarEnLista {
+>>>>>>> master
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33333;
   border-radius: 6px; }
+<<<<<<< HEAD
 .form-group-lg select.form-control,
 .form-group-lg .grupoInput p select,
 .grupoInput p .form-group-lg select, .form-group-lg select.buscarEnLista {
@@ -3061,6 +3191,13 @@ select[multiple].input-lg,
 .form-group-lg select[multiple].form-control,
 .form-group-lg .grupoInput p select[multiple],
 .grupoInput p .form-group-lg select[multiple],
+=======
+.form-group-lg select.form-control, .form-group-lg select.buscarEnLista {
+  height: 46px;
+  line-height: 46px; }
+.form-group-lg textarea.form-control, .form-group-lg textarea.buscarEnLista,
+.form-group-lg select[multiple].form-control,
+>>>>>>> master
 .form-group-lg select[multiple].buscarEnLista {
   height: auto; }
 .form-group-lg .form-control-static {
@@ -3072,6 +3209,7 @@ select[multiple].input-lg,
 
 .has-feedback {
   position: relative; }
+<<<<<<< HEAD
   .has-feedback .form-control, .has-feedback .grupoInput p input[type=text], .grupoInput p .has-feedback input[type=text],
   .has-feedback .grupoInput p input[type=number],
   .grupoInput p .has-feedback input[type=number],
@@ -3083,6 +3221,9 @@ select[multiple].input-lg,
   .grupoInput p .has-feedback input[type=date],
   .has-feedback .grupoInput p select,
   .grupoInput p .has-feedback select, .has-feedback .grupoInput p textarea, .grupoInput p .has-feedback textarea, .has-feedback .buscarEnLista {
+=======
+  .has-feedback .form-control, .has-feedback .prueba input[type="text"], .prueba .has-feedback input[type="text"], .has-feedback .buscarEnLista {
+>>>>>>> master
     padding-right: 42.5px; }
 
 .form-control-feedback {
@@ -3097,12 +3238,16 @@ select[multiple].input-lg,
   text-align: center;
   pointer-events: none; }
 
+<<<<<<< HEAD
 .input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback, .grupoInput p .input-group-lg > input[type=text] + .form-control-feedback,
 .grupoInput p .input-group-lg > input[type=number] + .form-control-feedback,
 .grupoInput p .input-group-lg > input[type=password] + .form-control-feedback,
 .grupoInput p .input-group-lg > input[type=email] + .form-control-feedback,
 .grupoInput p .input-group-lg > input[type=date] + .form-control-feedback,
 .grupoInput p .input-group-lg > select + .form-control-feedback, .grupoInput p .input-group-lg > textarea + .form-control-feedback, .input-group-lg > .buscarEnLista + .form-control-feedback,
+=======
+.input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback, .prueba .input-group-lg > input[type="text"] + .form-control-feedback, .input-group-lg > .buscarEnLista + .form-control-feedback,
+>>>>>>> master
 .input-group-lg > .input-group-addon + .form-control-feedback,
 .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
 .input-group-lg > .botonRegistrar.input-group-btn > button + .form-control-feedback,
@@ -3110,6 +3255,7 @@ select[multiple].input-lg,
 .input-group-lg > .input-group-btn > .btnDefault + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
 .form-group-lg .form-control + .form-control-feedback,
+<<<<<<< HEAD
 .form-group-lg .grupoInput p input[type=text] + .form-control-feedback,
 .grupoInput p .form-group-lg input[type=text] + .form-control-feedback,
 .form-group-lg .grupoInput p input[type=number] + .form-control-feedback,
@@ -3124,17 +3270,25 @@ select[multiple].input-lg,
 .grupoInput p .form-group-lg select + .form-control-feedback,
 .form-group-lg .grupoInput p textarea + .form-control-feedback,
 .grupoInput p .form-group-lg textarea + .form-control-feedback,
+=======
+.form-group-lg .prueba input[type="text"] + .form-control-feedback,
+.prueba .form-group-lg input[type="text"] + .form-control-feedback,
+>>>>>>> master
 .form-group-lg .buscarEnLista + .form-control-feedback {
   width: 46px;
   height: 46px;
   line-height: 46px; }
 
+<<<<<<< HEAD
 .input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback, .grupoInput p .input-group-sm > input[type=text] + .form-control-feedback,
 .grupoInput p .input-group-sm > input[type=number] + .form-control-feedback,
 .grupoInput p .input-group-sm > input[type=password] + .form-control-feedback,
 .grupoInput p .input-group-sm > input[type=email] + .form-control-feedback,
 .grupoInput p .input-group-sm > input[type=date] + .form-control-feedback,
 .grupoInput p .input-group-sm > select + .form-control-feedback, .grupoInput p .input-group-sm > textarea + .form-control-feedback, .input-group-sm > .buscarEnLista + .form-control-feedback,
+=======
+.input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback, .prueba .input-group-sm > input[type="text"] + .form-control-feedback, .input-group-sm > .buscarEnLista + .form-control-feedback,
+>>>>>>> master
 .input-group-sm > .input-group-addon + .form-control-feedback,
 .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
 .input-group-sm > .botonRegistrar.input-group-btn > button + .form-control-feedback,
@@ -3142,6 +3296,7 @@ select[multiple].input-lg,
 .input-group-sm > .input-group-btn > .btnDefault + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
 .form-group-sm .form-control + .form-control-feedback,
+<<<<<<< HEAD
 .form-group-sm .grupoInput p input[type=text] + .form-control-feedback,
 .grupoInput p .form-group-sm input[type=text] + .form-control-feedback,
 .form-group-sm .grupoInput p input[type=number] + .form-control-feedback,
@@ -3156,6 +3311,10 @@ select[multiple].input-lg,
 .grupoInput p .form-group-sm select + .form-control-feedback,
 .form-group-sm .grupoInput p textarea + .form-control-feedback,
 .grupoInput p .form-group-sm textarea + .form-control-feedback,
+=======
+.form-group-sm .prueba input[type="text"] + .form-control-feedback,
+.prueba .form-group-sm input[type="text"] + .form-control-feedback,
+>>>>>>> master
 .form-group-sm .buscarEnLista + .form-control-feedback {
   width: 30px;
   height: 30px;
@@ -3170,6 +3329,7 @@ select[multiple].input-lg,
 .has-success .radio-inline,
 .has-success .checkbox-inline, .has-success.radio label, .has-success.checkbox label, .has-success.radio-inline label, .has-success.checkbox-inline label {
   color: #3c763d; }
+<<<<<<< HEAD
 .has-success .form-control, .has-success .grupoInput p input[type=text], .grupoInput p .has-success input[type=text],
 .has-success .grupoInput p input[type=number],
 .grupoInput p .has-success input[type=number],
@@ -3195,6 +3355,13 @@ select[multiple].input-lg,
   .grupoInput p .has-success input[type=date]:focus,
   .has-success .grupoInput p select:focus,
   .grupoInput p .has-success select:focus, .has-success .grupoInput p textarea:focus, .grupoInput p .has-success textarea:focus, .has-success .buscarEnLista:focus {
+=======
+.has-success .form-control, .has-success .prueba input[type="text"], .prueba .has-success input[type="text"], .has-success .buscarEnLista {
+  border-color: #3c763d;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .has-success .form-control:focus, .has-success .prueba input[type="text"]:focus, .prueba .has-success input[type="text"]:focus, .has-success .buscarEnLista:focus {
+>>>>>>> master
     border-color: #2b542c;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168; }
@@ -3214,6 +3381,7 @@ select[multiple].input-lg,
 .has-warning .radio-inline,
 .has-warning .checkbox-inline, .has-warning.radio label, .has-warning.checkbox label, .has-warning.radio-inline label, .has-warning.checkbox-inline label {
   color: #8a6d3b; }
+<<<<<<< HEAD
 .has-warning .form-control, .has-warning .grupoInput p input[type=text], .grupoInput p .has-warning input[type=text],
 .has-warning .grupoInput p input[type=number],
 .grupoInput p .has-warning input[type=number],
@@ -3239,6 +3407,13 @@ select[multiple].input-lg,
   .grupoInput p .has-warning input[type=date]:focus,
   .has-warning .grupoInput p select:focus,
   .grupoInput p .has-warning select:focus, .has-warning .grupoInput p textarea:focus, .grupoInput p .has-warning textarea:focus, .has-warning .buscarEnLista:focus {
+=======
+.has-warning .form-control, .has-warning .prueba input[type="text"], .prueba .has-warning input[type="text"], .has-warning .buscarEnLista {
+  border-color: #8a6d3b;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .has-warning .form-control:focus, .has-warning .prueba input[type="text"]:focus, .prueba .has-warning input[type="text"]:focus, .has-warning .buscarEnLista:focus {
+>>>>>>> master
     border-color: #66512c;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b; }
@@ -3258,6 +3433,7 @@ select[multiple].input-lg,
 .has-error .radio-inline,
 .has-error .checkbox-inline, .has-error.radio label, .has-error.checkbox label, .has-error.radio-inline label, .has-error.checkbox-inline label {
   color: #a94442; }
+<<<<<<< HEAD
 .has-error .form-control, .has-error .grupoInput p input[type=text], .grupoInput p .has-error input[type=text],
 .has-error .grupoInput p input[type=number],
 .grupoInput p .has-error input[type=number],
@@ -3283,6 +3459,13 @@ select[multiple].input-lg,
   .grupoInput p .has-error input[type=date]:focus,
   .has-error .grupoInput p select:focus,
   .grupoInput p .has-error select:focus, .has-error .grupoInput p textarea:focus, .grupoInput p .has-error textarea:focus, .has-error .buscarEnLista:focus {
+=======
+.has-error .form-control, .has-error .prueba input[type="text"], .prueba .has-error input[type="text"], .has-error .buscarEnLista {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+  .has-error .form-control:focus, .has-error .prueba input[type="text"]:focus, .prueba .has-error input[type="text"]:focus, .has-error .buscarEnLista:focus {
+>>>>>>> master
     border-color: #843534;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483; }
@@ -3305,6 +3488,7 @@ select[multiple].input-lg,
   color: #737373; }
 
 @media (min-width: 768px) {
+<<<<<<< HEAD
   .form-inline .form-group, .form-inline .grupoInput p, .grupoInput .form-inline p {
     display: inline-block;
     margin-bottom: 0;
@@ -3320,6 +3504,13 @@ select[multiple].input-lg,
   .grupoInput p .form-inline input[type=date],
   .form-inline .grupoInput p select,
   .grupoInput p .form-inline select, .form-inline .grupoInput p textarea, .grupoInput p .form-inline textarea, .form-inline .buscarEnLista {
+=======
+  .form-inline .form-group, .form-inline .prueba {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle; }
+  .form-inline .form-control, .form-inline .prueba input[type="text"], .prueba .form-inline input[type="text"], .form-inline .buscarEnLista {
+>>>>>>> master
     display: inline-block;
     width: auto;
     vertical-align: middle; }
@@ -3331,6 +3522,7 @@ select[multiple].input-lg,
     .form-inline .input-group .input-group-addon,
     .form-inline .input-group .input-group-btn,
     .form-inline .input-group .form-control,
+<<<<<<< HEAD
     .form-inline .input-group .grupoInput p input[type=text],
     .grupoInput p .form-inline .input-group input[type=text],
     .form-inline .input-group .grupoInput p input[type=number],
@@ -3358,6 +3550,13 @@ select[multiple].input-lg,
   .grupoInput p .form-inline .input-group > input[type=date],
   .form-inline .grupoInput p .input-group > select,
   .grupoInput p .form-inline .input-group > select, .form-inline .grupoInput p .input-group > textarea, .grupoInput p .form-inline .input-group > textarea, .form-inline .input-group > .buscarEnLista {
+=======
+    .form-inline .input-group .prueba input[type="text"],
+    .prueba .form-inline .input-group input[type="text"],
+    .form-inline .input-group .buscarEnLista {
+      width: auto; }
+  .form-inline .input-group > .form-control, .form-inline .prueba .input-group > input[type="text"], .prueba .form-inline .input-group > input[type="text"], .form-inline .input-group > .buscarEnLista {
+>>>>>>> master
     width: 100%; }
   .form-inline .control-label, .form-inline .grupoInput p label, .grupoInput p .form-inline label {
     margin-bottom: 0;
@@ -3388,6 +3587,7 @@ select[multiple].input-lg,
 .form-horizontal .radio,
 .form-horizontal .checkbox {
   min-height: 27px; }
+<<<<<<< HEAD
 .form-horizontal .form-group, .form-horizontal .grupoInput p, .grupoInput .form-horizontal p {
   margin-left: -15px;
   margin-right: -15px; }
@@ -3395,6 +3595,15 @@ select[multiple].input-lg,
     content: " ";
     display: table; }
   .form-horizontal .form-group:after, .form-horizontal .grupoInput p:after, .grupoInput .form-horizontal p:after {
+=======
+.form-horizontal .form-group, .form-horizontal .prueba {
+  margin-left: -15px;
+  margin-right: -15px; }
+  .form-horizontal .form-group:before, .form-horizontal .prueba:before, .form-horizontal .form-group:after, .form-horizontal .prueba:after {
+    content: " ";
+    display: table; }
+  .form-horizontal .form-group:after, .form-horizontal .prueba:after {
+>>>>>>> master
     clear: both; }
 @media (min-width: 768px) {
   .form-horizontal .control-label, .form-horizontal .grupoInput p label, .grupoInput p .form-horizontal label {
@@ -4044,6 +4253,7 @@ tbody.collapse.in {
     float: none;
     padding-left: 0;
     padding-right: 0; }
+<<<<<<< HEAD
   .input-group .form-control, .input-group .grupoInput p input[type=text], .grupoInput p .input-group input[type=text],
   .input-group .grupoInput p input[type=number],
   .grupoInput p .input-group input[type=number],
@@ -4055,11 +4265,15 @@ tbody.collapse.in {
   .grupoInput p .input-group input[type=date],
   .input-group .grupoInput p select,
   .grupoInput p .input-group select, .input-group .grupoInput p textarea, .grupoInput p .input-group textarea, .input-group .buscarEnLista {
+=======
+  .input-group .form-control, .input-group .prueba input[type="text"], .prueba .input-group input[type="text"], .input-group .buscarEnLista {
+>>>>>>> master
     position: relative;
     z-index: 2;
     float: left;
     width: 100%;
     margin-bottom: 0; }
+<<<<<<< HEAD
     .input-group .form-control:focus, .input-group .grupoInput p input[type=text]:focus, .grupoInput p .input-group input[type=text]:focus,
     .input-group .grupoInput p input[type=number]:focus,
     .grupoInput p .input-group input[type=number]:focus,
@@ -4071,11 +4285,15 @@ tbody.collapse.in {
     .grupoInput p .input-group input[type=date]:focus,
     .input-group .grupoInput p select:focus,
     .grupoInput p .input-group select:focus, .input-group .grupoInput p textarea:focus, .grupoInput p .input-group textarea:focus, .input-group .buscarEnLista:focus {
+=======
+    .input-group .form-control:focus, .input-group .prueba input[type="text"]:focus, .prueba .input-group input[type="text"]:focus, .input-group .buscarEnLista:focus {
+>>>>>>> master
       z-index: 3; }
 
 .input-group-addon,
 .input-group-btn,
 .input-group .form-control,
+<<<<<<< HEAD
 .input-group .grupoInput p input[type=text],
 .grupoInput p .input-group input[type=text],
 .input-group .grupoInput p input[type=number],
@@ -4090,11 +4308,16 @@ tbody.collapse.in {
 .grupoInput p .input-group select,
 .input-group .grupoInput p textarea,
 .grupoInput p .input-group textarea,
+=======
+.input-group .prueba input[type="text"],
+.prueba .input-group input[type="text"],
+>>>>>>> master
 .input-group .buscarEnLista {
   display: table-cell; }
   .input-group-addon:not(:first-child):not(:last-child),
   .input-group-btn:not(:first-child):not(:last-child),
   .input-group .form-control:not(:first-child):not(:last-child),
+<<<<<<< HEAD
   .input-group .grupoInput p input[type=text]:not(:first-child):not(:last-child),
   .grupoInput p .input-group input[type=text]:not(:first-child):not(:last-child),
   .input-group .grupoInput p input[type=number]:not(:first-child):not(:last-child),
@@ -4109,6 +4332,10 @@ tbody.collapse.in {
   .grupoInput p .input-group select:not(:first-child):not(:last-child),
   .input-group .grupoInput p textarea:not(:first-child):not(:last-child),
   .grupoInput p .input-group textarea:not(:first-child):not(:last-child),
+=======
+  .input-group .prueba input[type="text"]:not(:first-child):not(:last-child),
+  .prueba .input-group input[type="text"]:not(:first-child):not(:last-child),
+>>>>>>> master
   .input-group .buscarEnLista:not(:first-child):not(:last-child) {
     border-radius: 0; }
 
@@ -4128,12 +4355,16 @@ tbody.collapse.in {
   background-color: #eeeeee;
   border: 1px solid #ccc;
   border-radius: 4px; }
+<<<<<<< HEAD
   .input-group-addon.input-sm, .grupoInput p .input-group-sm > input.input-group-addon[type=text],
   .grupoInput p .input-group-sm > input.input-group-addon[type=number],
   .grupoInput p .input-group-sm > input.input-group-addon[type=password],
   .grupoInput p .input-group-sm > input.input-group-addon[type=email],
   .grupoInput p .input-group-sm > input.input-group-addon[type=date],
   .grupoInput p .input-group-sm > select.input-group-addon, .grupoInput p .input-group-sm > textarea.input-group-addon,
+=======
+  .input-group-addon.input-sm, .prueba .input-group-sm > input.input-group-addon[type="text"],
+>>>>>>> master
   .input-group-sm > .input-group-addon,
   .input-group-sm > .input-group-btn > .input-group-addon.btn,
   .input-group-sm > .botonRegistrar.input-group-btn > button.input-group-addon,
@@ -4142,12 +4373,16 @@ tbody.collapse.in {
     padding: 5px 10px;
     font-size: 12px;
     border-radius: 3px; }
+<<<<<<< HEAD
   .input-group-addon.input-lg, .grupoInput p .input-group-lg > input.input-group-addon[type=text],
   .grupoInput p .input-group-lg > input.input-group-addon[type=number],
   .grupoInput p .input-group-lg > input.input-group-addon[type=password],
   .grupoInput p .input-group-lg > input.input-group-addon[type=email],
   .grupoInput p .input-group-lg > input.input-group-addon[type=date],
   .grupoInput p .input-group-lg > select.input-group-addon, .grupoInput p .input-group-lg > textarea.input-group-addon,
+=======
+  .input-group-addon.input-lg, .prueba .input-group-lg > input.input-group-addon[type="text"],
+>>>>>>> master
   .input-group-lg > .input-group-addon,
   .input-group-lg > .input-group-btn > .input-group-addon.btn,
   .input-group-lg > .botonRegistrar.input-group-btn > button.input-group-addon,
@@ -4160,6 +4395,7 @@ tbody.collapse.in {
   .input-group-addon input[type="checkbox"] {
     margin-top: 0; }
 
+<<<<<<< HEAD
 .input-group .form-control:first-child, .input-group .grupoInput p input[type=text]:first-child, .grupoInput p .input-group input[type=text]:first-child,
 .input-group .grupoInput p input[type=number]:first-child,
 .grupoInput p .input-group input[type=number]:first-child,
@@ -4171,6 +4407,9 @@ tbody.collapse.in {
 .grupoInput p .input-group input[type=date]:first-child,
 .input-group .grupoInput p select:first-child,
 .grupoInput p .input-group select:first-child, .input-group .grupoInput p textarea:first-child, .grupoInput p .input-group textarea:first-child, .input-group .buscarEnLista:first-child,
+=======
+.input-group .form-control:first-child, .input-group .prueba input[type="text"]:first-child, .prueba .input-group input[type="text"]:first-child, .input-group .buscarEnLista:first-child,
+>>>>>>> master
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
 .botonRegistrar.input-group-btn:first-child > button,
@@ -4195,6 +4434,7 @@ tbody.collapse.in {
 .input-group-addon:first-child {
   border-right: 0; }
 
+<<<<<<< HEAD
 .input-group .form-control:last-child, .input-group .grupoInput p input[type=text]:last-child, .grupoInput p .input-group input[type=text]:last-child,
 .input-group .grupoInput p input[type=number]:last-child,
 .grupoInput p .input-group input[type=number]:last-child,
@@ -4206,6 +4446,9 @@ tbody.collapse.in {
 .grupoInput p .input-group input[type=date]:last-child,
 .input-group .grupoInput p select:last-child,
 .grupoInput p .input-group select:last-child, .input-group .grupoInput p textarea:last-child, .grupoInput p .input-group textarea:last-child, .input-group .buscarEnLista:last-child,
+=======
+.input-group .form-control:last-child, .input-group .prueba input[type="text"]:last-child, .prueba .input-group input[type="text"]:last-child, .input-group .buscarEnLista:last-child,
+>>>>>>> master
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
 .botonRegistrar.input-group-btn:last-child > button,
@@ -4556,6 +4799,7 @@ tbody.collapse.in {
   margin-top: 8px;
   margin-bottom: 8px; }
   @media (min-width: 768px) {
+<<<<<<< HEAD
     .navbar-form .form-group, .navbar-form .grupoInput p, .grupoInput .navbar-form p {
       display: inline-block;
       margin-bottom: 0;
@@ -4571,6 +4815,13 @@ tbody.collapse.in {
     .grupoInput p .navbar-form input[type=date],
     .navbar-form .grupoInput p select,
     .grupoInput p .navbar-form select, .navbar-form .grupoInput p textarea, .grupoInput p .navbar-form textarea, .navbar-form .buscarEnLista {
+=======
+    .navbar-form .form-group, .navbar-form .prueba {
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle; }
+    .navbar-form .form-control, .navbar-form .prueba input[type="text"], .prueba .navbar-form input[type="text"], .navbar-form .buscarEnLista {
+>>>>>>> master
       display: inline-block;
       width: auto;
       vertical-align: middle; }
@@ -4582,6 +4833,7 @@ tbody.collapse.in {
       .navbar-form .input-group .input-group-addon,
       .navbar-form .input-group .input-group-btn,
       .navbar-form .input-group .form-control,
+<<<<<<< HEAD
       .navbar-form .input-group .grupoInput p input[type=text],
       .grupoInput p .navbar-form .input-group input[type=text],
       .navbar-form .input-group .grupoInput p input[type=number],
@@ -4609,6 +4861,13 @@ tbody.collapse.in {
     .grupoInput p .navbar-form .input-group > input[type=date],
     .navbar-form .grupoInput p .input-group > select,
     .grupoInput p .navbar-form .input-group > select, .navbar-form .grupoInput p .input-group > textarea, .grupoInput p .navbar-form .input-group > textarea, .navbar-form .input-group > .buscarEnLista {
+=======
+      .navbar-form .input-group .prueba input[type="text"],
+      .prueba .navbar-form .input-group input[type="text"],
+      .navbar-form .input-group .buscarEnLista {
+        width: auto; }
+    .navbar-form .input-group > .form-control, .navbar-form .prueba .input-group > input[type="text"], .prueba .navbar-form .input-group > input[type="text"], .navbar-form .input-group > .buscarEnLista {
+>>>>>>> master
       width: 100%; }
     .navbar-form .control-label, .navbar-form .grupoInput p label, .grupoInput p .navbar-form label {
       margin-bottom: 0;
@@ -4629,9 +4888,15 @@ tbody.collapse.in {
     .navbar-form .has-feedback .form-control-feedback {
       top: 0; } }
   @media (max-width: 767px) {
+<<<<<<< HEAD
     .navbar-form .form-group, .navbar-form .grupoInput p, .grupoInput .navbar-form p {
       margin-bottom: 5px; }
       .navbar-form .form-group:last-child, .navbar-form .grupoInput p:last-child, .grupoInput .navbar-form p:last-child {
+=======
+    .navbar-form .form-group, .navbar-form .prueba {
+      margin-bottom: 5px; }
+      .navbar-form .form-group:last-child, .navbar-form .prueba:last-child {
+>>>>>>> master
         margin-bottom: 0; } }
   @media (min-width: 768px) {
     .navbar-form {
@@ -7724,8 +7989,25 @@ body .well, body .jumbotron, .container .well, .container .jumbotron, .container
 .btn-material-lightblue {
   background-color: #03A9F4; }
 
+<<<<<<< HEAD
 .btn-material-cyan {
   background-color: #00BCD4; }
+=======
+/*
+ * componentes de crear nuevo y editar
+ */
+.checbook, .prueba input[type="checkbox"] {
+  background: #5cb85c; }
+
+/*
+ * componentes de listas
+ */
+table {
+  text-align: center;
+  background: #fff; }
+  table th {
+    text-align: center; }
+>>>>>>> master
 
 .btn-material-teal {
   background-color: #009688; }

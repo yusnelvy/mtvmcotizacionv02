@@ -8,13 +8,19 @@ from cliente.views import SexoListView, SexoView, SexoUpdate, \
     SexoDelete, EstadoCivilListView, EstadoCivilView, \
     EstadoCivilUpdate, EstadoCivilDelete, TipoDeClienteListView, \
     TipoDeClienteView, TipoDeClienteUpdate, TipoDeClienteDelete, \
-    TipoDeContactoListView, TipoDeContactoView, TipoDeContactoUpdate, \
-    TipoDeContactoDelete, TipoDeInformacionDeContactoListView, \
+    TipoDeRelacionListView, TipoDeRelacionView, TipoDeRelacionUpdate, \
+    TipoDeRelacionDelete, TipoDeInformacionDeContactoListView, \
     TipoDeInformacionDeContactoView, TipoDeInformacionDeContactoUpdate, \
-    TipoDeInformacionDeContactoDelete
+    TipoDeInformacionDeContactoDelete, ClienteView, ClienteListView
 
 
 urlpatterns = patterns('',
+                       url(r'^$',
+                           ClienteListView.as_view(),
+                           name='list_cliente'),
+                       url(r'^nuevo',
+                           ClienteView.as_view(),
+                           name='add_cliente'),
                        url(r'^sexo/$',
                            SexoListView.as_view(),
                            name='list_sexo'),
@@ -51,18 +57,18 @@ urlpatterns = patterns('',
                        url(r'^tipo_de_cliente/eliminar/(?P<pk>\d+)/$',
                            TipoDeClienteDelete.as_view(),
                            name='eliminar_tipo_de_cliente'),
-                       url(r'^tipo_de_contacto/$',
-                           TipoDeContactoListView.as_view(),
-                           name='list_tipo_de_contacto'),
-                       url(r'^tipo_de_contacto/nuevo',
-                           TipoDeContactoView.as_view(),
-                           name='add_tipo_de_contacto'),
-                       url(r'^tipo_de_contacto/editar/(?P<pk>\d+)/$',
-                           TipoDeContactoUpdate.as_view(),
-                           name='edit_tipo_de_contacto'),
-                       url(r'^tipo_de_contacto/eliminar/(?P<pk>\d+)/$',
-                           TipoDeContactoDelete.as_view(),
-                           name='eliminar_tipo_de_contacto'),
+                       url(r'^tipo_de_relacion/$',
+                           TipoDeRelacionListView.as_view(),
+                           name='list_tipo_de_relacion'),
+                       url(r'^tipo_de_relacion/nuevo',
+                           TipoDeRelacionView.as_view(),
+                           name='add_tipo_de_relacion'),
+                       url(r'^tipo_de_relacion/editar/(?P<pk>\d+)/$',
+                           TipoDeRelacionUpdate.as_view(),
+                           name='edit_tipo_de_relacion'),
+                       url(r'^tipo_de_relacion/eliminar/(?P<pk>\d+)/$',
+                           TipoDeRelacionDelete.as_view(),
+                           name='eliminar_tipo_de_relacion'),
                        url(r'^tipo_de_informacion_de_contacto/$',
                            TipoDeInformacionDeContactoListView.as_view(),
                            name='list_tipo_de_informacion_de_contacto'),

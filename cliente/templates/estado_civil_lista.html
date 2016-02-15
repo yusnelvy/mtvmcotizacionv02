@@ -162,19 +162,19 @@ Estado civil
 
         {% if request.GET.page %}
 
-        <a href="?order_by=estado_civil&page={{request.GET.page}}" id="estado_civil" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-estado_civil&page={{request.GET.page}}" id="-estado_civil"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=estado_civil&page={{request.GET.page}}" id="estado_civil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-estado_civil&page={{request.GET.page}}" id="-estado_civil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=estado_civil" id="estado_civil" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
-        <a href="?order_by=-estado_civil" id="-estado_civil"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+        <a href="?order_by=estado_civil" id="estado_civil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-estado_civil" id="-estado_civil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th width="80px">Editar</th>
-    <th width="80px">Eliminar</th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in estados_civil %}
@@ -185,10 +185,10 @@ Estado civil
         {{ i.estado_civil }}
 
     </td>
-    <td width="80px">
+    <td>
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
-    <td width="80px">
+    <td>
         <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
@@ -202,5 +202,11 @@ Estado civil
 </tr>
 
 {% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('estado_civil');
+    })
+</script>
 
 {% endblock lista %}

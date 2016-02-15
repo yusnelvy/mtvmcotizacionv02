@@ -5,7 +5,7 @@ from mueble.models import TipoDeMueble, Mueble, EspecificacionDeMueble,\
     MueblePorAmbiente
 from mueble.forms import TipoDeMuebleForm, MuebleForm, EspecificacionDeMuebleForm, \
     MueblePorAmbienteForm
-#from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -19,29 +19,29 @@ class TipoDeMuebleListView(ListView):
     context_object_name = 'tiposdemueble'
     template_name = 'tipodemueble_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TipoDeMuebleListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_tipodemueble = TipoDeMueble.objects.all().order_by(order_by)
@@ -120,11 +120,10 @@ class TipoDeMuebleUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TipoDeMuebleUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
         tipodemueble = TipoDeMueble.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -223,7 +222,7 @@ class TipoDeMuebleUpdate(UpdateView):
             if redirect_to:
                 return HttpResponseRedirect(redirect_to)
             else:
-                return render_to_response(self.template_name, self.get_context_data())
+                return HttpResponseRedirect(reverse('umuebles:list_tipodemueble'))
 
 
 class TipoDeMuebleDelete(DeleteView):
@@ -249,29 +248,29 @@ class MuebleListView(ListView):
     context_object_name = 'muebles'
     template_name = 'mueble_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(MuebleListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_mueble = Mueble.objects.all().order_by(order_by)
@@ -350,11 +349,10 @@ class MuebleUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(MuebleUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
         mueble = Mueble.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -479,29 +477,29 @@ class EspecificacionDeMuebleListView(ListView):
     context_object_name = 'especificacionesdemueble'
     template_name = 'especificaciondemueble_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(EspecificacionDeMuebleListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_especificaciondemueble = EspecificacionDeMueble.objects.all().order_by(order_by)
@@ -580,11 +578,10 @@ class EspecificacionDeMuebleUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(EspecificacionDeMuebleUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
         especificaciondemueble = EspecificacionDeMueble.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -709,29 +706,29 @@ class MueblePorAmbienteListView(ListView):
     context_object_name = 'mueblesporambiente'
     template_name = 'muebleporambiente_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(MueblePorAmbienteListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_muebleporambiente = MueblePorAmbiente.objects.all().order_by(order_by)
@@ -810,11 +807,10 @@ class MueblePorAmbienteUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(MueblePorAmbienteUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
         muebleporambiente = MueblePorAmbiente.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')

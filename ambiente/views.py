@@ -6,9 +6,11 @@ Docstring documentación pendiente
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
-from ambiente.models import Ambiente, AmbientePorTipoDeInmueble
+from ambiente.models import Ambiente, AmbientePorTipoDeInmueble, \
+    AmbienteEstadoDeRegistro
 from ambiente.forms import AmbienteForm, AmbientePorTipoDeInmuebleForm
-#from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from estadoderegistro.models import EstadoDeRegistro
+from mtvmcotizacionv02.views import valor_Personalizacionvisual
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,29 +24,27 @@ class AmbienteListView(ListView):
     context_object_name = 'ambientes'
     template_name = 'ambiente_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(AmbienteListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_ambiente = Ambiente.objects.all().order_by(order_by)
@@ -105,6 +105,15 @@ class AmbienteView(View):
         if form.is_valid():
             id_reg = form.save()
 
+            estadoactual = EstadoDeRegistro.objects.filter(model='ambiente',
+                                                           estado__estado='Activo')
+
+            agregarestado = AmbienteEstadoDeRegistro.objects.create(ambiente=id_reg,
+                                                                    estado_de_registro_id=estadoactual[0].id,
+                                                                    usuario_id=2,
+                                                                    predefinido=True)
+            agregarestado.save()
+
             if 'regEdit' in request.POST:
                 messages.success(request, "Registro guardado.")
                 return HttpResponseRedirect(reverse('uambientes:edit_ambiente',
@@ -123,11 +132,10 @@ class AmbienteUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(AmbienteUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
         ambiente = Ambiente.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -226,7 +234,8 @@ class AmbienteUpdate(UpdateView):
             if redirect_to:
                 return HttpResponseRedirect(redirect_to)
             else:
-                return render_to_response(self.template_name, self.get_context_data())
+                return HttpResponseRedirect(reverse('uambientes:list_ambiente'))
+                #return render_to_response(self.template_name, self.get_context_data())
 
 
 class AmbienteDelete(DeleteView):
@@ -252,29 +261,29 @@ class AmbientePorTipoDeInmuebleListView(ListView):
     context_object_name = 'ambientesportipoinmueble'
     template_name = 'ambienteportipodeinmueble_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(AmbientePorTipoDeInmuebleListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+
         order_by = self.request.GET.get('order_by')
         if order_by:
             lista_ambiente = AmbientePorTipoDeInmueble.objects.all().order_by(order_by)
@@ -353,11 +362,10 @@ class AmbientePorTipoDeInmuebleUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(AmbientePorTipoDeInmuebleUpdate, self).get_context_data(**kwargs)
-        # if self.request.user.id is not None:
-        #     nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-        # else:
-        #     nropag = valor_Personalizacionvisual("std", "paginacion")
-        nropag = 10
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
         ambienteportipoinmueble = AmbientePorTipoDeInmueble.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
@@ -456,7 +464,8 @@ class AmbientePorTipoDeInmuebleUpdate(UpdateView):
             if redirect_to:
                 return HttpResponseRedirect(redirect_to)
             else:
-                return render_to_response(self.template_name, self.get_context_data())
+                return HttpResponseRedirect(reverse('uambientes:list_ambienteportipoinmueble'))
+                #return render_to_response(self.template_name, self.get_context_data())
 
 
 class AmbientePorTipoDeInmuebleDelete(DeleteView):
