@@ -1,8 +1,16 @@
-<title>Mueble</title>
+{% extends "base_lista.html" %}
 
-<h2>Listado de Mueble</h2>
+{% block titulo %}
 
-<h6>Cantidad de Mueble encontrados:
+Mueble
+
+{% endblock titulo %}
+
+{% block titulo_lista %}
+
+<h2>Listado de Muebles</h2>
+
+<h6>Cantidad de Muebles encontrados:
   <span class="badge" id="count_reg">
 
     {{ muebles.count }}
@@ -10,8 +18,9 @@
   </span>
 </h6>
 
-<nav class="nav-pagination hidden-print">
-<ul class="pagination" >
+{% endblock titulo_lista %}
+
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -143,31 +152,48 @@
 
 {% endif %}
 
-   </ul>
-</nav>
+
+{% endblock paginacion_lista %}
+
+{% block lista %}
 
 {% if muebles %}
 
-<table class="table table-hover table-bordered textAlignCenter" id="tabla">
-
   <tr class="active">
     <th>
-      mueble
+      muebles
+
       {% if request.GET.page %}
 
-        <a href="?order_by=mueble&page={{request.GET.page}}" id="mueble" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-        <a href="?order_by=-mueble&page={{request.GET.page}}" id="-mueble"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+        <a href="?order_by=mueble&page={{request.GET.page}}" id="mueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-mueble&page={{request.GET.page}}" id="-mueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
-      {% else %}
+        {% else %}
 
-        <a href="?order_by=mueble" id="mueble" class="glyphicon glyphicon-sort-by-alphabet btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Asc">Asc</a>
-        <a href="?order_by=-mueble" id="-mueble"  class="glyphicon glyphicon-sort-by-alphabet-alt btn-ordenarLista" data-placement="left" data-toggletooltip="tooltip" title="Desc">Desc</a>
+        <a href="?order_by=mueble" id="mueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-mueble" id="-mueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
-      {% endif %}
+        {% endif %}
 
     </th>
-    <th width="80px">Editar</th>
-    <th width="80px">Eliminar</th>
+    <th>
+      Descripción
+
+      {% if request.GET.page %}
+
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
   </tr>
 
   {% for i in muebles %}
@@ -178,29 +204,33 @@
       {{ i.mueble }}
 
     </td>
-    <td width="80px">
-      <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'umuebles:edit_mueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">Edit</a>
+    <td>
+
+      {{ i.descripcion }}
+
     </td>
-    <td width="80px">
-      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'umuebles:eliminar_mueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit">elim</a>
+    <td>
+      <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:edit_mueble' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+      <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:eliminar_mueble' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
   </tr>
 
   {% endfor %}
 
-</table>
 {% else %}
 
-<table class="table table-hover table-bordered textAlignCenter" id="tabla">
 <tr><td> No se encontraron registros</td>
 </tr>
-</table>
 
 {% endif %}
 
 <script>
-ocultarASCDesc('mueble');
+    $(document).on('ready',function(){
+        ocultarASCDesc('mueble');
+        ocultarASCDesc('descripcion');
+    })
 </script>
 
-
-
+{% endblock lista %}

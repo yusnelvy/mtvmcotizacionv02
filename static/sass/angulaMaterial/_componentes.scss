@@ -1,0 +1,326 @@
+/*
+ * componentes de crear nuevo y editar
+ */
+.botonRegistrar > button, .botonRegistrar > a {
+    @extend .md-raised;
+}
+.paginacionEdit {
+    padding: 0;
+    list-style: none;
+    display: block;
+    height: 50px;
+    .anteriorBloqueado {
+        float: left;
+    }
+    .siguienteBloqueado {
+        float: right;
+    }
+    .anterior {
+        float: left;
+    }
+    .siguiente {
+        float: right;
+    }
+}
+ul {
+  list-style: none;
+}
+.grupoInput p {
+
+    label {
+
+    }
+    input[type=text],
+    input[type=number],
+    input[type=password],
+    input[type=email],
+    input[type=date],
+    select, textarea {
+
+    }
+}
+/*
+ * componentes botones
+ */
+.btnSuccess {
+
+}
+.btnDefault {
+
+}
+/*
+ * componentes de listas
+ */
+.numRegistro {
+    @extend .badge;
+}
+.btn-ordenarLista {
+    float: right;
+    font-size: 16px;
+}
+.buscarEnLista {
+
+    max-width: 250px;
+    float:right!important;
+}
+.paginacionLista {
+    float: right;
+    @extend .hidden-print;
+    ul {
+        @extend .pagination;
+    }
+}
+.tablaLista {
+    @extend .mdl-data-table;
+    text-align: center!important;
+    width: 100%;
+    th, td {
+        text-align: center!important;
+    }
+}
+.tablaListaRelacion {
+
+    table {
+
+    }
+}
+.controlLista {
+    width: 80px;
+    text-align: center;
+}
+.ascendenteAlfabetico {
+    @extend .glyphicon;
+    @extend .glyphicon-sort-by-alphabet;
+    @extend .btn-ordenarLista;
+}
+.descendenteAlfabetico {
+     @extend .glyphicon;
+     @extend .glyphicon-sort-by-alphabet-alt;
+     @extend .btn-ordenarLista;
+}
+.ascendenteNumerico {
+     @extend .glyphicon;
+     @extend .glyphicon-sort-by-order;
+     @extend .btn-ordenarLista;
+}
+.descendenteNumerico {
+     @extend .glyphicon;
+     @extend .glyphicon-sort-by-order-alt;
+     @extend .btn-ordenarLista;
+}
+
+/*
+ * iconos
+ */
+.iconoPlus {
+    @extend .glyphicon;
+    @extend .glyphicon-plus;
+}
+.iconoVolver {
+    @extend .glyphicon;
+    @extend .glyphicon-chevron-left;
+}
+.iconoImprimir {
+    @extend .glyphicon;
+    @extend .glyphicon-print;
+}
+.iconoEditar {
+    @extend .glyphicon;
+    @extend .glyphicon-edit;
+}
+.iconoRemover {
+    @extend .glyphicon;
+    @extend .glyphicon-remove;
+}
+
+/*!
+ * navbar
+ */
+.navbarApp {
+    //@extend .navbar;
+    //@extend .navbar-default!optional;
+    div a md-icon {
+        @extend .navbar-brand;
+        font-size: 18px!important;
+    }
+}
+.menuSidebar {
+    @extend .navbar-brand;
+    z-index:1;
+    color:#fff!important;
+    float: right!important;
+}
+.menu-toggle {
+    @extend .navbar-brand;
+    z-index:1;
+    float: right;
+    &:hover {
+        color:$navbar-default-brand-hover-color;
+    }
+    md-icon {
+        color:#fff!important;
+        margin-right: 25px;
+    }
+}
+.divide {
+    height: 63px;
+    border-left: 1px solid #fff;
+    @extend .navbar-brand;
+    margin:0 -15px 0 30px;
+}
+/*!
+ * sidebar
+ */
+.wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.wrapper.toggled {
+    padding-right: 250px;
+}
+
+.sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 0;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: rgb(63,81,181);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.wrapper.toggled .sidebar-wrapper {
+    width: 250px;
+}
+
+.page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    height: calc(100% - 70px);
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.wrapper.toggled .page-content-wrapper {
+    width: calc(100% - 250px);
+    position: absolute;
+    margin-right: -250px;
+    height: calc(100% - 70px);
+    overflow-y: auto;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #fff;
+    &:hover {
+        color:#fff;
+        background: none;
+    }
+}
+
+/*!
+ * general
+ */
+.btn-disabled {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+    pointer-events: none;
+}
+body{
+    overflow-y: hidden;
+}
+.contenedor {
+    @extend .container-fluid;
+}
+.contenedorFila {
+    @extend .row;
+}
+.columna12 {
+    @extend .col-md-12;
+}
+.columna6 {
+    @extend .col-md-6;
+}
+.columna1 {
+    @extend .col-md-1;
+}
+.columna2 {
+    @extend .col-md-2;
+}
+.columna3 {
+    @extend .col-md-3;
+}
+.columna4 {
+    @extend .col-md-4;
+}
+.columna5 {
+    @extend .col-md-5;
+}
+.columna7 {
+    @extend .col-md-7;
+}
+.columna8 {
+    @extend .col-md-8;
+}
+.columna9 {
+    @extend .col-md-9;
+}
+.columna10 {
+    @extend .col-md-10;
+}
+.columna11 {
+    @extend .col-md-11;
+}

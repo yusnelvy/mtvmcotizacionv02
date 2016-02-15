@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-AR" >
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,72 +11,69 @@
         {% block titulo %}{% endblock titulo %}
 
     </title>
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material.css' %}">
 
     {% include "jquery.html" %}
 
     {% block js_superior %}{% endblock js_superior %}
 
 </head>
-<body>
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <a href="#menu-toggle" class="menu-toggle" title="Cerrar"></a>
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
-                </li>
-
-                {% block link_navegacion %}
-
-                <li>
-                    <a href="/mueble/tipo_de_mueble/">Tipo de muebles</a>
-                </li>
-
-                {% endblock link_navegacion %}
-
-                {% block sidebar_widget %}{% endblock sidebar_widget %}
-
+<body ng-app="AppMudarte">
+    <div class="wrapper">
+        <header>
+            <div ng-controller="ControlSidebar" class="sidebar-wrapper">
+                <ul class="sidebar-nav md-toolbar-tools">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            App Mudarte
+                        </a>
+                    </li>
+                    <span flex></span>
+                    <md-button class="md-icon-button menu-toggle" ng-click="toggleSide()">
+                    <md-icon  class="glyphicon glyphicon-remove"></md-icon>
+                </md-button>
             </ul>
 
             {% block widget_sidebar %}{% endblock widget_sidebar %}
 
         </div>
-        <!-- /#sidebar-wrapper -->
-        <!-- Page Content -->
-        <nav class="navbarapp">
-            <div class="container-fluid">
-                <a tilte="Mudarte" class="navbar-brand">Mudarte <span class="glyphicon glyphicon-road"></span></a>
-                <a class="navbar-brand" href="#">
-                    <!--<img alt="" src="...">-->
-                </a>
+        <nav ng-controller="ControlNavbar" class="navbarApp">
+            <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>Mudarte
+                        <span class="glyphicon glyphicon-road"></span>
+                    </span>
+                </h2>
                 <span class="divide"></span>
 
                 {% block acceso_rapido %}{% endblock acceso_rapido %}
 
-                <a href="#menu-toggle" class="menu-toggle menuSidebar" id="menuSidebar"></a>
-            </div>
-        </nav>
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
+                <span flex></span>
 
-                    {% block encabezado %}{% endblock encabezado %}
-
-                    {% block contenido %}{% endblock contenido %}
-
-                </div>
-            </div>
+                <md-button class="md-icon-button menuSidebar" ng-click="toggleSide()"  aria-label="Favorite">
+                <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
+            </md-button>
         </div>
-        <!-- /#page-content-wrapper -->
+    </md-toolbar>
+</nav>
+</header>
+<section class="page-content-wrapper">
+    <div class="contenedor">
+        <div class="contenedorFila">
+
+            {% block contenido %}{% endblock contenido %}
+
+        </div>
     </div>
+</section>
+</div>
 
-    {% include "script.html" %}
+{% include "script.html" %}
 
-    {% block js_inferior %}{% endblock js_inferior %}
+{% block js_inferior %}{% endblock js_inferior %}
+
+{% block moduloAngular %}{% endblock moduloAngular %}
 
 </body>
 </html>

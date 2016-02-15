@@ -1,19 +1,32 @@
 {% extends "base_editar.html" %}
 
+{% block titulo %}
+
+Mueble
+
+{% endblock titulo %}
+
 {% block titulo_form %}
 
 Agregar tipo de mueble
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
   {{ form.as_p }}
 
-<script type="text/javascript">
-document.getElementById('id_tipo_de_mueble').focus()
-</script>
+{% endblock cuerpo_form %}
 
-{% endblock formulario %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_tipo_de_mueble').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

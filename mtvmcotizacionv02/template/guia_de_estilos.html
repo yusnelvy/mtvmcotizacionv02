@@ -1,0 +1,376 @@
+<!--<div id="tipografia">
+<h2>Tipografía </h2>
+<p>
+La aplicación Mudarte se encuentra tres tipos de fuentes Sans-serif, "Helvetica Neue" y "Glyphicons Halflings". <br>
+Sans-serif se usa en el texto de párrafo. Helvetica Neue en los títulos de h1 hasta el h6. <br>
+Y Glyphicons Halflings se usas para los controles.
+</p>
+<small>Ejemplo:</small>
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="row">
+<div class="col-md-6">
+<legend>Helvetica Neue</legend>
+<h1>h1. heading -<small> 36px Helvetica Neue</small></h1>
+<h2>h2. heading -<small> 30px Helvetica Neue</small></h2>
+<h3>h3. heading -<small> 24px Helvetica Neue</small></h3>
+<h4>h4. heading -<small> 18px Helvetica Neue</small></h4>
+<h5>h5. heading -<small> 14px Helvetica Neue</small></h5>
+<h6>h6. heading -<small> 12px Helvetica Neue</small></h6>
+</div>
+<div class="col-md-3">
+<legend>Sans-serif</legend>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent arcu ex, dapibus nec porttitor at, sollicitudin vitae magna. Etiam maximus pellentesque arcu, blandit aliquet ligula dictum sit amet. Vestibulum elit nisi, tristique eget convallis ac, semper ac quam. Cras ante odio, varius sit amet elementum vel, eleifend vitae lectus.
+</p>
+</div>
+<div class="col-md-3">
+<legend>Glyphicons Halflings</legend>
+<br>
+<br>
+<br>
+<table class="table table-condensed">
+<tr class="textAlignCenter">
+<td colspan="80px">
+<a title="Eliminar" href="#" role="button" class="glyphicon" id="" data-name="">Agregar</a>
+</td>
+<td colspan="80px">
+<a title="Eliminar" href="#" role="button" class="glyphicon" id="" data-name="">Editar</a>
+</td>
+<td colspan="80px">
+<a title="Eliminar" href="#" role="button" class="glyphicon" id="" data-name="">Eliminar</a>
+</td>
+</tr>
+<tr>
+<td colspan="80px"></td>
+<td colspan="80px"></td>
+<td colspan="80px"></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+componente lista -->
+<link rel="stylesheet" href="../../static/css/estilos.css">
+<script src="../../static/js/jquery-1.12.0.min.js"></script>
+<div style="display:block;height:60px;width:100%;"></div>
+<section class="page-content-wrapper">
+<div class="contenedor">
+    <div class="contenedorFila">
+        <div class="columna12">
+            <h2>Componente contenedor</h2>
+            <br>
+            <code>
+                &lt;div class=&quot;contenedor&quot;&gt;
+                <br>
+                &nbsp;&nbsp;&lt;div class=&quot;contenedorFila&quot;&gt;
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;columna12&quot;&gt;&lt;/div&gt;
+                <br>
+                &nbsp;&nbsp;&lt;/div&gt;
+                <br>
+                &nbsp;&nbsp;&lt;div class=&quot;contenedorFila&quot;&gt;
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;columna6&quot;&gt;&lt;/div&gt;
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class=&quot;columna6&quot;&gt;&lt;/div&gt;
+                <br>
+                &nbsp;&nbsp;&lt;/div&gt;
+                <br>
+                &lt;/div&gt;
+                <br>
+            </code>
+            <br>
+        </div>
+    </div>
+    <div class="contenedorFila">
+        <div class="columna6">
+            <h2>Componente de listar</h2>
+            <br>
+            <table class="tablaLista">
+                <tr>
+                    <th>Titulo campo</th>
+                    <th>Titulo 2do campo</th>
+                    <th class="controlLista">Ver ficha</th>
+                    <th class="controlLista">Editar</th>
+                    <th class="controlLista">Eliminar</th>
+                </tr>
+                <tr>
+                    <td>datos del campo</td>
+                    <td>datos 2do campo</td>
+                    <td>icono 1</td>
+                    <td>icono 2</td>
+                    <td>icono 3</td>
+                </tr>
+            </table>
+            <br>
+        </div>
+    </div>
+    <div class="contenedorFila">
+        <div class="columna6">
+<h2>Componente elementos relacionados</h2>
+<h4>Elementos asociados a este elemento <a href="#" class="iconoPlus"></a></h4>
+
+<div class="tablaListaRelacion">
+  <table>
+    <tr>
+      <th width="300">Titulo del elemento</th>
+      <th class="controlLista">
+        Editar
+      </th>
+      <th class="controlLista">
+          Eliminar
+      </th>
+    </tr>
+    <tr>
+      <td>Elemento</td>
+      <td class="controlLista">
+        <a title="Editar" href="#" class="iconoEditar"></a>
+      </td>
+      <td class="controlLista">
+        <a title="Eliminar" href="#" class="iconoRemover"></a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+        </div>
+    </div>
+    <div class="contenedorFila">
+        <div class="columna6">
+            <h2>Componente de paginación en listas</h2>
+            <br>
+            <nav class="paginacionLista">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <span>&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Primero...
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            1
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            2
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            3
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            ...Ultimo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            ver todo
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+<div class="contenedorFila">
+    <div class="columna6">
+        <h2>Componente de formulario</h2>
+            <h3>Titulo del formulario</h3>
+            <form action="" method="post" id="myformEdit">
+                <div class="grupoInput">
+                    <p>
+                        <label for="">Texto:</label>
+                    <input type="text" required="required">
+                    </p>
+                    <p>
+                        <label for="">Numero:</label>
+                    <input type="number" required="required">
+                    </p>
+                    <p>
+                        <label for="">Contraseña:</label>
+                    <input type="password" required="required">
+                    </p>
+                    <p>
+                        <label for="">Correo:</label>
+                    <input type="email" required="required">
+                    </p>
+                    <p>
+                        <label for="">Fecha:</label>
+                    <input type="date" required="required" >
+                    </p>
+                    <p>
+                        <label for="">Area de texto:</label>
+                    <textarea name="" id="" cols="1" rows="1" required="required"></textarea>
+                    </p>
+                    <p>
+                        <label for="a">Checkbox:</label>
+                        <input type="checkbox" id="a" required="required">
+                    </p>
+                    <p>
+                        <label for="">Selección</label>
+                    <select name="" id="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    </p>
+                    <p>
+                        <label for="">Selección con busqueda</label>
+                    <select name="" id="">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    </p>
+                    <p>
+                        <label for="">Selección multiple</label>
+                    <select name="" id="" multiple="multiple">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    </p>
+                    <p>
+                        <div class="grupoCheckbox">
+                        <p>Grupo de checkbox</p>
+                        <label for="5">checkbox 1</label>
+                        <input type="checkbox" name="2" id="5">
+                        <label for="6">checkbox 2</label>
+                        <input type="checkbox" name="2" id="6">
+                        <label for="7">checkbox 3</label>
+                        <input type="checkbox" name="2" id="7">
+                        </div>
+                    </p>
+                    <p>
+                        <div class="grupoRadio">
+                        <p>Grupo de radio</p>
+                        <label for="2">Radio 1</label>
+                        <input type="radio" name="1" id="2">
+                        <label for="3">Radio 2</label>
+                        <input type="radio" name="1" id="3">
+                        <label for="4">Radio 3</label>
+                        <input type="radio" name="1" id="4">
+                        </div>
+                    </p>
+                </div>
+                <div class="botonRegistrar">
+                    <button type="submit" name="reg">Registrar</button>
+                    <button type="submit" name="regEdit">Registrar y seguir editando</button>
+                </div>
+            </form>
+    </div>
+</div>
+<div class="contenedorFila">
+    <div class="columna6">
+        <h2>Componente navegar en editar</h2>
+        <ul class="paginacionEdit">
+            <li class="anterior">
+                <a href="#">&larr; Anterior</a>
+            </li>
+            <li class="siguiente">
+                <a href="#">Siguiente &rarr;</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="contenedorFila">
+    <div class="columna6">
+            <h2>Botones</h2>
+    <p>
+        Los botones de acción se utilizan en todo el sitio, para centrar la atención de los <br>
+        usuarios sobre los flujos importantes del sitio se diferencia el color según su acción.
+    </p>
+    <small>Ejemplo:</small><br>
+    <button type="button" class="btnDefault">Default</button>
+    <button type="button" class="btnSuccess">Success</button>
+    <br><br>
+    </div>
+</div>
+<div class="contenedorFila">
+    <div class="columna12">
+        <h2>Componente navbar</h2>
+<br>
+<p>Codigo del navbar</p>
+<code>
+&lt;nav class=&quot;navbarApp&quot;&gt;<br>
+&nbsp;&lt;div class=&quot;contenedor&quot;&gt;<br>
+&nbsp;&nbsp;&lt;a title=&quot;Mudarte&quot;&gt;Mudarte <br>
+&nbsp;&nbsp;&nbsp;&lt;span class=&quot;glyphicon glyphicon-road&quot;&gt;&lt;/span&gt; <br>
+&nbsp;&nbsp;&lt;/a&gt; <br>
+&nbsp;&nbsp;&lt;a href=&quot;#&quot;&gt;&lt;/a&gt;<br>
+&nbsp;&nbsp;&lt;span class=&quot;divide&quot;&gt;&lt;/span&gt;<br>
+&nbsp;&nbsp;&lt;a title=&quot;Sidebar&quot; href=&quot;#menu-toggle&quot; class=&quot;menu-toggle menuSidebar&quot;&gt;&lt;/a&gt;<br>
+&nbsp;&lt;/div&gt;<br>
+&lt;/nav&gt;<br>
+</code>
+
+
+
+
+<h2>Componente sidebar</h2>
+<br>
+<code>
+&lt;div class=&quot;sidebar-wrapper&quot;&gt; <br>
+&nbsp;&lt;ul class=&quot;sidebar-nav&quot;&gt; <br>
+&nbsp;&nbsp;&lt;a href=&quot;#menu-toggle&quot; class=&quot;menu-toggle&quot; title=&quot;Cerrar&quot;&gt;&lt;/a&gt; <br>
+&nbsp;&nbsp;&lt;li class=&quot;sidebar-brand&quot;&gt; <br>
+&nbsp;&nbsp;&nbsp;&lt;a href=&quot;#&quot;&gt;
+App Mudarte
+&lt;/a&gt; <br>
+&nbsp;&nbsp;&lt;/li&gt; <br>
+&nbsp;&nbsp;&lt;li&gt; <br>
+&nbsp;&nbsp;&nbsp;&lt;a href=&quot;#&quot;&gt;Inicio&lt;/a&gt; <br>
+&nbsp;&nbsp;&lt;/li&gt; <br>
+&nbsp;&lt;/ul&gt; <br>
+&lt;/div&gt;
+</code>
+    </div>
+</div>
+<div class="contenedorFila">
+    <div class="columna12">
+
+
+
+
+
+
+
+    </div>
+</div>
+
+</div>
+</section>
+<script>
+    /*sidebar open and close | modificacion= 02-02-2016*/
+var cont = 0;
+$(".menu-toggle").click(function(e) {
+    e.preventDefault();
+    $(".wrapper").toggleClass("toggled");
+    if(cont == 1){
+
+        cont = 0;
+        $('.menuSidebar').css('display', 'block');
+    } else {
+        cont = 1;
+
+        $('.menuSidebar').css('display', 'none');
+    }
+});
+
+</script>

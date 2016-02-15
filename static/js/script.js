@@ -1,14 +1,25 @@
-var cont = 0;
-$(".menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-    if(cont == 1){
+  var app = angular.module('AppMudarte',['ngMaterial', 'ngMessages']);
 
-        cont = 0;
-        $('#menuSidebar').css('display', 'block');
-    } else {
-        cont = 1;
-
-        $('#menuSidebar').css('display', 'none');
-    }
+  app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('{$');
+    $interpolateProvider.endSymbol('$}');
 });
+
+/*sidebar open and close | modificacion= 02-02-2016*/
+
+/*$(".menu-toggle").click(function(e) {
+    e.preventDefault();
+
+});*/
+var cont = 0;
+app.controller('ControlNavbar', function ($scope) {
+    $scope.toggleSide = function () {
+        sidebarBtn();
+    };
+});
+app.controller('ControlSidebar', function ($scope) {
+    $scope.toggleSide = function () {
+       sidebarBtn();
+    };
+});
+

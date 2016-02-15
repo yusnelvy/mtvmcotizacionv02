@@ -1,3 +1,53 @@
+{% extends "base_editar.html" %}
+
+{% block titulo_form %}
+
+Editar el mueble: {{form.mueble.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}
+
+{% if mueble_previous %}
+        <li class="anterior">
+            <a href="{% url 'umuebles:edit_mueble' mueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+    {% else %}
+        <li class="anteriorBloqueado"><a href="#">&larr; Anterior</a></li>
+    {% endif %}
+
+    {% if mueble_next %}
+        <li class="siguiente">
+            <a href="{% url 'umuebles:edit_mueble' mueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+    {% else %}
+        <li class="siguienteBloqueado"><a href="#">Siguiente &rarr;</a></li>
+    {% endif %}
+
+{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+{{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_mueble').focus()
+</script>
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+
+
+
+
+
+
+
+
+
+
 <title>Mueble</title>
 
   <h2>Editar el mueble {{form.mueble.value|lower}}</h2>
@@ -5,21 +55,7 @@
 <form action="" method="post" id="myformEdit">
     {% csrf_token %}
 <ul class="pager">
-    {% if mueble_previous %}
-        <li class="previous">
-            <a href="{% url 'umuebles:edit_mueble' mueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
-        </li>
-    {% else %}
-        <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
-    {% endif %}
 
-    {% if mueble_next %}
-        <li class="next">
-            <a href="{% url 'umuebles:edit_mueble' mueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
-        </li>
-    {% else %}
-        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
-    {% endif %}
 </ul>
 
 <div class="form-group">
