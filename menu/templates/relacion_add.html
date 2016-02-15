@@ -1,0 +1,25 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Relación
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar relación
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_item_origen').focus()
+</script>
+
+{% endblock formulario %}

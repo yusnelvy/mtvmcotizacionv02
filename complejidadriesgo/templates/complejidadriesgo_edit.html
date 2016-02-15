@@ -1,0 +1,51 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Complejidad y Riesgo
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar la complejidad {{form.situacion.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
+    {% if complejidadriesgo_previous %}
+
+        <li class="previous">
+            <a href="{% url 'ucomplejidadriesgos:edit_complejidadriesgo' complejidadriesgo_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+
+    {% else %}
+
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
+    {% endif %}
+
+    {% if complejidadriesgo_next %}
+
+        <li class="next">
+            <a href="{% url 'ucomplejidadriesgos:edit_complejidadriesgo' complejidadriesgo_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+
+    {% else %}
+
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
+    {% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
+{{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_complejidadriesgo').focus()
+</script>
+
+{% endblock formulario %}

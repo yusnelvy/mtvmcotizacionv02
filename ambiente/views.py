@@ -27,10 +27,8 @@ class AmbienteListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
