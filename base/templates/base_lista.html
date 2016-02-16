@@ -18,10 +18,13 @@
 
 <div class="columna12">
     <br>
-    <md-input-container class="buscarEnLista">
-    <label for="search">Buscar...</label>
-    <input ng-model="search" type="search" id="search" name="search" placeholder="">
-</md-input-container>
+    <div ng-controller="buscar">
+        <md-input-container class="buscarEnLista">
+        <label for="search">Buscar...</label>
+        <input ng-model="search" type="search" id="search" name="search" md-autofocus>
+    </md-input-container>
+</div>
+
 
 {% block titulo_lista %}{% endblock titulo_lista %}
 
@@ -38,7 +41,6 @@
 
 </table>
 <script type="text/javascript">
-document.getElementById('search').focus();
 function ocultarASCDesc(id){
     if ('{{request.GET.order_by}}' == id){
         $('#'+id).css('display', 'none');
@@ -48,6 +50,5 @@ function ocultarASCDesc(id){
 }
 </script>
 </div>
-
 
 {% endblock contenido %}

@@ -50,6 +50,7 @@ urlpatterns = [
         include('menu.urls', namespace="umenus")),
     url(r'^chaining/',
         include('smart_selects.urls')),
+    url(r'^sidebarUpdate/$', 'mtvmcotizacionv02.views.sidebarUpdate', name='sidebarUpdate')
 ]
 
 if settings.DEBUG:

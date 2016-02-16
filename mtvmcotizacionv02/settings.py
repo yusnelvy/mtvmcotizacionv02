@@ -50,7 +50,9 @@ INSTALLED_APPS = (
     'promocion',
     'menu',
     'trabajador',
-    'vehiculo'
+    'vehiculo',
+    'base',
+    'djangular'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -97,7 +99,8 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
-                'base.forms.BaseForm2',
+                'base.forms.BaseFormMd',
+                'mtvmcotizacionv02.views.sidebar'
             ]
             # 'allowed_include_roots': [
             #

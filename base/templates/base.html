@@ -19,7 +19,7 @@
 
 </head>
 <body ng-app="AppMudarte">
-    <div class="wrapper">
+    <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}">
         <header>
             <div ng-controller="ControlSidebar" class="sidebar-wrapper">
                 <ul class="sidebar-nav md-toolbar-tools">
@@ -29,10 +29,13 @@
                         </a>
                     </li>
                     <span flex></span>
-                    <md-button class="md-icon-button menu-toggle" ng-click="toggleSide()">
+                    <md-button class="md-icon-button menu-toggle" ng-click="toggleSide();">
                     <md-icon  class="glyphicon glyphicon-remove"></md-icon>
                 </md-button>
+
+
             </ul>
+
 
             {% block widget_sidebar %}{% endblock widget_sidebar %}
 
@@ -50,14 +53,15 @@
                 {% block acceso_rapido %}{% endblock acceso_rapido %}
 
                 <span flex></span>
-
-                <md-button class="md-icon-button menuSidebar" ng-click="toggleSide()"  aria-label="Favorite">
+                <md-button class="md-icon-button menuSidebar {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="toggleSide()"  aria-label="Favorite">
                 <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
 </nav>
+
 </header>
+
 <section class="page-content-wrapper">
     <div class="contenedor">
         <div class="contenedorFila">
@@ -70,6 +74,8 @@
 </div>
 
 {% include "script.html" %}
+
+{% include "mensaje.html" %}
 
 {% block js_inferior %}{% endblock js_inferior %}
 

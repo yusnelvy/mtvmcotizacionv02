@@ -16,7 +16,7 @@ Agregar tipo de mueble
 
 {% block cuerpo_form %}
 
-  {{ form.as_p }}
+  {{ form.as_md }}
 
 {% endblock cuerpo_form %}
 
@@ -25,6 +25,7 @@ Agregar tipo de mueble
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
       $('#id_tipo_de_mueble').focus();
+      $('#id_tipo_de_mueble').parent().addClass('md-input-focused');
   });
 </script>
 <style>.paginacionEdit{height: 0;}</style>

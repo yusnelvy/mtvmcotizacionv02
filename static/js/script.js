@@ -15,11 +15,19 @@ var cont = 0;
 app.controller('ControlNavbar', function ($scope) {
     $scope.toggleSide = function () {
         sidebarBtn();
+        $('.menuSidebar').addClass('hidden');
+        actualizarSidebar();
     };
 });
 app.controller('ControlSidebar', function ($scope) {
     $scope.toggleSide = function () {
        sidebarBtn();
+       $('.menuSidebar').removeClass('hidden');
+       actualizarSidebar();
     };
 });
+app.controller('buscar',function($scope){
+  $('#search').focus();
+  $('#search').parent().addClass('md-input-focused');
+  });
 
