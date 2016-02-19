@@ -1,0 +1,55 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Vehículo
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar vehículo {{form.marca.value|lower}} {{form.modelo.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
+{% if vehiculo_previous %}
+
+<li class="previous">
+    <a href="{% url 'uvehiculos:edit_vehiculo' vehiculo_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+</li>
+
+{% else %}
+
+<li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
+{% endif %}
+
+{% if vehiculo_next %}
+
+<li class="next">
+    <a href="{% url 'uvehiculos:edit_vehiculo' vehiculo_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+</li>
+
+{% else %}
+
+<li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
+{% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
+<div class="prueba">
+
+{{ form.as_md }}
+
+</div>
+
+<script type="text/javascript">
+document.getElementById('id_marca').focus()
+</script>
+
+{% endblock formulario %}

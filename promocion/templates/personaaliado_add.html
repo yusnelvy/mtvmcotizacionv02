@@ -1,0 +1,25 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Persona aliada
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar Persona aliada
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_md }}
+
+<script type="text/javascript">
+document.getElementById('id_institucion').focus()
+</script>
+
+{% endblock formulario %}

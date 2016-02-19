@@ -1,4 +1,6 @@
 from django.db import models
+from estadoderegistro.models import EstadoDeRegistro
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -41,3 +43,24 @@ class Trabajador(models.Model):
         verbose_name = "Trabajador"
         verbose_name_plural = "Trabajadores"
         ordering = ['nombre', 'apellido']
+
+
+class TrabajadorEstadoDeRegistro(models.Model):
+    """docstring for TrabajadorEstadoDeRegistro"""
+    def __init__(self, *args, **kwargs):
+        super(TrabajadorEstadoDeRegistro, self).__init__(*args, **kwargs)
+
+    trabajador = models.ForeignKey(Trabajador)
+    estado_de_registro = models.ForeignKey(EstadoDeRegistro)
+    fecha = models.DateField(auto_now_add=True, blank=True)
+    usuario = models.ForeignKey(User)
+    observacion = models.TextField(blank=True)
+    predefinido = models.BooleanField(default=None)
+
+    def __str__(self):
+        return u' %s - %s' % (self.trabajador, self.estado_de_registro)
+
+    class Meta:
+        verbose_name = "Estado de registro de trabajador"
+        verbose_name_plural = "Estados de registro de trabajador"
+        ordering = ["trabajador", "estado_de_registro"]

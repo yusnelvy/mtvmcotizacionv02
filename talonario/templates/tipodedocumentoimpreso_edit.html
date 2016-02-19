@@ -1,0 +1,51 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Tipo de documento impreso
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar el tipo de documento impreso {{form.tipo_de_documento_impreso.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
+    {% if tipodedocumentoimpreso_previous %}
+
+        <li class="previous">
+            <a href="{% url 'utalonarios:edit_tipodedocumentoimpreso' tipodedocumentoimpreso_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+
+    {% else %}
+
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
+    {% endif %}
+
+    {% if tipodedocumentoimpreso_next %}
+
+        <li class="next">
+            <a href="{% url 'utalonarios:edit_tipodedocumentoimpreso' tipodedocumentoimpreso_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+
+    {% else %}
+
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
+    {% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
+{{ form.as_md }}
+
+<script type="text/javascript">
+document.getElementById('id_tipo_de_documento_impreso').focus()
+</script>
+
+{% endblock formulario %}

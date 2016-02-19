@@ -174,17 +174,17 @@ Estado de registro
 
     </th>
     <th>
-        Tipo de registro
+        Model
 
         {% if request.GET.page %}
 
-        <a href="?order_by=tipo_de_registro&page={{request.GET.page}}" id="tipo_de_registro" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-tipo_de_registro&page={{request.GET.page}}" id="-tipo_de_registro"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=model&page={{request.GET.page}}" id="model" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-model&page={{request.GET.page}}" id="-model"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=tipo_de_registro" id="tipo_de_registro" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-tipo_de_registro" id="-tipo_de_registro"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=model" id="model" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-model" id="-model"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -251,7 +251,7 @@ Estado de registro
     </td>
     <td>
 
-        {{ i.tipo_de_registro }}
+        {{ i.model }}
 
     </td>
     <td>
@@ -290,7 +290,7 @@ Estado de registro
 <script>
     $(document).on('ready',function(){
         ocultarASCDesc('estado');
-        ocultarASCDesc('tipo_de_registro');
+        ocultarASCDesc('model');
         ocultarASCDesc('orden');
         ocultarASCDesc('descripcion');
         ocultarASCDesc('observacion');

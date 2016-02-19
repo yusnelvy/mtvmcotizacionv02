@@ -1,0 +1,25 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Chofer asignado
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar Chofer asignado
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_md }}
+
+<script type="text/javascript">
+document.getElementById('id_detalle_de_vehiculo').focus()
+</script>
+
+{% endblock formulario %}

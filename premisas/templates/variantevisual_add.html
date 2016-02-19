@@ -1,0 +1,41 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Variante visual
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar Variante visual
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+<div class="prueba">
+  {{ form.as_md }}
+<fieldset>
+<legend>Variante Detalle</legend>
+{{ itemvariante_form.management_form }}
+{{ itemvariante_form.non_form_errors }}
+{% for form in itemvariante_form %}
+    {{ form.id }}
+    <div class="inline {{ itemvariante_form.prefix }}">
+        {{ form.campo.errors }}
+        {{ form.campo.label_tag }}
+        {{ form.campo }}
+        {{ form.visibilidad.errors }}
+        {{ form.visibilidad.label_tag }}
+        {{ form.visibilidad }}
+    </div>
+{% endfor %}
+</fieldset>
+</div>
+<script type="text/javascript">
+document.getElementById('id_usuario').focus()
+</script>
+
+{% endblock formulario %}
