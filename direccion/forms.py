@@ -4,7 +4,7 @@ Docstring documentación pendiente
 """
 
 
-from django.forms import ModelForm, TextInput, Select
+from django.forms import ModelForm, TextInput
 from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificacion, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
