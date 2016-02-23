@@ -128,7 +128,7 @@ def lista_Relacion(request):
 
             break
 
-    context = {'relacion': relacion, 'url1': url1, 'url2': url2, 'hola': hola}
+    context = {'relacion': relacion, 'url1': url1, 'url2': 'url2', 'hola': hola}
     return context
 
 
