@@ -1,0 +1,25 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Mensaje
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar mensaje
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_tipo_de_mensaje').focus()
+</script>
+
+{% endblock formulario %}

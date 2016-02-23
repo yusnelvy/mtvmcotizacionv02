@@ -1,5 +1,6 @@
 from django import template
 from django.core.urlresolvers import reverse
+from menu.models import Menu, Relacion
 
 register = template.Library()
 
@@ -10,3 +11,4 @@ def url_Menu(namespace, name):
     url = '%s:%s' % (namespace, name)
     urlfinal = reverse(url)
     return (urlfinal)
+

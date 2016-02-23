@@ -46,8 +46,16 @@ urlpatterns = [
         include('premisas.urls', namespace="upremisas")),
     url(r'^promocion/',
         include('promocion.urls', namespace="upromociones")),
+    url(r'^menu/',
+        include('menu.urls', namespace="umenus")),
     url(r'^chaining/',
         include('smart_selects.urls')),
+    url(r'^menu_ver/$',views.lista_Menu,
+        name='menu_ver'),
+    url(r'^relacion_ver/$',views.lista_Relacion,
+        name='relacion_ver'),
+    url(r'^transaccion/$',views.lista_Transaccion,
+        name='transaccion'),
 ]
 
 if settings.DEBUG:

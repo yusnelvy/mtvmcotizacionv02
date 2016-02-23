@@ -97,7 +97,7 @@ class Cliente(models.Model):
     tipo_de_cliente = models.ForeignKey(TipoDeCliente, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.tipo_de_cliente
+        return str(self.pk)
 
     class Meta:
         verbose_name = "Cliente"

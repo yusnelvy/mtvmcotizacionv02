@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load menu_extras %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,15 +37,20 @@
 
 
             {% block widget_menu_general %}
+            <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)"/>
+
+            <input type="button" value="Ir" onclick="transaccion()">
             {% include "Menu_general.html" %}
             {% endblock widget_menu_general %}
 
+            {% block widget_sidebar %}
+            {% block titulo2 %}
+            Tablas Relacionadas
+            {% endblock titulo2 %}
+            {% include "tablas_relacionadas.html" %}
+            {% endblock widget_sidebar %}
 
             </ul>
-
-
-            {% block widget_sidebar %}
-            {% endblock widget_sidebar %}
 
         </div>
         <!-- /#sidebar-wrapper -->

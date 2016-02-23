@@ -1,0 +1,26 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Cliente
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar cliente
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_p }}
+  {{ form2.as_p }}
+
+<script type="text/javascript">
+document.getElementById('id_cliente').focus()
+</script>
+
+{% endblock formulario %}

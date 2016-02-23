@@ -1,13 +1,14 @@
-{% extends "base.html" %}
-
-{% block widget_sidebar %}
+{% load menu_extras %}
 
 <div class="">
 
-                <ul>
-                    <li><a>Hola Jessica</a>
-                    </li>
-                </ul>
-</div>
+ {% for k in relacion %}
 
-{% endblock widget_sidebar %}
+        <ul>
+            <li><a href="{% url_Menu k.item_relacion.namespace k.item_relacion.name %}">{{ k.nombre }}</a>
+            </li>
+        </ul>
+
+    {% endfor %}
+
+</div>
