@@ -237,7 +237,6 @@ Ambiente
 
     <td> No se encontraron registros </td>
 </tr>
-
 {% endif %}
 
 <script>
@@ -246,6 +245,26 @@ Ambiente
         ocultarASCDesc('descripcion');
         ocultarASCDesc('conteo_de_ambientes');
     })
+</script>
+
+<script src="/static/js/html2canvas.js"></script>
+<script src="/static/js/jspdf.debug.js"></script>
+<script>
+$(document).ready(function() {
+    $('#cmd').click(function () {
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        var margins = {
+            top: 25,
+            bottom: 60,
+            left: 20,
+            width: 522
+        };
+        pdf.addHTML($('#content')[0], margins.top, margins.left, {}, function () {
+            pdf.save("ResumenFinal_{{ambiente.id}}.pdf");
+        }, margins);
+    });
+});
+
 </script>
 
 {% endblock lista %}

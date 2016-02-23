@@ -5,8 +5,8 @@ from django.db.models import Q
 from django.template import RequestContext
 import re
 from premisas.models import PersonalizacionVisual
-from menu.models import Menu
-
+from menu.models import Menu, Relacion, MenuFavorito
+from django.core.urlresolvers import reverse
 
 def pantalla_inicial(request):
     """Docstring"""
@@ -113,15 +113,67 @@ def sidebar(request):
     }
 
 
-
-def lista_ambiente(request):
+def lista_Relacion(request):
     """docstring"""
+    menu = Menu.objects.filter(nivel=3)
+    url1 = request.path
+    relacion= ''
+    hola = 'diferentes'
+    for i in menu:
+
+        url2 = reverse( '%s:%s' % (i.namespace, i.name))
+        if (url1 == (url2)):
+            hola = 'iguales'
+            relacion = Relacion.objects.filter(item_origen_id=i.id)
+
+            break
+
+    context = {'relacion': relacion, 'url1': url1, 'url2': url2, 'hola': hola}
+    return context
+
+
+def lista_Menu(request):
+    """docstring"""
+    urlactual = request.path
+
+    idActual = 0
+
+    idActualFav = 0
+
+    urln3 = ''
+
     nivel1 =  Menu.objects.filter(nivel=1)
 
     nivel2 =  Menu.objects.filter(nivel=2)
 
     nivel3 =  Menu.objects.filter(nivel=3)
 
+    favoritos = MenuFavorito.objects.all().order_by('orden')
+
+    for i in nivel3:
+        urln3 = reverse('%s:%s' % (i.namespace, i.name))
+        if (urlactual == urln3):
+            idActual = i.id
+            favoritos2 = MenuFavorito.objects.all().filter(menu_id = i.id)
+            for j in favoritos2:
+                    idActualFav = j.id
+
     context = {'nivel1': nivel1, 'nivel2': nivel2,
-               'nivel3': nivel3}
-    return render_to_response('Menu_general.html', context)
+               'nivel3': nivel3, 'favoritos': favoritos, 'urlactual': urlactual, 'idActual': idActual, 'idActualFav': idActualFav}
+    return context
+
+
+def lista_Transaccion(request):
+    """docstring"""
+    transaccion2 = request.GET.get('variable')
+    relacion =   Menu.objects.filter(nivel=3)
+
+    for i in relacion:
+
+        if (i.transaccion == transaccion2):
+            url = '%s:%s' % (i.namespace, i.name)
+            return JsonResponse({'url': reverse(url)}, safe=False)
+
+    return JsonResponse({'url': ''}, safe=False)
+
+

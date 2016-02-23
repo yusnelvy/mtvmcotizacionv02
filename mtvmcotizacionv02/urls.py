@@ -62,6 +62,12 @@ urlpatterns = [
         include('vehiculo.urls', namespace="uvehiculos")),
     url(r'^chaining/',
         include('smart_selects.urls')),
+    url(r'^menu_ver/$',views.lista_Menu,
+        name='menu_ver'),
+    url(r'^relacion_ver/$',views.lista_Relacion,
+        name='relacion_ver'),
+    url(r'^transaccion/$',views.lista_Transaccion,
+        name='transaccion'),
 ]
 
 if settings.DEBUG:

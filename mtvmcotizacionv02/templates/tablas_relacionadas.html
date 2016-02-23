@@ -1,0 +1,14 @@
+{% load menu_extras %}
+
+<div class="">
+
+ {% for k in relacion %}
+
+        <ul>
+            <li><a href="{% url_Menu k.item_relacion.namespace k.item_relacion.name %}">{{ k.nombre }}</a>
+            </li>
+        </ul>
+
+    {% endfor %}
+
+</div>
