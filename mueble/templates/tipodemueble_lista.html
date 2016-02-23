@@ -2,7 +2,7 @@
 
 {% block titulo %}
 
-Tipo de mueble
+Mueble
 
 {% endblock titulo %}
 
@@ -10,8 +10,8 @@ Tipo de mueble
 
 <h2>Listado de tipos de muebles</h2>
 
-<h6>Cantidad de tipos de mueble encontrados:
-    <span class="badge" id="count_reg">
+<h6>Cantidad de tipos de muebles encontrados:
+    <span class="numRegistro" id="count_reg">
 
         {{ tiposdemueble.count }}
 
@@ -20,7 +20,7 @@ Tipo de mueble
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,15 +150,15 @@ Tipo de mueble
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
 {% if tiposdemueble %}
-
+<thead>
 <tr class="active">
     <th>
-        Tipos de mueble
+        Nombre del tipo de mueble
 
         {% if request.GET.page %}
 
@@ -174,7 +174,7 @@ Tipo de mueble
 
     </th>
     <th>
-        Descripción
+        Descripción del tipo de mueble
 
         {% if request.GET.page %}
 
@@ -189,10 +189,12 @@ Tipo de mueble
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
-
+</thead>
+<tbody>
 {% for i in tiposdemueble %}
 
 <tr id="tr{{i.pk}}">
@@ -207,15 +209,18 @@ Tipo de mueble
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:edit_tipodemueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:eliminar_tipodemueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:edit_tipodemueble' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:eliminar_tipodemueble' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
 {% endfor %}
-
+</tbody>
 {% else %}
 
 <tr>

@@ -2,15 +2,15 @@
 
 {% block titulo %}
 
-Estado civil
+Cliente
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de estados civil</h2>
+<h2>Listado de estado civil</h2>
 
-<h6>Cantidad de Estados Civiles:
+<h6>Cantidad de Estados Civiles encontrados:
     <span class="badge" id="count_reg">
 
         {{ estados_civil.count }}
@@ -20,7 +20,7 @@ Estado civil
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +150,7 @@ Estado civil
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -173,6 +173,7 @@ Estado civil
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -186,10 +187,13 @@ Estado civil
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_estado_civil' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_estado_civil' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:eliminar_estado_civil' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 

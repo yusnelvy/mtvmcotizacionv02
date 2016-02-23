@@ -2,50 +2,68 @@
 
 {% block titulo %}
 
-    Estado de documento
+Gestión de documento
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar el Estado de documento {{form.estado_de_documento.value|lower}}
+Editar el Estado de documento: {{form.estado_de_documento.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if estadodedocumento_previous %}
 
-        <li class="previous">
-            <a href="{% url 'ugestiondedocumentos:edit_estadodedocumento' estadodedocumento_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        <li class="anterior">
+            <md-button href="{% url 'ugestiondedocumentos:edit_estadodedocumento' estadodedocumento_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
-       <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+       <li class="anteriorBloqueado">
+        <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+        </li>
 
     {% endif %}
 
     {% if estadodedocumento_next %}
 
-        <li class="next">
-            <a href="{% url 'ugestiondedocumentos:edit_estadodedocumento' estadodedocumento_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        <li class="siguiente">
+            <md-button href="{% url 'ugestiondedocumentos:edit_estadodedocumento' estadodedocumento_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+        <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
 
    {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-{{ form.as_p }}
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_tipo_de_documento').focus()
+app.controller('controlForm',function($scope){
+    $scope.tipo_de_documento = '{{form.tipo_de_documento.value}}';
+    $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.estado_de_documento = '{{form.estado_de_documento.value}}';
+    $scope.orden = '{{form.orden.value}}';
+    $scope.observacion = '{{form.observacion.value}}';
+    $('#id_estado_de_documento').focus();
+    $('#id_estado_de_documento').parent().addClass('md-input-focused');
+});
 </script>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

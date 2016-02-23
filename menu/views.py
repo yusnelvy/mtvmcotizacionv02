@@ -104,10 +104,11 @@ class MenuView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Menu '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:edit_menu',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Menu '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_menu'))
 
         return render(request, self.template_name, {'form': form})
@@ -215,14 +216,16 @@ class MenuUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Menu " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Menu '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Menu '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
+                messages.success(self.request, "Menu '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_menu'))
                 #return render_to_response(self.template_name, self.get_context_data())
 
@@ -238,6 +241,7 @@ class MenuDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Menu '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -332,10 +336,11 @@ class MenuFavoritoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Menu favorito '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:edit_menufavorito',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Menu favorito '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_menufavorito'))
 
         return render(request, self.template_name, {'form': form})
@@ -443,14 +448,16 @@ class MenuFavoritoUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Menú favorito " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Menu favorito '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Menu favorito '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
+                messages.success(self.request, "Menu favorito '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_menufavorito'))
                 #return render_to_response(self.template_name, self.get_context_data())
 
@@ -466,6 +473,7 @@ class MenuFavoritoDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Menu favorito '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -560,10 +568,11 @@ class RelacionView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Menu relación '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:edit_relacion',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Menu relación '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_relacion'))
 
         return render(request, self.template_name, {'form': form})
@@ -671,14 +680,16 @@ class RelacionUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Relación " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Menu relación '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Menu relación '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
+                messages.success(self.request, "Menu relación '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_relacion'))
                 #return render_to_response(self.template_name, self.get_context_data())
 
@@ -694,6 +705,7 @@ class RelacionDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Menu relación '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())

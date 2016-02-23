@@ -2,24 +2,31 @@
 
 {% block titulo %}
 
-Provincia
+Dirección
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar Provincia
+Agregar una provincia
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-  {{ form.as_p }}
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_provincia').focus()
+app.controller('controlForm',function($scope){
+      $('#id_provincia').focus();
+      $('#id_provincia').parent().addClass('md-input-focused');
+  });
 </script>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

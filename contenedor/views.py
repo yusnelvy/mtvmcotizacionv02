@@ -103,10 +103,11 @@ class ContenedorView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Contenedor '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ucontenedores:edit_contenedor',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Contenedor '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ucontenedores:list_contenedor'))
 
         return render(request, self.template_name, {'form': form})
@@ -214,12 +215,13 @@ class ContenedorUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Contenedor " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Contenedor '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Contenedor '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -236,6 +238,7 @@ class ContenedorDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Contenedor '" + str(self.object) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())

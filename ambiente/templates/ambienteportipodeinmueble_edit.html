@@ -12,7 +12,7 @@ Editar el ambiente ambiente por tipo de inmueble {{form.ambiente.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if ambienteportipoinmueble_previous %}
 
@@ -38,9 +38,9 @@ Editar el ambiente ambiente por tipo de inmueble {{form.ambiente.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 {{ form.as_p }}
 
@@ -48,4 +48,4 @@ Editar el ambiente ambiente por tipo de inmueble {{form.ambiente.value|lower}}
 document.getElementById('id_ambiente').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

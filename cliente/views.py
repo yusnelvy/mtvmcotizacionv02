@@ -105,10 +105,11 @@ class SexoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Sexo '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:edit_sexo',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Sexo '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:list_sexo'))
 
         return render(request, self.template_name, {'form': form})
@@ -216,12 +217,13 @@ class SexoUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Sexo " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Sexo '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Sexo '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -238,6 +240,7 @@ class SexoDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Sexo '" + str(self.object) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -334,10 +337,11 @@ class EstadoCivilView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Estado civil '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:edit_estado_civil',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Estado civil '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:list_estado_civil'))
 
         return render(request, self.template_name, {'form': form})
@@ -445,12 +449,13 @@ class EstadoCivilUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Estado Civil " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Estado civil '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Estado civil '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -467,6 +472,7 @@ class EstadoCivilDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Estado civil '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -563,10 +569,11 @@ class TipoDeClienteView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de cliente '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:edit_tipo_de_cliente',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de cliente '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:list_tipo_de_cliente'))
 
         return render(request, self.template_name, {'form': form})
@@ -674,12 +681,13 @@ class TipoDeClienteUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Tipo de cliente " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Tipo de cliente '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Tipo de cliente '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -696,6 +704,7 @@ class TipoDeClienteDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Tipo de cliente '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -792,10 +801,11 @@ class TipoDeRelacionView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de relación '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:edit_tipo_de_relacion',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de relación '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:list_tipo_de_relacion'))
 
         return render(request, self.template_name, {'form': form})
@@ -903,12 +913,13 @@ class TipoDeRelacionUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Tipo de contacto " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Tipo de relación '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Tipo de relación '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -925,6 +936,7 @@ class TipoDeRelacionDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Tipo de relación '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -1021,10 +1033,11 @@ class TipoDeInformacionDeContactoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de información de contacto '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:edit_tipo_de_informacion_de_contacto',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de información de contacto '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:list_tipo_de_informacion_de_contacto'))
 
         return render(request, self.template_name, {'form': form})
@@ -1132,12 +1145,13 @@ class TipoDeInformacionDeContactoUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Tipo de informacion de contacto " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Tipo de información de contacto '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Tipo de información de contacto '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -1154,6 +1168,7 @@ class TipoDeInformacionDeContactoDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Tipo de información de contacto '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())

@@ -103,10 +103,11 @@ class TipoDeMensajeView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de mensaje '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umensajes:edit_tipodemensaje',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de mensaje '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umensajes:list_tipodemensaje'))
 
         return render(request, self.template_name, {'form': form})
@@ -214,14 +215,16 @@ class TipoDeMensajeUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Tipo de mensaje " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Tipo de mensaje '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Tipo de mensaje '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
+                messages.success(self.request, "Tipo de mensaje '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(reverse('umensajes:list_tipodemensaje'))
                 #return render_to_response(self.template_name, self.get_context_data())
 
@@ -237,6 +240,7 @@ class TipoDeMensajeDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Tipo de mensaje '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -330,10 +334,11 @@ class MensajeView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Mensaje '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umensajes:edit_mensaje',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Mensaje '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('umensajes:list_mensaje'))
 
         return render(request, self.template_name, {'form': form})
@@ -441,12 +446,13 @@ class MensajeUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Mensaje " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Mensaje '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Mensaje '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -463,6 +469,7 @@ class MensajeDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Mensaje '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())

@@ -8,44 +8,57 @@
 
 {% block titulo_form %}
 
-Editar el país {{form.pais.value|lower}}
+Editar el país: {{form.pais.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if pais_previous %}
 
-        <li class="previous">
-            <a href="{% url 'udirecciones:edit_pais' pais_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        <li class="anterior">
+            <md-button href="{% url 'udirecciones:edit_pais' pais_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+        </li>
 
     {% endif %}
 
     {% if pais_next %}
 
-        <li class="next">
-            <a href="{% url 'udirecciones:edit_pais' pais_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        <li class="siguiente">
+            <md-button href="{% url 'udirecciones:edit_pais' pais_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+        <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
 
    {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-{{ form.as_p }}
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_pais').focus()
+app.controller('controlForm',function($scope){
+    $scope.pais = '{{form.pais.value}}';
+    $scope.codigo_telefonico = '{{form.pais.value}}'
+      $('#id_pais').focus();
+      $('#id_pais').parent().addClass('md-input-focused');
+  });
 </script>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

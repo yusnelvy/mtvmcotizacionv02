@@ -1,37 +1,74 @@
-<title>Especificación de Mueble</title>
+{% extends "base_editar.html" %}
 
-  <h2>Editar el especificación de mueble {{form.especificacion_de_mueble.value|lower}}</h2>
+{% block titulo_form %}
 
-<form action="" method="post" id="myformEdit">
-    {% csrf_token %}
-<ul class="pager">
+Editar el especificación de mueble: {{ form.especificacion_de_mueble.value|lower }}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}
+
     {% if especificaciondemueble_previous %}
-        <li class="previous">
-            <a href="{% url 'umuebles:edit_especificaciondemueble' especificaciondemueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+
+        <li class="anterior">
+            <md-button href="{% url 'umuebles:edit_especificaciondemueble' especificaciondemueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
         </li>
+
     {% else %}
-        <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+        </li>
+
     {% endif %}
 
     {% if especificaciondemueble_next %}
-        <li class="next">
-            <a href="{% url 'umuebles:edit_especificaciondemueble' especificaciondemueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+
+        <li class="siguiente">
+            <md-button href="{% url 'umuebles:edit_especificaciondemueble' especificaciondemueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
         </li>
+
     {% else %}
-        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+
+        <li class="siguiente">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
+
     {% endif %}
-</ul>
 
-<div class="form-group">
-  {{ form.as_p }}
+{% endblock nav_lista_form %}
 
-</div>
+{% block cuerpo_form %}
 
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_especificacion_de_mueble').focus()
+app.controller('controlForm',function($scope){
+    $scope.mueble = '{{form.mueble.value}}';
+    $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.ancho = '{{form.ancho.value}}';
+    $scope.largo = '{{form.largo.value}}';
+    $scope.alto = '{{form.alto.value}}';
+    $scope.especificacion_de_mueble = '{{form.especificacion_de_mueble.value}}'
+    $scope.volumen_en_camion = '{{form.volumen_en_camion.value}}'
+    $scope.predefinido = {{form.predefinido.value|lower}};
+    $('#id_mueble').focus();
+    //$('#especificacion_de_mueble').parent().addClass('md-input-focused');
+    $('label[for=id_predefinido]').parent().each(function(){
+        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
+    });
+    $('label[for=id_predefinido]').css('display','none');
+    setTimeout(function() {
+        $("input[name='predefinido']").bootstrapSwitch();
+        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_predefinido">' + $('label[for=id_predefinido]').text() + '</label>');
+    }, 100);
+});
 </script>
-</form>
 
+{% endblock moduloAngular %}

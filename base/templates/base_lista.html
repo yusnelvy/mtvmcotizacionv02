@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block acceso_rapido %}
+
+<md-button title="Volver" class="md-icon-button" ng-href="#" tabindex="-1">
+<md-icon class="iconoVolver"></md-icon>
+</md-button>
+<md-button title="Nuevo" class="md-icon-button" ng-href="nuevo/" tabindex="-1">
+<md-icon class="iconoPlus"></md-icon>
+</md-button>
+<md-button title="Imprimir" class="md-icon-button" ng-href="#" onclick="window.print();" tabindex="-1">
+<md-icon class="iconoImprimir"></md-icon>
+</md-button>
+
+{% endblock acceso_rapido %}
+
+{% block contenido %}
+
+<div class="columna12">
+    <br>
+    <div ng-controller="buscar">
+        <md-input-container class="buscarEnLista">
+        <label for="search">Buscar...</label>
+        <input ng-model="search" type="search" id="search" name="search" md-autofocus>
+    </md-input-container>
+</div>
+
+
+{% block titulo_lista %}{% endblock titulo_lista %}
+
+<nav class="paginacionLista">
+    <ul>
+
+        {% block paginacion_lista %}{% endblock paginacion_lista %}
+
+    </ul>
+</nav>
+<table class="tablaLista">
+
+    {% block lista %}{% endblock lista %}
+
+</table>
+<script type="text/javascript">
+function ocultarASCDesc(id){
+    if ('{{request.GET.order_by}}' == id){
+        $('#'+id).css('display', 'none');
+    }else{
+        $('#-'+id).css('display', 'none');
+    }
+}
+</script>
+</div>
+
+{% endblock contenido %}

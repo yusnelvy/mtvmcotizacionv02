@@ -12,40 +12,64 @@ Editar la ciudad: {{form.ciudad.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if ciudad_previous %}
 
-        <li class="previous">
-            <a href="{% url 'udirecciones:edit_ciudad' ciudad_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        <li class="anterior">
+            <md-button href="{% url 'udirecciones:edit_ciudad' ciudad_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+        </li>
 
     {% endif %}
 
     {% if ciudad_next %}
 
-        <li class="next">
-            <a href="{% url 'udirecciones:edit_ciudad' ciudad_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        <li class="siguiente">
+            <md-button href="{% url 'udirecciones:edit_ciudad' ciudad_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+        <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
 
    {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-{{ form.as_p }}
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_ciudad').focus()
+app.controller('controlForm',function($scope){
+    $scope.provincia = '{{form.provincia.value}}';
+    $scope.pais = '{{form.pais.value}}';
+    $scope.ciudad = '{{form.ciudad.value}}';
+    $('#id_ciudad').focus();
+    $('#id_ciudad').parent().addClass('md-input-focused');
+    $('select').attr('class', 'form-control');
+    $('select').attr('required', 'required');
+    $('label[for=id_pais]').css('display','none');
+      $('label[for=id_provincia]').css('display','none');
+      setTimeout(function() {
+        $('select[id=id_pais]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_pais">' + $('label[for=id_pais]').text() + '</label>');
+        $('select[id=id_provincia]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_provincia">' + $('label[for=id_provincia]').text() + '</label>');
+    }, 100);
+});
 </script>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

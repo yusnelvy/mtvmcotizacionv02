@@ -2,25 +2,24 @@
 
 {% block titulo %}
 
-    Menú
+Menú
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Menus</h2>
-
- <h6>Cantidad de Menus:
+<h2>Listado de menús relacionado</h2>
+ <h6>Cantidad de menús relacionados encontrados:
     <span class="badge" id="count_reg">
 
-        {{ menus.count }}
+        {{ relaciones.count }}
 
     </span>
 </h6>
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,67 +149,92 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
-{% if menus %}
+{% if relaciones %}
 
 <tr class="active">
     <th>
-        Menú
+        Nombre de la relación
 
         {% if request.GET.page %}
 
-        <a href="?order_by=menu&page={{request.GET.page}}" id="menu" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-menu&page={{request.GET.page}}" id="-menu"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=nombre&page={{request.GET.page}}" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre&page={{request.GET.page}}" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=menu" id="menu" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-menu" id="-menu"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=nombre" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
     <th>
-        Transacción
+        Menú de origen
 
         {% if request.GET.page %}
 
-        <a href="?order_by=transaccion&page={{request.GET.page}}" id="transaccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-transaccion&page={{request.GET.page}}" id="-transaccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=item_origen&page={{request.GET.page}}" id="item_origen" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-item_origen&page={{request.GET.page}}" id="-item_origen"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=transaccion" id="transaccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-transaccion" id="-transaccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=item_origen" id="item_origen" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-item_origen" id="-item_origen"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
+    <th>
+        Menú de relación
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=item_relacion&page={{request.GET.page}}" id="item_relacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-item_relacion&page={{request.GET.page}}" id="-item_relacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=item_relacion" id="item_relacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-item_relacion" id="-item_relacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
 
-{% for i in menus %}
+{% for i in relaciones %}
 
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.menu }}
+        {{ i.nombre }}
 
     </td>
     <td>
 
-        {{ i.transaccion }}
+        {{ i.item_origen }}
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'umenus:edit_menu' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.item_relacion }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'umenus:eliminar_menu' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umenus:edit_relacion' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umenus:eliminar_relacion' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -226,8 +250,9 @@
 
 <script>
     $(document).on('ready',function(){
-        ocultarASCDesc('menu');
-        ocultarASCDesc('transaccion');
+        ocultarASCDesc('nombre');
+        ocultarASCDesc('item_origen');
+        ocultarASCDesc('item_relacion');
     })
 </script>
 

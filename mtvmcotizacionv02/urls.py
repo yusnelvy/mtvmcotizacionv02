@@ -62,6 +62,7 @@ urlpatterns = [
         include('vehiculo.urls', namespace="uvehiculos")),
     url(r'^chaining/',
         include('smart_selects.urls')),
+    url(r'^sidebarUpdate/$', 'mtvmcotizacionv02.views.sidebarUpdate', name='sidebarUpdate')
 ]
 
 if settings.DEBUG:

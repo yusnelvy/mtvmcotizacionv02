@@ -9,9 +9,11 @@ from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificacion, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
     EspecificacionDeInmueble, Inmueble
+from djangular.forms import NgModelFormMixin, NgModelForm
+from base.forms import BaseFormMd, SelectMD, Checkbox
 
 
-class PaisForm(ModelForm):
+class PaisForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
@@ -19,14 +21,15 @@ class PaisForm(ModelForm):
         model = Pais
         fields = '__all__'
         labels = {
-            'pais': ('País')
+            'pais': ('Nombre del país')
         }
         widgets = {
-            'pais': TextInput(attrs={'class': 'form-control'}),
+            'pais': TextInput(attrs={'required': 'required'}),
+            'codigo_telefonico': TextInput(attrs={'type': 'number','required': 'required'})
             }
 
 
-class ProvinciaForm(ModelForm):
+class ProvinciaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
@@ -36,17 +39,18 @@ class ProvinciaForm(ModelForm):
 
     class Meta:
         model = Provincia
-        fields = '__all__'
+        fields = 'pais', 'provincia', 'codigo_telefonico'
         labels = {
-            'provincia': ('Provincia'),
-            'pais': ('País')
+            'provincia': ('Nombre de provincia'),
+            'pais': ('Seleccione el país')
         }
         widgets = {
-            'provincia': TextInput(attrs={'class': 'form-control'}),
+            'provincia': TextInput(attrs={'required': 'required'}),
+            'pais': SelectMD(attrs={'required': 'required'})
             }
 
 
-class CiudadForm(ModelForm):
+class CiudadForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
@@ -57,17 +61,20 @@ class CiudadForm(ModelForm):
 
     class Meta:
         model = Ciudad
-        fields = '__all__'
+        fields = 'pais', 'provincia', 'ciudad'
         labels = {
-            'ciudad': ('Ciudad'),
-            'provincia': ('Provincia'),
-            'pais': ('País')
+            'ciudad': ('Nombre de la ciudad'),
+            'provincia': ('Seleccione una provincia'),
+            'pais': ('Seleccione un país')
         }
         widgets = {
-            'ciudad': TextInput(attrs={'class': 'form-control'}),
+            #'pais': SelectMD(attrs={'required': 'required'},
+            #'provincia': SelectMD(attrs={'required': 'required'},
+            'ciudad': TextInput(attrs={'required': 'required'}),
         }
 
-class BarrioForm(ModelForm):
+
+class BarrioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
@@ -81,13 +88,13 @@ class BarrioForm(ModelForm):
         model = Barrio
         fields = '__all__'
         labels = {
-            'barrio': ('Barrio'),
+            'barrio': ('Nombre del barrio'),
             'ciudad': ('Ciudad'),
             'provincia': ('Provincia'),
             'pais': ('País')
         }
         widgets = {
-            'barrio': TextInput(attrs={'class': 'form-control'})
+            'barrio': TextInput(attrs={'required': 'required'})
             }
 
 
@@ -111,7 +118,7 @@ class DireccionForm(ModelForm):
         }
 
 
-class TipoDeEdificacionForm(ModelForm):
+class TipoDeEdificacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
@@ -119,12 +126,14 @@ class TipoDeEdificacionForm(ModelForm):
         model = TipoDeEdificacion
         fields = '__all__'
         labels = {
-            'tipo_de_edificacion': ('Nombre del tipo de edificación')
+            'tipo_de_edificacion': ('Nombre del tipo de edificación'),
+            'descripcion': ('Descripción del tipo de edificación')
         }
         widgets = {
-            'tipo_de_edificacion': TextInput(attrs={'class': 'form-control'}),
-            'descripcion': TextInput(attrs={'class': 'form-control'})
+            'tipo_de_edificacion': TextInput(attrs={'required': 'required'}),
+            #'descripcion': TextInput(attrs={'required': 'required'})
         }
+
 
 class EdificacionForm(ModelForm):
     """
@@ -135,17 +144,21 @@ class EdificacionForm(ModelForm):
         fields = '__all__'
 
 
-class TipoDeAscensorForm(ModelForm):
+class TipoDeAscensorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
     class Meta:
         model = TipoDeAscensor
         fields = '__all__'
-        widgets = {
-            'tipo_de_ascensor': TextInput(attrs={'class': 'form-control'}),
-            'descripcion': TextInput(attrs={'class': 'form-control'})
+        labels = {
+            'descripcion': ('Descripción del tipo de ascensor'),
+            'tipo_de_ascensor': ('Nombre del tipo de ascensor')
         }
+        widgets = {
+            'tipo_de_ascensor': TextInput(attrs={'required': 'required'})
+        }
+
 
 class AscensorForm(ModelForm):
     """
@@ -156,7 +169,7 @@ class AscensorForm(ModelForm):
         fields = '__all__'
 
 
-class TipoDeInmuebleForm(ModelForm):
+class TipoDeInmuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
@@ -164,12 +177,13 @@ class TipoDeInmuebleForm(ModelForm):
         model = TipoDeInmueble
         fields = '__all__'
         labels = {
-            'tipo_de_inmueble': ('Nombre del tipo de inmueble')
+            'tipo_de_inmueble': ('Nombre del tipo de inmueble'),
+            'descripcion': ('Descipción del tipo de inmueble')
         }
         widgets = {
-            'tipo_de_inmueble': TextInput(attrs={'class': 'form-control'}),
-            'descripcion': TextInput(attrs={'class': 'form-control'})
+            'tipo_de_inmueble': TextInput(attrs={'required': 'required'}),
         }
+
 
 class EspecificacionDeInmuebleForm(ModelForm):
     """

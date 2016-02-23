@@ -99,10 +99,11 @@ class ComplejidadRiesgoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Complejidad riesgo '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:edit_complejidadriesgo',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Complejidad riesgo '" + str(d_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:list_complejidadriesgo'))
 
         return render(request, self.template_name, {'form': form})
@@ -210,12 +211,13 @@ class ComplejidadRiesgoUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "ComplejidadRiesgo " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "complejidad riesgo '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "complejidad riesgo '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:list_complejidadriesgo'))
@@ -233,6 +235,7 @@ class ComplejidadRiesgoDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Complejidad riesgo '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -327,10 +330,11 @@ class NivelComplejidadRiesgoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Nivel de complejidad y riesgo '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:edit_nivelcomplejidadriesgo',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Nivel de complejidad y riesgo '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:list_nivelcomplejidadriesgo'))
 
         return render(request, self.template_name, {'form': form})
@@ -438,14 +442,16 @@ class NivelComplejidadRiesgoUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Nivel de complejidad y riesgo " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Nivel de complejidad y riesgo '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Nivel de complejidad y riesgo '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
+                messages.success(self.request, "Nivel de complejidad y riesgo '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:list_nivelcomplejidadriesgo'))
                 #return render_to_response(self.template_name, self.get_context_data())
 
@@ -461,6 +467,7 @@ class NivelComplejidadRiesgoDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Nivel de complejidad y riesgo '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())

@@ -1,0 +1,85 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es-AR" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+
+        {% block titulo %}{% endblock titulo %}
+
+    </title>
+    <link rel="stylesheet" href="{% static 'css/material.css' %}">
+
+    {% include "jquery.html" %}
+
+    {% block js_superior %}{% endblock js_superior %}
+
+</head>
+<body ng-app="AppMudarte">
+    <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}">
+        <header>
+            <div ng-controller="ControlSidebar" class="sidebar-wrapper">
+                <ul class="sidebar-nav md-toolbar-tools">
+                    <li class="sidebar-brand">
+                        <a href="#" tabindex="-1">
+                            App Mudarte
+                        </a>
+                    </li>
+                    <span flex></span>
+                    <md-button class="md-icon-button menu-toggle" ng-click="toggleSide();" tabindex="-1">
+                    <md-icon  class="glyphicon glyphicon-remove"></md-icon>
+                </md-button>
+
+
+            </ul>
+
+
+            {% block widget_sidebar %}{% endblock widget_sidebar %}
+
+        </div>
+        <nav ng-controller="ControlNavbar" class="navbarApp">
+            <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span>Mudarte
+                        <span class="glyphicon glyphicon-road"></span>
+                    </span>
+                </h2>
+                <span class="divide"></span>
+
+                {% block acceso_rapido %}{% endblock acceso_rapido %}
+
+                <span flex></span>
+                <md-button class="md-icon-button menuSidebar {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="toggleSide()"  aria-label="Favorite" tabindex="-1">
+                <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+</nav>
+
+</header>
+
+<section class="page-content-wrapper">
+    <div class="contenedor">
+        <div class="contenedorFila">
+
+            {% block contenido %}{% endblock contenido %}
+
+        </div>
+    </div>
+</section>
+</div>
+
+{% include "script.html" %}
+
+{% include "mensaje.html" %}
+
+{% block js_inferior %}{% endblock js_inferior %}
+
+{% block moduloAngular %}{% endblock moduloAngular %}
+
+</body>
+</html>

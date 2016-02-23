@@ -8,9 +8,8 @@ Estado de registro
 
 {% block titulo_lista %}
 
-<h2>Listado de Estados de registro</h2>
-
-<h6>Cantidad de Tipos de mueble encontrados:
+<h2>Listado de estados de registros</h2>
+<h6>Cantidad de estado de registros encontrados:
     <span class="badge" id="count_reg">
 
         {{ estadosderegistro.count }}
@@ -20,7 +19,7 @@ Estado de registro
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +149,7 @@ Estado de registro
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -174,7 +173,7 @@ Estado de registro
 
     </th>
     <th>
-        Model
+        Nombre del model
 
         {% if request.GET.page %}
 
@@ -194,19 +193,19 @@ Estado de registro
 
         {% if request.GET.page %}
 
-        <a href="?order_by=orden&page={{request.GET.page}}" id="orden" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-orden&page={{request.GET.page}}" id="-orden"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=orden&page={{request.GET.page}}" id="orden" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-orden&page={{request.GET.page}}" id="-orden"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=orden" id="orden" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-orden" id="-orden"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=orden" id="orden" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-orden" id="-orden"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
     <th>
-        Descripción
+        Descripción del estado de registro
 
         {% if request.GET.page %}
 
@@ -222,7 +221,7 @@ Estado de registro
 
     </th>
     <th>
-        Observación
+        Observación del estado de registro
 
         {% if request.GET.page %}
 
@@ -237,6 +236,7 @@ Estado de registro
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -269,11 +269,14 @@ Estado de registro
         {{ i.observacion }}
 
     </td>
-    <td width="80px">
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uestadoderegistros:edit_estadoderegistro' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
-    <td width="80px">
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uestadoderegistros:eliminar_estadoderegistro' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uestadoderegistros:edit_estadoderegistro' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uestadoderegistros:eliminar_estadoderegistro' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 

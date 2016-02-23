@@ -104,6 +104,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
                 'base.forms.BaseFormMd',
+                'mtvmcotizacionv02.views.sidebar'
             ]
             # 'allowed_include_roots': [
             #

@@ -12,7 +12,7 @@ Editar el contenedor típico por mueble {{form.contenedor.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if contenedortipico_previous %}
 
@@ -38,9 +38,9 @@ Editar el contenedor típico por mueble {{form.contenedor.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 {{ form.as_p }}
 
@@ -48,4 +48,4 @@ Editar el contenedor típico por mueble {{form.contenedor.value|lower}}
 document.getElementById('id_contenedor').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

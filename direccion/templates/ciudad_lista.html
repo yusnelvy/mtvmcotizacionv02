@@ -2,7 +2,7 @@
 
 {% block titulo %}
 
-     Ciudad
+Dirección
 
 {% endblock titulo %}
 
@@ -20,7 +20,7 @@
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,29 +150,13 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
 {% if ciudades %}
 
 <tr class="active">
-    <th>
-        Pais
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=pais&page={{request.GET.page}}" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-pais&page={{request.GET.page}}" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=pais" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-pais" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
     <th>
         Ciudad
 
@@ -205,6 +189,23 @@
         {% endif %}
 
     </th>
+    <th>
+        Pais
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=pais&page={{request.GET.page}}" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pais&page={{request.GET.page}}" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=pais" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pais" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -214,11 +215,6 @@
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.pais }}
-
-    </td>
-    <td>
-
         {{ i.ciudad }}
 
     </td>
@@ -226,6 +222,14 @@
 
         {{ i.provincia }}
 
+    </td>
+    <td>
+
+        {{ i.pais }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_ciudad' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
