@@ -1,0 +1,251 @@
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+Datos precargado
+
+{% endblock titulo %}
+
+{% block titulo_lista %}
+
+<h2>Listado de Datos precargados</h2>
+
+<h6>Cantidad de Datos precargados encontrados:
+    <span class="badge" id="count_reg">
+
+        {{ datosprecargados.count }}
+
+    </span>
+</h6>
+
+{% endblock titulo_lista %}
+
+{% block paginacion %}
+
+{% if request.GET.page == "0" %}
+
+<li><a href="?page=1">Paginar</a></li>
+
+{% else %}
+
+{% if page_obj.has_previous %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+
+
+{% endif %}
+
+{% if request.GET.page == "1" %}
+
+<li class="btn-disabled">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% endif %}
+
+{% for p in page_range2 %}
+
+{% if p == page_obj.number %}
+
+<li class="active">
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% endif %}
+
+{% endfor %}
+
+{% if page_obj.paginator.num_pages %}
+
+{% if request.GET.page == ultimo %}
+
+<li class="btn-disabled">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+{% if page_obj.has_next %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+{% if request.GET.order_by %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+<li><a href="?page=0">Ver todo</a></li>
+
+{% endif %}
+
+{% endblock paginacion %}
+
+{% block lista %}
+
+{% if datosprecargados %}
+
+<tr class="active">
+    <th>
+        Nombre de la app
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=nombre_app&page={{request.GET.page}}" id="nombre_app" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre_app&page={{request.GET.page}}" id="-nombre_app"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=nombre_app" id="nombre_app" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre_app" id="-nombre_app"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        model
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=model&page={{request.GET.page}}" id="model" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-model&page={{request.GET.page}}" id="-model"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=model" id="model" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-model" id="-model"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        dato
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=dato&page={{request.GET.page}}" id="dato" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-dato&page={{request.GET.page}}" id="-dato"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=dato" id="dato" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-dato" id="-dato"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Editar</th>
+    <th class="controlLista">Eliminar</th>
+</tr>
+
+{% for i in datosprecargados %}
+
+<tr id="tr{{i.pk}}">
+    <td>
+
+        {{ i.nombre_app }}
+
+    </td>
+    <td>
+
+        {{ i.model }}
+
+    </td>
+    <td>
+
+        {{ i.dato }}
+
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:edit_personalizacionvisual' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:eliminar_personalizacionvisual' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    </td>
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+    <td> No se encontraron registros </td>
+</tr>
+
+{% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('nombre_app');
+        ocultarASCDesc('model');
+        ocultarASCDesc('dato');
+    })
+</script>
+
+{% endblock lista %}

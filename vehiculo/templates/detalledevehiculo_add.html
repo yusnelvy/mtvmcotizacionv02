@@ -1,0 +1,25 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Detalle de vehículo
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar Detalle de vehículo
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_md }}
+
+<script type="text/javascript">
+document.getElementById('id_vehiculo').focus()
+</script>
+
+{% endblock formulario %}

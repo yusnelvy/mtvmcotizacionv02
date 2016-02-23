@@ -1,0 +1,51 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Talonario
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar la talonario {{form.talonario.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}
+
+    {% if talonario_previous %}
+
+        <li class="previous">
+            <a href="{% url 'utalonarios:edit_talonario' talonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        </li>
+
+    {% else %}
+
+        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+
+    {% endif %}
+
+    {% if talonario_next %}
+
+        <li class="next">
+            <a href="{% url 'utalonarios:edit_talonario' talonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        </li>
+
+    {% else %}
+
+        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+
+    {% endif %}
+
+{% endblock nav_lista %}
+
+{% block formulario %}
+
+{{ form.as_md }}
+
+<script type="text/javascript">
+document.getElementById('id_talonario').focus()
+</script>
+
+{% endblock formulario %}

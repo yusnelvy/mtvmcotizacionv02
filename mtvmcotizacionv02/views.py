@@ -72,11 +72,16 @@ def get_query(query_string, search_fields):
 
 
 def valor_Personalizacionvisual(usuario, tipo):
-    valor = PersonalizacionVisual.objects.values('valor').filter(usuario=usuario,
-                                                                 tipo=tipo)
-    if len(valor) == 0:
+
+    if usuario == "std":
         valor = PersonalizacionVisual.objects.values('valor').filter(usuario__username="std",
                                                                      tipo=tipo)
+    else:
+        valor = PersonalizacionVisual.objects.values('valor').filter(usuario=usuario,
+                                                                     tipo=tipo)
+        if len(valor) == 0:
+            valor = PersonalizacionVisual.objects.values('valor').filter(usuario__username="std",
+                                                                         tipo=tipo)
     valor = valor[0]['valor']
     return valor
 
