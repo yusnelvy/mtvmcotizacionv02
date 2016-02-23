@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+
+Mueble
+
+{% endblock titulo %}
+
+{% block acceso_rapido %}
+
+<md-button title="Volver" class="md-icon-button" ng-href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
+<md-icon class="iconoVolver"></md-icon>
+</md-button>
+
+{% endblock acceso_rapido %}
+
+{% block contenido %}
+
+<div class="columna12">
+    <h2>
+
+        {% block titulo_form %}{% endblock titulo_form %}
+
+    </h2>
+</div>
+<div class="columna6">
+    <ul class="paginacionEdit">
+
+        {% block nav_lista_form %}{% endblock nav_lista_form %}
+
+    </ul>
+    <form ng-controller="controlForm" action="" method="post" id="myformEdit">
+
+        {% csrf_token %}
+
+        <div class="grupoInput">
+
+            {% block cuerpo_form %}{% endblock cuerpo_form %}
+
+        </div>
+        <div class="botonRegistrar">
+            <md-button type="submit" name="reg">Registrar</md-button>
+            <md-button type="submit" name="regEdit">Registrar y seguir editando</md-button>
+        </div>
+    </form>
+    <br>
+
+    {% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+</div>
+
+{% endblock contenido %}

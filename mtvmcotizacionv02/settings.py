@@ -106,7 +106,7 @@ TEMPLATES = [
                 'base.forms.BaseFormMd',
                 'mtvmcotizacionv02.views.lista_Menu',
                 'mtvmcotizacionv02.views.lista_Relacion',
-
+                'mtvmcotizacionv02.views.sidebar'
             ]
             # 'allowed_include_roots': [
             #

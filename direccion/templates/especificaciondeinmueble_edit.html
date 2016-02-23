@@ -6,7 +6,7 @@ Editar el especificación de inmueble {{form.tipo_de_inmueble.value|lower}}</h2>
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if especificaciondeinmueble_previous %}
 
@@ -32,9 +32,9 @@ Editar el especificación de inmueble {{form.tipo_de_inmueble.value|lower}}</h2>
 
     {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 {{ form.as_p }}
 
@@ -42,4 +42,4 @@ Editar el especificación de inmueble {{form.tipo_de_inmueble.value|lower}}</h2>
 document.getElementById('id_tipo_de_inmueble').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

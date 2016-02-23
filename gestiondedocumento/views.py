@@ -106,10 +106,11 @@ class TipoDeDocumentoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de documento '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ugestiondedocumentos:edit_tipodedocumento',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de documento '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ugestiondedocumentos:list_tipodedocumento'))
 
         return render(request, self.template_name, {'form': form})
@@ -218,12 +219,13 @@ class TipoDeDocumentoUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Tipo de documento " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Tipo de documento '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Tipo de documento '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -240,6 +242,7 @@ class TipoDeDocumentoDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Tipo de documento '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -336,10 +339,11 @@ class EstadoDeDocumentoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Estado del documento '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ugestiondedocumentos:edit_estadodedocumento',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Estado del documento '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ugestiondedocumentos:list_estadodedocumento'))
 
         return render(request, self.template_name, {'form': form})
@@ -448,12 +452,13 @@ class EstadoDeDocumentoUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Estado de documento " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Estado del documento '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Estado del documento '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -470,6 +475,7 @@ class EstadoDeDocumentoDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Estado del documento '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())

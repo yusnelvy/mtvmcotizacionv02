@@ -2,24 +2,42 @@
 
 {% block titulo %}
 
-Barrio
+Dirección
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar barrio
+Agregar un barrio
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-  {{ form.as_p }}
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_pais').focus()
+app.controller('controlForm',function($scope){
+      $('#id_barrio').focus();
+      $('#id_barrio').parent().addClass('md-input-focused');
+      $('select').attr('class', 'form-control');
+      $('select').attr('required', 'required');
+      $('label[for=id_pais]').css('display','none');
+      $('label[for=id_provincia]').css('display','none');
+      $('label[for=id_ciudad]').css('display','none');
+      setTimeout(function() {
+        $('select[id=id_pais]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_pais">' + $('label[for=id_pais]').text() + '</label>');
+        $('select[id=id_provincia]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_provincia">' + $('label[for=id_provincia]').text() + '</label>');
+        $('select[id=id_ciudad]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_ciudad">' + $('label[for=id_ciudad]').text() + '</label>');
+    }, 100);
+  });
 </script>
+<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

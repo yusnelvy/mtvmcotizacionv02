@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-    Menú favorito
+Menú
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de menú favorito</h2>
-
- <h6>Cantidad de menú favorito:
+<h2>Listado de menús favoritos</h2>
+ <h6>Cantidad de menús favoritos encontrados:
     <span class="badge" id="count_reg">
 
         {{ menufavoritos.count }}
@@ -20,7 +19,7 @@
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +149,7 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -158,7 +157,39 @@
 
 <tr class="active">
     <th>
-        Descripción
+        Nombre del grupo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=grupo&page={{request.GET.page}}" id="grupo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-grupo&page={{request.GET.page}}" id="-grupo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=grupo" id="grupo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-grupo" id="-grupo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Orden del grupo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=orden&page={{request.GET.page}}" id="orden" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-orden&page={{request.GET.page}}" id="-orden"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=orden" id="orden" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-orden" id="-orden"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del usuario
 
         {% if request.GET.page %}
 
@@ -189,6 +220,7 @@
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -196,6 +228,16 @@
 {% for i in menufavoritos %}
 
 <tr id="tr{{i.pk}}">
+    <td>
+
+        {{ i.grupo }}
+
+    </td>
+    <td>
+
+        {{ i.orden }}
+
+    </td>
     <td>
 
         {{ i.usuario }}
@@ -207,10 +249,13 @@
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'umenus:edit_menufavorito' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'umenus:eliminar_menufavorito' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umenus:edit_menufavorito' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umenus:eliminar_menufavorito' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
 
@@ -228,6 +273,8 @@
     $(document).on('ready',function(){
         ocultarASCDesc('usuario');
         ocultarASCDesc('menu');
+        ocultarASCDesc('orden');
+        ocultarASCDesc('grupo');
     })
 </script>
 

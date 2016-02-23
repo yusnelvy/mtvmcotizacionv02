@@ -2,15 +2,15 @@
 
 {% block titulo %}
 
-    Sexo
+Cliente
 
 {% endblock titulo%}
 
 {% block titulo_lista %}
 
-<h2>Listado de Sexos</h2>
+<h2>Listado de sexos</h2>
 
-<h6>Cantidad de Sexos:
+<h6>Cantidad de sexos:
     <span class="badge" id="count_reg">
 
         {{ sexos.count }}
@@ -20,7 +20,7 @@
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +150,7 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -173,6 +173,7 @@
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -184,6 +185,9 @@
 
         {{ i.sexo }}
 
+    </td>
+        <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_sexo' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
@@ -198,7 +202,7 @@
 {% else %}
 
 <tr>
-    <td> No se encontraron registros {{sexos}}</td>
+    <td> No se encontraron registros</td>
 </tr>
 
 {% endif %}

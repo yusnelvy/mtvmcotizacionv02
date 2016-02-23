@@ -8,18 +8,26 @@ Estado de registro
 
 {% block titulo_form %}
 
-Agregar estado de registro
+Agregar un estado de registro
 
 {% endblock titulo_form %}
 
-{{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-  {{ form.as_p }}
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_estado').focus()
+app.controller('controlForm',function($scope){
+      //$('#id_estado').focus();
+      //$('#id_estado').parent().addClass('md-input-focused');
+  });
 </script>
+<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

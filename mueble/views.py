@@ -103,10 +103,11 @@ class TipoDeMuebleView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de mueble '" + str(id_reg) + "'  agregado con éxito.")
                 return HttpResponseRedirect(reverse('umuebles:edit_tipodemueble',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de mueble '" + str(id_reg) + "'  agregado con éxito.")
                 return HttpResponseRedirect(reverse('umuebles:list_tipodemueble'))
 
         return render(request, self.template_name, {'form': form})
@@ -214,14 +215,16 @@ class TipoDeMuebleUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "TipoDeMueble " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Tipo de mueble '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Tipo de mueble '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
+                messages.success(self.request, "Tipo de mueble '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(reverse('umuebles:list_tipodemueble'))
 
 
@@ -236,6 +239,7 @@ class TipoDeMuebleDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Tipo de mueble '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -332,10 +336,11 @@ class MuebleView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Mueble '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('umuebles:edit_mueble',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Mueble '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('umuebles:list_mueble'))
 
         return render(request, self.template_name, {'form': form})
@@ -443,12 +448,13 @@ class MuebleUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Mueble " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Mueble '" + str(self.object) + "' guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Mueble '" + str(self.object) + "' guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -465,6 +471,7 @@ class MuebleDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Mueble '" + str(self.obj) + "' eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
@@ -561,10 +568,11 @@ class EspecificacionDeMuebleView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Especificación '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('umuebles:edit_especificaciondemueble',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Especificación '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('umuebles:list_especificaciondemueble'))
 
         return render(request, self.template_name, {'form': form})
@@ -672,12 +680,13 @@ class EspecificacionDeMuebleUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Especificación de mueble " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Especificación de mueble '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Especificación de mueble '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -694,6 +703,7 @@ class EspecificacionDeMuebleDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Especificación '" + str(self.obj) + "' eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())

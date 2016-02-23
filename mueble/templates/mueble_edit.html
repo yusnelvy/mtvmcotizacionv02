@@ -1,37 +1,69 @@
-<title>Mueble</title>
+{% extends "base_editar.html" %}
 
-  <h2>Editar el mueble {{form.mueble.value|lower}}</h2>
+{% block titulo_form %}
 
-<form action="" method="post" id="myformEdit">
-    {% csrf_token %}
-<ul class="pager">
-    {% if mueble_previous %}
-        <li class="previous">
-            <a href="{% url 'umuebles:edit_mueble' mueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+Editar el mueble: {{form.mueble.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}
+
+{% if mueble_previous %}
+
+        <li class="anterior">
+            <md-button href="{% url 'umuebles:edit_mueble' mueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
         </li>
     {% else %}
-        <li class="previous disabled"><a href="#">&larr; Anterior</a></li>
+
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+        </li>
+
     {% endif %}
 
     {% if mueble_next %}
-        <li class="next">
-            <a href="{% url 'umuebles:edit_mueble' mueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+
+        <li class="siguiente">
+            <md-button href="{% url 'umuebles:edit_mueble' mueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
+
     {% else %}
-        <li class="next disabled"><a href="#">Siguiente &rarr;</a></li>
+
+        <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+        </li>
+
     {% endif %}
-</ul>
 
-<div class="form-group">
-  {{ form.as_p }}
+{% endblock nav_lista_form %}
 
-</div>
+{% block cuerpo_form %}
 
-<button type="submit" class="btn btn-default registrar" name="reg">Registrar</button>
-<button type="submit" class="btn btn-default" name="regEdit">Registrar y seguir editando</button>
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_mueble').focus()
+app.controller('controlForm',function($scope){
+    $scope.mueble = '{{form.mueble.value}}';
+    $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.tipo_de_mueble = '{{form.tipo_de_mueble.value}}';
+    $scope.trasladable = {{form.trasladable.value|lower}};
+    $('#id_tipo_de_mueble').focus();
+    //$('#id_mueble').parent().addClass('md-input-focused');
+    $('label[for=id_trasladable]').parent().each(function(){
+        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
+    });
+    $('label[for=id_trasladable]').css('display','none');
+    setTimeout(function() {
+        $("input[name='trasladable']").bootstrapSwitch();
+        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_trasladable">' + $('label[for=id_trasladable]').text() + '</label>');
+    }, 100);
+});
 </script>
-</form>
 
+{% endblock moduloAngular %}

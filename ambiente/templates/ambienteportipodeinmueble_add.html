@@ -12,9 +12,9 @@ Agregar ambiente por tipo de inmueble
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
   {{ form.as_p }}
 
@@ -22,4 +22,4 @@ Agregar ambiente por tipo de inmueble
 document.getElementById('id_ambiente').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

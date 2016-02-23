@@ -68,6 +68,7 @@ urlpatterns = [
         name='relacion_ver'),
     url(r'^transaccion/$',views.lista_Transaccion,
         name='transaccion'),
+    url(r'^sidebarUpdate/$', 'mtvmcotizacionv02.views.sidebarUpdate', name='sidebarUpdate')
 ]
 
 if settings.DEBUG:

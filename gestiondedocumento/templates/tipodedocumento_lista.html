@@ -2,15 +2,15 @@
 
 {% block titulo %}
 
-  Tipo de documento
+Gestión de documento
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Tipos de documento</h2>
+<h2>Listado de tipos de documentos</h2>
 
-<h6>Cantidad de Tipos de documento encontrados:
+<h6>Cantidad de tipos de documentos encontrados:
     <span class="badge" id="count_reg">
 
         {{ tiposdedocumento.count }}
@@ -20,7 +20,7 @@
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +150,7 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -189,6 +189,7 @@
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -206,11 +207,14 @@
         {{ i.descripcion }}
 
     </td>
-    <td width="80px">
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'ugestiondedocumentos:edit_tipodedocumento' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
-    <td width="80px">
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ugestiondedocumentos:eliminar_tipodedocumento' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ugestiondedocumentos:edit_tipodedocumento' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ugestiondedocumentos:eliminar_tipodedocumento' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
 

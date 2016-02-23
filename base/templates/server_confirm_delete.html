@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<br>
+<form action="" method="post" class="jumbotron" ng-controller="controlEliminar">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}" ?</p>
+    <div class="botonRegistrar">
+        <a href="{{request.GET.next}}">Cancelar</a>
+        <md-button type="submit">Confirmar</md-button>
+    </div>
+</form>
+
+{% endblock contenido %}
+
+{% block moduloAngular %}
+
+<script>
+    app.controller('controlEliminar', function ($scope) {
+    $scope.cancelar = function () {
+
+    };
+});
+</script>
+
+{% endblock moduloAngular %}
