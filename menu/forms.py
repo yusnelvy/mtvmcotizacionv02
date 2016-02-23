@@ -62,7 +62,7 @@ class RelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
-    item_choices = [(content.model, content.model) for content in Menu.objects.filter(nivel=3)]
+    item_choices = [(content.item_origen, content.item_relacion) for content in Menu.objects.filter(nivel=3)]
 
     item_origen = forms.ChoiceField(
         widget=Select(attrs={'class': 'form-control'}),
