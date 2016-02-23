@@ -30,4 +30,3 @@ app.controller('buscar',function($scope){
   $('#search').focus();
   $('#search').parent().addClass('md-input-focused');
   });
-

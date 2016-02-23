@@ -8,9 +8,9 @@ Ambiente
 
 {% block titulo_lista %}
 
-<h2>Listado de Ambientes</h2>
+<h2>Listado de ambientes</h2>
 
-<h6>Cantidad de Ambientes encontrados:
+<h6>Cantidad de ambientes encontrados:
     <span class="badge" id="count_reg">
 
         {{ ambientes.count }}
@@ -20,7 +20,7 @@ Ambiente
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -144,7 +144,7 @@ Ambiente
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -199,6 +199,7 @@ Ambiente
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -218,8 +219,19 @@ Ambiente
     </td>
     <td>
 
-        {{ i.conteo_de_ambientes }}
+        {% if i.conteo_de_ambientes %}
 
+        Es contable
+
+        {% else %}
+
+        No es contable
+
+        {% endif %}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
         <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:edit_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>

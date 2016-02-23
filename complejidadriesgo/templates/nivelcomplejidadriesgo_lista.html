@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-    Nivel de Complejidad y Riesgo
+Complejidad y riesgo
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Nivel de Complejidad y Riesgos</h2>
-
- <h6>Cantidad de NIvel de Complejidad y Riesgos:
+<h2>Listado de nivel de complejidad y riesgos</h2>
+ <h6>Cantidad de nivel de complejidad y riesgos:
     <span class="badge" id="count_reg">
 
         {{ nivelcomplejidadriesgos.count }}
@@ -20,7 +19,7 @@
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +149,7 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -221,7 +220,7 @@
         {% endif %}
 
     </th>
-
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -249,12 +248,14 @@
         {{ i.porcentaje }}
 
     </td>
-
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'ucomplejidadriesgos:edit_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucomplejidadriesgos:eliminar_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucomplejidadriesgos:edit_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucomplejidadriesgos:eliminar_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -271,6 +272,9 @@
 <script>
     $(document).on('ready',function(){
         ocultarASCDesc('nivel_complejidad_riesgo');
+        ocultarASCDesc('factor_inicial');
+        ocultarASCDesc('factor_final');
+        ocultarASCDesc('porcentaje');
     })
 </script>
 

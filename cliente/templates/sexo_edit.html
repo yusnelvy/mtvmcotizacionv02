@@ -2,50 +2,65 @@
 
 {% block titulo %}
 
-    Sexo
+Cliente
 
 {% endblock titulo%}
 
 {% block titulo_form %}
 
-Editar el sexo {{form.sexos.value|lower}}
+Editar el sexo: {{form.sexo.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if sexo_previous %}
 
-        <li class="previous">
-            <a href="{% url 'uclientes:edit_sexo' sexo_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        <li class="anterior">
+            <md-button href="{% url 'uclientes:edit_sexo' sexo_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+        </li>
 
     {% endif %}
 
     {% if sexo_next %}
 
-        <li class="next">
-            <a href="{% url 'uclientes:edit_sexo' sexo_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        <li class="siguiente">
+            <md-button href="{% url 'uclientes:edit_sexo' sexo_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
-      <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+      <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
 
     {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-{{ form.as_p }}
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_sexo').focus()
+app.controller('controlForm',function($scope){
+    $scope.sexo = '{{form.sexo.value}}';
+    $('#id_sexo').focus();
+    $('#id_sexo').parent().addClass('md-input-focused');
+
+});
 </script>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

@@ -2,24 +2,33 @@
 
 {% block titulo %}
 
-Estado Civil
+Cliente
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar Estado Civil
+Agregar un estado Civil
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-  {{ form.as_p }}
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_estado_civil').focus()
+app.controller('controlForm',function($scope){
+      $('#id_estado_civil').focus();
+      $('#id_estado_civil').parent().addClass('md-input-focused');
+  });
 </script>
+<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}
+

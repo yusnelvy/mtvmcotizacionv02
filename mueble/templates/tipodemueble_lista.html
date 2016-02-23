@@ -189,6 +189,7 @@ Mueble
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -206,6 +207,9 @@ Mueble
 
         {{ i.descripcion }}
 
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
         <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:edit_tipodemueble' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>

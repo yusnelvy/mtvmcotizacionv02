@@ -12,14 +12,22 @@ Agregar tipo de ascensor
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-  {{ form.as_p }}
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_tipo_de_ascensor').focus()
+app.controller('controlForm',function($scope){
+      $('#id_tipo_de_ascensor').focus();
+      $('#id_tipo_de_ascensor').parent().addClass('md-input-focused');
+  });
 </script>
+<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

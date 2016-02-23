@@ -2,50 +2,71 @@
 
 {% block titulo %}
 
-    Menú favorito
+Menú
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar el menú favorito {{form.menu.value|lower}}
+Editar el menú favorito: {{form.menu.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if menufavorito_previous %}
 
-        <li class="previous">
-            <a href="{% url 'umenus:edit_menufavorito' menufavorito_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        <li class="anterior">
+            <md-button href="{% url 'umenus:edit_menufavorito' menufavorito_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+        </li>
 
     {% endif %}
 
     {% if menufavorito_next %}
 
-        <li class="next">
-            <a href="{% url 'umenus:edit_menufavorito' menufavorito_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        <li class="siguinte">
+            <md-button href="{% url 'umenus:edit_menufavorito' menufavorito_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+        <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
 
     {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-{{ form.as_p }}
+{{ form.as_md }}
 
 <script type="text/javascript">
 document.getElementById('id_menu').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.usuario = '{{form.usuario.value}}';
+    $scope.menu = '{{form.menu.value}}';
+    $scope.grupo = '{{form.grupo.value}}';
+    $scope.orden = '{{form.orden.value}}';
+    //$('#id_menu').focus();
+    //$('#id_menu').parent().addClass('md-input-focused');
+});
+</script>
+
+{% endblock moduloAngular %}

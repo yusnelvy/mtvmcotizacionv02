@@ -2,15 +2,15 @@
 
 {% block titulo %}
 
-Barrio
+Dirección
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de zonas </h2>
+<h2>Listado de barrios </h2>
 
-<h6>Cantidad de Tipos de mueble encontrados:
+<h6>Cantidad de barrios encontrados:
     <span class="badge" id="count_reg">
 
         {{ barrios.count }}
@@ -20,7 +20,7 @@ Barrio
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,41 +150,25 @@ Barrio
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
 {% if barrios %}
 
 <tr class="active">
-     <th>
-        Pais
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=pais&page={{request.GET.page}}" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-pais&page={{request.GET.page}}" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=pais" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-pais" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
     <th>
-        Provincia
+        Barrio
 
         {% if request.GET.page %}
 
-        <a href="?order_by=provincia&page={{request.GET.page}}" id="provincia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-provincia&page={{request.GET.page}}" id="-provincia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=barrio&page={{request.GET.page}}" id="barrio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-barrio&page={{request.GET.page}}" id="-barrio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=provincia" id="provincia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-provincia" id="-provincia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=barrio" id="barrio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-barrio" id="-barrio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -206,21 +190,38 @@ Barrio
 
     </th>
     <th>
-        Zona
+        Provincia
 
         {% if request.GET.page %}
 
-        <a href="?order_by=barrio&page={{request.GET.page}}" id="barrio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-barrio&page={{request.GET.page}}" id="-barrio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=provincia&page={{request.GET.page}}" id="provincia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-provincia&page={{request.GET.page}}" id="-provincia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=barrio" id="barrio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-barrio" id="-barrio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=provincia" id="provincia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-provincia" id="-provincia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
+     <th>
+        País
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=pais&page={{request.GET.page}}" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pais&page={{request.GET.page}}" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=pais" id="pais" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pais" id="-pais"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -230,12 +231,7 @@ Barrio
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.pais }}
-
-    </td>
-    <td>
-
-        {{ i.provincia }}
+        {{ i.barrio }}
 
     </td>
     <td>
@@ -245,8 +241,16 @@ Barrio
     </td>
     <td>
 
-        {{ i.barrio }}
+        {{ i.provincia }}
 
+    </td>
+    <td>
+
+        {{ i.pais }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_barrio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>

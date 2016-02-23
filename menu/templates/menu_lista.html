@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-    Menú
+Menú
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Menus</h2>
-
- <h6>Cantidad de Menus:
+<h2>Listado de menús</h2>
+ <h6>Cantidad de menús encontrados:
     <span class="badge" id="count_reg">
 
         {{ menus.count }}
@@ -20,7 +19,7 @@
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +149,7 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -158,7 +157,7 @@
 
 <tr class="active">
     <th>
-        Menú
+       Nombre del menú
 
         {% if request.GET.page %}
 
@@ -174,7 +173,7 @@
 
     </th>
     <th>
-        Transacción
+        Transacción del menú
 
         {% if request.GET.page %}
 
@@ -189,6 +188,61 @@
         {% endif %}
 
     </th>
+    <th>
+        Namespace del menú
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=namespace&page={{request.GET.page}}" id="namespace" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-namespace&page={{request.GET.page}}" id="-namespace"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=namespace" id="namespace" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-namespace" id="-namespace"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Name del menú
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=name&page={{request.GET.page}}" id="name" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-name&page={{request.GET.page}}" id="-name"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=name" id="name" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-name" id="-name"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nivel del menú
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=nivel&page={{request.GET.page}}" id="nivel" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nivel&page={{request.GET.page}}" id="-nivel"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=nivel" id="nivel" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nivel" id="-nivel"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Menú padre
+    </th>
+    <th>
+        Menú asignado
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -207,10 +261,52 @@
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'umenus:edit_menu' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.namespace }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'umenus:eliminar_menu' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.name }}
+
+    </td>
+    <td>
+
+        {{ i.nivel }}
+
+    </td>
+    <td>
+
+        {% if i.padre %}
+
+            Es padre
+
+            {% else %}
+
+            No es padre
+
+        {% endif %}
+
+    </td>
+    <td>
+
+        {% if i.menu_padre %}
+
+            {{i.menu_padre}}
+
+        {% else %}
+
+        {% endif %}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umenus:edit_menu' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umenus:eliminar_menu' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
 
@@ -228,6 +324,10 @@
     $(document).on('ready',function(){
         ocultarASCDesc('menu');
         ocultarASCDesc('transaccion');
+        ocultarASCDesc('namespace');
+        ocultarASCDesc('name');
+        ocultarASCDesc('nivel');
+        ocultarASCDesc('padre');
     })
 </script>
 

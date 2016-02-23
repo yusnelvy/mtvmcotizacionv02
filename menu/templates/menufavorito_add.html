@@ -2,24 +2,32 @@
 
 {% block titulo %}
 
-    Menú favorito
+Menú
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar menú favorito
+Agregar un menú favorito
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-  {{ form.as_p }}
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_usuario').focus()
+app.controller('controlForm',function($scope){
+      $('#id_usuario').focus();
+      $('#id_usuario').parent().addClass('md-input-focused');
+  });
 </script>
+<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

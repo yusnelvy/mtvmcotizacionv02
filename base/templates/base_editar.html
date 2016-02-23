@@ -8,7 +8,7 @@ Mueble
 
 {% block acceso_rapido %}
 
-<md-button title="Volver" class="md-icon-button" ng-href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}">
+<md-button title="Volver" class="md-icon-button" ng-href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
 <md-icon class="iconoVolver"></md-icon>
 </md-button>
 

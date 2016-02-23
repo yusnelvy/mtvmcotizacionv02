@@ -8,48 +8,68 @@ Ambiente
 
 {% block titulo_form %}
 
-Editar ambiente {{form.ambiente.value|lower}}
+Editar ambiente: {{form.ambiente.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
 {% if ambiente_previous %}
 
-<li class="previous">
-    <a href="{% url 'uambientes:edit_ambiente' ambiente_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+<li class="anterior">
+    <md-button href="{% url 'uambientes:edit_ambiente' ambiente_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
 </li>
 
 {% else %}
 
-<li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+</li>
 
 {% endif %}
 
 {% if ambiente_next %}
 
-<li class="next">
-    <a href="{% url 'uambientes:edit_ambiente' ambiente_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+<li class="siguiente">
+    <md-button href="{% url 'uambientes:edit_ambiente' ambiente_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
 </li>
 
 {% else %}
 
-<li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+    <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
 
 {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
-<div class="prueba">
+{{ form.as_md }}
 
-{{ form.as_p }}
+{% endblock cuerpo_form %}
 
-</div>
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_ambiente').focus()
+app.controller('controlForm',function($scope){
+    $scope.ambiente = '{{form.ambiente.value}}';
+    $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.conteo_de_ambientes = {{form.conteo_de_ambientes.value|lower}};
+    $('#id_ambiente').focus();
+    $('#id_ambiente').parent().addClass('md-input-focused');
+    $('label[for=id_conteo_de_ambientes]').parent().each(function(){
+        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
+    });
+    $('label[for=id_conteo_de_ambientes]').css('display','none');
+    setTimeout(function() {
+        $("input[name='conteo_de_ambientes']").bootstrapSwitch();
+        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_conteo_de_ambientes">' + $('label[for=id_conteo_de_ambientes]').text() + '</label>');
+    }, 100);
+});
 </script>
 
-{% endblock formulario %}
+{% endblock moduloAngular %}

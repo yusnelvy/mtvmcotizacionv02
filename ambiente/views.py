@@ -115,10 +115,11 @@ class AmbienteView(View):
             agregarestado.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Ambiente '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uambientes:edit_ambiente',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Ambiente '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uambientes:list_ambiente'))
 
         return render(request, self.template_name, {'form': form})
@@ -226,14 +227,16 @@ class AmbienteUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Ambiente " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Ambiente '" + str(self.object) + "'  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Ambiente '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(redirect_to)
             else:
+                messages.success(self.request, "Ambiente '" + str(self.object) + "'  guardado con éxito.")
                 return HttpResponseRedirect(reverse('uambientes:list_ambiente'))
                 #return render_to_response(self.template_name, self.get_context_data())
 
@@ -249,6 +252,7 @@ class AmbienteDelete(DeleteView):
 
         redirect_to = self.request.REQUEST.get('next', '')
         if redirect_to:
+            messages.success(self.request, "Ambiente '" + str(self.obj) + "'  eliminado con éxito.")
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
