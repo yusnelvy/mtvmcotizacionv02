@@ -189,6 +189,22 @@ Estado de registro
 
     </th>
     <th>
+        Orden
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=orden&page={{request.GET.page}}" id="orden" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-orden&page={{request.GET.page}}" id="-orden"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=orden" id="orden" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-orden" id="-orden"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
         Descripción del estado de registro
 
         {% if request.GET.page %}
@@ -236,6 +252,11 @@ Estado de registro
     <td>
 
         {{ i.model }}
+
+    </td>
+    <td>
+
+        {{ i.orden }}
 
     </td>
     <td>

@@ -52,6 +52,10 @@ INSTALLED_APPS = (
     'trabajador',
     'vehiculo',
     'base',
+    'herramienta',
+    'material',
+    'servicio',
+    'talonario',
     'djangular'
 )
 

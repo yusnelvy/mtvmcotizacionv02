@@ -121,7 +121,7 @@ class Institucion(models.Model):
 class PersonaAliado(models.Model):
     """docstring for PersonaAlaido"""
     def __init__(self, *args, **kwargs):
-        super(PersonaAlido, self).__init__(*args, **kwargs)
+        super(PersonaAliado, self).__init__(*args, **kwargs)
 
     institucion = models.ForeignKey(Institucion, on_delete=models.PROTECT)
     dni = models.CharField(max_length=15, blank=True)
@@ -161,5 +161,5 @@ class FuenteDePromocion(models.Model):
         return u' %s - %s' % (self.medio_especifico, self.tipo_de_referido)
 
     class Meta:
-        verbose_name = "Persona"
-        verbose_name_plural = "Personas"
+        verbose_name = "Fuente de promoción"
+        verbose_name_plural = "Fuentes de promociones"

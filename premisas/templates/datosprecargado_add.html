@@ -1,0 +1,51 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Datos precargado
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar Datos precargado
+
+{% endblock titulo_form %}
+
+{% block nav_lista %}{% endblock nav_lista %}
+
+{% block formulario %}
+
+  {{ form.as_md }}
+
+<script type="text/javascript">
+document.getElementById('id_nombre_app').focus()
+
+$("#id_nombre_app").on("change", function() {
+    id_nombre_app = $("#id_nombre_app").val();
+    alert('data'+id_nombre_app);
+  $.getJSON("/premisas/datos_precargado/nuevo/"+id_nombre_app+"/", function(j) {
+    alert('data2'+j);
+    var options = '<option value="">---------- </option>';
+    for (var i = 0; i < j.length; i++) {
+      options += '<option value="' + parseInt(j[i].pk) + '">' + j[i].fields['model'] + '</option>';
+    }
+    $("#id_lista_model").html(options);
+    $("#id_lista_model option:first").attr('selected', 'selected');
+    $("#id_lista_model").attr('disabled', false);
+  })
+  $("#id_nombre_app").attr('selected', 'selected');
+
+//   $http.get("/premisas/datos_precargado/nuevo/"+id_nombre_app+"/").success(function(list) {
+//     result=list
+//     alert(lista);
+
+// });
+
+})
+
+
+
+</script>
+
+{% endblock formulario %}

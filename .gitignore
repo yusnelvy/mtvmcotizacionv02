@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.cpython-34.pyc
 
 # C extensions
 *.so
@@ -67,3 +68,7 @@ target/
 
 # pyenv
 .python-version
+*.pyc
+*.pyc
+*.pyc
+*.pyc
