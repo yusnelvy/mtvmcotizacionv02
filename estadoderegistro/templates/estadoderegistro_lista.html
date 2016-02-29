@@ -157,7 +157,7 @@ Estado de registro
 
 <tr class="active">
     <th>
-        Estado de registro
+        Nombre del estado de registro
 
         {% if request.GET.page %}
 
@@ -189,7 +189,7 @@ Estado de registro
 
     </th>
     <th>
-        Orden
+        Orden del estado de registro
 
         {% if request.GET.page %}
 
@@ -297,7 +297,7 @@ Estado de registro
         ocultarASCDesc('orden');
         ocultarASCDesc('descripcion');
         ocultarASCDesc('observacion');
-    })
+    });
 </script>
 
 {% endblock lista %}

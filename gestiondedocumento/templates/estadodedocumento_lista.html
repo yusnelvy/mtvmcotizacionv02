@@ -157,7 +157,7 @@ Gestión de documento
 
 <tr class="active">
     <th>
-        Estado de Documento
+        Nombre del estado de Documento
 
         {% if request.GET.page %}
 
@@ -173,7 +173,7 @@ Gestión de documento
 
     </th>
     <th>
-        Orden
+        Orden del estado del documento
 
         {% if request.GET.page %}
 
@@ -189,7 +189,7 @@ Gestión de documento
 
     </th>
     <th>
-        Descripción
+        Descripción del estado de documento
 
         {% if request.GET.page %}
 
@@ -205,7 +205,7 @@ Gestión de documento
 
     </th>
      <th>
-        Observación
+        Observación del estado de documento
 
         {% if request.GET.page %}
 
@@ -221,7 +221,7 @@ Gestión de documento
 
     </th>
     <th>
-        Tipo de Documento
+        Tipo de Documento asociado
 
         {% if request.GET.page %}
 
@@ -273,10 +273,10 @@ Gestión de documento
       <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ugestiondedocumentos:edit_estadodedocumento' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ugestiondedocumentos:edit_estadodedocumento' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ugestiondedocumentos:eliminar_estadodedocumento' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ugestiondedocumentos:eliminar_estadodedocumento' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 

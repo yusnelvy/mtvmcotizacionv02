@@ -2,19 +2,19 @@
 
 {% block titulo %}
 
-    Herramienta
+Herramienta
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar herramienta
+Agregar una herramienta
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
   {{ form.as_md }}
 
@@ -22,4 +22,15 @@ Agregar herramienta
 document.getElementById('id_herramienta').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_herramienta').focus();
+        });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

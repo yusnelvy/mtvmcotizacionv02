@@ -8,13 +8,13 @@ Variante visual
 
 {% block titulo_form %}
 
-Agregar Variante visual
+Agregar una variante visual
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 <div class="prueba">
   {{ form.as_md }}
 <fieldset>
@@ -38,4 +38,15 @@ Agregar Variante visual
 document.getElementById('id_usuario').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

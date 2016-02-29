@@ -12,7 +12,7 @@ Editar la dotación básica de camión {{form.detalle_de_vehiculo.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if dotacionbasicadecamion_previous %}
 
@@ -38,9 +38,9 @@ Editar la dotación básica de camión {{form.detalle_de_vehiculo.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 {{ form.as_md }}
 
@@ -48,4 +48,4 @@ Editar la dotación básica de camión {{form.detalle_de_vehiculo.value|lower}}
 document.getElementById('id_detalle_de_vehiculo').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

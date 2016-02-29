@@ -34,7 +34,7 @@ class EstadoDeDocumentoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = EstadoDeDocumento
         fields = '__all__'
         widgets = {
-            'tipo_de_documento': SelectMD(attrs={'required': 'required'}),
+            'tipo_de_documento': SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
             'orden': TextInput(attrs={'type': 'number', 'step': '1.00'}),
             'estado_de_documento': TextInput(attrs={'required': 'required'}),
             'descripcion': TextInput(),

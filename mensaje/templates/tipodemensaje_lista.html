@@ -157,7 +157,7 @@ Mensaje
 
 <tr class="active">
     <th>
-        Tipo de mensaje
+        Nombre del tipo de mensaje
 
         {% if request.GET.page %}
 
@@ -173,7 +173,7 @@ Mensaje
 
     </th>
     <th>
-        Descripción
+        Descripción del tipo de mensaje
 
         {% if request.GET.page %}
 
@@ -231,7 +231,7 @@ Mensaje
     $(document).on('ready',function(){
         ocultarASCDesc('tipo_de_mensaje');
         ocultarASCDesc('descripcion');
-    })
+    });
 </script>
 
 {% endblock lista %}

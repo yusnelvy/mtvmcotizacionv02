@@ -38,7 +38,7 @@ class MensajeForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'mensaje': TextInput(attrs={'required': 'required'}),
             'descripcion': TextInput(attrs={'required': 'required'}),
             'codigo': TextInput(attrs={'required': 'required'}),
-            'tipo_de_mensaje': SelectMD()
+            'tipo_de_mensaje': SelectMD(attrs={'required': 'required', 'tabindex': '1'})
             }
         labels = {
             'tipo_de_mensaje': ('Nombre del tipo de mensaje'),

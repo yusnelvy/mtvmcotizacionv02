@@ -38,7 +38,7 @@ class EstadoDeRegistroForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = EstadoDeRegistro
         fields = '__all__'
         widgets = {
-            'estado': SelectMD(attrs={'required': 'required'}),
+            'estado': SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
             'descripcion': TextInput(attrs={'required': 'required'}),
             'observacion': TextInput(),
             }

@@ -9,8 +9,7 @@ Cliente
 {% block titulo_lista %}
 
 <h2>Listado de estado civil</h2>
-
-<h6>Cantidad de Estados Civiles encontrados:
+<h6>Cantidad de estados civiles encontrados:
     <span class="badge" id="count_reg">
 
         {{ estados_civil.count }}
@@ -158,7 +157,7 @@ Cliente
 
 <tr class="active">
     <th>
-        Estado Civil
+        Nombre del estado Civil
 
         {% if request.GET.page %}
 
@@ -210,7 +209,7 @@ Cliente
 <script>
     $(document).on('ready',function(){
         ocultarASCDesc('estado_civil');
-    })
+    });
 </script>
 
 {% endblock lista %}

@@ -326,7 +326,7 @@ th {
   font-family: 'Glyphicons Halflings';
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-.glyphicon, .ascendenteAlfabetico, .descendenteAlfabetico, .ascendenteNumerico, .descendenteNumerico, .iconoPlus, .iconoVolver, .iconoImprimir, .iconoEditar, .iconoRemover, .iconoVerFicha {
+.glyphicon, .ascendenteAlfabetico, .descendenteAlfabetico, .ascendenteNumerico, .descendenteNumerico, .iconoPlus, .iconoVolver, .iconoImprimir, .iconoEditar, .iconoRemover, .iconoVerFicha, .iconoDescargar {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -695,7 +695,7 @@ th {
 .glyphicon-folder-close:before {
   content: "\e117"; }
 
-.glyphicon-folder-open:before {
+.glyphicon-folder-open:before, .iconoDescargar:before {
   content: "\e118"; }
 
 .glyphicon-resize-vertical:before {
@@ -21606,7 +21606,9 @@ md-datepicker[disabled] .md-datepicker-triangle-button {
  * componentes de crear nuevo y editar
  */
 .botonRegistrar > button, .botonRegistrar > a {
-  margin-left: 0; }
+  margin-left: 0;
+  background: #fff;
+  margin-top: 20px; }
 
 .paginacionEdit {
   padding: 0;
@@ -21625,8 +21627,14 @@ md-datepicker[disabled] .md-datepicker-triangle-button {
 ul {
   list-style: none; }
 
-.grupoInput p md-input-container {
-  color: #3f51b5; }
+.grupoInput {
+  background: #fff;
+  padding: 15px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+  .grupoInput md-input-container {
+    color: #3f51b5; }
+  .grupoInput label {
+    font-size: 18px; }
 
 /*
  * componentes botones
@@ -21635,8 +21643,12 @@ ul {
  * componentes de listas
  */
 .btn-ordenarLista, .ascendenteAlfabetico, .descendenteAlfabetico, .ascendenteNumerico, .descendenteNumerico {
-  float: right;
-  font-size: 16px; }
+  font-size: 16px;
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 97%;
+  z-index: 1000; }
 
 .buscarEnLista {
   max-width: 250px;
@@ -21644,16 +21656,22 @@ ul {
 
 .paginacionLista {
   float: right; }
+  .paginacionLista ul {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
 
 .tablaLista {
-  text-align: center !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   width: 100%; }
-  .tablaLista th, .tablaLista td {
-    text-align: center !important; }
+  .tablaLista thead tr[class="active"] th {
+    text-align: center; }
+  .tablaLista tbody th, .tablaLista tbody td {
+    text-align: center;
+    max-width: 300px; }
 
 .controlLista {
   width: 80px;
-  text-align: center; }
+  text-align: center;
+  overflow: none; }
 
 /*
  * iconos
@@ -21664,7 +21682,8 @@ ul {
 .navbarApp {
   background: #3f51b5; }
   .navbarApp md-toolbar {
-    background: #3f51b5; }
+    background: #3f51b5;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
   .navbarApp div a md-icon {
     font-size: 18px !important; }
 
@@ -21710,6 +21729,7 @@ ul {
   overflow-y: auto;
   overflow-x: hidden;
   background: #3f51b5;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -21723,6 +21743,7 @@ ul {
   position: absolute;
   height: calc(100% - 70px);
   overflow-y: auto;
+  background: #eee;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;

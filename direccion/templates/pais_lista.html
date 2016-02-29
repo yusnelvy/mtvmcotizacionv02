@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-  País
+País
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Países</h2>
-
-<h6>Cantidad de Paises encontrados:
+<h2>Listado de países</h2>
+<h6>Cantidad de países encontrados:
     <span class="badge" id="count_reg">
 
         {{ paises.count }}
@@ -176,7 +175,7 @@
 
     </th>
     <th>
-       Código telefónico
+       Código telefónico del país
 
         {% if request.GET.page %}
 
@@ -213,10 +212,10 @@
       <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:edit_pais' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'udirecciones:edit_pais' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'udirecciones:eliminar_pais' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'udirecciones:eliminar_pais' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -234,7 +233,7 @@
     $(document).on('ready',function(){
         ocultarASCDesc('pais');
         ocultarASCDesc('codigo_telefonico');
-    })
+    });
 </script>
 
 {% endblock lista %}
