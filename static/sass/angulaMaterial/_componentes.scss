@@ -4,6 +4,8 @@
 .botonRegistrar > button, .botonRegistrar > a {
     @extend .md-raised;
     margin-left: 0;
+    background: #fff;
+    margin-top: 20px;
 }
 .paginacionEdit {
     padding: 0;
@@ -26,12 +28,15 @@
 ul {
   list-style: none;
 }
-.grupoInput p {
+.grupoInput {
+    background: #fff;
+    padding: 15px;
+    box-shadow: $sombra;
     md-input-container {
       color: $brand-primary;
     }
     label {
-
+      font-size: 18px;
     }
     input[type=text],
     input[type=number],
@@ -58,8 +63,12 @@ ul {
     @extend .badge;
 }
 .btn-ordenarLista {
-    float: right;
     font-size: 16px;
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 97%;
+    z-index: 1000;
 }
 .buscarEnLista {
 
@@ -71,14 +80,23 @@ ul {
     @extend .hidden-print;
     ul {
         @extend .pagination;
+        box-shadow: $sombra;
     }
 }
 .tablaLista {
     @extend .mdl-data-table;
-    text-align: center!important;
+    box-shadow: $sombra;
     width: 100%;
-    th, td {
-        text-align: center!important;
+    thead{
+      tr[class="active"] th {
+        text-align: center;
+      }
+    }
+    tbody {
+      th, td {
+        text-align: center;
+        max-width: 300px;
+    }
     }
 }
 .tablaListaRelacion {
@@ -90,6 +108,7 @@ ul {
 .controlLista {
     width: 80px;
     text-align: center;
+    overflow: none;
 }
 .ascendenteAlfabetico {
     @extend .glyphicon;
@@ -139,6 +158,10 @@ ul {
     @extend .glyphicon;
     @extend .glyphicon-file;
 }
+.iconoDescargar {
+    @extend .glyphicon;
+    @extend .glyphicon-folder-open;
+}
 
 /*!
  * navbar
@@ -146,6 +169,7 @@ ul {
 .navbarApp {
     md-toolbar {
       background: $brand-primary;
+      box-shadow: $sombra;
     }
     //@extend .navbar;
     //@extend .navbar-default!optional;
@@ -203,6 +227,7 @@ ul {
     overflow-y: auto;
     overflow-x: hidden;
     background: $brand-primary;
+    box-shadow: $sombra;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -218,6 +243,7 @@ ul {
     position: absolute;
     height: calc(100% - 70px);
     overflow-y: auto;
+    background: $body-bg;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;

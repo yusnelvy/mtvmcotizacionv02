@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-Personalización visual
+Premisas
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Personalizaciones visuales</h2>
-
-<h6>Cantidad de Personalizaciones visuales encontrados:
+<h2>Listado de personalizaciones visuales</h2>
+<h6>Cantidad de personalizaciones visuales encontrados:
     <span class="badge" id="count_reg">
 
         {{ personalizacionvisuales.count }}
@@ -20,7 +19,7 @@ Personalización visual
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -144,7 +143,7 @@ Personalización visual
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -152,7 +151,7 @@ Personalización visual
 
 <tr class="active">
     <th>
-        Usuario
+        Nombre del usuario
 
         {% if request.GET.page %}
 
@@ -168,7 +167,7 @@ Personalización visual
 
     </th>
     <th>
-        tipo
+        Tipo de la personalización
 
         {% if request.GET.page %}
 
@@ -183,6 +182,23 @@ Personalización visual
         {% endif %}
 
     </th>
+    <th>
+        Valor de la personalización
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=valor&page={{request.GET.page}}" id="valor" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-valor&page={{request.GET.page}}" id="-valor"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=valor" id="valor" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-valor" id="-valor"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -201,10 +217,18 @@ Personalización visual
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:edit_personalizacionvisual' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.valor }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:eliminar_personalizacionvisual' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:edit_personalizacionvisual' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:eliminar_personalizacionvisual' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -213,7 +237,6 @@ Personalización visual
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
@@ -223,7 +246,8 @@ Personalización visual
     $(document).on('ready',function(){
         ocultarASCDesc('usuario');
         ocultarASCDesc('tipo');
-    })
+        ocultarASCDesc('valor');
+    });
 </script>
 
 {% endblock lista %}

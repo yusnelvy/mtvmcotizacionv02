@@ -12,7 +12,7 @@ Editar institución {{form.nombre.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
 {% if institucion_previous %}
 
@@ -38,9 +38,9 @@ Editar institución {{form.nombre.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 <div class="prueba">
 
@@ -52,4 +52,4 @@ Editar institución {{form.nombre.value|lower}}
 document.getElementById('id_alianza').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

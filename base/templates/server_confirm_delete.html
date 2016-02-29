@@ -3,8 +3,10 @@
 {% block contenido %}
 
 <br>
-<form action="" method="post" class="jumbotron" ng-controller="controlEliminar">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}" ?</p>
+<form action="" method="post" ng-controller="controlEliminar">{% csrf_token %}
+    <din class="">
+    <p class="grupoInput">Are you sure you want to delete "{{ object }}" ?</p>
+    </din>
     <div class="botonRegistrar">
         <a href="{{request.GET.next}}">Cancelar</a>
         <md-button type="submit">Confirmar</md-button>

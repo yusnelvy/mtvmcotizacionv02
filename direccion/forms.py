@@ -21,11 +21,12 @@ class PaisForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Pais
         fields = '__all__'
         labels = {
-            'pais': ('Nombre del país')
+            'pais': ('Nombre del país'),
+            'codigo_telefonico': ('Código telefónico del país')
         }
         widgets = {
             'pais': TextInput(attrs={'required': 'required'}),
-            'codigo_telefonico': TextInput(attrs={'type': 'number','required': 'required'})
+            'codigo_telefonico': TextInput(attrs={'required': 'required'})
             }
 
 
@@ -41,12 +42,13 @@ class ProvinciaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Provincia
         fields = 'pais', 'provincia', 'codigo_telefonico'
         labels = {
-            'provincia': ('Nombre de provincia'),
-            'pais': ('Seleccione el país')
+            'provincia': ('Nombre de la provincia'),
+            'pais': ('Seleccione el país de la provincia'),
+            'codigo_telefonico': ('Código telefónico de la provincia')
         }
         widgets = {
             'provincia': TextInput(attrs={'required': 'required'}),
-            'pais': SelectMD(attrs={'required': 'required'})
+            'pais': SelectMD(attrs={'required': 'required', 'tabindex': '1'})
             }
 
 
@@ -64,8 +66,8 @@ class CiudadForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = 'pais', 'provincia', 'ciudad'
         labels = {
             'ciudad': ('Nombre de la ciudad'),
-            'provincia': ('Seleccione una provincia'),
-            'pais': ('Seleccione un país')
+            'provincia': ('Seleccione una provincia asociada'),
+            'pais': ('Seleccione un país asociado')
         }
         widgets = {
             #'pais': SelectMD(attrs={'required': 'required'},
@@ -89,9 +91,9 @@ class BarrioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = '__all__'
         labels = {
             'barrio': ('Nombre del barrio'),
-            'ciudad': ('Ciudad'),
-            'provincia': ('Provincia'),
-            'pais': ('País')
+            'ciudad': ('Ciudad asociada'),
+            'provincia': ('Provincia asociada'),
+            'pais': ('País asociado')
         }
         widgets = {
             'barrio': TextInput(attrs={'required': 'required'})

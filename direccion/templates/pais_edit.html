@@ -17,13 +17,13 @@ Editar el país: {{form.pais.value|lower}}
     {% if pais_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'udirecciones:edit_pais' pais_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
+            <md-button href="{% url 'udirecciones:edit_pais' pais_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
         <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
         </li>
 
     {% endif %}
@@ -31,13 +31,13 @@ Editar el país: {{form.pais.value|lower}}
     {% if pais_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'udirecciones:edit_pais' pais_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
+            <md-button href="{% url 'udirecciones:edit_pais' pais_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
         <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
 
    {% endif %}
@@ -55,7 +55,7 @@ Editar el país: {{form.pais.value|lower}}
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
     $scope.pais = '{{form.pais.value}}';
-    $scope.codigo_telefonico = '{{form.pais.value}}'
+    $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}'
       $('#id_pais').focus();
       $('#id_pais').parent().addClass('md-input-focused');
   });

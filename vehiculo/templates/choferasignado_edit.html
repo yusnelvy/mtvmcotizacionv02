@@ -12,7 +12,7 @@ Editar chofer asignado {{form.trabajador.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
 {% if choferasignado_previous %}
 
@@ -38,9 +38,9 @@ Editar chofer asignado {{form.trabajador.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 <div class="prueba">
 
@@ -52,4 +52,4 @@ Editar chofer asignado {{form.trabajador.value|lower}}
 document.getElementById('id_detalle_de_vehiculo').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

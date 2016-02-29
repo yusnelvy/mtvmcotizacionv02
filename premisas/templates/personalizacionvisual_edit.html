@@ -2,54 +2,69 @@
 
 {% block titulo %}
 
-Personalización visual
+Premisa
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar personalización visual {{form.usuario.value|lower}}
+Editar personalización visual: {{form.tipo.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
 {% if personalizacionvisual_previous %}
 
-<li class="previous">
-    <a href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+<li class="anterior">
+    <md-button href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
 </li>
 
 {% else %}
 
-<li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
 {% endif %}
 
 {% if personalizacionvisual_next %}
 
-<li class="next">
-    <a href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+<li class="siguiente">
+    <md-button href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
 </li>
 
 {% else %}
 
-<li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+    <md-button ng-href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
 {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
-
-<div class="prueba">
+{% block cuerpo_form %}
 
 {{ form.as_md }}
-
-</div>
 
 <script type="text/javascript">
 document.getElementById('id_usuario').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.usuario = '{{form.usuario.value}}';
+    $scope.tipo = '{{form.tipo.value}}';
+    $scope.valor = '{{form.valor.value}}';
+ $('#id_tipo_de_mueble').focus();
+  });
+</script>
+
+{% endblock moduloAngular %}

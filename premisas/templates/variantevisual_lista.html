@@ -8,9 +8,8 @@ Variante visual
 
 {% block titulo_lista %}
 
-<h2>Listado de Variantes visuales</h2>
-
-<h6>Cantidad de Variantes visuales encontrados:
+<h2>Listado de variantes visuales</h2>
+<h6>Cantidad de variantes visuales encontrados:
     <span class="badge" id="count_reg">
 
         {{ variantevisuales.count }}
@@ -20,7 +19,7 @@ Variante visual
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -144,7 +143,7 @@ Variante visual
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 

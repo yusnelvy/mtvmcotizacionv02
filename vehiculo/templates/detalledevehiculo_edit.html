@@ -12,7 +12,7 @@ Editar detalle de vehículo {{form.vehiculo.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
 {% if detalledevehiculo_previous %}
 
@@ -38,9 +38,9 @@ Editar detalle de vehículo {{form.vehiculo.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 <div class="prueba">
 
@@ -52,4 +52,4 @@ Editar detalle de vehículo {{form.vehiculo.value|lower}}
 document.getElementById('id_vehiculo').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

@@ -2,24 +2,31 @@
 
 {% block titulo %}
 
-    Servicio
+Servicio
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar servicio
+Agregar un servicio
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_servicio').focus()
-</script>
+{% endblock cuerpo_form %}
 
-{% endblock formulario %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_unidad_de_venta').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

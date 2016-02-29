@@ -4,9 +4,10 @@ Docstring documentación pendiente
 """
 from servicio.models import Servicio, ComplejidadServicio, \
     PrecioDeServicio, HerramientasPorServicio
-from base.forms import BaseFormMd
+from base.forms import BaseFormMd, SelectMD
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms.models import inlineformset_factory
+from django.forms import ModelForm, TextInput
 
 
 class ServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
@@ -15,7 +16,16 @@ class ServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     class Meta:
         model = Servicio
-        fields = '__all__'
+        fields = 'unidad_de_venta', 'servicio', 'descripcion'
+        labels = {
+            'servicio': ('Nombre del servicio'),
+            'descripcion': ('Descripción del ambiente')
+        }
+        widgets = {
+            'servicio': TextInput(attrs={'required': 'required'}),
+            'descripcion': TextInput(attrs={'required': 'required'}),
+            'unidad_de_venta': SelectMD(attrs={'required': 'required', 'tabindex': '1'})
+        }
 
 
 class ComplejidadServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
