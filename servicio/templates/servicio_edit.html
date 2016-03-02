@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-    Servicio
+Servicio
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar la servicio {{form.servicio.value|lower}}
+Editar el servicio: {{form.servicio.value|lower}}
 
 {% endblock titulo_form %}
 
@@ -16,25 +16,27 @@ Editar la servicio {{form.servicio.value|lower}}
 
     {% if servicio_previous %}
 
-        <li class="previous">
-            <a href="{% url 'uservicios:edit_servicio' servicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        <li class="anterior">
+            <md-button href="{% url 'uservicios:edit_servicio' servicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+        <li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
 
     {% endif %}
 
     {% if servicio_next %}
 
-        <li class="next">
-            <a href="{% url 'uservicios:edit_servicio' servicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        <li class="siguiente">
+            <md-button href="{% url 'uservicios:edit_servicio' servicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+  <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
     {% endif %}
 
@@ -44,8 +46,17 @@ Editar la servicio {{form.servicio.value|lower}}
 
 {{ form.as_md }}
 
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
 <script type="text/javascript">
-document.getElementById('id_servicio').focus()
+app.controller('controlForm',function($scope){
+  $scope.servicio = '{{form.servicio.value}}';
+  $scope.descripcion = '{{form.descripcion.value}}';
+  $scope.unidad_de_venta = '{{form.unidad_de_venta.value}}';
+  $('#id_unidad_de_venta').focus();
+});
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock moduloAngular %}

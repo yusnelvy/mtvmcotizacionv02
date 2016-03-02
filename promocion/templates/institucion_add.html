@@ -8,7 +8,7 @@ Institución
 
 {% block titulo_form %}
 
-Agregar Institución
+Agregar una institución
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,16 @@ Agregar Institución
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_alianza').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_alianza').focus();
+      $scope.pagina_web = "http://"
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

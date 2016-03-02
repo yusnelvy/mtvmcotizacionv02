@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-Persona aliada
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar Persona aliada
+Agregar una persona aliada
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar Persona aliada
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_institucion').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_institucion').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

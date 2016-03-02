@@ -8,9 +8,8 @@ Vehículo
 
 {% block titulo_lista %}
 
-<h2>Listado de Vehículos</h2>
-
-<h6>Cantidad de Vehículos encontrados:
+<h2>Listado de vehículos</h2>
+<h6>Cantidad de vehículos encontrados:
     <span class="badge" id="count_reg">
 
         {{ vehiculos.count }}
@@ -46,13 +45,9 @@ Vehículo
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,7 +147,7 @@ Vehículo
 
 <tr class="active">
     <th>
-        Marca
+        Marca del vehículo
 
         {% if request.GET.page %}
 
@@ -168,7 +163,7 @@ Vehículo
 
     </th>
     <th>
-        Modelo
+        Modelo del vehículo
 
         {% if request.GET.page %}
 
@@ -183,6 +178,71 @@ Vehículo
         {% endif %}
 
     </th>
+    <th>
+        Transmisión del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=transmision&page={{request.GET.page}}" id="transmision" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-transmision&page={{request.GET.page}}" id="-transmision"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=transmision" id="transmision" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-transmision" id="-transmision"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Motor del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=motor&page={{request.GET.page}}" id="motor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-motor&page={{request.GET.page}}" id="-motor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=motor" id="motor" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-motor" id="-motor"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Volumen de carga del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=volumen_total_carga&page={{request.GET.page}}" id="volumen_total_carga" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_total_carga&page={{request.GET.page}}" id="-volumen_total_carga"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=volumen_total_carga" id="volumen_total_carga" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_total_carga" id="-volumen_total_carga"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Peso de carga del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=peso_total_carga&page={{request.GET.page}}" id="peso_total_carga" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-peso_total_carga&page={{request.GET.page}}" id="-peso_total_carga"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=peso_total_carga" id="peso_total_carga" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-peso_total_carga" id="-peso_total_carga"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -201,10 +261,33 @@ Vehículo
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:edit_vehiculo' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.transmision }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:eliminar_vehiculo' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.motor }}
+
+    </td>
+    <td>
+
+        {{ i.volumen_total_carga }}
+
+    </td>
+    <td>
+
+        {{ i.peso_total_carga }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uvehiculos:edit_vehiculo' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uvehiculos:eliminar_vehiculo' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -213,7 +296,6 @@ Vehículo
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
@@ -223,7 +305,11 @@ Vehículo
     $(document).on('ready',function(){
         ocultarASCDesc('marca');
         ocultarASCDesc('modelo');
-    })
+        ocultarASCDesc('transmision');
+        ocultarASCDesc('motor');
+        ocultarASCDesc('volumen_total_carga');
+        ocultarASCDesc('peso_total_carga');
+    });
 </script>
 
 {% endblock lista %}

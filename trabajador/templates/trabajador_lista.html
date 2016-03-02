@@ -8,9 +8,8 @@ Trabajador
 
 {% block titulo_lista %}
 
-<h2>Listado de Trabajadores</h2>
-
-<h6>Cantidad de Trabajadores encontrados:
+<h2>Listado de trabajadores</h2>
+<h6>Cantidad de trabajadores encontrados:
     <span class="badge" id="count_reg">
 
         {{ trabajadores.count }}
@@ -46,13 +45,9 @@ Trabajador
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,23 +147,23 @@ Trabajador
 
 <tr class="active">
     <th>
-        DNI
+        DNI del trabajador
 
         {% if request.GET.page %}
 
-        <a href="?order_by=dni&page={{request.GET.page}}" id="dni" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-dni&page={{request.GET.page}}" id="-dni"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=dni&page={{request.GET.page}}" id="dni" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-dni&page={{request.GET.page}}" id="-dni"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=dni" id="dni" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-dni" id="-dni"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=dni" id="dni" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-dni" id="-dni"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
     <th>
-        Nombre
+        Nombre del trabajador
 
         {% if request.GET.page %}
 
@@ -184,7 +179,7 @@ Trabajador
 
     </th>
      <th>
-        apellido
+        Apellido del trabajador
 
         {% if request.GET.page %}
 
@@ -199,6 +194,71 @@ Trabajador
         {% endif %}
 
     </th>
+    <th>
+        Dirección del trabajador
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=direccion&page={{request.GET.page}}" id="direccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-direccion&page={{request.GET.page}}" id="-direccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=direccion" id="direccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-direccion" id="-direccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Teléfono del trabajador
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=telefono&page={{request.GET.page}}" id="telefono" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono&page={{request.GET.page}}" id="-telefono"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=telefono" id="telefono" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono" id="-telefono"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Correo del trabajador
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=email&page={{request.GET.page}}" id="email" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email&page={{request.GET.page}}" id="-email"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=email" id="email" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email" id="-email"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Volumen del trabajador en el camión
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=volumen_en_camion&page={{request.GET.page}}" id="volumen_en_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion&page={{request.GET.page}}" id="-volumen_en_camion"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=volumen_en_camion" id="volumen_en_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion" id="-volumen_en_camion"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -222,10 +282,33 @@ Trabajador
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'utrabajadores:edit_trabajador' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.direccion }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'utrabajadores:eliminar_trabajador' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.telefono }}
+
+    </td>
+    <td>
+
+        {{ i.email }}
+
+    </td>
+    <td>
+
+        {{ i.volumen_en_camion }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'utrabajadores:edit_trabajador' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'utrabajadores:eliminar_trabajador' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -245,7 +328,11 @@ Trabajador
         ocultarASCDesc('dni');
         ocultarASCDesc('nombre');
         ocultarASCDesc('apellido');
-    })
+        ocultarASCDesc('direccion');
+        ocultarASCDesc('telefono');
+        ocultarASCDesc('email');
+        ocultarASCDesc('volumen_en_camion');
+    });
 </script>
 
 {% endblock lista %}

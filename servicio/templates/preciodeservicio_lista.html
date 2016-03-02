@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-    precio de servicio
+Servicio
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
 <h2>Listado de precios de servicios</h2>
-
- <h6>Cantidad de precios de servicios:
+<h6>Cantidad de precios de servicios encontrados:
     <span class="badge" id="count_reg">
 
         {{ preciodeservicios.count }}
@@ -158,23 +157,7 @@
 
 <tr class="active">
     <th>
-        Servicio
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=servicio&page={{request.GET.page}}" id="servicio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-servicio&page={{request.GET.page}}" id="-servicio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=servicio" id="servicio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-servicio" id="-servicio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th>
-        precio base
+        precio base del servicio
 
         {% if request.GET.page %}
 
@@ -189,6 +172,263 @@
         {% endif %}
 
     </th>
+    <th>
+        Cantidad de gracias del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=cantidad_de_gracia&page={{request.GET.page}}" id="cantidad_de_gracia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cantidad_de_gracia&page={{request.GET.page}}" id="-cantidad_de_gracia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=cantidad_de_gracia" id="cantidad_de_gracia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cantidad_de_gracia" id="-cantidad_de_gracia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Intervalo 1 del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=intervalo_1&page={{request.GET.page}}" id="intervalo_1" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-intervalo_1&page={{request.GET.page}}" id="-intervalo_1"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=intervalo_1" id="intervalo_1" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-intervalo_1" id="-intervalo_1"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Porcentaje 1 del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=porcentaje_1&page={{request.GET.page}}" id="porcentaje_1" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_1&page={{request.GET.page}}" id="-porcentaje_1"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=porcentaje_1" id="porcentaje_1" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_1" id="-porcentaje_1"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Intervalo 2 del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=intervalo_2&page={{request.GET.page}}" id="intervalo_2" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-intervalo_2&page={{request.GET.page}}" id="-intervalo_2"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=intervalo_2" id="intervalo_2" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-intervalo_2" id="-intervalo_2"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Porcentaje 2 del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=porcentaje_2&page={{request.GET.page}}" id="porcentaje_2" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_2&page={{request.GET.page}}" id="-porcentaje_2"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=porcentaje_2" id="porcentaje_2" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_2" id="-porcentaje_2"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Intervalo 3 del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=intervalo_3&page={{request.GET.page}}" id="intervalo_3" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-intervalo_3&page={{request.GET.page}}" id="-intervalo_3"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=intervalo_3" id="intervalo_3" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-intervalo_3" id="-intervalo_3"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Porcentaje 3 del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=porcentaje_3&page={{request.GET.page}}" id="porcentaje_3" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_3&page={{request.GET.page}}" id="-porcentaje_3"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=porcentaje_3" id="porcentaje_3" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_3" id="-porcentaje_3"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Redondeo del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=redondeo&page={{request.GET.page}}" id="redondeo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-redondeo&page={{request.GET.page}}" id="-redondeo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=redondeo" id="redondeo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-redondeo" id="-redondeo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Desde la fecha
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=fecha_desde&page={{request.GET.page}}" id="fecha_desde" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_desde&page={{request.GET.page}}" id="-fecha_desde"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=fecha_desde" id="fecha_desde" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_desde" id="-fecha_desde"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Hasta la fecha
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=fecha_hasta&page={{request.GET.page}}" id="fecha_hasta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_hasta&page={{request.GET.page}}" id="-fecha_hasta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=fecha_hasta" id="fecha_hasta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_hasta" id="-fecha_hasta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Infinito
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=infinito&page={{request.GET.page}}" id="infinito" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-infinito&page={{request.GET.page}}" id="-infinito"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=infinito" id="infinito" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-infinito" id="-infinito"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Aprobado
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=aprobado&page={{request.GET.page}}" id="aprobado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-aprobado&page={{request.GET.page}}" id="-aprobado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=aprobado" id="aprobado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-aprobado" id="-aprobado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Fecha de aprobación del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=fecha_aprobacion&page={{request.GET.page}}" id="fecha_aprobacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_aprobacion&page={{request.GET.page}}" id="-fecha_aprobacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=fecha_aprobacion" id="fecha_aprobacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_aprobacion" id="-fecha_aprobacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Usuario preparador del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=user_preparador&page={{request.GET.page}}" id="user_preparador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-user_preparador&page={{request.GET.page}}" id="-user_preparador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=user_preparador" id="user_preparador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-user_preparador" id="-user_preparador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Usuario aprobador del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=user_aprobador&page={{request.GET.page}}" id="user_aprobador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-user_aprobador&page={{request.GET.page}}" id="-user_aprobador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=user_aprobador" id="user_aprobador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-user_aprobador" id="-user_aprobador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=servicio&page={{request.GET.page}}" id="servicio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-servicio&page={{request.GET.page}}" id="-servicio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=servicio" id="servicio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-servicio" id="-servicio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -198,19 +438,97 @@
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.servicio }}
-
-    </td>
-    <td>
-
         {{ i.precio_base }}
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uservicios:edit_servicio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.cantidad_de_gracia }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uservicios:eliminar_servicio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.intervalo_1 }}
+
+    </td>
+    <td>
+
+        {{ i.porcentaje_1 }}
+
+    </td>
+    <td>
+
+        {{ i.intervalo_2 }}
+
+    </td>
+    <td>
+
+        {{ i.porcentaje_2 }}
+
+    </td>
+    <td>
+
+        {{ i.intervalo_3 }}
+
+    </td>
+    <td>
+
+        {{ i.porcentaje_3 }}
+
+    </td>
+    <td>
+
+        {{ i.redondeo }}
+
+    </td>
+    <td>
+
+        {{ i.fecha_desde }}
+
+    </td>
+    <td>
+
+        {{ i.fecha_hasta }}
+
+    </td>
+    <td>
+
+        {{ i.infinito|yesno:"Infinito,No infinito" }}
+
+    </td>
+    <td>
+
+        {{ i.aprobado|yesno:"Aprobado,No aprobado" }}
+
+    </td>
+    <td>
+
+        {{ i.fecha_aprobacion|date:"d/m/Y" }}
+
+    </td>
+    <td>
+
+        {{ i.user_preparador }}
+
+    </td>
+    <td>
+
+        {{ i.user_aprobador }}
+
+    </td>
+    <td>
+
+        {{ i.servicio }}
+
+    </td>
+    <td>
+        <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uservicios:edit_preciodeservicio' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uservicios:eliminar_preciodeservicio' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -225,10 +543,25 @@
 {% endif %}
 
 <script>
-    $(document).on('ready',function(){
-        ocultarASCDesc('servicio');
-        ocultarASCDesc('precio_base');
-    })
+$(document).on('ready',function(){
+    ocultarASCDesc('servicio');
+    ocultarASCDesc('precio_base');
+    ocultarASCDesc('fecha_aprobacion');
+    ocultarASCDesc('preciaprobadoo_base');
+    ocultarASCDesc('infinito');
+    ocultarASCDesc('fecha_hasta');
+    ocultarASCDesc('fecha_desde');
+    ocultarASCDesc('redondeo');
+    ocultarASCDesc('porcentaje_3');
+    ocultarASCDesc('intervalo_3');
+    ocultarASCDesc('porcentaje_2');
+    ocultarASCDesc('intervalo_2');
+    ocultarASCDesc('porcentaje_1');
+    ocultarASCDesc('intervalo_1');
+    ocultarASCDesc('cantidad_de_gracia');
+    ocultarASCDesc('user_preparador');
+    ocultarASCDesc('user_aprobador');
+});
 </script>
 
 {% endblock lista %}

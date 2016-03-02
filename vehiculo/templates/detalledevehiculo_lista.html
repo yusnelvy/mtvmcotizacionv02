@@ -8,9 +8,8 @@ Detalle de vehículo
 
 {% block titulo_lista %}
 
-<h2>Listado de Detalle de vehículos</h2>
-
-<h6>Cantidad de Detalle de vehículos encontrados:
+<h2>Listado de detalle de vehículos</h2>
+<h6>Cantidad de detalle de vehículos encontrados:
     <span class="badge" id="count_reg">
 
         {{ detalledevehiculos.count }}
@@ -46,13 +45,9 @@ Detalle de vehículo
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,7 +147,151 @@ Detalle de vehículo
 
 <tr class="active">
     <th>
-        Vehículo
+        N° del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=numero_de_camion&page={{request.GET.page}}" id="numero_de_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_de_camion&page={{request.GET.page}}" id="-numero_de_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=numero_de_camion" id="numero_de_camion" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_de_camion" id="-numero_de_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Ancho del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=ancho&page={{request.GET.page}}" id="ancho" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho&page={{request.GET.page}}" id="-ancho"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=ancho" id="ancho" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho" id="-ancho"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Largo del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=largo&page={{request.GET.page}}" id="largo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo&page={{request.GET.page}}" id="-largo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=largo" id="largo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo" id="-largo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Alto del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=alto&page={{request.GET.page}}" id="alto" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto&page={{request.GET.page}}" id="-alto"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=alto" id="alto" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto" id="-alto"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Ancho auxiliar del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=ancho_aux&page={{request.GET.page}}" id="ancho_aux" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho_aux&page={{request.GET.page}}" id="-ancho_aux"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=ancho_aux" id="ancho_aux" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho_aux" id="-ancho_aux"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Largo auxiliar del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=largo_aux&page={{request.GET.page}}" id="largo_aux" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo_aux&page={{request.GET.page}}" id="-largo_aux"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=largo_aux" id="largo_aux" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo_aux" id="-largo_aux"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Alto auxiliar del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=alto_aux&page={{request.GET.page}}" id="alto_aux" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto_aux&page={{request.GET.page}}" id="-alto_aux"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=alto_aux" id="alto_aux" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto_aux" id="-alto_aux"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Peso tara del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=tara_vehiculo&page={{request.GET.page}}" id="tara_vehiculo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tara_vehiculo&page={{request.GET.page}}" id="-tara_vehiculo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=tara_vehiculo" id="tara_vehiculo" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tara_vehiculo" id="-tara_vehiculo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Observación del vehículo
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=observacion&page={{request.GET.page}}" id="observacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-observacion&page={{request.GET.page}}" id="-observacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=observacion" id="observacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-observacion" id="-observacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del vehículo
 
         {% if request.GET.page %}
 
@@ -167,21 +306,7 @@ Detalle de vehículo
         {% endif %}
 
     </th>
-    <th>
-        N° de camión
-        {% if request.GET.page %}
-
-        <a href="?order_by=numero_de_camion&page={{request.GET.page}}" id="numero_de_camion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_de_camion&page={{request.GET.page}}" id="-numero_de_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=numero_de_camion" id="numero_de_camion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_de_camion" id="-numero_de_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -191,19 +316,62 @@ Detalle de vehículo
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.vehiculo }}
-
-    </td>
-    <td>
-
         {{ i.numero_de_camion }}
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:edit_detalledevehiculo' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.ancho }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:eliminar_detalledevehiculo' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.largo }}
+
+    </td>
+    <td>
+
+        {{ i.alto }}
+
+    </td>
+    <td>
+
+        {{ i.ancho_aux }}
+
+    </td>
+    <td>
+
+        {{ i.largo_aux }}
+
+    </td>
+    <td>
+
+        {{ i.alto_aux }}
+
+    </td>
+    <td>
+
+        {{ i.tara_vehiculo }}
+
+    </td>
+    <td>
+
+        {{ i.observacion }}
+
+    </td>
+    <td>
+
+        {{ i.vehiculo }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uvehiculos:edit_detalledevehiculo' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uvehiculos:eliminar_detalledevehiculo' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -212,7 +380,6 @@ Detalle de vehículo
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
@@ -222,7 +389,15 @@ Detalle de vehículo
     $(document).on('ready',function(){
         ocultarASCDesc('vehiculo');
         ocultarASCDesc('numero_de_camion');
-    })
+        ocultarASCDesc('alto');
+        ocultarASCDesc('ancho');
+        ocultarASCDesc('largo');
+        ocultarASCDesc('ancho_aux');
+        ocultarASCDesc('largo_aux');
+        ocultarASCDesc('alto_aux');
+        ocultarASCDesc('tara_vehiculo');
+        ocultarASCDesc('observacion');
+    });
 </script>
 
 {% endblock lista %}

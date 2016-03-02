@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-Detalle de vehículo
+Vehículo
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar Detalle de vehículo
+Agregar un detalle de vehículo
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar Detalle de vehículo
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_vehiculo').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_vehiculo').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-    Documento de talonario
+Talonario
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Documentos de talonarios</h2>
-
- <h6>Cantidad de Documentos de talonarios:
+<h2>Listado de documentos de talonarios</h2>
+ <h6>Cantidad de documentos de talonarios encontrados:
     <span class="badge" id="count_reg">
 
         {{ documentodeltalonarios.count }}
@@ -158,7 +157,87 @@
 
 <tr class="active">
     <th>
-        talonario
+        Numero del talonario
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=numero&page={{request.GET.page}}" id="numero" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero&page={{request.GET.page}}" id="-numero"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=numero" id="numero" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero" id="-numero"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Estado del talonario
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=estado&page={{request.GET.page}}" id="estado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-estado&page={{request.GET.page}}" id="-estado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=estado" id="estado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-estado" id="-estado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Información de proceso del talonario
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=informacion_de_proceso&page={{request.GET.page}}" id="informacion_de_proceso" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-informacion_de_proceso&page={{request.GET.page}}" id="-informacion_de_proceso"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=informacion_de_proceso" id="informacion_de_proceso" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-informacion_de_proceso" id="-informacion_de_proceso"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Información de beneficiario del talonario
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=informacion_de_beneficiari&page={{request.GET.page}}" id="informacion_de_beneficiari" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-informacion_de_beneficiari&page={{request.GET.page}}" id="-informacion_de_beneficiari"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=informacion_de_beneficiari" id="informacion_de_beneficiari" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-informacion_de_beneficiari" id="-informacion_de_beneficiari"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Numero final del talonario
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=numero_final&page={{request.GET.page}}" id="numero_final" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_final&page={{request.GET.page}}" id="-numero_final"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=numero_final" id="numero_final" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_final" id="-numero_final"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del talonario
 
         {% if request.GET.page %}
 
@@ -173,22 +252,7 @@
         {% endif %}
 
     </th>
-    <th>
-        numero
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=numero&page={{request.GET.page}}" id="numero" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero&page={{request.GET.page}}" id="-numero"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=numero" id="numero" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero" id="-numero"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -198,19 +262,43 @@
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.talonario }}
-
-    </td>
-    <td>
-
         {{ i.numero }}
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'utalonarios:edit_documentodeltalonario' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.estado }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'utalonarios:eliminar_documentodeltalonario' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.informacion_de_proceso }}
+
+    </td>
+    <td>
+
+        {{ i.informacion_de_beneficiari }}
+
+    </td>
+    <td>
+
+        {{ i.numero_final }}
+
+    </td>
+    <td>
+
+        {{ i.talonario }}
+
+    </td>
+
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'utalonarios:edit_documentodeltalonario' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'utalonarios:eliminar_documentodeltalonario' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -226,9 +314,13 @@
 
 <script>
     $(document).on('ready',function(){
-        ocultarASCDesc('talonario');
         ocultarASCDesc('numero');
-    })
+        ocultarASCDesc('estado');
+        ocultarASCDesc('informacion_de_proceso');
+        ocultarASCDesc('informacion_de_beneficiari');
+        ocultarASCDesc('talonario');
+        ocultarASCDesc('numero_final');
+    });
 </script>
 
 {% endblock lista %}

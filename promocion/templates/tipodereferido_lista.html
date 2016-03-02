@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-Tipo de referido
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Tipos de referidos</h2>
-
-<h6>Cantidad de Tipos de referidos encontrados:
+<h2>Listado de tipos de referidos</h2>
+<h6>Cantidad de tipos de referidos encontrados:
     <span class="badge" id="count_reg">
 
         {{ tipodereferidos.count }}
@@ -46,13 +45,9 @@ Tipo de referido
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,22 +147,7 @@ Tipo de referido
 
 <tr class="active">
     <th>
-        Medio específico
-        {% if request.GET.page %}
-
-        <a href="?order_by=medio_especifico&page={{request.GET.page}}" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-medio_especifico&page={{request.GET.page}}" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=medio_especifico" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-medio_especifico" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th>
-        Tipo de referido
+        Nombre del tipo de referido
 
         {% if request.GET.page %}
 
@@ -182,6 +162,38 @@ Tipo de referido
         {% endif %}
 
     </th>
+    <th>
+        Descripción del tipo de referido
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del medio específico
+        {% if request.GET.page %}
+
+        <a href="?order_by=medio_especifico&page={{request.GET.page}}" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-medio_especifico&page={{request.GET.page}}" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=medio_especifico" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-medio_especifico" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -191,19 +203,27 @@ Tipo de referido
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.medio_especifico }}
-
-    </td>
-    <td>
-
         {{ i.tipo_de_referido }}
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_medio_especifico' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.descripcion }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_medio_especifico' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.medio_especifico }}
+
+    </td>
+    <td>
+        <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_tipodereferido' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_tipodereferido' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -212,17 +232,17 @@ Tipo de referido
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
 {% endif %}
 
 <script>
-    $(document).on('ready',function(){
-        ocultarASCDesc('medio_especifico');
-        ocultarASCDesc('tipo_de_referido');
-    })
+$(document).on('ready',function(){
+    ocultarASCDesc('medio_especifico');
+    ocultarASCDesc('tipo_de_referido');
+    ocultarASCDesc('descripcion');
+});
 </script>
 
 {% endblock lista %}

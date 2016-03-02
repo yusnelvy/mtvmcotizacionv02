@@ -345,10 +345,10 @@ class CargoTrabajadorView(View):
 
             if 'regEdit' in request.POST:
                 messages.success(request, "Registro guardado.")
-                return HttpResponseRedirect(reverse('ucargotrabajadores:edit_cargotrabajador',
+                return HttpResponseRedirect(reverse('utrabajadores:edit_cargotrabajador',
                                                     args=(id_reg.id,)))
             else:
-                return HttpResponseRedirect(reverse('ucargotrabajadores:list_cargotrabajador'))
+                return HttpResponseRedirect(reverse('utrabajadores:list_cargotrabajador'))
 
         return render(request, self.template_name, {'form': form})
 

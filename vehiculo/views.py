@@ -339,7 +339,7 @@ class DetalleDeVehiculoView(View):
             agregarestado = EstadoDeVehiculo.objects.create(vehiculo=id_reg,
                                                             estado_de_registro_id=estadoactual[0].id,
                                                             usuario_id=2,
-                                                            observecion='Creación de detalle de vehículo',
+                                                            observacion='Creación de detalle de vehículo',
                                                             predefinido=True)
             agregarestado.save()
             if 'regEdit' in request.POST:

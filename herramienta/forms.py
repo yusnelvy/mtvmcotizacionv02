@@ -14,10 +14,17 @@ class HerramientaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     class Meta:
         model = Herramienta
-        fields = '__all__'
+        fields = 'unidad', 'herramienta', 'descripcion', 'volumen_en_camion', 'peso_kg'
         widgets = {
-            'unidad': SelectMD(attrs={'required': 'required'})
+            'unidad': SelectMD(attrs={'tabindex': '1'})
             }
+        labels = {
+            'unidad': ('Unidad de la herramienta'),
+            'herramienta': ('Nombre de la herramienta'),
+            'descripcion': ('Descripción de la herramienta'),
+            'volumen_en_camion': ('Volumen de la herramienta en el camion'),
+            'peso_kg': ('Peso de la herramienta')
+        }
 
 
 class DotacionBasicaDeCamionForm(NgModelFormMixin, NgModelForm, BaseFormMd):

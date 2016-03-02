@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-    Complejidad servicio
+Servicio
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar complejidad servicio
+Agregar una complejidad de servicio
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar complejidad servicio
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_descripcion').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_servicio').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

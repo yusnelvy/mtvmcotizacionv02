@@ -19,7 +19,7 @@ class ServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = 'unidad_de_venta', 'servicio', 'descripcion'
         labels = {
             'servicio': ('Nombre del servicio'),
-            'descripcion': ('Descripción del ambiente')
+            'descripcion': ('Descripción del servicio')
         }
         widgets = {
             'servicio': TextInput(attrs={'required': 'required'}),
@@ -34,7 +34,16 @@ class ComplejidadServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     class Meta:
         model = ComplejidadServicio
-        fields = '__all__'
+        fields = 'servicio', 'porcentaje', 'descripcion', 'predefinido'
+        labels = {
+            'servicio': ('Nombre del servicio'),
+            'descripcion': ('Descripción del de la complejidad del servicio'),
+            'porcentaje': ('Porcentaje complejidad del servicio'),
+            'predefinido': ('Complejidad predefinida del servicio')
+        }
+        widgets = {
+            'servicio': SelectMD(attrs={'tabindex': '1'})
+        }
 
 
 class PrecioDeServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
@@ -44,6 +53,19 @@ class PrecioDeServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     class Meta:
         model = PrecioDeServicio
         fields = '__all__'
+        labels = {
+            'servicio': ('Nombre del servicio'),
+            'precio_base': ('Precio base del servicio'),
+            'cantidad_de_gracia': ('Cantidad de gracias del servicio'),
+            'user_preparador': ('Usuario preparador del servicio'),
+            'user_aprobador': ('Usuario aprobador del servicio'),
+            'fecha_aprobacion': ('Fecha de aprobación del servicio')
+        }
+        widgets = {
+            'servicio': SelectMD(attrs={'tabindex': '1'}),
+            'user_preparador': SelectMD(attrs={'tabindex': ''}),
+            'user_aprobador': SelectMD(attrs={'tabindex': ''})
+        }
 
 
 class HerramientasPorServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):

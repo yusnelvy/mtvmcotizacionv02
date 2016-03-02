@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-    Talonario
+Talonario
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar la talonario {{form.talonario.value|lower}}
+Editar el talonario: {{form.talonario.value|lower}}
 
 {% endblock titulo_form %}
 
@@ -16,25 +16,27 @@ Editar la talonario {{form.talonario.value|lower}}
 
     {% if talonario_previous %}
 
-        <li class="previous">
-            <a href="{% url 'utalonarios:edit_talonario' talonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+        <li class="anterior">
+            <md-button href="{% url 'utalonarios:edit_talonario' talonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+        <li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
 
     {% endif %}
 
     {% if talonario_next %}
 
-        <li class="next">
-            <a href="{% url 'utalonarios:edit_talonario' talonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+        <li class="siguiente">
+            <md-button href="{% url 'utalonarios:edit_talonario' talonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+  <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
     {% endif %}
 
@@ -44,8 +46,24 @@ Editar la talonario {{form.talonario.value|lower}}
 
 {{ form.as_md }}
 
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
 <script type="text/javascript">
-document.getElementById('id_talonario').focus()
+app.controller('controlForm',function($scope){
+  $scope.talonario = '{{form.talonario.value}}';
+  $scope.descripcion = '{{form.descripcion.value}}';
+  $scope.prefijo = '{{form.prefijo.value}}';
+  $scope.separador = '{{form.separador.value}}';
+  $scope.numero_desde = '{{form.numero_desde.value}}';
+  $scope.numero_hasta = '{{form.numero_hasta.value}}';
+  $scope.separado_sufijo = '{{form.separado_sufijo.value}}';
+  $scope.numeracion_correlativa = {{form.numeracion_correlativa.value|lower}};
+  $scope.numero_de_documento = '{{form.numero_de_documento.value}}';
+  $scope.cantidad_fija = {{form.cantidad_fija.value|lower}};
+  $('#id_tipo_de_documento_impreso').focus();
+});
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock moduloAngular %}

@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-Medio específico
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Medios específicos</h2>
-
-<h6>Cantidad de Medios específicos encontrados:
+<h2>Listado de medios específicos</h2>
+<h6>Cantidad de medios específicos encontrados:
     <span class="badge" id="count_reg">
 
         {{ medioespecificos.count }}
@@ -46,13 +45,9 @@ Medio específico
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,23 +147,7 @@ Medio específico
 
 <tr class="active">
     <th>
-        Medio
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=medio&page={{request.GET.page}}" id="medio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-medio&page={{request.GET.page}}" id="-medio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=medio" id="medio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-medio" id="-medio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th>
-        Medio específico
+        Nombre del medio específico
 
         {% if request.GET.page %}
 
@@ -183,6 +162,39 @@ Medio específico
         {% endif %}
 
     </th>
+    <th>
+        Descripción del medio específico
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del medio asignado
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=medio&page={{request.GET.page}}" id="medio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-medio&page={{request.GET.page}}" id="-medio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=medio" id="medio" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-medio" id="-medio"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -192,19 +204,27 @@ Medio específico
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.medio }}
-
-    </td>
-    <td>
-
         {{ i.medio_especifico }}
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_medioespecifico' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.descripcion }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_medioespecifico' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.medio }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_medioespecifico' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_medioespecifico' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -213,7 +233,6 @@ Medio específico
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
@@ -223,6 +242,7 @@ Medio específico
     $(document).on('ready',function(){
         ocultarASCDesc('medio');
         ocultarASCDesc('medio_especifico');
+        ocultarASCDesc('descripcion');
     })
 </script>
 

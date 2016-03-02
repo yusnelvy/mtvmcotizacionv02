@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-    Tipo de material
+Material
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar tipo de material
+Agregar un tipo de material
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar tipo de material
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_tipo_de_material').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_tipo_de_material').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}
