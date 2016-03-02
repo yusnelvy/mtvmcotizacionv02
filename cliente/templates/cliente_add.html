@@ -16,11 +16,16 @@ Agregar cliente
 
 {% block cuerpo_form %}
 
-  {{ form.as_p }}
-  {{ form2.as_p }}
-
-<script type="text/javascript">
-document.getElementById('id_cliente').focus()
-</script>
+  {{ form.as_md }}
 
 {% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.tipo_de_cliente="{{form.tipo_de_cliente.value}}";
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

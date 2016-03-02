@@ -8,18 +8,27 @@ Empresa
 
 {% block titulo_form %}
 
-Agregar Empresa
+Agregar una empresa
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}{% endblock nav_lista %}
+{% block nav_lista_form %}{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_codigo').focus()
-</script>
+{% endblock cuerpo_form %}
 
-{% endblock formulario %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.sitio_web = 'https://';
+      $('#id_codigo').focus();
+      $('label[for=id_logo]').css('transform', 'translate3d(0, 6px, 0) scale(0.75)');
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

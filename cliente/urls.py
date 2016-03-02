@@ -11,7 +11,9 @@ from cliente.views import SexoListView, SexoView, SexoUpdate, \
     TipoDeRelacionListView, TipoDeRelacionView, TipoDeRelacionUpdate, \
     TipoDeRelacionDelete, TipoDeInformacionDeContactoListView, \
     TipoDeInformacionDeContactoView, TipoDeInformacionDeContactoUpdate, \
-    TipoDeInformacionDeContactoDelete, ClienteView, ClienteListView
+    TipoDeInformacionDeContactoDelete, ClienteView, ClienteListView, \
+    ClienteDetail, ClienteUpdate, ContactoCreateView, ContactoUpdate, \
+    ClienteDireccionView
 
 
 urlpatterns = patterns('',
@@ -21,6 +23,18 @@ urlpatterns = patterns('',
                        url(r'^nuevo',
                            ClienteView.as_view(),
                            name='add_cliente'),
+                       url(r'^editar/(?P<pk>\d+)/$',
+                           ClienteUpdate.as_view(),
+                           name='edit_cliente'),
+                       url(r'^cliente_ficha/(?P<pk>\d+)/$',
+                           ClienteDetail.as_view(),
+                           name='ficha_cliente'),
+                       url(r'^contacto/nuevo',
+                           ContactoCreateView.as_view(),
+                           name='add_contacto'),
+                       url(r'^contacto/editar/(?P<pk>\d+)/$',
+                           ContactoUpdate.as_view(),
+                           name='edit_contacto'),
                        url(r'^sexo/$',
                            SexoListView.as_view(),
                            name='list_sexo'),
@@ -81,5 +95,7 @@ urlpatterns = patterns('',
                        url(r'^tipo_de_informacion_de_contacto/eliminar/(?P<pk>\d+)/$',
                            TipoDeInformacionDeContactoDelete.as_view(),
                            name='eliminar_tipo_de_informacion_de_contacto'),
-
+                       url(r'^direccion/nuevo',
+                           ClienteDireccionView.as_view(),
+                           name='add_direccion'),
                        )

@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-    Herramienta
+Herramienta
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Herramientas</h2>
-
- <h6>Cantidad de Herramientas:
+<h2>Listado de herramientas</h2>
+ <h6>Cantidad de herramientas encontradas:
     <span class="badge" id="count_reg">
 
         {{ herramientas.count }}
@@ -20,7 +19,7 @@
 
 {% endblock titulo_lista %}
 
-{% block paginacion %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -150,7 +149,7 @@
 
 {% endif %}
 
-{% endblock paginacion %}
+{% endblock paginacion_lista %}
 
 {% block lista %}
 
@@ -158,7 +157,7 @@
 
 <tr class="active">
     <th>
-        Herramienta
+        Nombre de la herramienta
 
         {% if request.GET.page %}
 
@@ -174,7 +173,23 @@
 
     </th>
     <th>
-        Descripción
+        Unidad de la herramienta
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=unidad&page={{request.GET.page}}" id="unidad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad&page={{request.GET.page}}" id="-unidad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=unidad" id="unidad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad" id="-unidad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Descripción de la herramienta
 
         {% if request.GET.page %}
 

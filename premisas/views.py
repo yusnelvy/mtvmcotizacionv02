@@ -564,11 +564,11 @@ class VarianteVisualCreateView(CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        itemvariante_form = VarianteVisualDetalleFormSet()
+        item_form = VarianteVisualDetalleFormSet()
 
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  itemvariante_form=itemvariante_form))
+                                  item_form=item_form))
 
     def post(self, request, *args, **kwargs):
         """
@@ -579,21 +579,21 @@ class VarianteVisualCreateView(CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        itemvariante_form = VarianteVisualDetalleFormSet(self.request.POST)
-        if (form.is_valid() and itemvariante_form.is_valid()):
-            return self.form_valid(form, itemvariante_form)
+        item_form = VarianteVisualDetalleFormSet(self.request.POST)
+        if (form.is_valid() and item_form.is_valid()):
+            return self.form_valid(form, item_form)
         else:
-            return self.form_invalid(form, itemvariante_form)
+            return self.form_invalid(form, item_form)
 
-    def form_valid(self, form, itemvariante_form):
+    def form_valid(self, form, item_form):
         """
         Called if all forms are valid. Creates a VarianteVisual instance along with
         associated Ingredients and Instructions and then redirects to a
         success page.
         """
         self.object = form.save()
-        itemvariante_form.instance = self.object
-        itemvariante_form.save()
+        item_form.instance = self.object
+        item_form.save()
 
         if 'regEdit' in self.request.POST:
             messages.success(self.request, "Registro guardado.")
@@ -602,14 +602,14 @@ class VarianteVisualCreateView(CreateView):
         else:
             return HttpResponseRedirect(reverse('upremisas:list_variantevisual'))
 
-    def form_invalid(self, form, itemvariante_form):
+    def form_invalid(self, form, item_form):
         """
         Called if a form is invalid. Re-renders the context data with the
         data-filled forms and errors.
         """
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  itemvariante_form=itemvariante_form))
+                                  item_form=item_form))
 
 
 class VarianteVisualUpdate(UpdateView):
@@ -706,18 +706,18 @@ class VarianteVisualUpdate(UpdateView):
         context['variantevisual_previous'] = variantevisual_previous
         context['variantevisual_next'] = variantevisual_next
 
-        itemvariante_form = VarianteVisualDetalleFormSet(instance=self.object)
-        context['itemvariante_form'] = itemvariante_form
+        item_form = VarianteVisualDetalleFormSet(instance=self.object)
+        context['item_form'] = item_form
         return context
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        itemvariante_form = VarianteVisualDetalleFormSet(self.request.POST,
-                                                         self.request.FILES,
-                                                         instance=self.object)
-        if itemvariante_form.is_valid():
+        item_form = VarianteVisualDetalleFormSet(self.request.POST,
+                                                 self.request.FILES,
+                                                 instance=self.object)
+        if item_form.is_valid():
             id_reg = self.object.save()
-            itemvariante_form.save()
+            item_form.save()
 
         if 'regEdit' in self.request.POST:
 

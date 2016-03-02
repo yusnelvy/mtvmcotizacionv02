@@ -1,6 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, View, UpdateView, DeleteView
+from django.views.generic import ListView, View, UpdateView, \
+    DeleteView, DetailView, CreateView
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
     TipoDeRelacion, TipoDeInformacionDeContacto, Cliente, Contacto, \
     InformacionDeContacto, ClienteDireccion, ClienteEstadoDeRegistro, \
@@ -8,11 +9,13 @@ from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
 from cliente.forms import SexoForm, EstadoCivilForm, TipoDeClienteForm, \
     TipoDeRelacionForm, TipoDeInformacionDeContactoForm, ClienteForm, \
     ContactoForm, InformacionDeContactoForm, ClienteDireccionForm, \
-    ClienteEstadoDeRegistroForm, ClienteForm
+    ClienteEstadoDeRegistroForm, ClienteForm, InformacionDeContactoFormSet
 from mtvmcotizacionv02.views import valor_Personalizacionvisual
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from direccion.models  import Direccion, Ciudad
+from direccion.forms import DireccionForm
 
 
 # Create your views here.
@@ -213,7 +216,7 @@ class SexoUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -256,10 +259,8 @@ class EstadoCivilListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -445,7 +446,7 @@ class EstadoCivilUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -488,10 +489,8 @@ class TipoDeClienteListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -909,7 +908,7 @@ class TipoDeRelacionUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -952,10 +951,8 @@ class TipoDeInformacionDeContactoListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -1141,7 +1138,7 @@ class TipoDeInformacionDeContactoUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -1184,10 +1181,8 @@ class ClienteListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -1253,37 +1248,40 @@ class ClienteListView(ListView):
 class ClienteView(View):
     form_class = ClienteForm
     template_name = 'cliente_add.html'
-    second_form_class = ContactoForm
 
     def get(self, request, *args, **kwargs):
         """docstring"""
-        form = self.form_class()
-        form2 = self.second_form_class()
-        return render(request, self.template_name, {'form': form, 'form2': form2})
+        tipodecliente = TipoDeCliente.objects.filter(tipo_de_cliente='Particular')
+        data = {
+            'tipo_de_cliente': tipodecliente[0].id
+        }
+
+        form = self.form_class(initial=data)
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        form2 = self.second_form_class(request.POST)
 
         if form.is_valid():
             id_reg = form.save()
-
-            form2.cliente = id_reg
-            if form2.is_valid():
-                form2.save()
 
             if 'regEdit' in request.POST:
                 messages.success(request, "Registro guardado.")
                 return HttpResponseRedirect(reverse('uclientes:edit_cliente',
                                                     args=(id_reg.id,)))
             else:
-                return HttpResponseRedirect(reverse('uclientes:list_cliente'))
+                if id_reg.tipo_de_cliente.tipo_de_cliente == 'Particular':
+                    return HttpResponseRedirect(reverse('uclientes:add_contacto') +
+                                                "?cliente="+str(id_reg.id) +
+                                                "&relacion=cliente")
+                else:
+                    return HttpResponseRedirect(reverse('uclientes:list_cliente'))
 
-        return render(request, self.template_name, {'form': form, 'form2': form2})
+        return render(request, self.template_name, {'form': form})
 
 
 class ClienteUpdate(UpdateView):
-    template_name = 'tipodeinformaciondecontacto_edit.html'
+    template_name = 'cliente_edit.html'
     form_class = ClienteForm
     model = Cliente
 
@@ -1295,7 +1293,7 @@ class ClienteUpdate(UpdateView):
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
 
-        tipodeinformaciondecontacto = Cliente.objects.get(pk=self.object.pk)
+        cliente = Cliente.objects.get(pk=self.object.pk)
         redirect_to = self.request.REQUEST.get('next', '')
         order_by = self.request.REQUEST.get('order_by', '')
         page = self.request.REQUEST.get('page', '')
@@ -1315,76 +1313,76 @@ class ClienteUpdate(UpdateView):
                 order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
 
         if order_by:
-            lista_tipodeinformaciondecontacto = Cliente.objects.all().order_by(order_by)
+            lista_cliente = Cliente.objects.all().order_by(order_by)
         else:
-            lista_tipodeinformaciondecontacto = Cliente.objects.all()
+            lista_cliente = Cliente.objects.all()
 
-        paginator = Paginator(lista_tipodeinformaciondecontacto, nropag)
+        paginator = Paginator(lista_cliente, nropag)
         # Show 25 contacts per page
 
         if page == '0':
-            tiposdeinformaciondecontacto = lista_tipodeinformaciondecontacto
+            clientes = lista_cliente
         else:
             try:
-                tiposdeinformaciondecontacto = paginator.page(page)
+                clientes = paginator.page(page)
             except PageNotAnInteger:
                 # If page is not an integer, deliver first page.
-                tiposdeinformaciondecontacto = paginator.page(1)
+                clientes = paginator.page(1)
             except EmptyPage:
                 # If page is out of range (e.g. 9999), deliver last page of results.
-                tiposdeinformaciondecontacto = paginator.page(paginator.num_pages)
+                clientes = paginator.page(paginator.num_pages)
 
         if page != '0':
             countitem = int(nropag)
             for i in range(0, countitem):
-                if(tiposdeinformaciondecontacto.object_list[i].id == tipodeinformaciondecontacto.id):
-                    if tiposdeinformaciondecontacto.has_previous:
+                if(clientes.object_list[i].id == cliente.id):
+                    if clientes.has_previous:
                         try:
-                            previousitem = tiposdeinformaciondecontacto.object_list[i-1].id
+                            previousitem = clientes.object_list[i-1].id
                         except:
                             previousitem = None
 
-                    if tiposdeinformaciondecontacto.has_next:
+                    if clientes.has_next:
                         try:
-                            nextitem = tiposdeinformaciondecontacto.object_list[i+1].id
+                            nextitem = clientes.object_list[i+1].id
                         except:
                             nextitem = None
                     break
         else:
-            countitem = len(tiposdeinformaciondecontacto)
+            countitem = len(clientes)
             for i in range(0, countitem):
-                if(tiposdeinformaciondecontacto[i].id == tiposdeinformaciondecontacto.id):
+                if(clientes[i].id == clientes.id):
                     try:
-                        previousitem = tiposdeinformaciondecontacto[i-1].id
+                        previousitem = clientes[i-1].id
                     except:
                         previousitem = None
                     try:
-                        nextitem = tiposdeinformaciondecontacto[i+1].id
+                        nextitem = clientes[i+1].id
                     except:
                         nextitem = None
                     break
 
         try:
-            tipodeinformaciondecontacto_previous = Cliente.objects.get(pk=previousitem)
+            cliente_previous = Cliente.objects.get(pk=previousitem)
         except:
-            tipodeinformaciondecontacto_previous = None
+            cliente_previous = None
         try:
-            tipodeinformaciondecontacto_next = Cliente.objects.get(pk=nextitem)
+            cliente_next = Cliente.objects.get(pk=nextitem)
         except:
-            tipodeinformaciondecontacto_next = None
+            cliente_next = None
 
-        context['tipodeinformaciondecontacto_previous'] = tipodeinformaciondecontacto_previous
-        context['tipodeinformaciondecontacto_next'] = tipodeinformaciondecontacto_next
+        context['cliente_previous'] = cliente_previous
+        context['cliente_next'] = cliente_next
 
         return context
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Tipo de informacion de contacto " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Cliente " + str(self.object) + "  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
@@ -1409,3 +1407,271 @@ class ClienteDelete(DeleteView):
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
+
+
+class ClienteDetail(DetailView):
+
+    model = Cliente
+    context_object_name = "cliente"
+    template_name = 'cliente_ficha.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ClienteDetail, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['contacto_cliente'] = InformacionDeContacto.objects.filter(contacto__cliente=self.object.pk,
+                                                                           contacto__tipo_de_relacion__tipo_de_relacion='cliente')
+        context['contactos'] = InformacionDeContacto.objects.filter(contacto__cliente=self.object.pk).exclude(contacto__tipo_de_relacion__tipo_de_relacion='cliente')
+
+        return context
+
+
+# app contacto
+
+class ContactoCreateView(CreateView):
+    template_name = 'contacto_add.html'
+    model = Contacto
+    form_class = ContactoForm
+
+    def get_initial(self):
+        super(ContactoCreateView, self).get_initial()
+        cliente = Cliente.objects.filter(id=self.request.GET.get('cliente'))
+        if self.request.GET.get('relacion'):
+            relacion = TipoDeRelacion.objects.filter(tipo_de_relacion=self.request.GET.get('relacion'))
+            data = {
+                'cliente': cliente[0].id,
+                'nombre': cliente[0].nombre,
+                'tipo_de_relacion': relacion[0].id
+            }
+        else:
+            data = {
+                'cliente': cliente[0].id
+            }
+
+        self.initial = data
+        return self.initial
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        item_form = InformacionDeContactoFormSet()
+
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  item_form=item_form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        item_form = InformacionDeContactoFormSet(self.request.POST)
+        if (form.is_valid() and item_form.is_valid()):
+            return self.form_valid(form, item_form)
+        else:
+            return self.form_invalid(form, item_form)
+
+    def form_valid(self, form, item_form):
+        """
+        Called if all forms are valid. Creates a Contacto instance along with
+        associated Ingredients and Instructions and then redirects to a
+        success page.
+        """
+        self.object = form.save()
+        item_form.instance = self.object
+        item_form.save()
+
+        if 'regEdit' in self.request.POST:
+            messages.success(self.request, "Registro guardado.")
+            return HttpResponseRedirect(reverse('uclientes:edit_contacto',
+                                                args=(self.object,)))
+        else:
+            messages.success(self.request, "Contacto '" + str(self.object) + "'  registrado con éxito.")
+            return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                args=(self.object.cliente.id,)))
+
+    def form_invalid(self, form, item_form):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  item_form=item_form))
+
+
+class ContactoUpdate(UpdateView):
+    template_name = 'contacto_edit.html'
+    form_class = ContactoForm
+    model = Contacto
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ContactoUpdate, self).get_context_data(**kwargs)
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+
+        contacto = Contacto.objects.get(pk=self.object.pk)
+        redirect_to = self.request.REQUEST.get('next', '')
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+
+        if order_by:
+            redirect_to = redirect_to + '&order_by=' + order_by
+
+        if page:
+            redirect_to = redirect_to + '&page=' + page
+
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'page':
+                page = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+            elif variable[1].split("=")[0] == 'order_by':
+                order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+
+        if order_by:
+            lista_contacto = Contacto.objects.all().order_by(order_by)
+        else:
+            lista_contacto = Contacto.objects.all()
+
+        paginator = Paginator(lista_contacto, nropag)
+        # Show 25 contacts per page
+
+        if page == '0':
+            contactos = lista_contacto
+        else:
+            try:
+                contactos = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                contactos = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                contactos = paginator.page(paginator.num_pages)
+
+        if page != '0':
+            countitem = int(nropag)
+            for i in range(0, countitem):
+                if(contactos.object_list[i].id == contacto.id):
+                    if contactos.has_previous:
+                        try:
+                            previousitem = contactos.object_list[i-1].id
+                        except:
+                            previousitem = None
+
+                    if contactos.has_next:
+                        try:
+                            nextitem = contactos.object_list[i+1].id
+                        except:
+                            nextitem = None
+                    break
+        else:
+            countitem = len(contactos)
+            for i in range(0, countitem):
+                if(contactos[i].id == contacto.id):
+                    try:
+                        previousitem = contactos[i-1].id
+                    except:
+                        previousitem = None
+                    try:
+                        nextitem = contactos[i+1].id
+                    except:
+                        nextitem = None
+                    break
+
+        try:
+            contacto_previous = Contacto.objects.get(pk=previousitem)
+        except:
+            contacto_previous = None
+        try:
+            contacto_next = Contacto.objects.get(pk=nextitem)
+        except:
+            contacto_next = None
+
+        context['contacto_previous'] = contacto_previous
+        context['contacto_next'] = contacto_next
+        if self.request.POST:
+            item_form = InformacionDeContactoFormSet(self.request.POST, instance=self.object)
+        else:
+            item_form = InformacionDeContactoFormSet(instance=self.object)
+
+        context['item_form'] = item_form
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        item_form = InformacionDeContactoFormSet(self.request.POST,
+                                                 self.request.FILES,
+                                                 instance=self.object)
+        if item_form.is_valid():
+            id_reg = self.object.save()
+            item_form.save()
+
+        if 'regEdit' in self.request.POST:
+
+            messages.success(self.request, "Persona de contacto " + str(id_reg) + "  guardado con éxito.")
+            return HttpResponseRedirect(self.request.get_full_path())
+
+        else:
+            redirect_to = self.request.REQUEST.get('next', '')
+            if redirect_to:
+                return HttpResponseRedirect(redirect_to)
+            else:
+                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                    args=(self.object.cliente.id,)))
+
+
+class ClienteDireccionView(View):
+    form_class = DireccionForm
+    template_name = 'clientedireccion_add.html'
+
+    def get(self, request, *args, **kwargs):
+        """docstring"""
+        puntogeografico = Ciudad.objects.filter(ciudad='Buenos Aires')
+        data = {
+            'pais': puntogeografico[0].pais,
+            'provincia': puntogeografico[0].provincia,
+            'ciudad': puntogeografico[0].id
+        }
+
+        form = self.form_class(initial=data)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        titulo = self.request.POST.get('titulo_de_direccion', '')
+        cliente = self.request.POST.get('cliente', '')
+
+        if form.is_valid():
+            id_reg = form.save()
+
+            direccion = Direccion.objects.filter(id=id_reg.id)
+
+            agregarclientedireccion = ClienteDireccion.objects.create(cliente=cliente,
+                                                                      direccion=id_reg.id,
+                                                                      titulo_de_direccion=titulo,
+                                                                      detalle_de_direccion=direccion[0].full_direccion)
+            clientedireccion = agregarclientedireccion.save()
+
+            if 'regEdit' in request.POST:
+                messages.success(self.request, "Dirección '" + str(id_reg) + "'  registrado con éxito.")
+                return HttpResponseRedirect(reverse('uclientes:edit_direccion',
+                                                    args=(id_reg.id,)))
+            else:
+                return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
+                                            "?clientedireccion="+str(clientedireccion.id))
+
+        return render(request, self.template_name, {'form': form})

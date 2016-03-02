@@ -17,13 +17,13 @@ Editar el tipo de ascensor: {{form.tipo_de_ascensor.value|lower}}
     {% if tipodeascensor_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'udirecciones:edit_tipo_de_ascensor' tipodeascensor_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
+            <md-button href="{% url 'udirecciones:edit_tipo_de_ascensor' tipodeascensor_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
         </li>
 
     {% else %}
 
         <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
         </li>
 
     {% endif %}
@@ -31,13 +31,13 @@ Editar el tipo de ascensor: {{form.tipo_de_ascensor.value|lower}}
     {% if tipodeascensor_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'udirecciones:edit_tipo_de_ascensor' tipodeascensor_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
+            <md-button href="{% url 'udirecciones:edit_tipo_de_ascensor' tipodeascensor_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
 
     {% else %}
 
         <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
 
     {% endif %}

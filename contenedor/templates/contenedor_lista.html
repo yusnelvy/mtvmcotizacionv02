@@ -8,8 +8,8 @@ Contenedor
 
 {% block titulo_lista %}
 
-<h2>Listado de Contenedores</h2>
- <h6>Cantidad de Contenedores encontrados:
+<h2>Listado de contenedores</h2>
+ <h6>Cantidad de contenedores encontrados:
     <span class="badge" id="count_reg">
 
         {{ contenedores.count }}
@@ -336,10 +336,10 @@ Contenedor
       <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucontenedores:edit_contenedor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucontenedores:edit_contenedor' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucontenedores:eliminar_contenedor' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucontenedores:eliminar_contenedor' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -354,16 +354,16 @@ Contenedor
 {% endif %}
 
 <script>
-    $(document).on('ready',function(){
-        ocultarASCDesc('contenedor');
-        ocultarASCDesc('descripcion');
-        ocultarASCDesc('capacidad_de_volumen');
-        ocultarASCDesc('capacidad_de_peso');
-        ocultarASCDesc('ancho');
-        ocultarASCDesc('largo');
-        ocultarASCDesc('alto');
-        ocultarASCDesc('volumen_en_camion');
-    })
+$(document).on('ready',function(){
+    ocultarASCDesc('contenedor');
+    ocultarASCDesc('descripcion');
+    ocultarASCDesc('capacidad_de_volumen');
+    ocultarASCDesc('capacidad_de_peso');
+    ocultarASCDesc('ancho');
+    ocultarASCDesc('largo');
+    ocultarASCDesc('alto');
+    ocultarASCDesc('volumen_en_camion');
+});
 </script>
 
 {% endblock lista %}

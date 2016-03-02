@@ -12,7 +12,7 @@ Editar fuente de promoción {{form.medio_especifico.value|lower}}
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
 {% if fuentedepromocion_previous %}
 
@@ -38,9 +38,9 @@ Editar fuente de promoción {{form.medio_especifico.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 <div class="prueba">
 
@@ -52,4 +52,4 @@ Editar fuente de promoción {{form.medio_especifico.value|lower}}
 document.getElementById('id_medio_especifico').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

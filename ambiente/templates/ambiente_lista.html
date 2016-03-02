@@ -9,7 +9,6 @@ Ambiente
 {% block titulo_lista %}
 
 <h2>Listado de ambientes</h2>
-
 <h6>Cantidad de ambientes encontrados:
     <span class="badge" id="count_reg">
 
@@ -46,13 +45,9 @@ Ambiente
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,7 +147,7 @@ Ambiente
 
 <tr class="active">
     <th>
-        Ambiente
+        Nombre de ambientes
 
         {% if request.GET.page %}
 
@@ -168,7 +163,7 @@ Ambiente
 
     </th>
     <th>
-        Descripción
+        Descripción de ambientes
 
         {% if request.GET.page %}
 
@@ -183,8 +178,8 @@ Ambiente
         {% endif %}
 
     </th>
-     <th>
-        Conteo de Ambiente
+    <th>
+        Conteo de Ambientes
 
         {% if request.GET.page %}
 
@@ -214,7 +209,7 @@ Ambiente
     </td>
     <td>
 
-        {{ i.descripcion }}
+        {{ i.descripcion|truncatechars:"40" }}
 
     </td>
     <td>
@@ -231,13 +226,13 @@ Ambiente
 
     </td>
     <td>
-      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+        <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
-    <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:edit_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+    <td class="controlAccion{{i.pk}}">
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:edit_ambiente' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
     </td>
-    <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:eliminar_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    <td class="controlAccion{{i.pk}}">
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:eliminar_ambiente' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -246,17 +241,18 @@ Ambiente
 {% else %}
 
 <tr>
-
-    <td> No se encontraron registros </td>
+    <td>No se encontraron registros</td>
 </tr>
+
 {% endif %}
 
+
 <script>
-    $(document).on('ready',function(){
-        ocultarASCDesc('ambiente');
-        ocultarASCDesc('descripcion');
-        ocultarASCDesc('conteo_de_ambientes');
-    })
+$(document).on('ready',function(){
+    ocultarASCDesc('ambiente');
+    ocultarASCDesc('descripcion');
+    ocultarASCDesc('conteo_de_ambientes');
+});
 </script>
 
 <script src="/static/js/html2canvas.js"></script>

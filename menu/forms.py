@@ -45,8 +45,8 @@ class MenuFavoritoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = MenuFavorito
         fields = '__all__'
         widgets = {
-            'usuario': SelectMD(),
-            'menu': SelectMD(),
+            'usuario': SelectMD(attrs={'required': 'required', 'tabindex': '-1'}),
+            'menu': SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
             'grupo': TextInput(attrs={'required': 'required'}),
             'orden': NumberInput(attrs={'required': 'required'})
             }
@@ -65,11 +65,11 @@ class RelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     item_choices = [(content.item_origen, content.item_relacion) for content in Menu.objects.filter(nivel=3)]
 
     item_origen = forms.ChoiceField(
-        widget=Select(attrs={'class': 'form-control'}),
+        widget=SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
         label='Item origen',
         choices=item_choices)
     item_relacion = forms.ChoiceField(
-        widget=Select(attrs={'class': 'form-control'}),
+        widget=SelectMD(attrs={'required': 'required'}),
         label='item relación',
         choices=item_choices)
 
@@ -77,8 +77,8 @@ class RelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Relacion
         fields = '__all__'
         widgets = {
-            'item_origen': SelectMD(),
-            'item_relacion': SelectMD(),
+            #'item_origen': SelectMD(),
+            #'item_relacion': SelectMD(),
             'nombre': TextInput(attrs={'required': 'required'})
             }
         labels = {

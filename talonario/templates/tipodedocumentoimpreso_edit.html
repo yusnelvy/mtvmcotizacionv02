@@ -12,7 +12,7 @@ Editar el tipo de documento impreso {{form.tipo_de_documento_impreso.value|lower
 
 {% endblock titulo_form %}
 
-{% block nav_lista %}
+{% block nav_lista_form %}
 
     {% if tipodedocumentoimpreso_previous %}
 
@@ -38,9 +38,9 @@ Editar el tipo de documento impreso {{form.tipo_de_documento_impreso.value|lower
 
     {% endif %}
 
-{% endblock nav_lista %}
+{% endblock nav_lista_form %}
 
-{% block formulario %}
+{% block cuerpo_form %}
 
 {{ form.as_md }}
 
@@ -48,4 +48,4 @@ Editar el tipo de documento impreso {{form.tipo_de_documento_impreso.value|lower
 document.getElementById('id_tipo_de_documento_impreso').focus()
 </script>
 
-{% endblock formulario %}
+{% endblock cuerpo_form %}

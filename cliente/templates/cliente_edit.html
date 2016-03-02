@@ -1,0 +1,68 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Cliente
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+  Editar el cliente: {{form.nombre.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}
+
+    {% if cliente_previous %}
+
+        <li class="anterior">
+            <md-button href="{% url 'uclientes:edit_cliente' cliente_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+        </li>
+
+    {% else %}
+
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+        </li>
+
+    {% endif %}
+
+    {% if cliente_next %}
+
+        <li class="siguiente">
+            <md-button href="{% url 'uclientes:edit_cliente' cliente_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+        </li>
+
+    {% else %}
+
+        <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+        </li>
+
+   {% endif %}
+
+{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.nombre = '{{form.nombre.value}}';
+    $('#id_nombre').focus();
+    $('#id_nombre').parent().addClass('md-input-focused');
+    $scope.tipo_de_cliente="{{form.tipo_de_cliente.value}}";
+    $scope.cuit="{{form.cuit.value}}";
+    $scope.observaciones="{{form.observaciones.value}}";
+});
+</script>
+
+{% endblock moduloAngular %}

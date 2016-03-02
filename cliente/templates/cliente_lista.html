@@ -158,7 +158,7 @@
 
 <tr class="active">
     <th>
-        Cliente
+        Tipo de cliente
 
         {% if request.GET.page %}
 
@@ -174,21 +174,22 @@
 
     </th>
     <th>
-        Descripción
+        Cliente
 
         {% if request.GET.page %}
 
-        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=nombre&page={{request.GET.page}}" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre&page={{request.GET.page}}" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=nombre" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -202,17 +203,14 @@
 
     </td>
     <td>
-        {{i.pk}}
-        {{detalle_cliente}}
-        {% for det in detalle_cliente %}
-
-                {{ det.nombre }}
-
-        {% endfor %}
+        {{ i.nombre }}
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_tipo_de_cliente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+        <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:ficha_cliente' i.pk %}?next={{request.get_full_path}}" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_cliente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
     <td>
         <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_tipo_de_cliente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
@@ -232,7 +230,7 @@
 <script>
     $(document).on('ready',function(){
         ocultarASCDesc('tipo_de_cliente');
-        ocultarASCDesc('descripcion');
+        ocultarASCDesc('nombre');
     })
 </script>
 

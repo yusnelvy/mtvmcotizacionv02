@@ -10,6 +10,8 @@ from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
     ClienteEstadoDeRegistro
 from djangular.forms import NgModelFormMixin, NgModelForm
 from base.forms import BaseFormMd, SelectMD, Checkbox
+from django import forms
+from django.forms.models import inlineformset_factory
 
 
 class SexoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
@@ -93,7 +95,7 @@ class TipoDeInformacionDeContactoForm(NgModelFormMixin, NgModelForm, BaseFormMd)
         }
 
 
-class ClienteForm(ModelForm):
+class ClienteForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
@@ -102,13 +104,18 @@ class ClienteForm(ModelForm):
         fields = '__all__'
 
 
-class ContactoForm(ModelForm):
+class ContactoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
     class Meta:
         model = Contacto
         fields = '__all__'
+
+InformacionDeContactoFormSet = inlineformset_factory(Contacto,
+                                                     InformacionDeContacto,
+                                                     fields=('tipo_de_informacion_de_contacto',
+                                                             'informacion_de_contacto'), extra=1)
 
 
 class InformacionDeContactoForm(ModelForm):
