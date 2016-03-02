@@ -8,6 +8,7 @@ from premisas.models import PersonalizacionVisual
 from menu.models import Menu, Relacion, MenuFavorito
 from django.core.urlresolvers import reverse
 
+
 def pantalla_inicial(request):
     """Docstring"""
     return render(request, 'index.html')
@@ -117,11 +118,11 @@ def lista_Relacion(request):
     """docstring"""
     menu = Menu.objects.filter(nivel=3)
     url1 = request.path
-    relacion= ''
+    relacion = ''
     hola = 'diferentes'
     for i in menu:
 
-        url2 = reverse( '%s:%s' % (i.namespace, i.name))
+        url2 = reverse('%s:%s' % (i.namespace, i.name))
         if (url1 == (url2)):
             hola = 'iguales'
             relacion = Relacion.objects.filter(item_origen_id=i.id)

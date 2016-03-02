@@ -1,0 +1,64 @@
+{% extends "base_editar.html" %}
+{% block js_superior %}
+<script type="text/javascript">
+$(function() {
+        $(".inline.{{ item_form.prefix }}").formset({
+            prefix: "{{ item_form.prefix }}",
+        })
+    })
+</script>
+{% endblock js_superior %}
+{% block titulo %}
+
+    Contacto
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar contacto
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+  {{ form.as_md }}
+  <fieldset>
+    <legend>Información de contacto</legend>
+    {{ item_form.management_form }}
+    {{ item_form.non_form_errors }}
+    {% for form in item_form %}
+    {{ form.id }}
+    <div class="inline {{ item_form.prefix }}">
+        {{ form.tipo_de_informacion_de_contacto.errors }}
+        {{ form.tipo_de_informacion_de_contacto.label_tag }}
+        {{ form.tipo_de_informacion_de_contacto }}
+        {{ form.informacion_de_contacto.errors }}
+        {{ form.informacion_de_contacto.label_tag }}
+        {{ form.informacion_de_contacto }}
+    </div>
+    {% endfor %}
+  </fieldset>
+
+{% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.cliente="{{form.cliente.value}}";
+
+    {% if form.nombre.value %}
+        $scope.nombre="{{form.nombre.value}}";
+    {% endif %}
+
+    {% if form.tipo_de_relacion.value %}
+        $scope.tipo_de_relacion="{{form.tipo_de_relacion.value}}";
+    {% endif %}
+
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

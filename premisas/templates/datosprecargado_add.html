@@ -36,16 +36,24 @@ $("#id_nombre_app").on("change", function() {
   })
   $("#id_nombre_app").attr('selected', 'selected');
 
-//   $http.get("/premisas/datos_precargado/nuevo/"+id_nombre_app+"/").success(function(list) {
-//     result=list
-//     alert(lista);
-
-// });
-
 })
-
-
-
 </script>
 
 {% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope, $http){
+  $("#id_nombre_app").on("change", function() {
+    id_nombre_app = $("#id_nombre_app").val();
+    $http.get("/premisas/datos_precargado/nuevo/"+id_nombre_app+"/").success(function(list) {
+      //alert(list);
+      $scope.results = list;
+      console.log(list);
+    });
+  })
+})
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

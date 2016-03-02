@@ -43,7 +43,7 @@ class PrecioDeServicio(models.Model):
     cantidad_de_gracia = models.DecimalField(max_digits=9, decimal_places=2)
     intervalo_1 = models.DecimalField(max_digits=9, decimal_places=2)
     porcentaje_1 = models.DecimalField(max_digits=9, decimal_places=2)
-    intevalo_2 = models.DecimalField(max_digits=9, decimal_places=2)
+    intervalo_2 = models.DecimalField(max_digits=9, decimal_places=2)
     porcentaje_2 = models.DecimalField(max_digits=9, decimal_places=2)
     intervalo_3 = models.DecimalField(max_digits=9, decimal_places=2)
     porcentaje_3 = models.DecimalField(max_digits=9, decimal_places=2)

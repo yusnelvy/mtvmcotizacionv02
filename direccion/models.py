@@ -122,6 +122,7 @@ class TipoDeEdificacion(models.Model):
 
     tipo_de_edificacion = models.CharField(max_length=100)
     descripcion = models.TextField()
+    nombre = models.BooleanField(default=None)
 
     def __str__(self):
         return self.tipo_de_edificacion
@@ -132,21 +133,21 @@ class TipoDeEdificacion(models.Model):
 
 
 class Edificacion(models.Model):
-    """docstring for Edificio"""
+    """docstring for Edificacion"""
     def __init__(self, *args, **kwargs):
-        super(Edificio, self).__init__(*args, **kwargs)
+        super(Edificacion, self).__init__(*args, **kwargs)
 
     direccion = models.ForeignKey(Direccion)
-    nombre_de_edificio = models.CharField(max_length=250)
+    nombre_de_edificio = models.CharField(max_length=250, blank=True)
     tipo_de_edificacion = models.ForeignKey(TipoDeEdificacion, on_delete=models.PROTECT)
-    cantidad_de_pisos = models.IntegerField()
-    cantidad_de_inmuebles_por_piso = models.IntegerField()
-    total_inmuebles = models.IntegerField()
-    rampa = models.BooleanField(default=False)
-    distancia_del_vehiculo = models.IntegerField()
-    escalera_estrecha = models.BooleanField(default=False)
-    escalera_inclinada = models.BooleanField(default=False)
-    escalon_grande = models.BooleanField(default=False)
+    cantidad_de_pisos = models.IntegerField(blank=True)
+    cantidad_de_inmuebles_por_piso = models.IntegerField(blank=True)
+    total_inmuebles = models.IntegerField(blank=True)
+    rampa = models.BooleanField(default=None)
+    distancia_del_vehiculo = models.IntegerField(blank=True)
+    escalera_estrecha = models.BooleanField(default=None)
+    escalera_inclinada = models.BooleanField(default=None)
+    escalon_grande = models.BooleanField(default=None)
 
     def __str__(self):
         return self.nombre_de_edificio
@@ -237,16 +238,17 @@ class Inmueble(models.Model):
         super(Inmueble, self).__init__(*args, **kwargs)
 
     edificacion = models.ForeignKey(Edificacion)
-    especificacion_de_inmueble = models.ForeignKey(EspecificacionDeInmueble, on_delete=models.PROTECT)
+    especificacion_de_inmueble = models.ForeignKey(EspecificacionDeInmueble,
+                                                   on_delete=models.PROTECT)
     numero_de_inmueble = models.CharField(max_length=100)
-    numero_de_pisos = models.IntegerField()
+    numero_de_pisos = models.IntegerField(blank=True)
     nombre_del_piso = models.CharField(max_length=100)
     cantidad_de_ambientes = models.IntegerField()
-    pisos_por_escalera = models.IntegerField()
-    numero_de_plantas = models.IntegerField()
-    total_m2 = models.DecimalField(max_digits=7, decimal_places=2)
+    pisos_por_escalera = models.IntegerField(default=0)
+    numero_de_plantas = models.IntegerField(default=1)
+    total_m2 = models.DecimalField(max_digits=7, decimal_places=2, blank=True)
     baulera = models.BooleanField(default=False)
-    volumen_baulera = models.DecimalField(max_digits=8, decimal_places=3)
+    volumen_baulera = models.DecimalField(max_digits=8, decimal_places=3, blank=True)
 
     def __str__(self):
         return str(self.numero_de_inmueble)

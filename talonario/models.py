@@ -97,7 +97,7 @@ class TrazabilidadTalonario(models.Model):
 
     talonario = models.ForeignKey(Talonario)
     fecha_registro = models.DateField(auto_now_add=True)
-    fecha_modificacion = models.DateField(blank=True)
+    fecha_modificacion = models.DateField(null=True, blank=True)
     usuario = models.ForeignKey(User)
     descripcion = models.TextField(blank=True)
 

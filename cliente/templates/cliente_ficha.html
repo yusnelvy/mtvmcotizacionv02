@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div role="tabpanel">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#datos" aria-controls="home" role="tab" data-toggle="tab">Datos del cliente</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="datos">
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <table class="table table-hover">
+              <tr>
+                <td class="">
+                  <strong> Nombre: </strong>
+                  {{ cliente.nombre }}
+                  <p>
+                    <span>
+                      <strong>CUIT: </strong>
+
+                      {{ cliente.cuit }}
+
+                    </span>
+
+                  </p>
+                  {% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
+                  <p>
+                    <span>
+                      <strong>DNI: </strong>
+
+                      {{ contacto_cliente.0.contacto.dni }}
+
+                    </span>
+
+                  </p>
+                  <p>
+                    <span>
+                      <strong>Sexo: </strong>
+
+                      {{ contacto_cliente.0.contacto.sexo }}
+
+                    </span>
+
+                  </p>
+                  <p>
+                    <span>
+                      <strong>Estado civil: </strong>
+
+                      {{ contacto_cliente.0.contacto.estado_civil }}
+
+                    </span>
+
+                  </p>
+                  {% for i in contacto_cliente %}
+
+                  <p>
+                    <span>
+                      <strong>{{i.tipo_de_informacion_de_contacto}}: </strong>
+
+                      {{i.informacion_de_contacto}}
+
+                    </span>
+                  </p>
+                  {% endfor %}
+                  {% endif %}
+                  <p>
+                    <span>
+                      <strong> Observaciones: </strong>
+
+                      {{ cliente.observaciones }}
+
+                    </span>
+
+                  </p>
+                </td>
+
+                <td>
+                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_cliente' cliente.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+                </td>
+              </tr>
+              {% if not contactos %}
+              <tr>
+                <td colspan="4">
+                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-nombre="Agregar persona de contacto" data-opcion="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}" data-placement="bottom" data-target="#myModalFormulario" data-toggle="modal" data-toggletooltip="tooltip" title="Agregar dirección de destino">Agregar persona de contacto
+                  </a>
+                </td>
+              </tr>
+
+              {% else %}
+
+              <tr>
+                <td class="">
+                  <strong>Persona de contacto: </strong>
+                  {% regroup contactos by contacto as contacto_list %}
+                  <ul>
+                    {% for contacto in contacto_list %}
+                    <li>{{ contacto.grouper }}
+                      <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_contacto' contacto.grouper.id %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+                      <ul>
+                        {% for item in contacto.list %}
+                        <li>{{ item.tipo_de_informacion_de_contacto }}: {{ item.informacion_de_contacto }}</li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}" class="iconoPlus"></a>
+                </td>
+              </tr>
+              {% endif %}
+              {% if not direcciones %}
+              <tr>
+                <td colspan="4">
+                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cliente.pk}}" title="Agregar dirección">Agregar dirección
+                  </a>
+                </td>
+              </tr>
+
+              {% else %}
+
+              <tr>
+                <td class="">
+                  <strong>Direcciones: </strong>
+
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}" class="iconoPlus"></a>
+                </td>
+              </tr>
+              {% endif %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="detalle">
+      <br>
+      <div class="panel panel-default">
+        <table class="table table-hover">
+          <tr>
+            <td class="" colspan="2">
+              <strong>Comentario:  </strong>
+
+              {{ cliente.observaciones }}
+
+              <a title="Editar" data-toggle="tooltip" data-placement="right" href="../../editar/{{cliente.id}}/" class=""></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}

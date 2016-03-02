@@ -95,9 +95,12 @@ class Cliente(models.Model):
     def __init__(self, *args, **kwargs):
         super(Cliente, self).__init__(*args, **kwargs)
     tipo_de_cliente = models.ForeignKey(TipoDeCliente, on_delete=models.PROTECT)
+    cuit = models.CharField(max_length=100, blank=True)
+    nombre = models.CharField(max_length=300)
+    observaciones = models.TextField(blank=True)
 
     def __str__(self):
-        return str(self.pk)
+        return self.nombre
 
     class Meta:
         verbose_name = "Cliente"
@@ -113,7 +116,7 @@ class Contacto(models.Model):
     cliente = models.ForeignKey(Cliente)
     sexo = models.ForeignKey(Sexo, on_delete=models.PROTECT)
     estado_civil = models.ForeignKey(EstadoCivil, on_delete=models.PROTECT)
-    fecha_nacimiento = models.DateField(blank=True)
+    fecha_nacimiento = models.DateField(null=True, blank=True)
     tipo_de_relacion = models.ForeignKey(TipoDeRelacion, on_delete=models.PROTECT)
     observaciones = models.TextField(blank=True)
 
@@ -150,6 +153,8 @@ class ClienteDireccion(models.Model):
 
     cliente = models.ForeignKey(Cliente)
     direccion = models.ForeignKey(Direccion, on_delete=models.PROTECT)
+    titulo_de_direccion = models.CharField(max_length=300)
+    detalle_de_direccion = models.TextField()
 
     def __str__(self):
         return u' %s - %s' % (self.cliente, self.direccion)

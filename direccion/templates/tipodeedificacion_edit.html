@@ -58,6 +58,7 @@ Editar el tipo de edificación: {{form.tipo_de_edificacion.value|lower}}
 app.controller('controlForm',function($scope){
     $scope.tipo_de_edificacion = '{{form.tipo_de_edificacion.value}}';
     $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.nombre = {{form.nombre.value|lower}};
     $('#id_tipo_de_edificacion').focus();
     $('#id_tipo_de_edificacion').parent().addClass('md-input-focused');
 });

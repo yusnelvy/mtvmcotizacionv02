@@ -50,11 +50,11 @@ Editar la variante visual: {{form.usuario.value|lower}}
 
     <fieldset>
         <legend>Variante Detalle</legend>
-        {{ itemvariante_form.management_form }}
-        {{ itemvariante_form.non_form_errors }}
-        {% for form in itemvariante_form %}
+        {{ item_form.management_form }}
+        {{ item_form.non_form_errors }}
+        {% for form in item_form %}
         {{ form.id }}
-        <div class="inline {{ itemvariante_form.prefix }}">
+        <div class="inline {{ item_form.prefix }}">
             {{ form.campo.errors }}
             {{ form.campo.label_tag }}
             {{ form.campo }}

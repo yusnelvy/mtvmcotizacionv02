@@ -7,7 +7,7 @@ from premisas.models import Empresa, PersonalizacionVisual, \
 from base.forms import BaseFormMd, SelectMD
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms.models import inlineformset_factory
-from django.forms import Select, ModelChoiceField, TextInput, NumberInput, ModelForm
+from django.forms import Select, ModelChoiceField, TextInput, NumberInput
 from django.contrib.contenttypes.models import ContentType
 from django import forms
 
@@ -20,9 +20,9 @@ class EmpresaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Empresa
         fields = '__all__'
         widgets = {
-            'codigo': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
-            'empresa': TextInput(attrs={'required': 'required', 'tabindex':'2'}),
-            'telefonos': NumberInput(attrs={'required': 'required', 'tabindex':'3'}),
+            'codigo': TextInput(attrs={'required': 'required', 'tabindex': '1'}),
+            'empresa': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
+            'telefonos': NumberInput(attrs={'required': 'required', 'tabindex': '3'}),
             'telefono_call_center': NumberInput(attrs={'required': 'required'})
             }
         labels = {
@@ -47,7 +47,7 @@ class PersonalizacionVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = PersonalizacionVisual
         fields = '__all__'
         widgets = {
-            'usuario': SelectMD(attrs={'required': 'required', 'tabindex':'1'}),
+            'usuario': SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
         }
         labels = {
             'usuario': ('Nombre del usuario'),
@@ -75,7 +75,7 @@ class VarianteVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
 
 VarianteVisualDetalleFormSet = inlineformset_factory(VarianteVisual,
                                                      VarianteVisualDetalle,
-                                                     fields=('campo', 'visibilidad'))
+                                                     fields=('campo', 'visibilidad'), extra=1)
 
 
 class DatosPrecargadoForm(NgModelFormMixin, NgModelForm, BaseFormMd):

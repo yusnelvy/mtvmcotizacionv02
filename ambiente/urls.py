@@ -35,6 +35,6 @@ urlpatterns = patterns('',
                        url(r'^ambiente_por_tipo_de_inmueble/eliminar/(?P<pk>\d+)/$',
                            AmbientePorTipoDeInmuebleDelete.as_view(),
                            name='eliminar_ambienteportipoinmueble'),
-                        url(r'^generar_pdf/$',views.generar_pdf,
+                       url(r'^generar_pdf/$', views.generar_pdf,
                            name='pdf'),
                        )
