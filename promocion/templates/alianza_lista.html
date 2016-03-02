@@ -9,7 +9,6 @@ Alianza
 {% block titulo_lista %}
 
 <h2>Listado de Alianzas</h2>
-
 <h6>Cantidad de Alianzas encontrados:
     <span class="badge" id="count_reg">
 
@@ -46,13 +45,9 @@ Alianza
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,23 +147,7 @@ Alianza
 
 <tr class="active">
     <th>
-        Medio específico
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=medio_especifico&page={{request.GET.page}}" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-medio_especifico&page={{request.GET.page}}" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=medio_especifico" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-medio_especifico" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th>
-        alianza
+        Nombre de la alianza
 
         {% if request.GET.page %}
 
@@ -183,6 +162,71 @@ Alianza
         {% endif %}
 
     </th>
+    <th>
+        Porcentaje de la comisión de la alianza
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=porcentaje_comision&page={{request.GET.page}}" id="porcentaje_comision" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_comision&page={{request.GET.page}}" id="-porcentaje_comision"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=porcentaje_comision" id="porcentaje_comision" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje_comision" id="-porcentaje_comision"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Observación de la alianza
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=observacion&page={{request.GET.page}}" id="observacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-observacion&page={{request.GET.page}}" id="-observacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=observacion" id="observacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-observacion" id="-observacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Fecha de vigencia de la  alianza
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=fecha_vigencia&page={{request.GET.page}}" id="fecha_vigencia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_vigencia&page={{request.GET.page}}" id="-fecha_vigencia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=fecha_vigencia" id="fecha_vigencia" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_vigencia" id="-fecha_vigencia"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del medio específico
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=medio_especifico&page={{request.GET.page}}" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-medio_especifico&page={{request.GET.page}}" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=medio_especifico" id="medio_especifico" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-medio_especifico" id="-medio_especifico"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -192,19 +236,37 @@ Alianza
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.medio_especifico }}
-
-    </td>
-    <td>
-
         {{ i.alianza }}
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_alianza' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.porcentaje_comision }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_alianza' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.observacion }}
+
+    </td>
+    <td>
+
+        {{ i.fecha_vigencia|date:"d-m-Y" }}
+
+    </td>
+    <td>
+
+        {{ i.medio_especifico }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_alianza' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_alianza' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -223,6 +285,9 @@ Alianza
     $(document).on('ready',function(){
         ocultarASCDesc('medio_especifico');
         ocultarASCDesc('alianza');
+        ocultarASCDesc('observacion');
+        ocultarASCDesc('porcentaje_comision');
+        ocultarASCDesc('fecha_vigencia');
     })
 </script>
 

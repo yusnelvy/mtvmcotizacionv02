@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-Medio
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Medios</h2>
-
-<h6>Cantidad de Medios encontrados:
+<h2>Listado de medios</h2>
+<h6>Cantidad de medios encontrados:
     <span class="badge" id="count_reg">
 
         {{ medios.count }}
@@ -46,13 +45,9 @@ Medio
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,7 +147,7 @@ Medio
 
 <tr class="active">
     <th>
-        Medio
+        Nombre del medio
 
         {% if request.GET.page %}
 
@@ -168,7 +163,7 @@ Medio
 
     </th>
     <th>
-        descripcion
+        Descripción del medio
 
         {% if request.GET.page %}
 
@@ -183,6 +178,7 @@ Medio
         {% endif %}
 
     </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -199,6 +195,9 @@ Medio
 
         {{ i.descripcion }}
 
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
         <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_medio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>

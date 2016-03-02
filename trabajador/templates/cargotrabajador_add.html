@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-Cargo trabajador
+Trabajador
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar cargo trabajador
+Agregar un cargo trabajador
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar cargo trabajador
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_cargo_trabajador').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_cargo_padre').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

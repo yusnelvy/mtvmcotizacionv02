@@ -112,7 +112,7 @@ class TipoDeDocumentoImpresoView(View):
                 return HttpResponseRedirect(reverse('utalonarios:edit_tipodedocumentoimpreso',
                                                     args=(id_reg.id,)))
             else:
-                return HttpResponseRedirect(reverse('utalonarios:list_tipodedocumentoimpreso'))
+                return HttpResponseRedirect('utalonarios:list_tipodedocumentoimpreso')
 
         return render(request, self.template_name, {'form': form})
 
@@ -334,8 +334,8 @@ class TalonarioView(View):
 
         if form.is_valid():
             id_reg = form.save()
-            estadoactual = EstadoDeDocumento.objects.filter(tipo_de_documento__descripcion='talonario',
-                                                            estado__estado='Activo')
+            estadoactual = EstadoDeDocumento.objects.filter(tipo_de_documento__tipo_de_documento='talonario',
+                                                            estado_de_documento='creado')
 
             agregarestado = TalonarioEstado.objects.create(talonario=id_reg,
                                                            estado_de_documento_id=estadoactual[0].id,
@@ -457,17 +457,17 @@ class TalonarioUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
-        agregartrazabilidad = TrazabilidadTalonario.objects.create(talonario=id_reg,
+        agregartrazabilidad = TrazabilidadTalonario.objects.create(talonario=self.object,
                                                                    usuario_id=2,
                                                                    fecha_modificacion=datetime.now(),
-                                                                   descripcion='Actualización del talonario: ' + id_reg.talonario)
+                                                                   descripcion='Actualización del talonario: ' + self.object.talonario)
         agregartrazabilidad.save()
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Talonario " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Talonario " + str(self.object) + "  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:

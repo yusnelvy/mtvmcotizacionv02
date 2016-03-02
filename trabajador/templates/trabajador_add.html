@@ -8,7 +8,7 @@ Trabajador
 
 {% block titulo_form %}
 
-Agregar trabajador
+Agregar un trabajador
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar trabajador
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_dni').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_cargo_trabajador').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

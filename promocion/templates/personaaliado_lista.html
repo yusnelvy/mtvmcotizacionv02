@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-Persona aliada
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Personas aliadas</h2>
-
-<h6>Cantidad de Personas aliadas encontrados:
+<h2>Listado de personas aliadas</h2>
+<h6>Cantidad de personas aliadas encontrados:
     <span class="badge" id="count_reg">
 
         {{ personaaliados.count }}
@@ -46,13 +45,9 @@ Persona aliada
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,23 +147,23 @@ Persona aliada
 
 <tr class="active">
     <th>
-        Institución
+        DNI de la persona aliada
 
         {% if request.GET.page %}
 
-        <a href="?order_by=institucion&page={{request.GET.page}}" id="institucion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-institucion&page={{request.GET.page}}" id="-institucion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=dni&page={{request.GET.page}}" id="dni" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-dni&page={{request.GET.page}}" id="-dni"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=institucion" id="institucion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-institucion" id="-institucion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=dni" id="dni" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-dni" id="-dni"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
     <th>
-        nombre
+        Nombre de la persona aliada
 
         {% if request.GET.page %}
 
@@ -183,6 +178,119 @@ Persona aliada
         {% endif %}
 
     </th>
+    <th>
+        Teléfono de la persona aliada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=telefono&page={{request.GET.page}}" id="telefono" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono&page={{request.GET.page}}" id="-telefono"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=telefono" id="telefono" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono" id="-telefono"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Teléfono móvil 1 de la persona aliada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=telefono_movil_1&page={{request.GET.page}}" id="telefono_movil_1" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono_movil_1&page={{request.GET.page}}" id="-telefono_movil_1"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=telefono_movil_1" id="telefono_movil_1" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono_movil_1" id="-telefono_movil_1"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Teléfono móvil 2 de la persona aliada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=telefono_movil_2&page={{request.GET.page}}" id="telefono_movil_2" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono_movil_2&page={{request.GET.page}}" id="-telefono_movil_2"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=telefono_movil_2" id="telefono_movil_2" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono_movil_2" id="-telefono_movil_2"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Correo principal de la persona aliada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=email_principal&page={{request.GET.page}}" id="email_principal" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email_principal&page={{request.GET.page}}" id="-email_principal"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=email_principal" id="email_principal" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email_principal" id="-email_principal"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Correo secundario de la persona aliada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=email_secundario&page={{request.GET.page}}" id="email_secundario" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email_secundario&page={{request.GET.page}}" id="-email_secundario"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=email_secundario" id="email_secundario" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email_secundario" id="-email_secundario"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Observación de la persona alada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=observacion&page={{request.GET.page}}" id="observacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-observacion&page={{request.GET.page}}" id="-observacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=observacion" id="observacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-observacion" id="-observacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Institución asociada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=institucion&page={{request.GET.page}}" id="institucion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-institucion&page={{request.GET.page}}" id="-institucion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=institucion" id="institucion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-institucion" id="-institucion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -192,7 +300,7 @@ Persona aliada
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.institucion }}
+        {{ i.dni }}
 
     </td>
     <td>
@@ -201,10 +309,48 @@ Persona aliada
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_personaaliado' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.telefono }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_personaaliado' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.telefono_movil_1 }}
+
+    </td>
+    <td>
+
+        {{ i.telefono_movil_2 }}
+
+    </td>
+    <td>
+
+        {{ i.email_principal }}
+
+    </td>
+    <td>
+
+        {{ i.email_secundario }}
+
+    </td>
+    <td>
+
+        {{ i.observacion }}
+
+    </td>
+    <td>
+
+        {{ i.institucion }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_personaaliado' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_personaaliado' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -213,7 +359,6 @@ Persona aliada
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
@@ -223,7 +368,14 @@ Persona aliada
     $(document).on('ready',function(){
         ocultarASCDesc('institucion');
         ocultarASCDesc('nombre');
-    })
+        ocultarASCDesc('dni');
+        ocultarASCDesc('telefono');
+        ocultarASCDesc('telefono_movil_1');
+        ocultarASCDesc('telefono_movil_2');
+        ocultarASCDesc('email_secundario');
+        ocultarASCDesc('email_principal');
+        ocultarASCDesc('observacion');
+    });
 </script>
 
 {% endblock lista %}

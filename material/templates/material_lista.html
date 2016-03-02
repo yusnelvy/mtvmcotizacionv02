@@ -158,7 +158,7 @@
 
 <tr class="active">
     <th>
-        Material
+        Nombre del material
 
         {% if request.GET.page %}
 
@@ -174,7 +174,7 @@
 
     </th>
     <th>
-        descripción
+        descripción del material
 
         {% if request.GET.page %}
 
@@ -189,6 +189,151 @@
         {% endif %}
 
     </th>
+    <th>
+        Relación de consumo del material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=relacion_consumo_venta&page={{request.GET.page}}" id="relacion_consumo_venta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-relacion_consumo_venta&page={{request.GET.page}}" id="-relacion_consumo_venta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=relacion_consumo_venta" id="relacion_consumo_venta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-relacion_consumo_venta" id="-relacion_consumo_venta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Ancho del material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=ancho&page={{request.GET.page}}" id="ancho" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho&page={{request.GET.page}}" id="-ancho"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=ancho" id="ancho" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-ancho" id="-ancho"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Largo del material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=largo&page={{request.GET.page}}" id="largo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo&page={{request.GET.page}}" id="-largo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=largo" id="largo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-largo" id="-largo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Alto del material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=alto&page={{request.GET.page}}" id="alto" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto&page={{request.GET.page}}" id="-alto"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=alto" id="alto" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alto" id="-alto"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Peso de consumo del material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=peso_unidad_consumo_kg&page={{request.GET.page}}" id="peso_unidad_consumo_kg" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-peso_unidad_consumo_kg&page={{request.GET.page}}" id="-peso_unidad_consumo_kg"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=peso_unidad_consumo_kg" id="peso_unidad_consumo_kg" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-peso_unidad_consumo_kg" id="-peso_unidad_consumo_kg"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Unidad de consumo del material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=unidad_de_consumo&page={{request.GET.page}}" id="unidad_de_consumo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad_de_consumo&page={{request.GET.page}}" id="-unidad_de_consumo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=unidad_de_consumo" id="unidad_de_consumo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad_de_consumo" id="-unidad_de_consumo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Unidad de venta del material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=unidad_de_venta&page={{request.GET.page}}" id="unidad_de_venta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad_de_venta&page={{request.GET.page}}" id="-unidad_de_venta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=unidad_de_venta" id="unidad_de_venta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad_de_venta" id="-unidad_de_venta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Material cotizable
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=cotizable&page={{request.GET.page}}" id="cotizable" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cotizable&page={{request.GET.page}}" id="-cotizable"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=cotizable" id="cotizable" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cotizable" id="-cotizable"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre del tipo de material
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=tipo_de_material&page={{request.GET.page}}" id="tipo_de_material" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tipo_de_material&page={{request.GET.page}}" id="-tipo_de_material"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=tipo_de_material" id="tipo_de_material" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tipo_de_material" id="-tipo_de_material"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -207,10 +352,58 @@
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'umaterials:edit_material' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.relacion_consumo_venta }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'umaterials:eliminar_material' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.ancho }}
+
+    </td>
+    <td>
+
+        {{ i.largo }}
+
+    </td>
+    <td>
+
+        {{ i.alto }}
+
+    </td>
+    <td>
+
+        {{ i.peso_unidad_consumo_kg }}
+
+    </td>
+    <td>
+
+        {{ i.unidad_de_consumo }}
+
+    </td>
+    <td>
+
+        {{ i.unidad_de_venta }}
+
+    </td>
+    <td>
+
+        {{ i.cotizable }}
+
+    </td>
+    <td>
+
+        {{ i.tipo_de_material }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'umateriales:edit_material' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'umateriales:eliminar_material' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -228,7 +421,16 @@
     $(document).on('ready',function(){
         ocultarASCDesc('material');
         ocultarASCDesc('descripcion');
-    })
+        ocultarASCDesc('cotizable');
+        ocultarASCDesc('peso_unidad_consumo_kg');
+        ocultarASCDesc('alto');
+        ocultarASCDesc('largo');
+        ocultarASCDesc('ancho');
+        ocultarASCDesc('relacion_consumo_venta');
+        ocultarASCDesc('tipo_de_material');
+        ocultarASCDesc('unidad_de_venta');
+        ocultarASCDesc('unidad_de_consumo');
+    });
 </script>
 
 {% endblock lista %}

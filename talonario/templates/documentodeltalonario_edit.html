@@ -2,41 +2,45 @@
 
 {% block titulo %}
 
-    Documento de talonario
+Talonario
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar el documento de talonario {{form.numero.value|lower}}
+Editar el documento de talonario: {{form.numero.value|lower}}
 
 {% endblock titulo_form %}
 
 {% block nav_lista_form %}
 
-    {% if documentodeltalonario_previous %}
+{% if documentodeltalonario_previous %}
 
-        <li class="previous">
-            <a href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
-        </li>
+<li class="anterior">
+    <md-button href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
-    {% else %}
+{% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
-    {% endif %}
+{% endif %}
 
-    {% if documentodeltalonario_next %}
+{% if documentodeltalonario_next %}
 
-        <li class="next">
-            <a href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
-        </li>
+<li class="siguiente">
+    <md-button href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% else %}
+{% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% endif %}
+{% endif %}
 
 {% endblock nav_lista_form %}
 
@@ -44,8 +48,20 @@ Editar el documento de talonario {{form.numero.value|lower}}
 
 {{ form.as_md }}
 
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
 <script type="text/javascript">
-document.getElementById('id_talonario').focus()
+app.controller('controlForm',function($scope){
+    $scope.numero = '{{form.numero.value}}';
+    $scope.estado = '{{form.estado.value}}';
+    $scope.informacion_de_proceso = '{{form.informacion_de_proceso.value}}';
+    $scope.informacion_de_beneficiari = '{{form.informacion_de_beneficiari.value}}';
+    $scope.numero_final = '{{form.numero_final.value}}';
+    $scope.talonario = '{{form.talonario.value}}';
+    $('#id_talonario').focus();
+});
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock moduloAngular %}

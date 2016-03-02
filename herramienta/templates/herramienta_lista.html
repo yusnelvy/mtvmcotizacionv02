@@ -173,22 +173,6 @@ Herramienta
 
     </th>
     <th>
-        Unidad de la herramienta
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=unidad&page={{request.GET.page}}" id="unidad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-unidad&page={{request.GET.page}}" id="-unidad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=unidad" id="unidad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-unidad" id="-unidad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th>
         Descripción de la herramienta
 
         {% if request.GET.page %}
@@ -204,6 +188,55 @@ Herramienta
         {% endif %}
 
     </th>
+    <th>
+        Volumen de la herramienta en el camion
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=volumen_en_camion&page={{request.GET.page}}" id="volumen_en_camion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion&page={{request.GET.page}}" id="-volumen_en_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=volumen_en_camion" id="volumen_en_camion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-volumen_en_camion" id="-volumen_en_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Peso de la herramienta
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=peso_kg&page={{request.GET.page}}" id="peso_kg" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-peso_kg&page={{request.GET.page}}" id="-peso_kg"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=peso_kg" id="peso_kg" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-peso_kg" id="-peso_kg"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Unidad de la herramienta
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=unidad&page={{request.GET.page}}" id="unidad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad&page={{request.GET.page}}" id="-unidad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=unidad" id="unidad" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad" id="-unidad"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -222,10 +255,28 @@ Herramienta
 
     </td>
     <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uherramientas:edit_herramienta' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.volumen_en_camion }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uherramientas:eliminar_herramienta' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.peso_kg }}
+
+    </td>
+    <td>
+
+        {{ i.unidad }}
+
+    </td>
+    <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uherramientas:edit_herramienta' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uherramientas:eliminar_herramienta' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -242,6 +293,10 @@ Herramienta
 <script>
     $(document).on('ready',function(){
         ocultarASCDesc('herramienta');
+        ocultarASCDesc('unidad');
+        ocultarASCDesc('descripcion');
+        ocultarASCDesc('peso_kg');
+        ocultarASCDesc('volumen_en_camion');
     })
 </script>
 

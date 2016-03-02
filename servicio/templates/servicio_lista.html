@@ -188,6 +188,22 @@ Servicio
         {% endif %}
 
     </th>
+    <th>
+        Unidad de venta del servicio
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=unidad_de_venta&page={{request.GET.page}}" id="unidad_de_venta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad_de_venta&page={{request.GET.page}}" id="-unidad_de_venta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=unidad_de_venta" id="unidad_de_venta" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-unidad_de_venta" id="-unidad_de_venta"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
     <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
@@ -207,13 +223,18 @@ Servicio
 
     </td>
     <td>
+
+        {{ i.unidad_de_venta }}
+
+    </td>
+    <td>
         <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uservicios:edit_servicio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uservicios:edit_servicio' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uservicios:eliminar_servicio' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uservicios:eliminar_servicio' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -231,6 +252,7 @@ Servicio
     $(document).on('ready',function(){
         ocultarASCDesc('servicio');
         ocultarASCDesc('descripcion');
+        ocultarASCDesc('unidad_de_venta');
     });
 </script>
 

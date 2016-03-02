@@ -2,15 +2,14 @@
 
 {% block titulo %}
 
-Institución
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_lista %}
 
-<h2>Listado de Instituciones</h2>
-
-<h6>Cantidad de Instituciones encontrados:
+<h2>Listado de instituciones</h2>
+<h6>Cantidad de instituciones encontrados:
     <span class="badge" id="count_reg">
 
         {{ instituciones.count }}
@@ -46,13 +45,9 @@ Institución
 
 {% else %}
 
-
-
 <li class="btn-disabled">
     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
-
-
 
 {% endif %}
 
@@ -152,23 +147,7 @@ Institución
 
 <tr class="active">
     <th>
-        alianza
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=alianza&page={{request.GET.page}}" id="alianza" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-alianza&page={{request.GET.page}}" id="-alianza"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=alianza" id="alianza" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-alianza" id="-alianza"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th>
-        nombre
+        Nombre de la institución
 
         {% if request.GET.page %}
 
@@ -183,6 +162,119 @@ Institución
         {% endif %}
 
     </th>
+    <th>
+        Cuit de la institución
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=cuit&page={{request.GET.page}}" id="cuit" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cuit&page={{request.GET.page}}" id="-cuit"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=cuit" id="cuit" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cuit" id="-cuit"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Pagina web de la institución
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=pagina_web&page={{request.GET.page}}" id="pagina_web" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pagina_web&page={{request.GET.page}}" id="-pagina_web"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=pagina_web" id="pagina_web" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-pagina_web" id="-pagina_web"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Persona de contacto de la institución
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=persona_contacto&page={{request.GET.page}}" id="persona_contacto" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-persona_contacto&page={{request.GET.page}}" id="-persona_contacto"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=persona_contacto" id="persona_contacto" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-persona_contacto" id="-persona_contacto"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Teléfono de la institución
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=telefono&page={{request.GET.page}}" id="telefono" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono&page={{request.GET.page}}" id="-telefono"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=telefono" id="telefono" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono" id="-telefono"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Teléfono móvil de la institución
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=telefono_movil&page={{request.GET.page}}" id="telefono_movil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono_movil&page={{request.GET.page}}" id="-telefono_movil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=telefono_movil" id="telefono_movil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-telefono_movil" id="-telefono_movil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Correo de la institución
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=email&page={{request.GET.page}}" id="email" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email&page={{request.GET.page}}" id="-email"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=email" id="email" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-email" id="-email"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Nombre de la alianza asociada
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=alianza&page={{request.GET.page}}" id="alianza" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alianza&page={{request.GET.page}}" id="-alianza"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=alianza" id="alianza" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-alianza" id="-alianza"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th class="controlLista">Ficha</th>
     <th class="controlLista">Editar</th>
     <th class="controlLista">Eliminar</th>
 </tr>
@@ -192,19 +284,52 @@ Institución
 <tr id="tr{{i.pk}}">
     <td>
 
-        {{ i.alianza }}
-
-    </td>
-    <td>
-
         {{ i.nombre }}
 
     </td>
     <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_institucion' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
+
+        {{ i.cuit }}
+
     </td>
     <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_institucion' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+
+        {{ i.pagina_web }}
+
+    </td>
+    <td>
+
+        {{ i.persona_contacto }}
+
+    </td>
+    <td>
+
+        {{ i.telefono }}
+
+    </td>
+    <td>
+
+        {{ i.telefono_movil }}
+
+    </td>
+    <td>
+
+        {{ i.email }}
+
+    </td>
+    <td>
+
+        {{ i.alianza }}
+
+    </td>
+        <td>
+      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+    </td>
+    <td>
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:edit_institucion' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+    </td>
+    <td>
+        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upromociones:eliminar_institucion' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
     </td>
 </tr>
 
@@ -213,7 +338,6 @@ Institución
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
@@ -222,6 +346,12 @@ Institución
 <script>
     $(document).on('ready',function(){
         ocultarASCDesc('nombre');
+        ocultarASCDesc('cuit');
+        ocultarASCDesc('pagina_web');
+        ocultarASCDesc('persona_contacto');
+        ocultarASCDesc('telefono');
+        ocultarASCDesc('telefono_movil');
+        ocultarASCDesc('email');
         ocultarASCDesc('alianza');
     })
 </script>

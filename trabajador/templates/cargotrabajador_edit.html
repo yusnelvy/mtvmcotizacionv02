@@ -2,41 +2,45 @@
 
 {% block titulo %}
 
-Cargo trabajador
+Trabajador
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar el cargo trabajador {{form.cargo_trabajador.value|lower}}
+Editar el cargo trabajador: {{form.cargo_trabajador.value|lower}}
 
 {% endblock titulo_form %}
 
 {% block nav_lista_form %}
 
-    {% if cargotrabajador_previous %}
+{% if cargotrabajador_previous %}
 
-        <li class="previous">
-            <a href="{% url 'utrabajadores:edit_cargotrabajador' cargotrabajador_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
-        </li>
+<li class="anterior">
+    <md-button href="{% url 'utrabajadores:edit_cargotrabajador' cargotrabajador_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
-    {% else %}
+{% else %}
 
-       <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
-    {% endif %}
+{% endif %}
 
-    {% if cargotrabajador_next %}
+{% if cargotrabajador_next %}
 
-        <li class="next">
-            <a href="{% url 'utrabajadores:edit_cargotrabajador' cargotrabajador_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
-        </li>
+<li class="siguiente">
+    <md-button href="{% url 'utrabajadores:edit_cargotrabajador' cargotrabajador_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% else %}
+{% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% endif %}
+{% endif %}
 
 {% endblock nav_lista_form %}
 
@@ -44,8 +48,17 @@ Editar el cargo trabajador {{form.cargo_trabajador.value|lower}}
 
 {{ form.as_md }}
 
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
 <script type="text/javascript">
-document.getElementById('id_cargo_trabajador').focus()
+app.controller('controlForm',function($scope){
+    $scope.cargo_trabajador = '{{form.cargo_trabajador.value}}';
+    $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.cargo_padre = '{{form.cargo_padre.value}}';
+    $('#id_cargo_trabajador').focus();
+});
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock moduloAngular %}

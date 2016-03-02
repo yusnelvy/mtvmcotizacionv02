@@ -8,7 +8,7 @@ Medio
 
 {% block titulo_form %}
 
-Agregar Medio
+Agregar un medio
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar Medio
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_medio').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_medio').focus();
+        });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

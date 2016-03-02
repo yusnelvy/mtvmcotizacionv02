@@ -2,41 +2,43 @@
 
 {% block titulo %}
 
-    Complejidad servicio
+Servicio
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar la complejidad servicio {{form.descripcion.value|lower}}
+Editar la complejidad de servicio: {{form.descripcion.value|lower}}
 
 {% endblock titulo_form %}
 
 {% block nav_lista_form %}
 
-    {% if complejidadservicio_previous %}
+{% if complejidadservicio_previous %}
 
-        <li class="previous">
-            <a href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
-        </li>
+<li class="anterior">
+    <md-button href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
-    {% else %}
+{% else %}
 
-        <li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
 
-    {% endif %}
+{% endif %}
 
-    {% if complejidadservicio_next %}
+{% if complejidadservicio_next %}
 
-        <li class="next">
-            <a href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
-        </li>
+<li class="siguiente">
+    <md-button href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% else %}
+{% else %}
 
-        <li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% endif %}
+{% endif %}
 
 {% endblock nav_lista_form %}
 
@@ -44,8 +46,18 @@ Editar la complejidad servicio {{form.descripcion.value|lower}}
 
 {{ form.as_md }}
 
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
 <script type="text/javascript">
-document.getElementById('id_descripcion').focus()
+app.controller('controlForm',function($scope){
+    $scope.servicio = '{{form.servicio.value}}';
+    $scope.porcentaje = '{{form.porcentaje.value}}';
+    $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.predefinido = {{form.predefinido.value|lower}};
+    $('#id_servicio').focus();
+});
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock moduloAngular %}

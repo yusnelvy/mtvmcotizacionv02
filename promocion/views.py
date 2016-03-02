@@ -797,7 +797,7 @@ class AlianzaView(View):
             agregarestado = AlianzaEstado.objects.create(alianza=id_reg,
                                                          estado_de_registro_id=estadoactual[0].id,
                                                          usuario_id=2,
-                                                         observecion='Creación de una alianza',
+                                                         observacion='Creación de una alianza',
                                                          predefinido=True)
             agregarestado.save()
 

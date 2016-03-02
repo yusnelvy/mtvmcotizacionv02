@@ -18,17 +18,13 @@ Agregar una herramienta
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_herramienta').focus()
-</script>
-
 {% endblock cuerpo_form %}
 
 {% block moduloAngular %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
-      $('#id_herramienta').focus();
+      $('#id_unidad').focus();
         });
 </script>
 <style>.paginacionEdit{height: 0;}</style>

@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-    Tipo de documento impreso
+Talonario
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar tipo de documento impreso
+Agregar un tipo de documento impreso
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar tipo de documento impreso
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_tipo_de_documento_impreso').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_tipo_de_documento_impreso').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

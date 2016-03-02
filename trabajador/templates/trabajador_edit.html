@@ -8,7 +8,7 @@ Trabajador
 
 {% block titulo_form %}
 
-Editar trabajador {{form.nombre.value|lower}} {{form.apellido.value|lower}}
+Editar el trabajador: {{form.nombre.value|lower}} {{form.apellido.value|lower}}
 
 {% endblock titulo_form %}
 
@@ -16,25 +16,29 @@ Editar trabajador {{form.nombre.value|lower}} {{form.apellido.value|lower}}
 
 {% if trabajador_previous %}
 
-<li class="previous">
-    <a href="{% url 'utrabajadores:edit_trabajador' trabajador_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+<li class="anterior">
+    <md-button href="{% url 'utrabajadores:edit_trabajador' trabajador_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
 </li>
 
 {% else %}
 
-<li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
 {% endif %}
 
 {% if trabajador_next %}
 
-<li class="next">
-    <a href="{% url 'utrabajadores:edit_trabajador' trabajador_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+<li class="siguiente">
+    <md-button href="{% url 'utrabajadores:edit_trabajador' trabajador_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
 </li>
 
 {% else %}
 
-<li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+  <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
 {% endif %}
 
@@ -42,14 +46,25 @@ Editar trabajador {{form.nombre.value|lower}} {{form.apellido.value|lower}}
 
 {% block cuerpo_form %}
 
-<div class="prueba">
-
 {{ form.as_md }}
 
-</div>
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_dni').focus()
+app.controller('controlForm',function($scope){
+  $scope.cargo_trabajador = '{{form.cargo_trabajador.value}}';
+  $scope.dni = '{{form.dni.value}}';
+  $scope.nombre = '{{form.nombre.value}}';
+  $scope.apellido = '{{form.apellido.value}}';
+  $scope.direccion = '{{form.direccion.value}}';
+  $scope.telefono = '{{form.telefono.value}}';
+  $scope.email = '{{form.email.value}}';
+  $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
+  $scope.volumen_en_camion = '{{form.volumen_en_camion.value}}';
+  $('#id_cargo_trabajador').focus();
+});
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock moduloAngular %}

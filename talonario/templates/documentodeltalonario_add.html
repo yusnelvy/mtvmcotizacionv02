@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-    Documento de talonario
+Talonario
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar documento de talonario
+Agregar un documento del talonario
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar documento de talonario
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_talonario').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_talonario').focus();
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

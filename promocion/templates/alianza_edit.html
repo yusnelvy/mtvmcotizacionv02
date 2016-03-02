@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-Alianza
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Editar alianza {{form.alianza.value|lower}}
+Editar la alianza: {{form.alianza.value|lower}}
 
 {% endblock titulo_form %}
 
@@ -16,25 +16,27 @@ Editar alianza {{form.alianza.value|lower}}
 
 {% if alianza_previous %}
 
-<li class="previous">
-    <a href="{% url 'upromociones:edit_alianza' alianza_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+<li class="anterior">
+    <md-button href="{% url 'upromociones:edit_alianza' alianza_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
 </li>
 
 {% else %}
 
-<li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
 
 {% endif %}
 
 {% if alianza_next %}
 
-<li class="next">
-    <a href="{% url 'upromociones:edit_alianza' alianza_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+<li class="siguiente">
+    <md-button href="{% url 'upromociones:edit_alianza' alianza_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
 </li>
 
 {% else %}
 
-<li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
 {% endif %}
 
@@ -42,14 +44,21 @@ Editar alianza {{form.alianza.value|lower}}
 
 {% block cuerpo_form %}
 
-<div class="prueba">
-
 {{ form.as_md }}
 
-</div>
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
 
 <script type="text/javascript">
-document.getElementById('id_medio_especifico').focus()
+app.controller('controlForm',function($scope){
+    $scope.medio_especifico = '{{form.medio_especifico.value}}';
+    $scope.alianza = '{{form.alianza.value}}';
+    $scope.porcentaje_comision = '{{form.porcentaje_comision.value}}';
+    $scope.observacion = '{{form.observacion.value}}';
+    $scope.fecha_vigencia = '{{form.fecha_vigencia.value}}';
+    $('#id_medio_especifico').focus();
+});
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock moduloAngular %}

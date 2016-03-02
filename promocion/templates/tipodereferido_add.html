@@ -2,13 +2,13 @@
 
 {% block titulo %}
 
-Tipo de referido
+Promoción
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar Tipo de referido
+Agregar un tipo de referido
 
 {% endblock titulo_form %}
 
@@ -18,8 +18,15 @@ Agregar Tipo de referido
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_medio_especifico').focus()
-</script>
-
 {% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $('#id_medio_especifico').focus();
+});
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}
