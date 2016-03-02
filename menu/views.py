@@ -706,15 +706,16 @@ class RelacionDelete(DeleteView):
         else:
             return render_to_response(self.template_name, self.get_context_data())
 
+
 def lista_Relacion(request):
     """docstring"""
     menu = Menu.objects.filter(nivel=3)
     url1 = request.path
-    relacion= ''
+    relacion = ''
     hola = 'diferentes'
     for i in menu:
 
-        url2 = reverse( '%s:%s' % (i.namespace, i.name))
+        url2 = reverse('%s:%s' % (i.namespace, i.name))
         if (url1 == (url2)):
             hola = 'iguales'
             relacion = Relacion.objects.filter(item_origen_id=i.id)
@@ -749,19 +750,21 @@ def lista_Menu(request):
         urln3 = reverse('%s:%s' % (i.namespace, i.name))
         if (urlactual == urln3):
             idActual = i.id
-            favoritos2 = MenuFavorito.objects.all().filter(menu_id = i.id)
+            favoritos2 = MenuFavorito.objects.all().filter(menu_id=i.id)
             for j in favoritos2:
                     idActualFav = j.id
 
     context = {'nivel1': nivel1, 'nivel2': nivel2,
-               'nivel3': nivel3, 'favoritos': favoritos, 'urlactual': urlactual, 'idActual': idActual, 'idActualFav': idActualFav, 'grupos': grupos}
+               'nivel3': nivel3, 'favoritos': favoritos,
+               'urlactual': urlactual, 'idActual': idActual,
+               'idActualFav': idActualFav, 'grupos': grupos}
     return context
 
 
 def lista_Transaccion(request):
     """docstring"""
     transaccion2 = request.GET.get('variable')
-    relacion =   Menu.objects.filter(nivel=3)
+    relacion = Menu.objects.filter(nivel=3)
 
     for i in relacion:
 
