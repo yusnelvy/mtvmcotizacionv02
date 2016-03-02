@@ -18,28 +18,48 @@
     {% block js_superior %}{% endblock js_superior %}
 
 </head>
-<body ng-app="AppMudarte">
+<body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();">
     <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}">
         <header>
             <div ng-controller="ControlSidebar" class="sidebar-wrapper">
-                <ul class="sidebar-nav md-toolbar-tools">
+                <ul class="sidebar-nav ">
                     <li class="sidebar-brand">
                         <a href="#" tabindex="-1">
-                            App Mudarte
+                            <span flex></span>
+                            <md-button class="md-icon-button menu-toggle" ng-click="toggleSide();" tabindex="-1">
+                                <md-icon class="glyphicon glyphicon-remove">
+                                </md-icon>
+                            </md-button>
                         </a>
                     </li>
-                    <span flex></span>
-                    <md-button class="md-icon-button menu-toggle" ng-click="toggleSide();" tabindex="-1">
-                    <md-icon  class="glyphicon glyphicon-remove"></md-icon>
-                </md-button>
 
 
-            </ul>
+                    {% block widget_sidebar %}
+                             <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)" class="size-transaccion"/>
+                             <input type="button" value="Ir" onclick="transaccion()"/>
 
+                            <h4>Tablas Relacionadas</h4>
+                            {% include "tablas_relacionadas.html" %}
+                    {% endblock widget_sidebar %}
 
-            {% block widget_sidebar %}{% endblock widget_sidebar %}
+                    {% block auto_filto %}
+                            <h4>Autofiltros</h4>
+                            <ul class="demo" ></ul>
+                    {% endblock auto_filto %}
 
-        </div>
+                    {% block filtro_rapido %}
+                            <h4>Filtros Rápidos</h4>
+                            <select class="demo2" ></select>
+                            <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
+                    {% endblock filtro_rapido %}
+
+                    {% block widget_menu_general %}
+                      <h4>Menú</h4>
+                      {% include "Menu_general.html" %}
+
+                    {% endblock widget_menu_general %}
+                </ul>
+            </div>
         <nav ng-controller="ControlNavbar" class="navbarApp">
             <md-toolbar>
             <div class="md-toolbar-tools">
