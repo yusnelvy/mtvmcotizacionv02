@@ -10,6 +10,10 @@ from menu.views import MenuListView, MenuView, \
     MenuFavoritoDelete, RelacionListView, \
     RelacionView, RelacionUpdate, RelacionDelete
 
+from menu import views
+
+
+
 
 urlpatterns = patterns('',
                        url(r'^$',
@@ -48,4 +52,13 @@ urlpatterns = patterns('',
                        url(r'^relacion/eliminar/(?P<pk>\d+)/$',
                            RelacionDelete.as_view(),
                            name='eliminar_relacion'),
-                       )
+                       url(r'^menu_ver/$',
+                           views.lista_Menu,
+                           name='menu_ver'),
+                       url(r'^relacion_ver/$',
+                           views.lista_Relacion,
+                           name='relacion_ver'),
+                       url(r'^transaccion',
+                           views.lista_Transaccion,
+                           name='transaccion'),
+                      )

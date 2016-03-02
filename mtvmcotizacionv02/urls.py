@@ -21,9 +21,11 @@ from mtvmcotizacionv02 import views
 urlpatterns = [
     url(r'^$', views.pantalla_inicial,
         name='pantalla_inicial'),
-    url(r'^guia_de_estilo/', views.guia_de_estilo,
+    url(r'^guia_de_estilo/',
+        views.guia_de_estilo,
         name='guia_de_estilos'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/',
+        include(admin.site.urls)),
     url(r'^direccion/',
         include('direccion.urls', namespace="udirecciones")),
     url(r'^ambiente/',
@@ -32,6 +34,8 @@ urlpatterns = [
         include('cliente.urls', namespace="uclientes")),
     url(r'^contenedor/',
         include('contenedor.urls', namespace="ucontenedores")),
+    url(r'^menu/',
+        include('menu.urls', namespace="umenus")),
     url(r'^mueble/',
         include('mueble.urls', namespace="umuebles")),
     url(r'^gestiondedocumento/',
@@ -46,8 +50,6 @@ urlpatterns = [
         include('premisas.urls', namespace="upremisas")),
     url(r'^promocion/',
         include('promocion.urls', namespace="upromociones")),
-    url(r'^menu/',
-        include('menu.urls', namespace="umenus")),
     url(r'^herramienta/',
         include('herramienta.urls', namespace="uherramientas")),
     url(r'^material/',
@@ -62,13 +64,9 @@ urlpatterns = [
         include('vehiculo.urls', namespace="uvehiculos")),
     url(r'^chaining/',
         include('smart_selects.urls')),
-    url(r'^menu_ver/$',views.lista_Menu,
-        name='menu_ver'),
-    url(r'^relacion_ver/$',views.lista_Relacion,
-        name='relacion_ver'),
-    url(r'^transaccion/$',views.lista_Transaccion,
-        name='transaccion'),
-    url(r'^sidebarUpdate/$', 'mtvmcotizacionv02.views.sidebarUpdate', name='sidebarUpdate')
+    url(r'^sidebarUpdate/$',
+        'mtvmcotizacionv02.views.sidebarUpdate',
+        name='sidebarUpdate')
 ]
 
 if settings.DEBUG:

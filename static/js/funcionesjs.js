@@ -5,8 +5,7 @@ $(function () {
 function transaccion()
     {
         var variable = document.getElementById("transaccion").value;
-
-    $.get('/transaccion',
+    $.get('/menu/transaccion',
       {variable: variable},
       function(data) {
         if (data.url != ""){
@@ -21,7 +20,7 @@ function controlarEnter(e) {
     if (tecla == 13){
             var variable = document.getElementById("transaccion").value;
 
-    $.get('/transaccion',
+    $.get('/menu/transaccion',
       {variable: variable},
       function(data) {
         if (data.url != ""){
@@ -771,3 +770,42 @@ function actualizarSidebar() {
   })(window.jQuery, window);
 
 }).call(this);
+
+function controlarAutofiltro() {
+
+    $('tr[class="active"] th').each(function () {
+           var th = $(this).text();
+           var col = $(this).index() + 1;
+           if ( th != 'Ficha' && th != 'Editar' && th != 'Eliminar'){
+           $( ".demo" ).append( "<li><input id='"+th+"' type='checkbox' data-col='"+ col +"' checked='checked'></input><label for='"+th+"'>"+th+"</label></li>" );
+          }
+       });
+
+    $('input[type=checkbox]').click(function() {
+           var col = $(this).data('col');
+           if( $(this).prop('checked') ) {
+               $('td:nth-child('+col+'),th:nth-child('+col+')').show();
+           }else{
+               $('td:nth-child('+col+'),th:nth-child('+col+')').hide();
+           }
+       });
+
+}
+
+function controlarFiltroRapido() {
+
+    $('tr[class="active"] th').each(function () {
+           var th = $(this).text();
+           var col = $(this).index() + 1;
+           if ( th != 'Ficha' && th != 'Editar' && th != 'Eliminar'){
+           $( ".demo2" ).append( "<option>"+th+"</option>" );
+          }
+       });
+
+
+    var elementosSelect = document.getElementsByTagName('select');
+    var seleccionado = elementosSelect[0].value;
+    var valor = document.getElementById("filtro").value;
+    return id;
+
+}
