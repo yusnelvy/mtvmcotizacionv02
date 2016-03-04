@@ -773,3 +773,8 @@ def lista_Transaccion(request):
             return JsonResponse({'url': reverse(url)}, safe=False)
 
     return JsonResponse({'url': ''}, safe=False)
+
+
+def mostrar_Menu(request):
+    """Docstring"""
+    return render(request, 'Menu_general.html')
