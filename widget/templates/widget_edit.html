@@ -1,0 +1,74 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Widget
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Editar widget: {{form.nombre.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}
+
+{% if widget_previous %}
+
+<li class="anterior">
+    <md-button href="{% url 'uwidgets:edit_widget' widget_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+</li>
+
+{% else %}
+
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+</li>
+
+{% endif %}
+
+{% if widget_next %}
+
+<li class="siguiente">
+    <md-button href="{% url 'uwidgets:edit_widget' widget_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
+
+{% else %}
+
+<li class="siguienteBloqueado">
+    <md-button ng-href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
+
+{% endif %}
+
+{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+{{ form.as_md }}
+
+<script type="text/javascript">
+document.getElementById('id_usuario').focus()
+</script>
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.usuario = '{{form.usuario.value}}';
+    $scope.nombre = '{{form.nombre.value}}';
+    $scope.visible = {{form.visible.value|lower}};
+    $scope.desplegable = '{{form.desplegable.value}}';
+    $scope.numero_de_columna = '{{form.numero_de_columna.value}}';
+    $scope.color = '{{form.color.value}}';
+    $scope.orden = '{{form.orden.value}}';
+
+  });
+</script>
+
+{% endblock moduloAngular %}
