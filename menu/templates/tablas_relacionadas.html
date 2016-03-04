@@ -1,14 +1,23 @@
 {% load menu_extras %}
 
-<div class="">
+<div class="forma-panel panel-info fixed-panel">
+    <div class="panel-heading">
+        <h12 class="titulo-panel">Tablas Relacionadas</h12>
+    </div>
+        <div class="panel-body">
 
- {% for k in relacion %}
+            <div class="">
 
-        <ul>
-            <li><a href="{% url_Menu k.item_relacion.namespace k.item_relacion.name %}">{{ k.nombre }}</a>
-            </li>
-        </ul>
+             {% for k in relacion %}
 
-    {% endfor %}
+                    <ul>
+                        <li><a href="{% url_Menu k.item_relacion.namespace k.item_relacion.name %}">{{ k.nombre }}</a>
+                        </li>
+                    </ul>
 
+            {% endfor %}
+
+            </div>
+
+        </div>
 </div>

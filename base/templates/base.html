@@ -35,27 +35,28 @@
 
 
                     {% block widget_sidebar %}
-                             <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)" class="size-transaccion"/>
-                             <input type="button" value="Ir" onclick="transaccion()"/>
 
-                            <h4>Tablas Relacionadas</h4>
-                            {% include "tablas_relacionadas.html" %}
+                        {% include "transaccion.html" %}
+
+                        {% include "tablas_relacionadas.html" %}
+
                     {% endblock widget_sidebar %}
 
                     {% block auto_filto %}
-                            <h4>Autofiltros</h4>
-                            <ul class="demo" ></ul>
+
+                        {% include "autofiltro.html" %}
+
                     {% endblock auto_filto %}
 
                     {% block filtro_rapido %}
-                            <h4>Filtros Rápidos</h4>
-                            <select class="demo2" ></select>
-                            <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
+
+                        {% include "filtrorapido.html" %}
+
                     {% endblock filtro_rapido %}
 
                     {% block widget_menu_general %}
-                      <h4>Menú</h4>
-                      {% include "Menu_general.html" %}
+
+                        {% include "Menu_general.html" %}
 
                     {% endblock widget_menu_general %}
                 </ul>
@@ -100,6 +101,30 @@
 {% block js_inferior %}{% endblock js_inferior %}
 
 {% block moduloAngular %}{% endblock moduloAngular %}
+<style type="text/css">
+    .demo{
+        padding: 0;
+    }
+    .demo li{
+        text-indent:0;
+        line-height:0;
+        padding: 5px;
+    }
+    .demo li input{
+        display: inline-block;
 
+    }
+    .demo li label {
+        display: inline-block;
+        margin-bottom:0;
+        padding: 0;
+        font-weight:normal;
+        font-size: 10px;
+
+    }
+    .panel-body {
+
+    }
+</style>
 </body>
 </html>
