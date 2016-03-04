@@ -1,0 +1,47 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+    Dirección
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar inmueble
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+<p>
+    <span>
+      <strong>Dirección: </strong>
+
+      {{direccion.0.full_direccion}}
+    </span>
+</p>
+
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope, $http){
+    $('#id_edificacion').focus();
+    $('#id_edificacion').after("<a title='Agregar' data-toggle='tooltip' data-placement='right' href='{% url 'uclientes:add_edificacion' %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoPlus'></a>");
+    $scope.selectChanged = function(){
+        id_especificacion_de_inmueble = $scope.especificacion_de_inmueble;
+        $http.get("/cliente/inmueble/exchange/"+id_especificacion_de_inmueble+"/")
+        .success(function(result) {
+            $scope.cantidad_de_ambientes = result.cant_ambiente;
+        });
+    };
+});
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

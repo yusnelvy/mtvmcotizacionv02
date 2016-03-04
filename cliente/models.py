@@ -7,7 +7,7 @@ Documentacion del proyecto
 from django.db import models
 from estadoderegistro.models import EstadoDeRegistro
 from django.contrib.auth.models import User
-from direccion.models import Direccion
+from direccion.models import Direccion, Edificacion, Inmueble
 
 
 # Create your models here.
@@ -155,6 +155,8 @@ class ClienteDireccion(models.Model):
     direccion = models.ForeignKey(Direccion, on_delete=models.PROTECT)
     titulo_de_direccion = models.CharField(max_length=300)
     detalle_de_direccion = models.TextField()
+    edificacion = models.ForeignKey(Edificacion, null=True, blank=True)
+    inmueble = models.ForeignKey(Inmueble, null=True, blank=True)
 
     def __str__(self):
         return u' %s - %s' % (self.cliente, self.direccion)

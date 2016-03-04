@@ -13,7 +13,8 @@ from cliente.views import SexoListView, SexoView, SexoUpdate, \
     TipoDeInformacionDeContactoView, TipoDeInformacionDeContactoUpdate, \
     TipoDeInformacionDeContactoDelete, ClienteView, ClienteListView, \
     ClienteDetail, ClienteUpdate, ContactoCreateView, ContactoUpdate, \
-    ClienteDireccionView
+    ClienteDireccionView, ClienteInmuebleView, EdificacionCreateView
+from cliente import views
 
 
 urlpatterns = patterns('',
@@ -98,4 +99,13 @@ urlpatterns = patterns('',
                        url(r'^direccion/nuevo',
                            ClienteDireccionView.as_view(),
                            name='add_direccion'),
+                       url(r'^inmueble/nuevo',
+                           ClienteInmuebleView.as_view(),
+                           name='add_inmueble'),
+                       url(r'^edificacion/nuevo',
+                           EdificacionCreateView.as_view(),
+                           name='add_edificacion'),
+                       url(r'^inmueble/exchange/(?P<id_especificacion>\d+)/$',
+                           views.exchange_especificaciondeinmueble,
+                           name='exchange_especificaciondeinmueble'),
                        )
