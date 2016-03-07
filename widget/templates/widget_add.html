@@ -2,20 +2,20 @@
 
 {% block titulo %}
 
-    Dirección
+Widget
 
 {% endblock titulo %}
 
 {% block titulo_form %}
 
-Agregar dirección
+Agregar un widget
 
 {% endblock titulo_form %}
 
 {% block nav_lista_form %}{% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
-  <input id="titulo_de_direccion" name="titulo_de_direccion" type="input" value="titulo dirección">
+
   {{ form.as_md }}
 
 {% endblock cuerpo_form %}
@@ -24,10 +24,7 @@ Agregar dirección
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
-    $scope.pais = '{{form.pais.value}}';
-    $scope.provincia = '{{form.provincia.value}}';
-    $scope.ciudad = '{{form.ciudad.value}}';
-    $('#titulo_de_direccion').focus();
+      $('#id_usuario').focus();
   });
 </script>
 <style>.paginacionEdit{height: 0;}</style>

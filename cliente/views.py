@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, View, UpdateView, \
     DeleteView, DetailView, CreateView
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
@@ -14,8 +14,13 @@ from mtvmcotizacionv02.views import valor_Personalizacionvisual
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from direccion.models  import Direccion, Ciudad
-from direccion.forms import DireccionForm
+from direccion.models import Direccion, Ciudad, Inmueble, Edificacion, \
+    TipoDeEdificacion
+from direccion.forms import DireccionForm, EdificacionForm, AscensorFormSet, \
+    HorarioDisponibleFormSet, InmuebleForm
+from ambiente.forms import Ambiente
+import json
+from django.db.models import Count
 
 
 # Create your views here.
@@ -1633,6 +1638,7 @@ class ContactoUpdate(UpdateView):
                                                     args=(self.object.cliente.id,)))
 
 
+# app direccion
 class ClienteDireccionView(View):
     form_class = DireccionForm
     template_name = 'clientedireccion_add.html'
@@ -1653,17 +1659,17 @@ class ClienteDireccionView(View):
         form = self.form_class(request.POST)
 
         titulo = self.request.POST.get('titulo_de_direccion', '')
-        cliente = self.request.POST.get('cliente', '')
+        cliente = self.request.GET.get('cliente', '')
 
         if form.is_valid():
             id_reg = form.save()
 
             direccion = Direccion.objects.filter(id=id_reg.id)
 
-            agregarclientedireccion = ClienteDireccion.objects.create(cliente=cliente,
-                                                                      direccion=id_reg.id,
+            agregarclientedireccion = ClienteDireccion.objects.create(cliente_id=cliente,
+                                                                      direccion_id=id_reg.id,
                                                                       titulo_de_direccion=titulo,
-                                                                      detalle_de_direccion=direccion[0].full_direccion)
+                                                                      detalle_de_direccion=direccion[0].full_direccion())
             clientedireccion = agregarclientedireccion.save()
 
             if 'regEdit' in request.POST:
@@ -1671,7 +1677,205 @@ class ClienteDireccionView(View):
                 return HttpResponseRedirect(reverse('uclientes:edit_direccion',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
-                                            "?clientedireccion="+str(clientedireccion.id))
+                                            "?clientedireccion="+str(agregarclientedireccion.id))
 
         return render(request, self.template_name, {'form': form})
+
+
+class ClienteInmuebleView(View):
+    form_class = InmuebleForm
+    template_name = 'clienteinmueble_add.html'
+
+    def get(self, request, *args, **kwargs):
+        """docstring"""
+
+        direccion = Direccion.objects.filter(clientedireccion=
+                                             self.request.GET.get('clientedireccion'))
+        if self.request.GET.get('edificacion'):
+            edificacion = Edificacion.objects.filter(id=self.request.GET.get('edificacion'))
+            data = {
+                'edificacion': edificacion[0].id
+                }
+            form = self.form_class(initial=data)
+        else:
+            form = self.form_class()
+        return render(request, self.template_name, {'form': form,
+                                                    'direccion': direccion})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        clientedireccion = self.request.GET.get('clientedireccion', '')
+
+        direccion = Direccion.objects.filter(clientedireccion=clientedireccion)
+
+        if form.is_valid():
+            id_reg = form.save()
+
+            inmueble = Inmueble.objects.filter(id=id_reg.id)
+
+            clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
+
+            clientedireccion.update(inmueble=inmueble[0].id, edificacion=inmueble[0].edificacion)
+
+            if 'regEdit' in request.POST:
+                messages.success(self.request, "Inmueble '" + str(id_reg) + "'  registrado con éxito.")
+                return HttpResponseRedirect(reverse('uclientes:edit_direccion',
+                                                    args=(id_reg.id,)))
+            else:
+                messages.success(self.request, "Inmueble:  '" + str(id_reg) + "'  registrado con éxito.")
+                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                    args=(clientedireccion[0].cliente.id,)))
+
+        return render(request, self.template_name, {'form': form,
+                                                    'direccion': direccion})
+
+
+class EdificacionCreateView(CreateView):
+    template_name = 'clienteedificacion_add.html'
+    model = Edificacion
+    form_class = EdificacionForm
+
+    def get_initial(self):
+        super(EdificacionCreateView, self).get_initial()
+        clientedireccion = ClienteDireccion.objects.filter(id=self.request.GET.get('clientedireccion'))
+        data = {
+            'direccion': clientedireccion[0].direccion
+            }
+
+        self.initial = data
+        return self.initial
+
+    def get_context_data(self, **kwargs):
+        context = super(EdificacionCreateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['itemascensor_form'] = AscensorFormSet(self.request.POST)
+            context['itemhorariodisponible_form'] = HorarioDisponibleFormSet(self.request.POST)
+        else:
+            context['itemascensor_form'] = AscensorFormSet()
+            context['itemhorariodisponible_form'] = HorarioDisponibleFormSet()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        itemascensor_form = AscensorFormSet()
+        itemhorariodisponible_form = HorarioDisponibleFormSet()
+
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  itemascensor_form=itemascensor_form,
+                                  itemhorariodisponible_form=itemhorariodisponible_form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        if (form.is_valid()):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        """
+        Called if all forms are valid. Creates a Contacto instance along with
+        associated Ingredients and Instructions and then redirects to a
+        success page.
+        """
+        context = self.get_context_data()
+        itemascensor_form = context['itemascensor_form']
+        itemhorariodisponible_form = context['itemhorariodisponible_form']
+        clientedireccion = self.request.GET.get('clientedireccion', '')
+        clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
+        redirect_to = self.request.GET.get('next', '')
+        nombre = self.request.POST.get('nombre_de_edificio', '')
+        if nombre:
+            nombre = nombre
+        else:
+            tipodeedificacion = TipoDeEdificacion.objects.filter(id=self.request.POST.get('tipo_de_edificacion', ''))
+            nombre = tipodeedificacion[0].tipo_de_edificacion
+
+        if itemascensor_form.is_valid() and itemhorariodisponible_form.is_valid():
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemascensor_form.instance = self.object
+            itemascensor_form.save()
+            itemhorariodisponible_form.instance = self.object
+            itemhorariodisponible_form.save()
+
+        elif itemascensor_form.is_valid():
+
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemascensor_form.instance = self.object
+            itemascensor_form.save()
+
+        elif itemhorariodisponible_form.is_valid():
+
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemhorariodisponible_form.instance = self.object
+            itemhorariodisponible_form.save()
+
+        else:
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+
+        if 'regEdit' in self.request.POST:
+            messages.success(self.request, "Registro guardado.")
+            return HttpResponseRedirect(reverse('uclientes:edit_contacto',
+                                                args=(self.object,)))
+        else:
+            if redirect_to:
+                messages.success(self.request, "Edificación '" + str(self.object) + "'  registrado con éxito.")
+                return HttpResponseRedirect(redirect_to + "&edificacion="+str(self.object.id))
+            else:
+                messages.success(self.request, "Edificación '" + str(self.object) + "'  registrado con éxito.")
+                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                    args=(clientedireccion[0].cliente.id,)))
+
+    def form_invalid(self, form):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form))
+
+
+def exchange_especificaciondeinmueble(request, id_especificacion):
+
+    ambientes = Ambiente.objects.filter(ambienteportipodeinmueble__especificacion_de_inmueble=
+                                        id_especificacion,
+                                        conteo_de_ambientes=True
+                                        ).values('ambienteportipodeinmueble__especificacion_de_inmueble'
+                                                 ).annotate(tcount=Count('ambiente')
+                                                            ).order_by('ambienteportipodeinmueble__especificacion_de_inmueble')
+    if ambientes:
+
+        response = {
+            'cant_ambiente': ambientes[0]['tcount']
+            }
+    else:
+        response = {
+            'cant_ambiente': 0
+            }
+
+    return HttpResponse(json.dumps(response), content_type='application/json')
