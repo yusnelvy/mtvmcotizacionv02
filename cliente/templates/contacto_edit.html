@@ -55,13 +55,14 @@ Contacto
 {% block cuerpo_form %}
 
 {{ form.as_md }}
+
   <fieldset>
     <legend>Información de contacto</legend>
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
     {% for form in item_form %}
-    {{ form.id }}
     <div class="inline {{ item_form.prefix }}">
+        {{ form.id }}
         {{ form.tipo_de_informacion_de_contacto.errors }}
         {{ form.tipo_de_informacion_de_contacto.label_tag }}
         {{ form.tipo_de_informacion_de_contacto }}
@@ -78,17 +79,34 @@ Contacto
 {% block moduloAngular %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
+app.controller('controlForm',function($scope, $http){
     $scope.nombre = '{{form.nombre.value}}';
     $('#id_nombre').focus();
     $('#id_nombre').parent().addClass('md-input-focused');
     $scope.dni = '{{form.dni.value}}';
     $scope.sexo = '{{form.sexo.value}}';
     $scope.estado_civil = '{{form.estado_civil.value}}';
-    $scope.fecha_nacimiento = '{{form.fecha_nacimiento.value}}';
+    {% if form.fecha_nacimiento.value %}
+        $scope.fecha_nacimiento = '{{form.fecha_nacimiento.value}}';
+    {% endif %}
+
     $scope.tipo_de_relacion = '{{form.tipo_de_relacion.value}}';
     $scope.observaciones = '{{form.observaciones.value}}';
     $scope.cliente = '{{form.cliente.value}}';
+    $('.delete-row').click(function(){
+        id_remove = $(this).parent().children('input[type=hidden]').val();
+        if (id_remove!=''){
+            $http.get("/cliente/informaciondecontacto/delete/"+id_remove+"/")
+            .success(function(result) {});
+        }
+    });
+    $(function() {
+        $('fieldset .inline input[type=hidden]').each(function(){
+            if ($(this).val()==''){
+                $(this).siblings('.delete-row').click();
+            }
+        });
+    });
 });
 </script>
 

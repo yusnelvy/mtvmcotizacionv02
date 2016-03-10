@@ -4,7 +4,8 @@ Docstring documentación pendiente
 """
 
 
-from django.forms import ModelForm, TextInput, Select
+from django.forms import ModelForm, TextInput, Select, \
+    ModelChoiceField
 from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificacion, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
@@ -12,6 +13,7 @@ from direccion.models import Pais, Provincia, Ciudad, \
 from djangular.forms import NgModelFormMixin, NgModelForm
 from base.forms import BaseFormMd, SelectMD, Checkbox
 from django.forms.models import inlineformset_factory
+from django import forms
 
 
 class PaisForm(NgModelFormMixin, NgModelForm, BaseFormMd):
@@ -142,6 +144,7 @@ class EdificacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
+
     class Meta:
         model = Edificacion
         fields = '__all__'
@@ -176,6 +179,7 @@ class TipoDeAscensorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
+
     class Meta:
         model = TipoDeAscensor
         fields = '__all__'
@@ -226,6 +230,11 @@ class InmuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
+    def __init__(self, *args, **kwargs):
+        direccion = kwargs.pop('direccion', '')
+        super(InmuebleForm, self).__init__(*args, **kwargs)
+        self.fields['edificacion'] = forms.ModelChoiceField(queryset=Edificacion.objects.filter(direccion=direccion))
+
     class Meta:
         model = Inmueble
         fields = '__all__'

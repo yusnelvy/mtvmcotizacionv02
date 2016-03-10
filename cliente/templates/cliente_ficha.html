@@ -124,18 +124,39 @@
               </tr>
 
               {% else %}
-
               <tr>
                 <td class="">
                   <strong>Direcciones: </strong>
-
                 </td>
-                <td></td>
-                <td></td>
                 <td>
-                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}" class="iconoPlus"></a>
+                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cliente.pk}}" class="iconoPlus"></a>
                 </td>
               </tr>
+              {% for direccion in direcciones %}
+              <tr>
+                <td>
+                {{direccion.direccion.full_direccion}}
+                {% if direccion.edificacion.nombre_de_edificio %}
+                  - {{direccion.edificacion.nombre_de_edificio}}
+                {% endif %}
+                {% if direccion.inmueble.numero_de_inmueble %}
+                  n° {{direccion.inmueble.numero_de_inmueble}}
+                {% endif %}
+
+                </td>
+                <td>
+                  {% if direccion.inmueble.numero_de_inmueble %}
+
+                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_inmueble' direccion.inmueble.pk %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
+
+                  {% else %}
+
+                  <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_inmueble' %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
+
+                  {% endif %}
+                </td>
+
+              {% endfor %}
               {% endif %}
             </table>
           </div>

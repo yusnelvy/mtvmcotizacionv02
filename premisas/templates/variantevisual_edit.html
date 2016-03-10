@@ -80,7 +80,21 @@ app.controller('controlForm',function($scope){
     $scope.usuario = '{{form.usuario.value}}';
     $scope.nombre = '{{form.nombre.value}}';
     $scope.model = '{{form.model.value}}';
-
+    $('.delete-row').click(function(){
+        id_remove = $(this).parent().children('input[type=hidden]').val();
+        if (id_remove!=''){
+            //falta terminar la funcion delete detalle de variante
+            $http.get("//"+id_remove+"/")
+            .success(function(result) {});
+        }
+    });
+    $(function() {
+        $('fieldset .inline input[type=hidden]').each(function(){
+            if ($(this).val()==''){
+                $(this).siblings('.delete-row').click();
+            }
+        });
+    });
   });
 </script>
 

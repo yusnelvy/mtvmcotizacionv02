@@ -13,7 +13,8 @@ from cliente.views import SexoListView, SexoView, SexoUpdate, \
     TipoDeInformacionDeContactoView, TipoDeInformacionDeContactoUpdate, \
     TipoDeInformacionDeContactoDelete, ClienteView, ClienteListView, \
     ClienteDetail, ClienteUpdate, ContactoCreateView, ContactoUpdate, \
-    ClienteDireccionView, ClienteInmuebleView, EdificacionCreateView
+    ClienteDireccionView, ClienteInmuebleView, EdificacionCreateView,\
+    InmuebleUpdate, ClienteDireccionUpdate, EdificacionUpdate
 from cliente import views
 
 
@@ -96,16 +97,34 @@ urlpatterns = patterns('',
                        url(r'^tipo_de_informacion_de_contacto/eliminar/(?P<pk>\d+)/$',
                            TipoDeInformacionDeContactoDelete.as_view(),
                            name='eliminar_tipo_de_informacion_de_contacto'),
+                       url(r'^direccion/editar/(?P<pk>\d+)/$',
+                           ClienteDireccionUpdate.as_view(),
+                           name='edit_direccion'),
                        url(r'^direccion/nuevo',
                            ClienteDireccionView.as_view(),
                            name='add_direccion'),
                        url(r'^inmueble/nuevo',
                            ClienteInmuebleView.as_view(),
                            name='add_inmueble'),
+                       url(r'^inmueble/editar/(?P<pk>\d+)/$',
+                           InmuebleUpdate.as_view(),
+                           name='edit_inmueble'),
                        url(r'^edificacion/nuevo',
                            EdificacionCreateView.as_view(),
                            name='add_edificacion'),
+                       url(r'^edificacion/editar/(?P<pk>\d+)/$',
+                           EdificacionUpdate.as_view(),
+                           name='edit_edificacion'),
                        url(r'^inmueble/exchange/(?P<id_especificacion>\d+)/$',
                            views.exchange_especificaciondeinmueble,
                            name='exchange_especificaciondeinmueble'),
+                       url(r'^ascensor/delete/(?P<pk>\d+)/$',
+                           views.delete_ascensor,
+                           name='delete_ascensor'),
+                       url(r'^horariodisponible/delete/(?P<pk>\d+)/$',
+                           views.delete_horariodisponible,
+                           name='delete_horariodisponible'),
+                       url(r'^informaciondecontacto/delete/(?P<pk>\d+)/$',
+                           views.delete_informaciondecontacto,
+                           name='delete_informaciondecontacto'),
                        )

@@ -31,6 +31,10 @@ Agregar inmueble
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope, $http){
+    {% if form.edificacion.value %}
+    $scope.edificacion = '{{form.edificacion.value}}';
+    {% endif %}
+
     $('#id_edificacion').focus();
     $('#id_edificacion').after("<a title='Agregar' data-toggle='tooltip' data-placement='right' href='{% url 'uclientes:add_edificacion' %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoPlus'></a>");
     $scope.selectChanged = function(){

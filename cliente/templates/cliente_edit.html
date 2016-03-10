@@ -1,5 +1,13 @@
 {% extends "base_editar.html" %}
-
+{% block js_superior %}
+<script type="text/javascript">
+$(function() {
+        $(".inline.{{ item_form.prefix }}").formset({
+            prefix: "{{ item_form.prefix }}",
+        })
+    })
+</script>
+{% endblock js_superior %}
 {% block titulo %}
 
 Cliente
@@ -47,7 +55,24 @@ Cliente
 {% block cuerpo_form %}
 
 {{ form.as_md }}
+{{ contacto.as_md }}
+  <fieldset>
+    <legend>Información de contacto</legend>
+    {{ item_form.management_form }}
+    {{ item_form.non_form_errors }}
+    {% for form in item_form %}
 
+    <div class="inline {{ item_form.prefix }}">
+        {{ form.id }}
+        {{ form.tipo_de_informacion_de_contacto.errors }}
+        {{ form.tipo_de_informacion_de_contacto.label_tag }}
+        {{ form.tipo_de_informacion_de_contacto }}
+        {{ form.informacion_de_contacto.errors }}
+        {{ form.informacion_de_contacto.label_tag }}
+        {{ form.informacion_de_contacto }}
+    </div>
+    {% endfor %}
+  </fieldset>
 {% endblock cuerpo_form %}
 
 {% block contenido_relacionado %}{% endblock contenido_relacionado %}
@@ -55,14 +80,37 @@ Cliente
 {% block moduloAngular %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
+app.controller('controlForm',function($scope, $http){
     $scope.nombre = '{{form.nombre.value}}';
     $('#id_nombre').focus();
     $('#id_nombre').parent().addClass('md-input-focused');
     $scope.tipo_de_cliente="{{form.tipo_de_cliente.value}}";
     $scope.cuit="{{form.cuit.value}}";
     $scope.observaciones="{{form.observaciones.value}}";
+
+    $scope.dni = '{{contacto.dni.value}}';
+    $scope.sexo = '{{contacto.sexo.value}}';
+    $scope.estado_civil = '{{contacto.estado_civil.value}}';
+    $scope.fecha_nacimiento = '{{contacto.fecha_nacimiento.value}}';
+    $scope.tipo_de_relacion = '{{contacto.tipo_de_relacion.value}}';
+    $scope.observaciones = '{{contacto.observaciones.value}}';
+    $scope.cliente = '{{contacto.cliente.value}}';
+    $('.delete-row').click(function(){
+        id_remove = $(this).parent().children('input[type=hidden]').val();
+        if (id_remove!=''){
+            $http.get("/cliente/informaciondecontacto/delete/"+id_remove+"/")
+            .success(function(result) {});
+        }
+    });
+    $(function() {
+        $('fieldset .inline input[type=hidden]').each(function(){
+            if ($(this).val()==''){
+                $(this).siblings('.delete-row').click();
+            }
+        });
+    });
 });
+
 </script>
 
 {% endblock moduloAngular %}
