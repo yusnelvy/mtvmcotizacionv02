@@ -1,5 +1,6 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.template import RequestContext
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from mtvmcotizacionv02.views import valor_Personalizacionvisual
 from django.contrib import messages
@@ -7,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from widget.models import Widget
 from widget.forms import WidgetForm
+from django.forms.formsets import formset_factory
 
 
 # Create your views here.
@@ -236,3 +238,68 @@ class WidgetDelete(DeleteView):
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
+
+
+class ConfigurarWidgetView(View):
+    form_class_formset = formset_factory(WidgetForm,
+                                         extra=Widget.objects.filter(usuario=1).count(),
+                                         max_num=Widget.objects.filter(usuario=1).count())
+    template_name = 'widget_configuracion.html'
+    def get(self, request, *args, **kwargs):
+
+        """docstring"""
+        user = 1
+        widgets = Widget.objects.filter(usuario=1)
+        if widgets:
+           data = []
+           for item in widgets:
+               data.append({'nombre': item.nombre,
+                            'visible': item.visible,
+                            'desplegable': item.desplegable,
+                            'numero_de_columna': item.numero_de_columna,
+                            'color': item.color,
+                            'orden': item.orden,
+                            'usuario': 1
+                            })
+
+           formset = self.form_class_formset(initial=data)
+        else:
+           formset = self.form_class_formset()
+
+        return render(request, self.template_name, {'formset': formset})
+
+    def post(self, request, *args, **kwargs):
+        formset = self.form_class_formset(request.POST)
+        if formset.is_valid():
+            for form in formset:
+                #params = urllib.urlencode({'mueble': 'form.cleaned_data["mueble"]'})
+                form.save()
+            # <process form cleaned data>
+            messages.success(self.request, "Registro guardado.")
+            return HttpResponseRedirect(reverse('uwidgets:configurar_widget'))
+
+        else:
+            for form in formset:
+                widgets = Widget.objects.filter(usuario_id=form.cleaned_data['usuario'],
+                                                nombre=form.cleaned_data['nombre'])
+                if widgets:
+                    widgets.update(visible=form.cleaned_data['visible'],
+                                   desplegable=form.cleaned_data['desplegable'],
+                                   numero_de_columna=form.cleaned_data['numero_de_columna'],
+                                   color=form.cleaned_data['color'],
+                                   orden=form.cleaned_data['orden'])
+                else:
+                    form.save()
+            messages.success(self.request, "Registro guardado.")
+            return HttpResponseRedirect(reverse('uwidgets:configurar_widget'))
+        return render(request, self.template_name, {'formset': formset})
+
+
+def cambiar_WidgetVisible(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        name = request.GET['name']
+        Widget.objects.filter(nombre=name).update(visible=False)
+
+
+

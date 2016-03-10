@@ -1,6 +1,10 @@
-<div class="forma-panel panel-info fixed-panel">
-    <div class="panel-heading">
-        <h6 class="titulo-panel">Filtros Rápidos</h6>
+{% load widgets_extras %}
+{% include "jquery.html" %}
+
+<div id='panelfiltrosrapidos' class="{% configurar_Widget 'Filtros Rápidos' %}">
+    <div class="{% configurar_WidgetColor 'Filtros Rápidos' %}">
+        <h8 class="titulo-panel">Filtros Rápidos</h8>
+        <button id="cerrarFiltroRapido" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="controlWidgetCerrar('panelfiltrosrapidos', 'Filtros Rápidos');"></button>
     </div>
     <div class="panel-body">
         <select class="demo2" ></select>

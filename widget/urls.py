@@ -3,7 +3,8 @@ Docstring pendiente para este documento
 """
 from django.conf.urls import patterns, url
 from widget.views import WidgetListView, WidgetView, \
-    WidgetUpdate, WidgetDelete
+    WidgetUpdate, WidgetDelete, ConfigurarWidgetView
+from widget import views
 
 urlpatterns = patterns('',
                        url(r'^$',
@@ -18,4 +19,10 @@ urlpatterns = patterns('',
                        url(r'^eliminar/(?P<pk>\d+)/$',
                            WidgetDelete.as_view(),
                            name='eliminar_widget'),
+                       url(r'^configurar/$',
+                           ConfigurarWidgetView.as_view(),
+                           name='configurar_widget'),
+                       url(r'^actualizarVisible/$',
+                           views.cambiar_WidgetVisible,
+                           name='actualizarVisible'),
                        )

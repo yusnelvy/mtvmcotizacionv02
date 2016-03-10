@@ -1,8 +1,11 @@
 {% load menu_extras %}
+{% load widgets_extras %}
+{% include "jquery.html" %}
 
-<div class="forma-panel panel-info fixed-panel">
-    <div class="panel-heading">
-        <h10 class="titulo-panel">Menú</h10>
+<div id='panelmenu' class="{% configurar_Widget 'Menú' %}">
+    <div class="{% configurar_WidgetColor 'Menú' %}">
+        <h8 class="titulo-panel">Menú</h8>
+        <button id="cerrarMenu" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="controlWidgetCerrar('panelmenu', 'Menú');"></button>
     </div>
         <div class="panel-body">
 

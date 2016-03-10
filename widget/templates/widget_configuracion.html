@@ -1,0 +1,182 @@
+{% extends "base_lista.html" %}
+
+{% block titulo %}
+
+Widget
+
+{% endblock titulo %}
+
+{% block titulo_lista %}
+
+<h2>Administración de Widgets</h2>
+
+{% endblock titulo_lista %}
+
+{% block lista %}
+<form ng-controller="controlForm" action="" method="post" id="myformEdit">
+  {% csrf_token %}
+
+  <table class="table table-bordered table-hover">
+       {{ formset.management_form }}
+       <tr class="active">
+           <th>Nombre</th>
+           <th>Visible</th>
+           <th>Desplegable</th>
+           <th>Numero de Columnas</th>
+           <th>Color</th>
+           <th>Orden</th>
+       </tr>
+
+       {% for form in formset %}
+       <tr>
+           <td>{{form.nombre}}</td>
+           <td>{{form.visible}}</td>
+           <td>{{form.desplegable}}</td>
+           <td>{{form.numero_de_columna}}</td>
+           <td>{{form.color}}</td>
+           <td>{{form.orden}}</td>
+           <td>{{form.usuario}}</td>
+
+       </tr>
+       {% endfor %}
+
+
+</table>
+
+<button type='submit'>Aplicar</button>
+</form>
+
+
+
+
+<!-- {% if widgets %}
+
+<tr class="active">
+    <th>
+        Nombre del Widget
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=nombre&page={{request.GET.page}}" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre&page={{request.GET.page}}" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=nombre" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        Visible
+    </th>
+    <th>
+        Desplegable
+    </th>
+    <th>
+        Nro de Columnas
+    </th>
+    <th>
+        Color
+    </th>
+    <th>
+        Orden
+    </th>
+    <th class="controlLista"></th>
+</tr>
+
+{% for i in widgets %}
+
+<tr id="tr{{i.pk}}">
+    <td>
+
+        {{ i.nombre }}
+
+    </td>
+    <td>
+
+         <input name="visible">
+
+    </td>
+     <td>
+
+        <select class="form-control">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+
+    </td>
+     <td>
+
+         <select class="form-control">
+          <option>1x1</option>
+          <option>1x2</option>
+          <option>2x1</option>
+          <option>2x2</option>
+          <option>3x1</option>
+          <option>3x2</option>
+        </select>
+
+    </td>
+     <td>
+
+        <select class="form-control">
+          <option>Azul</option>
+          <option>Verde</option>
+          <option>Amarillo</option>
+          <option>Rojo</option>
+          <option>Plateado</option>
+          <option>Morado</option>
+        </select>
+
+    </td>
+    <td>
+
+        <select class="form-control">
+        </select>
+
+    </td>
+    <td>
+        <a href="">Conf. Avanzadas</a>
+    </td>
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+    <td> No se encontraron registros </td>
+</tr>
+
+{% endif %}
+
+<script>
+    $(document).on('ready',function(){
+        ocultarASCDesc('nombre');
+    });
+</script>
+
+<td>
+
+    <input type ="button" value="Aplicar">
+    <input type ="button" value="Cancelar">
+
+</td>
+-->
+
+{% endblock lista %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+  $scope.visible={{form.visible|lower}};
+
+  });
+
+</script>
+
+{% endblock moduloAngular %}

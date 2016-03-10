@@ -1,8 +1,11 @@
 {% load menu_extras %}
+{% load widgets_extras %}
+{% include "jquery.html" %}
 
-<div class="forma-panel panel-info fixed-panel">
-    <div class="panel-heading">
+<div id='panelrelacion' class="{% configurar_Widget 'Tablas Relacionadas' %}">
+    <div class="{% configurar_WidgetColor 'Tablas Relacionadas' %}">
         <h12 class="titulo-panel">Tablas Relacionadas</h12>
+        <button id="cerrarRelacion" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="controlWidgetCerrar('panelrelacion', 'Tablas Relacionadas');"></button>
     </div>
         <div class="panel-body">
 
