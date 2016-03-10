@@ -22,7 +22,7 @@ class AmbienteForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         }
         widgets = {
             'ambiente': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'}),
+
         }
 
 

@@ -34,15 +34,29 @@ function controlarEnter(e) {
 function sidebarBtn() {
     $(".wrapper").toggleClass("toggled");
 }
-function actualizarSidebar() {
-    $.get('/sidebarUpdate/',
+function nivel2Btn() {
+    $(".wrapper").toggleClass("nivel2");
+}
+function actualizarSidebar(nivel) {
+    $.get('/sidebarUpdate/?nivel='+nivel,
       {},
       function(data) {
+        $('#forty').text(data.sidebarStatus);
+        if (data.sidebarStatus == 1) {
+          $('.expandirNivel1').addClass('hidden');
+          $('.expandirNivel2').removeClass('hidden');
+        }
         //alert(data.sidebarStatus);
       });
 }
+function tamañoFrame() {
+var frameW = $('.iframeW');
+var liFra = $('.iframeW').parent().css('width');
+var liFraH = $('.iframeW').parent().css('height');
 
-
+frameW.attr('width', liFra);
+frameW.attr('height', liFraH);
+}
 /* ========================================================================
  * bootstrap-switch - v3.3.2
  */
