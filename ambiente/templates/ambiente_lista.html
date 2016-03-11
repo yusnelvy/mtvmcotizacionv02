@@ -1,5 +1,7 @@
 {% extends "base_lista.html" %}
 
+{% load menu_extras %}
+
 {% block titulo %}
 
 Ambiente
@@ -147,7 +149,7 @@ Ambiente
 
 <tr class="active">
     <th>
-        Nombre de ambientes
+        Nombre del ambiente
 
         {% if request.GET.page %}
 
@@ -163,7 +165,7 @@ Ambiente
 
     </th>
     <th>
-        Descripción de ambientes
+        Descripción del ambiente
 
         {% if request.GET.page %}
 
@@ -194,49 +196,34 @@ Ambiente
         {% endif %}
 
     </th>
-    <th class="controlLista">Ficha</th>
-    <th class="controlLista">Editar</th>
-    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in ambientes %}
 
-<tr id="tr{{i.pk}}">
-    <td>
+<tr id="tr{{i.pk}}" data-url="{% url 'uambientes:edit_ambiente' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
+    <td id="td1_{{i.pk}}">
 
         {{ i.ambiente }}
 
     </td>
-    <td>
+    <td id="td2_{{i.pk}}">
 
         {{ i.descripcion|truncatechars:"40" }}
 
     </td>
-    <td>
+    <td id="td3_{{i.pk}}">
 
-        {% if i.conteo_de_ambientes %}
-
-        Es contable
-
-        {% else %}
-
-        No es contable
-
-        {% endif %}
+        {{ i.conteo_de_ambientes|yesno:"Es contable,No es contable" }}
 
     </td>
-    <td>
-        <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
-    </td>
-    <td class="controlAccion{{i.pk}}">
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:edit_ambiente' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
-    </td>
-    <td class="controlAccion{{i.pk}}">
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:eliminar_ambiente' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+    <td class="c_td">
+            <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:eliminar_ambiente' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+            <span class="glyphicon glyphicon-option-horizontal"></span>
     </td>
 </tr>
 
 {% endfor %}
+
 
 {% else %}
 
@@ -245,7 +232,6 @@ Ambiente
 </tr>
 
 {% endif %}
-
 
 <script>
 $(document).on('ready',function(){
@@ -276,3 +262,121 @@ $(document).ready(function() {
 </script>
 
 {% endblock lista %}
+
+{% block moduloAngular %}
+
+
+
+<script type="text/javascript">
+$(function(){
+    function searchSuccess(url){
+        $('#divFrame').attr('src', url);
+//alert(url);
+}
+$('.btnFicha').dblclick(function(event){
+//alert('hi');
+var url = $(this).data('url');
+var trId = $(this).attr('id');
+var vis = $("#divFrame").contents().find("button[name=regEdit]");
+if( $(vis).is(":visible") ){
+    $('.msj').text(warn_on_unload).append('<a onclick="removeHandler();" style="cursor:pointer;"> Deshacer los cambios</a>');
+    if(warn_on_unload = ""){
+
+    }else{
+        event.preventDefault();
+    }
+
+}else{
+    $('.btnFicha').removeClass('seleccion');
+    $(this).addClass('seleccion');
+    searchSuccess(url);
+    $('#divFrame').css('visibility', 'visible');
+    $('#divFrame').css('position', 'relative');
+    $('.mega').click();
+    $('.wrapper').addClass('toggled nivel2');
+    $('.menuSidebar').addClass('hidden');
+}
+});
+});
+
+document.body.onselectstart = function() { return false; }
+$('.c_td').hover(function() {
+    $(this).parent().children('td').addClass('c_td_hover');
+}, function(){
+    $(this).parent().children('td').removeClass('c_td_hover');
+});
+</script>
+<style>
+
+    .c_td {
+        display: inline-block!important;
+        position: absolute!important;
+        right: 10px!important;
+        background: transparent!important;
+        border: none!important;
+        opacity: 1!important;
+        -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    }
+    .c_td a {
+        margin-left: 50px;
+        margin-right: 50px;
+        border-top: 1px solid rgba(0, 0, 0, 0.12)!important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12)!important;
+        display: none;
+        -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    }
+    .c_td span {
+        color: rgb(63,81,181);
+        font-size: 18px;
+         -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    }
+    .c_td:hover {
+        background: transparent!important;
+    }
+    .c_td:hover a {
+        display: inline-block;
+        opacity: 1!important;
+        font-size: 23px;
+        -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    }
+    .c_td_hover {
+    opacity: .2;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.seleccion {
+    background: rgb(63,81,181);
+    color: #fff;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.seleccion:hover {
+    background: rgb(63,81,181)!important;
+    color: #fff!important;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.seleccion .c_td a, .seleccion .c_td span {
+    color: #fff!important;
+}
+</style>
+{% endblock moduloAngular %}
+
