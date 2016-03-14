@@ -53,10 +53,10 @@ Cliente
 {% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
-
 {{ form.as_md }}
+{% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
 {{ contacto.as_md }}
-  <fieldset>
+<fieldset>
     <legend>Información de contacto</legend>
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
@@ -72,7 +72,9 @@ Cliente
         {{ form.informacion_de_contacto }}
     </div>
     {% endfor %}
-  </fieldset>
+</fieldset>
+{% endif %}
+
 {% endblock cuerpo_form %}
 
 {% block contenido_relacionado %}{% endblock contenido_relacionado %}

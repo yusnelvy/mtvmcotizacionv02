@@ -1,5 +1,13 @@
 {% extends "base_editar.html" %}
-
+{% block js_superior %}
+<script type="text/javascript">
+$(function() {
+        $(".inline.{{ item_form.prefix }}").formset({
+            prefix: "{{ item_form.prefix }}",
+        })
+    })
+</script>
+{% endblock js_superior %}
 {% block titulo %}
 
 Variante visual
@@ -53,8 +61,8 @@ Editar la variante visual: {{form.usuario.value|lower}}
         {{ item_form.management_form }}
         {{ item_form.non_form_errors }}
         {% for form in item_form %}
-        {{ form.id }}
         <div class="inline {{ item_form.prefix }}">
+            {{ form.id }}
             {{ form.campo.errors }}
             {{ form.campo.label_tag }}
             {{ form.campo }}
@@ -76,10 +84,17 @@ document.getElementById('id_usuario').focus()
 {% block moduloAngular %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
+app.controller('controlForm',function($scope, $http){
     $scope.usuario = '{{form.usuario.value}}';
     $scope.nombre = '{{form.nombre.value}}';
     $scope.model = '{{form.model.value}}';
+    $scope.selectChanged = function(){
+        model = $scope.model;
+        $http.get("/premisas/model/exchange/"+model+"/")
+        .success(function(result) {
+            alert(result);
+        });
+    };
     $('.delete-row').click(function(){
         id_remove = $(this).parent().children('input[type=hidden]').val();
         if (id_remove!=''){

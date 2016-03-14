@@ -11,7 +11,6 @@ class Widget(models.Model):
     usuario = models.ForeignKey(User)
     nombre = models.CharField(max_length=100)
     visible = models.BooleanField(default=None)
-    desplegable = models.IntegerField()
     numero_de_columna = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
     orden = models.IntegerField()

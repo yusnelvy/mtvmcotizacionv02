@@ -1278,7 +1278,8 @@ class ClienteView(View):
                                                 "?cliente="+str(id_reg.id) +
                                                 "&relacion=cliente")
                 else:
-                    return HttpResponseRedirect(reverse('uclientes:list_cliente'))
+                    return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                args=(id_reg.id,)))
 
         return render(request, self.template_name, {'form': form})
 
@@ -1380,28 +1381,31 @@ class ClienteUpdate(UpdateView):
         contacto1 = Contacto.objects.filter(cliente=self.object.pk,
                                             tipo_de_relacion__tipo_de_relacion='cliente')
 
-        contacto = Contacto.objects.get(pk=contacto1[0].id)
+        if contacto1:
+            contacto = Contacto.objects.get(pk=contacto1[0].id)
+            if self.request.POST:
+                context['contacto'] = self.second_form_class(self.request.POST, instance=contacto)
+                item_form = InformacionDeContactoFormSet(self.request.POST, instance=contacto)
+            else:
+                context['contacto'] = self.second_form_class(instance=contacto)
+                item_form = InformacionDeContactoFormSet(instance=contacto)
 
-        if self.request.POST:
-            context['contacto'] = self.second_form_class(self.request.POST, instance=contacto)
-            item_form = InformacionDeContactoFormSet(self.request.POST, instance=contacto)
-        else:
-            context['contacto'] = self.second_form_class(instance=contacto)
-            item_form = InformacionDeContactoFormSet(instance=contacto)
-
-        context['item_form'] = item_form
+            context['item_form'] = item_form
 
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
-        contacto = context['contacto']
-        item_form = context['item_form']
 
-        if form.is_valid() and contacto.is_valid() and item_form.is_valid():
+        if form.is_valid():
             self.object = form.save()
-            contacto.save()
-            item_form.save()
+
+            if self.object.tipo_de_cliente == 'Particular':
+                contacto = context['contacto']
+                item_form = context['item_form']
+                if contacto.is_valid() and item_form.is_valid():
+                    contacto.save()
+                    item_form.save()
 
         if 'regEdit' in self.request.POST:
 
