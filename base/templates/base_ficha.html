@@ -1,0 +1,143 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es-AR" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+
+    </title>
+    <link rel="stylesheet" href="{% static 'css/material.css' %}">
+
+    {% include "jquery.html" %}
+
+    {% block js_superior %}{% endblock js_superior %}
+
+<script>
+
+function removeHandler() {
+ // $('a').removeEventListener("click", preventDef, false);
+ var parenDoc = parent.document;
+ var btnFicha = $(parent.document.getElementsByClassName('btnFicha'));
+ var tag = $(parent.document.getElementsByTagName('a'));
+ $(tag).unbind('click');
+ $(btnFicha).unbind('click');
+ $(parenDoc).unbind('click');
+ $('a').unbind('click');
+ $('.botonGuardar').addClass('hidden');
+ $('.msj').addClass('hidden');
+}
+</script>
+</head>
+<body ng-app="AppMudarte" >
+
+    <div class="contenedorFicha">
+
+        {% block ficha_basica %}{% endblock ficha_basica %}
+
+    </div>
+
+    {% include "script.html" %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+
+    <div ng-controller="AppCtrl"></div>
+    <script>
+    app.controller('AppCtrl', function($scope, $mdToast, $document) {
+        function toast(type, msg){
+            $mdToast.show({
+                template: '<md-toast class="md-toast ' + type +'" style="text-align:center;vertical-align:middle;display:block;position:absolute;bottom:30px;background-color: #323232;z-index:2000;">' + msg + '</md-toast>',
+                hideDelay: 6000,
+                position: 'top right'
+            });
+        }
+        setTimeout(function() {
+            toast('tipo', '{{ message }}');
+        }, 100);
+    });
+    </script>
+    <style>
+    md-toast div {
+        vertical-align:middle;
+        margin-top: 15px;
+    }
+    </style>
+    {% endfor %}
+
+    {% endif %}
+    {% block moduloAngularFicha %}{% endblock moduloAngularFicha %}
+    <style>
+    body, html{
+        background: #eee;
+    }
+    .botonGuardar {
+        float: right;
+        position: absolute;
+        right: 20px;
+    }
+    .grupoInput input, .grupoInput textarea {
+        width: 100%;
+    }
+    </style>
+    <script>
+    var liFrame = parent.document.getElementById("divFrame");
+    var wFrame = $(liFrame).css('width');
+    $('html').css('width', wFrame);
+
+    $(document).ready(function (){
+        var  warn_on_unload = "Si sale de la pagina, no se guardaran los datos, guarde los datos antes de abandonar la pagina.";
+
+        $('input:text,input:checkbox,input:radio,textarea,select').on('change', function(ev){
+            warn_on_unload = "Si sale de la pagina, no se guardaran los datos, guarde los datos antes de abandonar la pagina.";
+            $('.botonGuardar').removeClass('hidden');
+            ev.preventDefault();
+            //$('button[name=regEdit]').click(function() {
+            //    warn_on_unload = "";});
+            var parenDoc = parent.document;
+            $(parenDoc).click(function(event){
+                $('.msj').removeClass('hidden').css('display', 'block').text(warn_on_unload).append('<a onclick="removeHandler();" style="cursor:pointer;"> Deshacer los cambios</a>');
+                event.preventDefault();
+
+});
+
+            $('a').click(function(e){
+                $('.msj').removeClass('hidden').css('display', 'block').text(warn_on_unload).append('<a onclick="removeHandler();" style="cursor:pointer;"> Deshacer los cambios</a>');
+                e.preventDefault();
+
+});
+
+
+// window.onbeforeunload = function(){
+//     if(warn_on_unload != ''){
+//         return warn_on_unload;
+//     }
+
+//     $('button[name=regEdit]').focus();
+// }
+
+});
+$('input:text,input:checkbox,input:radio,textarea,select').on('keyup', function(){
+    $('.botonGuardar').removeClass('hidden');
+});
+$('input[type="checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
+    $('.botonGuardar').removeClass('hidden');
+                var parenDoc = parent.document;
+            $(parenDoc).click(function(event){
+                $('.msj').removeClass('hidden').css('display', 'block').text(warn_on_unload).append('<a onclick="removeHandler();" style="cursor:pointer;"> Deshacer los cambios</a>');
+                event.preventDefault();
+
+});
+            $('a').click(function(e){
+                $('.msj').removeClass('hidden').css('display', 'block').text(warn_on_unload).append('<a onclick="removeHandler();" style="cursor:pointer;"> Deshacer los cambios</a>');
+                e.preventDefault();
+
+});
+});
+});
+</script>
+</body>
+</html>

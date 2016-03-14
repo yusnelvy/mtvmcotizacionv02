@@ -90,16 +90,14 @@ def sidebarUpdate(request):
     """e"""
     sidebarStatus = PersonalizacionVisual.objects.filter(usuario__username="std",
                                                          tipo="sidebarClosedOpen")
-
-    if sidebarStatus[0].valor == '0':
-        sidebarStatus.update(valor=1)
-    else:
-        sidebarStatus.update(valor=0)
+    if request.method == "GET" and request.is_ajax():
+        nivel = request.GET['nivel']
+        sidebarStatus.update(valor=nivel)
 
     sidebarStatus = PersonalizacionVisual.objects.values('valor').filter(usuario__username="std",
                                                                          tipo="sidebarClosedOpen")
 
-    mensaje = {'estatus': 'ok', 'msj': 'Registro guardado', 'sidebarStatus': sidebarStatus[0]['valor']}
+    mensaje = {'estatus': 'ok', 'msj': 'Registro guardado', 'sidebarStatus': str(sidebarStatus[0]['valor'])}
     return JsonResponse(mensaje, safe=False)
 
 

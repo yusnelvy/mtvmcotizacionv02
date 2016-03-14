@@ -19,70 +19,101 @@
 
 </head>
 <body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();">
-    <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}">
+    <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
         <header>
-            <div ng-controller="ControlSidebar" class="sidebar-wrapper">
-                <ul class="sidebar-nav ">
-                    <li class="sidebar-brand">
-                        <a href="#" tabindex="-1">
-                            <span flex></span>
-                            <md-button class="md-icon-button menu-toggle" ng-click="toggleSide();" tabindex="-1">
-                                <md-icon class="glyphicon glyphicon-remove">
-                                </md-icon>
-                            </md-button>
-                        </a>
-                    </li>
-
-
-                    {% block widget_sidebar %}
-
-                        {% include "transaccion.html" %}
-
-                        {% include "tablas_relacionadas.html" %}
-
-                    {% endblock widget_sidebar %}
-
-                    {% block auto_filto %}
-
-                        {% include "autofiltro.html" %}
-
-                    {% endblock auto_filto %}
-
-                    {% block filtro_rapido %}
-
-                        {% include "filtrorapido.html" %}
-
-                    {% endblock filtro_rapido %}
-
-                    {% block widget_menu_general %}
-
-                        {% include "Menu_general.html" %}
-
-                    {% endblock widget_menu_general %}
-                </ul>
-            </div>
-        <nav ng-controller="ControlNavbar" class="navbarApp">
-            <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>
-                    <span>Mudarte
-                        <span class="glyphicon glyphicon-road"></span>
-                    </span>
-                </h2>
-                <span class="divide"></span>
-
-                {% block acceso_rapido %}{% endblock acceso_rapido %}
-
-                <span flex></span>
-                <md-button class="md-icon-button menuSidebar {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="toggleSide()"  aria-label="Favorite" tabindex="-1">
-                <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
+            <div ng-controller="ControlSidebar" class="sidebar-wrapper md-whiteframe-20dp">
+                <span class="headerSidebar">
+                    <md-button class="md-icon-button expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="nivel2(2);" tabindex="-1">
+                    <md-icon title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="nivel1(1);" tabindex="-1">
+                <md-icon title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></md-icon>
             </md-button>
-        </div>
-    </md-toolbar>
+            <md-button class="md-icon-button menu-toggle" ng-click="toggleSide(0);" tabindex="-1">
+            <md-icon class="iconoRemover">
+        </md-icon>
+    </md-button>
+</span>
+<ul class="sidebarWidget" id="sidebarWidget">
+    <li>
+        < <span class="iconoExpandirFull"> </span> Ficha <span class="mega glyphicon glyphicon-modal-window"> </span>
+        <iframe class="iframeW" style="box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.26);overflow: hidden;" src="" height="" width="" scroll="no" frameborder="0" scrolling="no" id="divFrame">
+        </iframe>
+    </li>
+    <li>
+        < <span class="iconoExpandirFull"></span>
+        <h4>Menú</h4>
+
+        {% include "Menu_general.html" %}
+
+    </li>
+    <li>
+        < <span class="iconoExpandirFull"></span>
+        <h4>Auto-filtros</h4>
+
+        {% block auto_filto %}
+
+
+        <ul class="demo" ></ul>
+
+        {% endblock auto_filto %}
+
+    </li>
+    <li>
+        < <span class="iconoExpandirFull"></span>
+        <h4>Tablas Relacionadas</h4>
+
+        {% block widget_sidebar %}
+
+        <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)" class="size-transaccion"/>
+        <input type="button" value="Ir" onclick="transaccion()"/>
+
+        {% include "tablas_relacionadas.html" %}
+
+        {% endblock widget_sidebar %}
+
+    </li>
+    <li>
+        < <span class="iconoExpandirFull"></span>
+        <h4>Filtros Rápidos</h4>
+
+        {% block filtro_rapido %}
+
+        <select class="demo2" ></select>
+        <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
+
+        {% endblock filtro_rapido %}
+
+    </li>
+</ul>
+<ul class="sidebar-na ">
+    <li class="sidebar-brand">
+        <a href="#" tabindex="-1">
+            <span flex></span>
+        </a>
+    </li>
+</ul>
+</div>
+<nav ng-controller="ControlNavbar" class="navbarApp">
+    <md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>Mudarte
+                <span class="glyphicon glyphicon-road"></span>
+            </span>
+        </h2>
+        <span class="divide"></span>
+
+        {% block acceso_rapido %}{% endblock acceso_rapido %}
+
+        <span flex></span>
+        <md-button class="md-icon-button menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="toggleSide(1);"  aria-label="Favorite" tabindex="-1">
+        <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
+    </md-button>
+</div>
+</md-toolbar>
 </nav>
-
 </header>
-
 <section class="page-content-wrapper">
     <div class="contenedor">
         <div class="contenedorFila">
@@ -101,30 +132,6 @@
 {% block js_inferior %}{% endblock js_inferior %}
 
 {% block moduloAngular %}{% endblock moduloAngular %}
-<style type="text/css">
-    .demo{
-        padding: 0;
-    }
-    .demo li{
-        text-indent:0;
-        line-height:0;
-        padding: 5px;
-    }
-    .demo li input{
-        display: inline-block;
 
-    }
-    .demo li label {
-        display: inline-block;
-        margin-bottom:0;
-        padding: 0;
-        font-weight:normal;
-        font-size: 10px;
-
-    }
-    .panel-body {
-
-    }
-</style>
 </body>
 </html>
