@@ -8,7 +8,6 @@ register = template.Library()
 def configurar_Widget(name):
     """docstring"""
     visible = Widget.objects.values('visible').filter(nombre=name, usuario=1)
-    desplegable = Widget.objects.values('desplegable').filter(nombre=name, usuario=1)
     columnas = Widget.objects.values('numero_de_columna').filter(nombre=name, usuario=1)
     color = Widget.objects.values('color').filter(nombre=name, usuario=1)
     orden = Widget.objects.values('orden').filter(nombre=name, usuario=1)
@@ -20,25 +19,18 @@ def configurar_Widget(name):
     else:
         classV = 'claseV2'
 
-    if desplegable[0]['desplegable'] == 1:
-        classD = 'panel-info forma-panel'
-    elif desplegable[0]['desplegable'] == 2:
-        classD = 'panel-info forma-panel'
-    else:
-        classD = 'claseD3'
-
     if columnas[0]['numero_de_columna'] == '1x1':
         classC = 'fixed-panel'
     elif columnas[0]['numero_de_columna'] == '1x2':
-        classC = 'claseC2'
+        classC = 'fixed-panel'
     elif columnas[0]['numero_de_columna'] == '2x1':
-        classC = 'claseC3'
+        classC = 'fixed-panel'
     elif columnas[0]['numero_de_columna'] == '2x2':
-        classC = 'claseC4'
+        classC = 'fixed-panel'
     elif columnas[0]['numero_de_columna'] == '3x1':
-        classC = 'claseC5'
+        classC = 'fixed-panel'
     else:
-        classC = 'claseC6'
+        classC = 'fixed-panel'
 
     if color[0]['color'] == 'Azul':
         classCo = 'panelAzul'
@@ -51,7 +43,7 @@ def configurar_Widget(name):
     else:
         classCo = 'panelNaranja'
 
-    clases = classV + ' ' + classD + ' ' + classC + ' ' + classCo
+    clases = classV + ' ' + classC + ' ' + classCo
 
 
     context = clases
@@ -82,28 +74,34 @@ def configurar_WidgetVisible():
     visibleFR = Widget.objects.values('visible').filter(nombre='Filtros Rápidos', usuario=1)
     visibleM = Widget.objects.values('visible').filter(nombre='Menú', usuario = 1)
     visibleR = Widget.objects.values('visible').filter(nombre='Tablas Relacionadas', usuario = 1)
+    visibleF = Widget.objects.values('visible').filter(nombre='Ficha', usuario = 1)
 
     if visibleAF[0]['visible'] == True:
-        classAF = "controlWidgetMostrar('panelautofiltro');"
+        classAF = "controlWidgetMostrar('liautofiltros');"
     else:
-        classAF = "controlWidgetCerrar('panelautofiltro');"
+        classAF = "controlWidgetCerrar('liautofiltros');"
 
     if visibleFR[0]['visible'] == True:
-        classFR = "controlWidgetMostrar('panelfiltrosrapidos');"
+        classFR = "controlWidgetMostrar('lifiltrorapido');"
     else:
-        classFR = "controlWidgetCerrar('panelfiltrosrapidos');"
+        classFR = "controlWidgetCerrar('lifiltrorapido');"
 
     if visibleM[0]['visible'] == True:
-        classM = "controlWidgetMostrar('panelmenu');"
+        classM = "controlWidgetMostrar('limenu');"
     else:
-        classM = "controlWidgetCerrar('panelmenu');"
+        classM = "controlWidgetCerrar('limenu');"
 
     if visibleR[0]['visible'] == True:
-        classR = "controlWidgetMostrar('panelrelacion');"
+        classR = "controlWidgetMostrar('lirelacion');"
     else:
-        classR = "controlWidgetCerrar('panelrelacion');"
+        classR = "controlWidgetCerrar('lirelacion');"
 
-    context = classFR + ' ' + classAF + ' ' + classM + ' ' + classR
+    if visibleF[0]['visible'] == True:
+        classF = "controlWidgetMostrar('lificha');"
+    else:
+        classF = "controlWidgetCerrar('lificha');"
+
+    context = classFR + ' ' + classAF + ' ' + classM + ' ' + classR + ' ' + classF
     return context
 
 
@@ -112,3 +110,27 @@ def cambiar_WidgetVisible(name):
     """docstring"""
     Widget.objects.filter(nombre=name).update(visible=False)
     return name
+
+
+@register.simple_tag
+def configurar_WidgetColumna(name):
+    """docstring"""
+    columna = Widget.objects.values('numero_de_columna').filter(nombre=name, usuario=1)
+
+    if columna[0]['numero_de_columna'] == '1x0':
+        columna = "minima"
+    if columna[0]['numero_de_columna'] == '1x1':
+        columna = "tamano1x1"
+    elif columna[0]['numero_de_columna'] == '1x2':
+        columna = "tamano1x2"
+    elif columna[0]['numero_de_columna'] == '2x1':
+        columna = "tamano2x1"
+    elif columna[0]['numero_de_columna'] == '2x2':
+        columna = "tamano2x2"
+    elif columna[0]['numero_de_columna'] == '1x3':
+        columna = "tamano1x3"
+    else:
+        columna = "tamano2x3"
+
+    context = columna
+    return context

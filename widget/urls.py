@@ -25,4 +25,7 @@ urlpatterns = patterns('',
                        url(r'^actualizarVisible/$',
                            views.cambiar_WidgetVisible,
                            name='actualizarVisible'),
+                       url(r'^orden_widgets/$',
+                           views.orden_Widgets,
+                           name='orden_widgets'),
                        )

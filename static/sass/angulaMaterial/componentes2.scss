@@ -1,0 +1,105 @@
+@import "./_variables.scss";
+@import "../stylesheets/_bootstrap.scss";
+.fixed-panel {
+overflow-y: hidden;
+margin-left: 15px;
+}
+.titulo-panel{
+  @extend .panel-title;
+}
+.forma-panel {
+    @extend .panel;
+    border: 3px solid transparent;
+    border-radius: 7px;
+}
+.cabecera-panel{
+    @extend .panel-heading;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+.cuerpo-panel{
+    @extend .panel-body;
+}
+.size-transaccion{
+    width: 140px;
+}
+.claseRojo{
+  border-color: #D0231C;
+    .cabecera-panel{
+      color: #fff;
+      background-color: #DC4040;
+    }
+}
+.claseAzul{
+  border-color: #809fff;
+    .cabecera-panel{
+      color: #31708f;
+      background-color: #bce8f1;
+    }
+}
+.claseVerde{
+    border-color: #1CD0A6;
+    .cabecera-panel{
+      color: #3DA073;
+      background-color: #7DEAC7;
+    }
+}
+.minima{
+    height: 44px;
+    width: 222px;
+    margin: 5px;
+}
+.tamano1x1{
+    height: 200px;
+    width: 222px;
+    margin: 5px;
+}
+.tamano1x2{
+    height: 400px;
+    width: 222px;
+    margin: 5px;
+}
+.tamano2x1{
+    height: 200px;
+    width: 475px;
+    margin: 5px;
+}
+.tamano2x2{
+    height: 400px;
+    width: 475px;
+    margin: 5px;
+}
+.tamano1x3{
+    height: 600px;
+    width: 222px;
+    margin: 5px;
+}
+.tamano2x3{
+    height: 600px;
+    width: 475px;
+    margin: 5px;
+}
+.expandirFicha{
+    height: 600px;
+    width: 475px;
+}
+.expandirMenu{
+    height: 600px;
+    width: 475px;
+
+}
+.expandirAutoFiltos{
+    height: 600px;
+    width: 475px;
+
+}
+.expandirFiltrosRapidos{
+    height: 600px;
+    width: 475px;
+
+}
+.expandirTablasRelacionadas{
+    height: 600px;
+    width: 475px;
+
+}

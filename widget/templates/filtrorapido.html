@@ -1,13 +1,27 @@
+{% extends 'base_widget.html' %}
 {% load widgets_extras %}
-{% include "jquery.html" %}
 
-<div id='panelfiltrosrapidos' class="{% configurar_Widget 'Filtros Rápidos' %}">
-    <div class="{% configurar_WidgetColor 'Filtros Rápidos' %}">
-        <h8 class="titulo-panel">Filtros Rápidos</h8>
-        <button id="cerrarFiltroRapido" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="controlWidgetCerrar('panelfiltrosrapidos', 'Filtros Rápidos');"></button>
+{% block idContenedor %}lifiltrorapido{% endblock idContenedor %}
+
+{% block clasesContenedor %}
+{% configurar_WidgetColumna 'Filtros Rápidos' %} {% configurar_WidgetColor 'Filtros Rápidos' %}
+{% endblock clasesContenedor %}
+
+{% block idPanel %}controlWidgetCerrar('lifiltrorapido', 'Filtros Rápidos');{% endblock idPanel %}
+
+{% block titulo_widget %}
+Filtros Rápidos
+{% endblock titulo_widget %}
+
+{% block botones_widget %}{% endblock botones_widget %}
+
+{% block contenido_widget %}
+
+    <div id='panelfiltrosrapidos' class="">
+        <div class="panel-body">
+            <select class="demo2" ></select>
+            <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
+        </div>
     </div>
-    <div class="panel-body">
-        <select class="demo2" ></select>
-        <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
-    </div>
-</div>
+
+{% endblock contenido_widget %}

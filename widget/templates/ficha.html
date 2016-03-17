@@ -1,0 +1,23 @@
+{% extends 'base_widget.html' %}
+{% load widgets_extras %}
+
+{% block idContenedor %}lificha{% endblock idContenedor %}
+
+{% block clasesContenedor %}
+{% configurar_WidgetColumna 'Ficha' %} {% configurar_WidgetColor 'Ficha' %}
+{% endblock clasesContenedor %}
+
+{% block idPanel %}controlWidgetCerrar('lificha', 'Ficha');{% endblock idPanel %}
+
+{% block titulo_widget %}
+Ficha
+{% endblock titulo_widget %}
+
+{% block botones_widget %}{% endblock botones_widget %}
+
+{% block contenido_widget %}
+
+    <iframe class="iframeW" style="box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.26);overflow: hidden;" src="" height="" width="" scroll="no" frameborder="0" scrolling="no" id="divFrame">
+    </iframe>
+
+{% endblock contenido_widget %}

@@ -1,13 +1,23 @@
+{% extends 'base_widget.html' %}
 {% load widgets_extras %}
-{% include "jquery.html" %}
 
-<div id="panelautofiltro" class="{% configurar_Widget 'Autofiltros' %}">
-    <div class="{% configurar_WidgetColor 'Autofiltros' %}">
-        <h8 class="titulo-panel">Autofiltros</h8>
-        <button title="Expandir" class="glyphicon glyphicon-fullscreen"></button>
-        <button id="cerrarAutofiltro" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="controlWidgetCerrar('panelautofiltro', 'Autofiltros');"></button>
-    </div>
-    <div class="panel-body">
-    <ul class="demo" ></ul>
-    </div>
-</div>
+{% block idContenedor %}liautofiltros{% endblock idContenedor %}
+
+{% block clasesContenedor %}
+{% configurar_WidgetColumna 'Autofiltros' %} {% configurar_WidgetColor 'Autofiltros' %}
+{% endblock clasesContenedor %}
+
+{% block idPanel %}controlWidgetCerrar('liautofiltros', 'Autofiltros');{% endblock idPanel %}
+
+{% block titulo_widget %}
+Auto-filtros
+{% endblock titulo_widget %}
+
+{% block botones_widget %}{% endblock botones_widget %}
+
+{% block contenido_widget %}
+        <div class="cuerpo-panel">
+            <ul class="demo" ></ul>
+        </div>
+{% endblock contenido_widget %}
+

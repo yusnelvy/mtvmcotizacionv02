@@ -302,4 +302,20 @@ def cambiar_WidgetVisible(request):
         Widget.objects.filter(nombre=name).update(visible=False)
 
 
+def orden_Widgets(request):
+    """docstring"""
+    ordenA = Widget.objects.values('orden').filter(nombre='Autofiltros', usuario=1)
+    ordenAD = ordenA[0]['orden']
+    ordenF = Widget.objects.values('orden').filter(nombre='Ficha', usuario=1)
+    ordenFD = ordenF[0]['orden']
+    ordenFR = Widget.objects.values('orden').filter(nombre='Filtros Rápidos', usuario=1)
+    ordenFRD = ordenFR[0]['orden']
+    ordenM = Widget.objects.values('orden').filter(nombre='Menú', usuario=1)
+    ordenMD = ordenM[0]['orden']
+    ordenTR = Widget.objects.values('orden').filter(nombre='Tablas Relacionadas', usuario=1)
+    ordenTRD = ordenTR[0]['orden']
 
+    context = {'ordenAD': ordenAD, 'ordenFD': ordenFD,
+               'ordenFRD': ordenFRD, 'ordenMD': ordenMD,
+               'ordenTRD': ordenTRD}
+    return context

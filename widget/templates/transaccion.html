@@ -1,7 +1,15 @@
+{% load widgets_extras %}
 
-<div class="forma-panel fixed-panel">
-    <div class="panel-body">
-        <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)" class="size-transaccion"/>
-        <input type="button" value="Ir" onclick="transaccion()">
+<li class="forma-panel fixed-panel">
+
+    <div class="{% configurar_WidgetColor 'Transacciones' %}">
+
+        <div class="">
+            <div class="panel-body">
+                <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)" class="size-transaccion"/>
+                <input type="button" value="Ir" onclick="transaccion()">
+            </div>
+        </div>
+
     </div>
-</div>
+</li>
