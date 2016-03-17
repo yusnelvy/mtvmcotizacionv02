@@ -21,14 +21,20 @@
 
 <div class="columna12">
     <br>
-    <div ng-controller="buscar">
-        <md-input-container class="buscarEnLista">
-        <label for="search">Buscar...</label>
-        <input ng-model="search" type="search" id="search" name="search" md-autofocus>
-    </md-input-container>
-</div>
 
-
+    <form method="get" id="frmSearch" action="{{request.get_full_path}}">
+        {% csrf_token %}
+        <div ng-controller="buscar">
+            <md-input-container class="buscarEnLista">
+            <label for="search">Buscar...</label>
+            <input ng-model="search" type="search" id="search" name="search" md-autofocus>
+            <md-button type="submit" name="bt-search" style="display: inline-block;position: absolute;top: 20px;right: -15px;" title="Buscar" class="md-icon-button" tabindex="-1">
+            <md-icon class="glyphicon glyphicon-search"></md-icon>
+            </md-button>
+            </md-input-container>
+        </div>
+    </form>
+ 
 {% block titulo_lista %}{% endblock titulo_lista %}
 
 <nav class="paginacionLista">
@@ -55,3 +61,12 @@ function ocultarASCDesc(id){
 </div>
 
 {% endblock contenido %}
+{% block js_inferior %}
+<script>
+    app.controller('buscar',function($scope){
+        $('#search').focus();
+        $('#search').parent().addClass('md-input-focused');
+        $scope.search = '{{request.GET.search}}';
+    });
+</script>
+{% endblock js_inferior %}

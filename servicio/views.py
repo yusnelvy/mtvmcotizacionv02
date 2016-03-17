@@ -10,7 +10,7 @@ from servicio.models import Servicio, ComplejidadServicio, PrecioDeServicio, \
     HerramientasPorServicio
 from servicio.forms import ServicioForm, ComplejidadServicioForm, \
     PrecioDeServicioForm, HerramientasPorServicioForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -46,7 +46,18 @@ class ServicioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio',
+                                             'unidad_de_venta__unidad',
+                                             'descripcion', ])
+            lista_servicio = Servicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio',
+                                             'unidad_de_venta__unidad',
+                                             'descripcion', ])
+            lista_servicio = Servicio.objects.filter(entry_query)
+        elif order_by:
             lista_servicio = Servicio.objects.all().order_by(order_by)
         else:
             lista_servicio = Servicio.objects.all()
@@ -82,7 +93,18 @@ class ServicioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio',
+                                             'unidad_de_venta__unidad',
+                                             'descripcion', ])
+            queryset = Servicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio',
+                                             'unidad_de_venta__unidad',
+                                             'descripcion', ])
+            queryset = Servicio.objects.filter(entry_query)
+        elif order_by:
             queryset = Servicio.objects.all().order_by(order_by)
         else:
             queryset = Servicio.objects.all()
@@ -274,7 +296,18 @@ class ComplejidadServicioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'porcentaje',
+                                             'descripcion', ])
+            lista_complejidadservicio = ComplejidadServicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'porcentaje',
+                                             'descripcion', ])
+            lista_complejidadservicio = ComplejidadServicio.objects.filter(entry_query)
+        elif order_by:
             lista_complejidadservicio = ComplejidadServicio.objects.all().order_by(order_by)
         else:
             lista_complejidadservicio = ComplejidadServicio.objects.all()
@@ -310,7 +343,18 @@ class ComplejidadServicioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'porcentaje',
+                                             'descripcion', ])
+            queryset = ComplejidadServicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'porcentaje',
+                                             'descripcion', ])
+            queryset = ComplejidadServicio.objects.filter(entry_query)
+        elif order_by:
             queryset = ComplejidadServicio.objects.all().order_by(order_by)
         else:
             queryset = ComplejidadServicio.objects.all()

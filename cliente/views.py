@@ -10,7 +10,7 @@ from cliente.forms import SexoForm, EstadoCivilForm, TipoDeClienteForm, \
     TipoDeRelacionForm, TipoDeInformacionDeContactoForm, ClienteForm, \
     ContactoForm, InformacionDeContactoForm, ClienteDireccionForm, \
     ClienteEstadoDeRegistroForm, ClienteForm, InformacionDeContactoFormSet
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -53,7 +53,13 @@ class SexoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            lista_sexo = Sexo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            lista_sexo = Sexo.objects.filter(entry_query)
+        elif order_by:
             lista_sexo = Sexo.objects.all().order_by(order_by)
         else:
             lista_sexo = Sexo.objects.all()
@@ -89,7 +95,14 @@ class SexoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            queryset = Sexo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            queryset = Sexo.objects.filter(entry_query)
+        elif order_by:
             queryset = Sexo.objects.all().order_by(order_by)
         else:
             queryset = Sexo.objects.all()
@@ -283,7 +296,14 @@ class EstadoCivilListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            lista_estado_civil = EstadoCivil.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            lista_estado_civil = EstadoCivil.objects.filter(entry_query)
+        elif order_by:
             lista_estado_civil = EstadoCivil.objects.all().order_by(order_by)
         else:
             lista_estado_civil = EstadoCivil.objects.all()
@@ -319,9 +339,15 @@ class EstadoCivilListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
-            queryset = EstadoCivil.objects.all().order_by(order_by)
-        else:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            queryset = EstadoCivil.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            queryset = EstadoCivil.objects.filter(entry_query)
+        elif order_by:
+            lista_estado_civil = EstadoCivil.objects.all().order_by(order_by)
             queryset = EstadoCivil.objects.all()
 
         return queryset
@@ -513,7 +539,16 @@ class TipoDeClienteListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion' ])
+            lista_tipodecliente = TipoDeCliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion' ])
+            lista_tipodecliente = TipoDeCliente.objects.filter(entry_query)
+        elif order_by:
             lista_tipodecliente = TipoDeCliente.objects.all().order_by(order_by)
         else:
             lista_tipodecliente = TipoDeCliente.objects.all()
@@ -549,7 +584,16 @@ class TipoDeClienteListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion', ])
+            queryset = TipoDeCliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion', ])
+            queryset = TipoDeCliente.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeCliente.objects.all().order_by(order_by)
         else:
             queryset = TipoDeCliente.objects.all()
@@ -743,7 +787,16 @@ class TipoDeRelacionListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            lista_tipoderelacion = TipoDeRelacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            lista_tipoderelacion = TipoDeRelacion.objects.filter(entry_query)
+        elif order_by:
             lista_tipoderelacion = TipoDeRelacion.objects.all().order_by(order_by)
         else:
             lista_tipoderelacion = TipoDeRelacion.objects.all()
@@ -779,7 +832,16 @@ class TipoDeRelacionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            queryset = TipoDeRelacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            queryset = TipoDeRelacion.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeRelacion.objects.all().order_by(order_by)
         else:
             queryset = TipoDeRelacion.objects.all()
@@ -973,7 +1035,16 @@ class TipoDeInformacionDeContactoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.filter(entry_query)
+        elif order_by:
             lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.all().order_by(order_by)
         else:
             lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.all()
@@ -1009,7 +1080,16 @@ class TipoDeInformacionDeContactoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            queryset = TipoDeInformacionDeContacto.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            queryset = TipoDeInformacionDeContacto.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeInformacionDeContacto.objects.all().order_by(order_by)
         else:
             queryset = TipoDeInformacionDeContacto.objects.all()
@@ -1203,7 +1283,18 @@ class ClienteListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            lista_cliente = Cliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            lista_cliente = Cliente.objects.filter(entry_query)
+        elif order_by:
             lista_cliente = Cliente.objects.all().order_by(order_by)
         else:
             lista_cliente = Cliente.objects.all()
@@ -1240,7 +1331,18 @@ class ClienteListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            queryset = Cliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            queryset = Cliente.objects.filter(entry_query)
+        elif order_by:
             queryset = Cliente.objects.all().order_by(order_by)
         else:
             queryset = Cliente.objects.all()
@@ -2321,10 +2423,7 @@ def exchange_especificaciondeinmueble(request, id_especificacion):
                                                  ).annotate(tcount=Count('ambiente')
                                                             ).order_by('ambienteportipodeinmueble__especificacion_de_inmueble')
     if ambientes:
-
-        response = {
-            'cant_ambiente': ambientes[0]['tcount']
-            }
+        response = {'cant_ambiente': ambientes[0]['tcount']}
     else:
         response = {
             'cant_ambiente': 0

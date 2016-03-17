@@ -10,7 +10,7 @@ from material.models import TipoDeMaterial, Material, PrecioDeMaterial, \
     MaterialesPorServicio
 from material.forms import TipoDeMaterialForm, MaterialForm, \
     PrecioDeMaterialForm, MaterialesPorServicioForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -46,7 +46,18 @@ class TipoDeMaterialListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_material',
+                                             'descripcion', ])
+
+            lista_tipodematerial = TipoDeMaterial.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_material',
+                                             'descripcion', ])
+
+            lista_tipodematerial = TipoDeMaterial.objects.filter(entry_query)
+        elif order_by:
             lista_tipodematerial = TipoDeMaterial.objects.all().order_by(order_by)
         else:
             lista_tipodematerial = TipoDeMaterial.objects.all()
@@ -82,7 +93,18 @@ class TipoDeMaterialListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_material',
+                                             'descripcion', ])
+
+            queryset = TipoDeMaterial.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_material',
+                                             'descripcion', ])
+
+            queryset = TipoDeMaterial.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeMaterial.objects.all().order_by(order_by)
         else:
             queryset = TipoDeMaterial.objects.all()
@@ -274,7 +296,34 @@ class MaterialListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['material',
+                                             'tipo_de_material__tipo_de_material',
+                                             'descripcion',
+                                             'unidad_de_consumo__unidad',
+                                             'unidad_de_venta__unidad',
+                                             'relacion_consumo_venta',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'peso_unidad_consumo_kg', ])
+
+            lista_material = Material.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['material',
+                                             'tipo_de_material__tipo_de_material',
+                                             'descripcion',
+                                             'unidad_de_consumo__unidad',
+                                             'unidad_de_venta__unidad',
+                                             'relacion_consumo_venta',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'peso_unidad_consumo_kg', ])
+
+            lista_material = Material.objects.filter(entry_query)
+        elif order_by:
             lista_material = Material.objects.all().order_by(order_by)
         else:
             lista_material = Material.objects.all()
@@ -310,7 +359,34 @@ class MaterialListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['material',
+                                             'tipo_de_material__tipo_de_material',
+                                             'descripcion',
+                                             'unidad_de_consumo__unidad',
+                                             'unidad_de_venta__unidad',
+                                             'relacion_consumo_venta',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'peso_unidad_consumo_kg', ])
+
+            queryset = Material.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['material',
+                                             'tipo_de_material__tipo_de_material',
+                                             'descripcion',
+                                             'unidad_de_consumo__unidad',
+                                             'unidad_de_venta__unidad',
+                                             'relacion_consumo_venta',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'peso_unidad_consumo_kg', ])
+
+            queryset = Material.objects.filter(entry_query)
+        elif order_by:
             queryset = Material.objects.all().order_by(order_by)
         else:
             queryset = Material.objects.all()

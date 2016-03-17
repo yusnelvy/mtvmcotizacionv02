@@ -1,5 +1,6 @@
+{% extends "base_lista.html" %}
 <title>Mueble por ambiente</title>
-
+{% block titulo_lista %}
 <h2>Listado de Mueble por ambiente</h2>
 
 <h6>Cantidad de Mueble por ambiente encontrados:
@@ -9,9 +10,8 @@
 
   </span>
 </h6>
-
-<nav class="nav-pagination hidden-print">
-<ul class="pagination" >
+{% endblock titulo_lista %}
+{% block paginacion_lista %}
 
 {% if request.GET.page == "0" %}
 
@@ -143,12 +143,10 @@
 
 {% endif %}
 
-   </ul>
-</nav>
+{% endblock paginacion_lista %}
+{% block lista %}
 
 {% if mueblesporambiente %}
-
-<table class="table table-hover table-bordered textAlignCenter" id="tabla">
 
   <tr class="active">
     <th>
@@ -188,19 +186,17 @@
 
   {% endfor %}
 
-</table>
 {% else %}
 
-<table class="table table-hover table-bordered textAlignCenter" id="tabla">
+
 <tr><td> No se encontraron registros</td>
 </tr>
-</table>
 
 {% endif %}
 
 <script>
 ocultarASCDesc('especifiacion_de_mueble');
 </script>
-
+{% endblock lista %}
 
 

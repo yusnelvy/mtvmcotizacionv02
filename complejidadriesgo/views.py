@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from complejidadriesgo.models import ComplejidadRiesgo, NivelComplejidadRiesgo
 from complejidadriesgo.forms import ComplejidadRiesgoForm, NivelComplejidadRiesgoForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -39,7 +39,20 @@ class ComplejidadRiesgoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['situacion',
+                                             'descripcion',
+                                             'factor_complejidad',
+                                             'factor_riesgo', ])
+            lista_complejidadriesgo = ComplejidadRiesgo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['situacion',
+                                             'descripcion',
+                                             'factor_complejidad',
+                                             'factor_riesgo', ])
+            lista_complejidadriesgo = ComplejidadRiesgo.objects.filter(entry_query)
+        elif order_by:
             lista_complejidadriesgo = ComplejidadRiesgo.objects.all().order_by(order_by)
         else:
             lista_complejidadriesgo = ComplejidadRiesgo.objects.all()
@@ -75,7 +88,20 @@ class ComplejidadRiesgoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['situacion',
+                                             'descripcion',
+                                             'factor_complejidad',
+                                             'factor_riesgo', ])
+            queryset = ComplejidadRiesgo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['situacion',
+                                             'descripcion',
+                                             'factor_complejidad',
+                                             'factor_riesgo', ])
+            queryset = ComplejidadRiesgo.objects.filter(entry_query)
+        elif order_by:
             queryset = ComplejidadRiesgo.objects.all().order_by(order_by)
         else:
             queryset = ComplejidadRiesgo.objects.all()
@@ -103,7 +129,7 @@ class ComplejidadRiesgoView(View):
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:edit_complejidadriesgo',
                                                     args=(id_reg.id,)))
             else:
-                messages.success(self.request, "Complejidad riesgo '" + str(d_reg) + "'  registrado con éxito.")
+                messages.success(self.request, "Complejidad riesgo '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('ucomplejidadriesgos:list_complejidadriesgo'))
 
         return render(request, self.template_name, {'form': form})
@@ -270,7 +296,20 @@ class NivelComplejidadRiesgoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nivel_complejidad_riesgo',
+                                             'factor_inicial',
+                                             'factor_final',
+                                             'porcentaje', ])
+            lista_complejidadriesgo = NivelComplejidadRiesgo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nivel_complejidad_riesgo',
+                                             'factor_inicial',
+                                             'factor_final',
+                                             'porcentaje', ])
+            lista_complejidadriesgo = NivelComplejidadRiesgo.objects.filter(entry_query)
+        elif order_by:
             lista_complejidadriesgo = NivelComplejidadRiesgo.objects.all().order_by(order_by)
         else:
             lista_complejidadriesgo = NivelComplejidadRiesgo.objects.all()
@@ -306,7 +345,20 @@ class NivelComplejidadRiesgoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nivel_complejidad_riesgo',
+                                             'factor_inicial',
+                                             'factor_final',
+                                             'porcentaje', ])
+            queryset = NivelComplejidadRiesgo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nivel_complejidad_riesgo',
+                                             'factor_inicial',
+                                             'factor_final',
+                                             'porcentaje', ])
+            queryset = NivelComplejidadRiesgo.objects.filter(entry_query)
+        elif order_by:
             queryset = NivelComplejidadRiesgo.objects.all().order_by(order_by)
         else:
             queryset = NivelComplejidadRiesgo.objects.all()

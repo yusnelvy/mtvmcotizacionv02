@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from gestiondedocumento.models import TipoDeDocumento, EstadoDeDocumento
 from gestiondedocumento.forms import TipoDeDocumentoForm, EstadoDeDocumentoForm
-#from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,31 +22,39 @@ class TipoDeDocumentoListView(ListView):
     context_object_name = 'tiposdedocumento'
     template_name = 'tipodedocumento_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(TipoDeDocumentoListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento',
+                                             'descripcion', ])
+
+            lista_tipodedocumento = TipoDeDocumento.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento',
+                                             'descripcion', ])
+
+            lista_tipodedocumento = TipoDeDocumento.objects.filter(entry_query)
+        elif order_by:
             lista_tipodedocumento = TipoDeDocumento.objects.all().order_by(order_by)
         else:
             lista_tipodedocumento = TipoDeDocumento.objects.all()
@@ -82,7 +90,18 @@ class TipoDeDocumentoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento',
+                                             'descripcion', ])
+
+            queryset = TipoDeDocumento.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento',
+                                             'descripcion', ])
+
+            queryset = TipoDeDocumento.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeDocumento.objects.all().order_by(order_by)
         else:
             queryset = TipoDeDocumento.objects.all()
@@ -255,31 +274,41 @@ class EstadoDeDocumentoListView(ListView):
     context_object_name = 'estadosdedocumento'
     template_name = 'estadodedocumento_lista.html'
 
-    # def get_paginate_by(self, queryset):
-    #     if self.request.user.id is not None:
-    #         nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-    #         range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-    #     else:
-    #         nropag = valor_Personalizacionvisual("std", "paginacion")
-    #         range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
+    def get_paginate_by(self, queryset):
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
 
-    #     page = self.request.GET.get('page')
-    #     if page == '0':
-    #         return None
-    #     else:
-    #         return self.request.GET.get('paginate_by', nropag)
+        page = self.request.GET.get('page')
+        if page == '0':
+            return None
+        else:
+            return self.request.GET.get('paginate_by', nropag)
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(EstadoDeDocumentoListView, self).get_context_data(**kwargs)
         # Add in the pais
-        # if self.request.user.id is not None:
-        #     range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
-        # else:
-        #     range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        range_gap = 3
+        if self.request.user.id is not None:
+            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
+        else:
+            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento__tipo_de_documento',
+                                             'estado_de_documento',
+                                             'descripcion', ])
+
+            lista_estadodedocumento = EstadoDeDocumento.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento__tipo_de_documento',
+                                             'estado_de_documento',
+                                             'descripcion', ])
+
+            lista_estadodedocumento = EstadoDeDocumento.objects.filter(entry_query)
+        elif order_by:
             lista_estadodedocumento = EstadoDeDocumento.objects.all().order_by(order_by)
         else:
             lista_estadodedocumento = EstadoDeDocumento.objects.all()
@@ -315,7 +344,20 @@ class EstadoDeDocumentoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento__tipo_de_documento',
+                                             'estado_de_documento',
+                                             'descripcion', ])
+
+            queryset = EstadoDeDocumento.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento__tipo_de_documento',
+                                             'estado_de_documento',
+                                             'descripcion', ])
+
+            queryset = EstadoDeDocumento.objects.filter(entry_query)
+        elif order_by:
             queryset = EstadoDeDocumento.objects.all().order_by(order_by)
         else:
             queryset = EstadoDeDocumento.objects.all()
