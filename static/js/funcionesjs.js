@@ -57,6 +57,7 @@ var liFraH = $('.iframeW').parent().css('height');
 frameW.attr('width', liFra);
 frameW.attr('height', liFraH);
 }
+
 /* ========================================================================
  * bootstrap-switch - v3.3.2
  */

@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Estado de registro
+Ficha del estado de registro: <small>{{form.estado.value|lower}}</small>
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el Estado de registro: {{form.estado.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if estadoderegistro_previous %}
 
@@ -42,17 +36,15 @@ Editar el Estado de registro: {{form.estado.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
 {{ form.as_md }}
 
-{% endblock cuerpo_form %}
+{% endblock ficha_basica %}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
-
-{% block moduloAngular %}
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -65,4 +57,4 @@ app.controller('controlForm',function($scope){
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

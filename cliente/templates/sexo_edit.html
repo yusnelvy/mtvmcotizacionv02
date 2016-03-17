@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Cliente
+Ficha del sexo: <small>{{form.sexo.value|lower}}</small>
 
-{% endblock titulo%}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el sexo: {{form.sexo.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if sexo_previous %}
 
@@ -42,25 +36,37 @@ Editar el sexo: {{form.sexo.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.sexo}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
 
-{% block moduloAngular %}
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
     $scope.sexo = '{{form.sexo.value}}';
-    $('#id_sexo').focus();
-    $('#id_sexo').parent().addClass('md-input-focused');
-
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.sexo = '{{form.sexo.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.sexo.value}}');
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

@@ -9,20 +9,25 @@
 }
 .paginacionEdit {
     padding: 0;
+    margin-right: 5px;
     list-style: none;
     display: block;
-    height: 50px;
+    height: 35px;
     .anteriorBloqueado {
         float: left;
+        height: 20px;
     }
     .siguienteBloqueado {
         float: right;
+        height: 20px;
     }
     .anterior {
         float: left;
+        height: 20px;
     }
     .siguiente {
         float: right;
+        height: 20px;
     }
 }
 ul {
@@ -30,7 +35,7 @@ ul {
 }
 .grupoInput {
     background: #fff;
-    padding: 15px;
+    padding: 1px 15px;
     box-shadow: $sombra;
     md-input-container {
       color: $brand-primary;
@@ -44,8 +49,84 @@ ul {
     input[type=email],
     input[type=date],
     select, textarea {
-
+      width: 100%;
     }
+}
+span.labelSwitch {
+    color: rgba(0,0,0,0.54);
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 10px;
+}
+.focusMD {
+  span.labelSwitch, .labelSelect {
+    color: #3f51b5!important;
+  }
+}
+.grupoInputX2 {
+  display: flex;
+        md-input-container{
+          flex:2;
+          span.labelSwitch {
+            color: rgba(0,0,0,0.54);
+            font-size: 14px;
+            font-weight: bold;
+            position: relative;
+            margin-bottom: 10px;
+          }
+        }
+    }
+.grupoInputX3 {
+  display: flex;
+  md-input-container {
+    flex:3;
+  }
+
+}
+/*!
+ * Ficha para tablas basicas
+ */
+.botonGuardar {
+
+    position: absolute;
+    right: 150px;
+    top: 35px;
+    background: #5cb85c!important;
+}
+.botonCancelar {
+
+    position: absolute;
+    right: 250px;
+    top: 35px;
+    background: #777!important;
+}
+.tituloFicha {
+    display: inline-block;
+}
+.contenedorFicha {
+    margin-right: 5px;
+    height: 100%;
+    overflow-y: auto;
+}
+@media (max-width:225px) {
+  .paginacionEdit{
+    display: none;
+  }
+  .botonGuardar{
+    position: relative;
+    right: -140px;
+    top: -20px;
+  }
+  .botonCancelar {
+    position: relative;
+    right: 80px;
+    top: -20px;
+  }
+}
+.msj{
+  @extend .alert;
+  @extend .alert-warning;
 }
 /*
  * componentes botones
@@ -87,6 +168,9 @@ ul {
     @extend .mdl-data-table;
     box-shadow: $sombra;
     width: 100%;
+    td:last-of-type {
+      padding-right: 0;
+    }
     thead{
       tr[class="active"] th {
         text-align: center;
@@ -129,6 +213,75 @@ ul {
      @extend .glyphicon;
      @extend .glyphicon-sort-by-order-alt;
      @extend .btn-ordenarLista;
+}
+.c_td {
+  display: inline-block!important;
+  position: absolute!important;
+  right: 10px!important;
+  background: transparent!important;
+  border: none!important;
+  opacity: 1!important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.c_td a {
+  margin-left: 50px;
+  margin-right: 50px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12)!important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12)!important;
+  display: none;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.c_td span {
+  color: rgb(63,81,181);
+  font-size: 18px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.c_td:hover {
+  background: transparent!important;
+}
+.c_td:hover a {
+  display: inline-block;
+  opacity: 1!important;
+  font-size: 23px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.c_td_hover {
+  opacity: .2;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.seleccion {
+  background: $brand-primary;
+  color: #fff;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.seleccion:hover {
+  background: $brand-primary!important;
+  color: #fff!important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.seleccion .c_td a, .seleccion .c_td span {
+  color: #fff!important;
 }
 
 /*
@@ -177,6 +330,10 @@ ul {
 .iconoExpandirFull {
   @extend .glyphicon;
   @extend .glyphicon-fullscreen;
+}
+.iconoGrupoControl {
+  @extend .glyphicon;
+  @extend .glyphicon-option-horizontal;
 }
 /*!
  * navbar
@@ -371,7 +528,6 @@ ul {
         background: none;
     }
 }
-
 /*!
  * general
  */
@@ -385,6 +541,7 @@ ul {
 }
 body{
     overflow-y: hidden;
+    background: #eee;
 }
 .contenedor {
     @extend .container-fluid;

@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
-
-Cliente
-
-{% endblock titulo %}
-
-{% block titulo_form %}
+{% block titulo_ficha %}
 
   Editar el estado civil: {{form.estado_civil.value|lower}}
 
-{% endblock titulo_form %}
+{% endblock titulo_ficha %}
 
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if estado_civil_previous %}
 
@@ -42,24 +36,31 @@ Cliente
 
    {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
 {{ form.as_md }}
 
-{% endblock cuerpo_form %}
+{% endblock ficha_basica %}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
-
-{% block moduloAngular %}
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
     $scope.estado_civil = '{{form.estado_civil.value}}';
-    $('#id_estado_civil').focus();
-    $('#id_estado_civil').parent().addClass('md-input-focused');
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.estado_civil = '{{form.estado_civil.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.estado_civil.value}}');
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

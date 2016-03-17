@@ -9,7 +9,6 @@ Mueble
 {% block titulo_lista %}
 
 <h2>Listado de especificación de Muebles</h2>
-
 <h6>Cantidad de especificación de Muebles encontrados:
   <span class="badge" id="count_reg">
 
@@ -175,6 +174,22 @@ Mueble
 
 </th>
 <th>
+  Descripción de la especificación
+
+  {% if request.GET.page %}
+
+  <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+  <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+  {% else %}
+
+  <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+  <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+  {% endif %}
+
+</th>
+<th>
   Ancho del mueble
 
   {% if request.GET.page %}
@@ -223,7 +238,39 @@ Mueble
 
 </th>
 <th>
-  Mueble
+  Ocupación en el camión
+
+  {% if request.GET.page %}
+
+  <a href="?order_by=volumen_en_camion&page={{request.GET.page}}" id="volumen_en_camion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+  <a href="?order_by=-volumen_en_camion&page={{request.GET.page}}" id="-volumen_en_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+  {% else %}
+
+  <a href="?order_by=volumen_en_camion" id="volumen_en_camion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+  <a href="?order_by=-volumen_en_camion" id="-volumen_en_camion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+  {% endif %}
+
+</th>
+<th>
+  Mueble predefinido
+
+  {% if request.GET.page %}
+
+  <a href="?order_by=predefinido&page={{request.GET.page}}" id="predefinido" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+  <a href="?order_by=-predefinido&page={{request.GET.page}}" id="-predefinido"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+  {% else %}
+
+  <a href="?order_by=predefinido" id="predefinido" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Asc"></a>
+  <a href="?order_by=-predefinido" id="-predefinido"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Desc"></a>
+
+  {% endif %}
+
+</th>
+<th>
+  Nombre del mueble
 
   {% if request.GET.page %}
 
@@ -238,44 +285,55 @@ Mueble
   {% endif %}
 
 </th>
-<th class="controlLista">Ficha</th>
-<th class="controlLista">Editar</th>
-<th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in especificacionesdemueble %}
 
-<tr id="tr{{i.pk}}">
-  <td>
+<tr id="tr{{i.pk}}" data-url="{% url 'umuebles:edit_especificaciondemueble' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
+  <td id="td1_{{i.pk}}">
 
     {{ i.especificacion_de_mueble }}
 
   </td>
-  <td>
+  <td id="td2_{{i.pk}}">
+
+    {{ i.descripcion|truncatechars:"40" }}
+
+  </td>
+  <td id="td3_{{i.pk}}">
 
     {{ i.ancho }}
 
   </td>
-  <td>
+  <td id="td4_{{i.pk}}">
 
     {{ i.largo }}
 
   </td>
-  <td>
+  <td id="td5_{{i.pk}}">
+
     {{ i.alto }}
+
   </td>
-  <td>
+  <td id="td6_{{i.pk}}">
+
+    {{ i.volumen_en_camion }} <span>m<sup>3</sup></span>
+
+  </td>
+  <td id="td7_{{i.pk}}">
+
+    {{ i.predefinido|yesno:"Es predefinido,No es predefinido" }}
+
+  </td>
+  <td id="td8_{{i.pk}}">
+
     {{ i.mueble }}
+
   </td>
-  <td>
-      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+  <td class="c_td">
+            <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:eliminar_especificaciondemueble' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+            <span class="iconoGrupoControl"></span>
     </td>
-  <td>
-    <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:edit_especificaciondemueble' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
-  </td>
-  <td>
-    <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umuebles:eliminar_especificaciondemueble' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
-  </td>
 </tr>
 
 {% endfor %}
@@ -296,6 +354,8 @@ ocultarASCDesc('ancho');
 ocultarASCDesc('largo');
 ocultarASCDesc('alto');
 ocultarASCDesc('mueble');
+ocultarASCDesc('predefinido');
+ocultarASCDesc('volumen_en_camion');
 })
 </script>
 

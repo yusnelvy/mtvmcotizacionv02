@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Dirección
+  Ficha de la Provincia: <small>{{form.provincia.value|lower}}</small>
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-  Editar la Provincia: {{form.provincia.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if provincia_previous %}
 
@@ -42,25 +36,62 @@ Dirección
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.provincia}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.codigo_telefonico.id_for_label}}">
 
-{% block moduloAngular %}
+    {{form.codigo_telefonico.label}}
+
+</label>
+
+{{form.codigo_telefonico}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.pais.id_for_label}}">
+
+    {{form.pais.label}}
+
+</label>
+
+    {{form.pais}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
     $scope.pais = '{{form.pais.value}}';
     $scope.provincia = '{{form.provincia.value}}';
     $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
-    $('#id_pais').focus();
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.provincia.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.codigo_telefonico.value}}');
+    //tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.pais.value}}');
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.mueble = '{{form.pais.value}}';
+        $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}
