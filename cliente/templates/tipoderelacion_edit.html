@@ -1,12 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo_form %}
+{% block titulo_ficha %}
 
-Editar el tipo de relación: {{form.tipo_de_relacion.value|lower}}
+Ficha del tipo de relación: <small>{{form.tipo_de_relacion.value|lower}}</small>
 
-{% endblock titulo_form %}
+{% endblock titulo_ficha %}
 
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if tipodecontacto_previous %}
 
@@ -36,25 +36,50 @@ Editar el tipo de relación: {{form.tipo_de_relacion.value|lower}}
 
   {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.tipo_de_relacion}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
 
-{% block moduloAngular %}
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
     $scope.tipo_de_relacion = '{{form.tipo_de_relacion.value}}';
     $scope.descripcion = '{{form.descripcion.value}}';
-    $('#id_tipo_de_relacion').focus();
-    $('#id_tipo_de_relacion').parent().addClass('md-input-focused');
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.tipo_de_relacion = '{{form.tipo_de_relacion.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_relacion.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

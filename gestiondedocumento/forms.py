@@ -17,9 +17,7 @@ class TipoDeDocumentoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = TipoDeDocumento
         fields = '__all__'
         widgets = {
-            'tipo_de_documento': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'}),
-            }
+            'tipo_de_documento': TextInput(attrs={'required': 'required'})            }
         labels = {
             'tipo_de_documento': ('Nombre del tipo de documento'),
             'descripcion': ('Descripción del tipo de documento')

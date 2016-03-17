@@ -28,8 +28,8 @@ class PaisForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'codigo_telefonico': ('Código telefónico del país')
         }
         widgets = {
-            'pais': TextInput(attrs={'required': 'required'}),
-            'codigo_telefonico': TextInput(attrs={'required': 'required'})
+            'pais': TextInput(attrs={'required': 'required', 'tabindex': '-1'}),
+            'codigo_telefonico': TextInput(attrs={'required': 'required', 'tabindex': '-1'})
             }
 
 
@@ -46,12 +46,12 @@ class ProvinciaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = 'pais', 'provincia', 'codigo_telefonico'
         labels = {
             'provincia': ('Nombre de la provincia'),
-            'pais': ('Seleccione el país de la provincia'),
+            'pais': ('País asociado a la provincia'),
             'codigo_telefonico': ('Código telefónico de la provincia')
         }
         widgets = {
             'provincia': TextInput(attrs={'required': 'required'}),
-            'pais': SelectMD(attrs={'required': 'required', 'tabindex': '1'})
+            'pais': SelectMD(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'})
             }
 
 
@@ -69,12 +69,12 @@ class CiudadForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = 'pais', 'provincia', 'ciudad'
         labels = {
             'ciudad': ('Nombre de la ciudad'),
-            'provincia': ('Seleccione una provincia asociada'),
-            'pais': ('Seleccione un país asociado')
+            'provincia': ('Provincia asociada a la ciudad'),
+            'pais': ('País asociado a la ciudad')
         }
         widgets = {
-            #'pais': SelectMD(attrs={'required': 'required'},
-            #'provincia': SelectMD(attrs={'required': 'required'},
+            'pais': Select(attrs={'ng-change': 'onChange()'}),
+            'provincia': Select(attrs={'ng-change': 'onChange()'}),
             'ciudad': TextInput(attrs={'required': 'required'}),
         }
 
@@ -99,7 +99,10 @@ class BarrioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'pais': ('País asociado')
         }
         widgets = {
-            'barrio': TextInput(attrs={'required': 'required'})
+            'barrio': TextInput(attrs={'required': 'required'}),
+            'pais': Select(attrs={'ng-change': 'onChange()'}),
+            'ciudad': Select(attrs={'ng-change': 'onChange()'}),
+            'provincia': Select(attrs={'ng-change': 'onChange()'})
             }
 
 
@@ -132,7 +135,8 @@ class TipoDeEdificacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = '__all__'
         labels = {
             'tipo_de_edificacion': ('Nombre del tipo de edificación'),
-            'descripcion': ('Descripción del tipo de edificación')
+            'descripcion': ('Descripción del tipo de edificación'),
+            'nombre': ('¿Nombre predeterminado de la edificación?')
         }
         widgets = {
             'tipo_de_edificacion': TextInput(attrs={'required': 'required'}),

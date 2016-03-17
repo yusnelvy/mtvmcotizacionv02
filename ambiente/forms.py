@@ -18,10 +18,11 @@ class AmbienteForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = '__all__'
         labels = {
             'ambiente': ('Nombre del ambiente'),
-            'descripcion': ('Descripción del ambiente')
+            'descripcion': ('Descripción del ambiente'),
+            'conteo_de_ambientes': ('¿El ambiente es contable?')
         }
         widgets = {
-            'ambiente': TextInput(attrs={'required': 'required'}),
+            'ambiente': TextInput(attrs={'required': 'required', 'tabindex': '-1'}),
 
         }
 

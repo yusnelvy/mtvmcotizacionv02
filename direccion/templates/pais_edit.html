@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-País
+Ficha del país: <small>{{form.pais.value|lower}}</small>
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el país: {{form.pais.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if pais_previous %}
 
@@ -42,23 +36,50 @@ Editar el país: {{form.pais.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.pais}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.codigo_telefonico.id_for_label}}">
+
+    {{form.codigo_telefonico.label}}
+
+</label>
+
+{{form.codigo_telefonico}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
-  $scope.pais = '{{form.pais.value}}';
-  $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
-  $('#id_pais').focus();
-  $('#id_pais').parent().addClass('md-input-focused');
+    $scope.pais = '{{form.pais.value}}';
+    $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.pais.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.codigo_telefonico.value}}');
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.mueble = '{{form.pais.value}}';
+        $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

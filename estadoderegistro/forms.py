@@ -20,7 +20,6 @@ class EstadoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = '__all__'
         widgets = {
             'estado': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'}),
             }
 
 

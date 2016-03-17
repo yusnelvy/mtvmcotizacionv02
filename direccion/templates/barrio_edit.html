@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Dirección
+Ficha del barrio: <small>{{form.barrio.value|lower}}</small>
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el barrio: {{form.barrio.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if barrio_previous %}
 
@@ -42,17 +36,51 @@ Editar el barrio: {{form.barrio.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.barrio}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.pais.id_for_label}}">
 
-{% block moduloAngular %}
+    {{form.pais.label}}
+
+</label>
+
+{{form.pais}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.provincia.id_for_label}}">
+
+    {{form.provincia.label}}
+
+</label>
+
+    {{form.provincia}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.ciudad.id_for_label}}">
+
+    {{form.ciudad.label}}
+
+</label>
+
+    {{form.ciudad}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -60,18 +88,33 @@ app.controller('controlForm',function($scope){
     $scope.pais = '{{form.pais.value}}';
     $scope.ciudad = '{{form.ciudad.value}}';
     $scope.barrio = '{{form.barrio.value}}';
-    $('#id_pais').focus();
     $('select').attr('class', 'form-control');
     $('select').attr('required', 'required');
     $('label[for=id_pais]').css('display','none');
     $('label[for=id_provincia]').css('display','none');
     $('label[for=id_ciudad]').css('display','none');
       setTimeout(function() {
-        $('select[id=id_pais]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_pais">' + $('label[for=id_pais]').text() + '</label>');
-        $('select[id=id_provincia]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_provincia">' + $('label[for=id_provincia]').text() + '</label>');
-        $('select[id=id_ciudad]').after('<label style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_ciudad">' + $('label[for=id_ciudad]').text() + '</label>');
+        $('select[id=id_pais]').after('<label class="labelSelect" style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_pais">' + $('label[for=id_pais]').text() + '</label>');
+        $('select[id=id_provincia]').after('<label class="labelSelect" style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_provincia">' + $('label[for=id_provincia]').text() + '</label>');
+        $('select[id=id_ciudad]').after('<label class="labelSelect" style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_ciudad">' + $('label[for=id_ciudad]').text() + '</label>');
     }, 100);
+      $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.barrio.value}}');
+    //tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.ciudad.value}}');
+    //tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.provincia.value}}');
+    //tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.pais.value}}');
+$scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.mueble = '{{form.pais.value}}';
+        $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
+}
+$scope.onChange = function() {
+    controlSubmit(event);
+};
 });
+
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

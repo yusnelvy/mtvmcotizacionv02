@@ -8,8 +8,8 @@ Complejidad y riesgo
 
 {% block titulo_lista %}
 
-<h2>Listado de nivel de complejidad y riesgos</h2>
- <h6>Cantidad de nivel de complejidad y riesgos:
+<h2>Listado de niveles de complejidad y riesgos</h2>
+ <h6>Cantidad de niveles de complejidad y riesgos:
     <span class="badge" id="count_reg">
 
         {{ nivelcomplejidadriesgos.count }}
@@ -32,13 +32,13 @@ Complejidad y riesgo
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% endif %}
@@ -64,13 +64,13 @@ Complejidad y riesgo
 {% if request.GET.page == "1" %}
 
 <li class="btn-disabled">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Primero...</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Primero...</a>
 </li>
 
 {% endif %}
@@ -80,13 +80,13 @@ Complejidad y riesgo
 {% if p == page_obj.number %}
 
 <li class="active">
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{p}}</a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{p}}</a>
 </li>
 
 {% endif %}
@@ -98,13 +98,13 @@ Complejidad y riesgo
 {% if request.GET.page == ultimo %}
 
 <li class="btn-disabled">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">...Ultimo</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">...Ultimo</a>
 </li>
 
 {% endif %}
@@ -116,13 +116,13 @@ Complejidad y riesgo
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% endif %}
@@ -161,13 +161,13 @@ Complejidad y riesgo
 
         {% if request.GET.page %}
 
-        <a href="?order_by=nivel_complejidad_riesgo&page={{request.GET.page}}" id="nivel_complejidad_riesgo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-nivel_complejidad_riesgo&page={{request.GET.page}}" id="-nivel_complejidad_riesgo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=nivel_complejidad_riesgo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="nivel_complejidad_riesgo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nivel_complejidad_riesgo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nivel_complejidad_riesgo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=nivel_complejidad_riesgo" id="nivel_complejidad_riesgo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-nivel_complejidad_riesgo" id="-nivel_complejidad_riesgo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=nivel_complejidad_riesgo{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="nivel_complejidad_riesgo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nivel_complejidad_riesgo{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nivel_complejidad_riesgo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -177,13 +177,13 @@ Complejidad y riesgo
 
         {% if request.GET.page %}
 
-        <a href="?order_by=factor_inicial&page={{request.GET.page}}" id="factor_inicial" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-factor_inicial&page={{request.GET.page}}" id="-factor_inicial"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=factor_inicial&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="factor_inicial" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-factor_inicial&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-factor_inicial"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=factor_inicial" id="factor_inicial" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-factor_inicial" id="-factor_inicial"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=factor_inicial{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="factor_inicial" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-factor_inicial{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-factor_inicial"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -193,13 +193,13 @@ Complejidad y riesgo
 
         {% if request.GET.page %}
 
-        <a href="?order_by=factor_final&page={{request.GET.page}}" id="factor_final" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-factor_final&page={{request.GET.page}}" id="-factor_final"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=factor_final&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="factor_final" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-factor_final&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-factor_final"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=factor_final" id="factor_final" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-factor_final" id="-factor_final"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=factor_final{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="factor_final" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-factor_final{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-factor_final"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -209,53 +209,45 @@ Complejidad y riesgo
 
         {% if request.GET.page %}
 
-        <a href="?order_by=porcentaje&page={{request.GET.page}}" id="porcentaje" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-porcentaje&page={{request.GET.page}}" id="-porcentaje"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=porcentaje&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="porcentaje" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-porcentaje"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=porcentaje" id="porcentaje" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-porcentaje" id="-porcentaje"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=porcentaje{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="porcentaje" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-porcentaje{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-porcentaje"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th class="controlLista">Ficha</th>
-    <th class="controlLista">Editar</th>
-    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in nivelcomplejidadriesgos %}
 
-<tr id="tr{{i.pk}}">
-    <td>
+<tr id="tr{{i.pk}}" data-url="{% url 'ucomplejidadriesgos:edit_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
+    <td id="td1_{{i.pk}}">
 
         {{ i.nivel_complejidad_riesgo }}
 
     </td>
-    <td>
+    <td id="td2_{{i.pk}}">
 
-        {{ i.factor_inicial }}
-
-    </td>
-    <td>
-
-        {{ i.factor_final }}
+        {{ i.factor_inicial }} UND
 
     </td>
-        <td>
+    <td id="td3_{{i.pk}}">
 
-        {{ i.porcentaje }}
+        {{ i.factor_final }} UND
 
     </td>
-    <td>
-      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
+        <td id="td4_{{i.pk}}">
+
+        {{ i.porcentaje }} %
+
     </td>
-    <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucomplejidadriesgos:edit_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
-    </td>
-    <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucomplejidadriesgos:eliminar_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+    <td class="c_td">
+            <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucomplejidadriesgos:eliminar_nivelcomplejidadriesgo' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+            <span class="iconoGrupoControl"></span>
     </td>
 </tr>
 
@@ -275,7 +267,7 @@ Complejidad y riesgo
         ocultarASCDesc('factor_inicial');
         ocultarASCDesc('factor_final');
         ocultarASCDesc('porcentaje');
-    })
+    });
 </script>
 
 {% endblock lista %}

@@ -1,23 +1,23 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo_form %}
+{% block titulo_ficha %}
 
-Editar el tipo de mueble: {{form.tipo_de_mueble.value|lower}}
+Ficha del tipo de mueble: <small>{{form.tipo_de_mueble.value|lower}}</small>
 
-{% endblock titulo_form %}
+{% endblock titulo_ficha %}
 
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if tipodemueble_previous %}
 
 <li class="anterior">
-    <md-button ng-href="{% url 'umuebles:edit_tipodemueble' tipodemueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <md-button ng-href="{% url 'umuebles:edit_tipodemueble' tipodemueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; anterior</md-button>
 </li>
 
 {% else %}
 
 <li class="anteriorBloqueado">
-    <md-button ng-href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+    <md-button ng-href="#" ng-disabled="true" tabindex="-1">&larr; anterior</md-button>
 </li>
 
 {% endif %}
@@ -25,37 +25,63 @@ Editar el tipo de mueble: {{form.tipo_de_mueble.value|lower}}
 {% if tipodemueble_next %}
 
 <li class="siguiente">
- <md-button ng-href="{% url 'umuebles:edit_tipodemueble' tipodemueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+ <md-button ng-href="{% url 'umuebles:edit_tipodemueble' tipodemueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">siguienete &rarr;</md-button>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button ng-href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+    <md-button ng-href="#" ng-disabled="true" tabindex="-1">siguienete &rarr;</md-button>
 </li>
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.tipo_de_mueble}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
 
-{% block moduloAngular %}
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
+app.controller('controlForm', function($scope){
     $scope.tipo_de_mueble = '{{form.tipo_de_mueble.value}}';
     $scope.descripcion = '{{form.descripcion.value}}';
-    $scope.$watch('tipo_de_mueble', function(newV){
-      newV && $('#id_tipo_de_mueble').focus();
-    },true);
-  });
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.tipo_de_mueble = '{{form.tipo_de_mueble.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+    }
+    $('input, textarea, h3').hover(function(){
+        $(this).parent().addClass('md-input-focused');
+    }, function(){
+        $(this).parent().removeClass('md-input-focused');
+    });
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_mueble.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+});
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

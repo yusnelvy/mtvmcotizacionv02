@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Complejidad y riesgo
+Ficha de la complejidad y riesgo: <small>{{form.situacion.value|lower}}</small>
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar la complejidad y riesgo: {{form.situacion.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if complejidadriesgo_previous %}
 
@@ -42,17 +36,51 @@ Editar la complejidad y riesgo: {{form.situacion.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.situacion}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
 
-{% block moduloAngular %}
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.factor_complejidad.id_for_label}}">
+
+    {{form.factor_complejidad.label}}
+
+</label>
+
+{{form.factor_complejidad}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.factor_riesgo.id_for_label}}">
+
+    {{form.factor_riesgo.label}}
+
+</label>
+
+{{form.factor_riesgo}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -60,9 +88,24 @@ app.controller('controlForm',function($scope){
     $scope.descripcion = '{{form.descripcion.value}}';
     $scope.factor_complejidad = '{{form.factor_complejidad.value}}';
     $scope.factor_riesgo = '{{form.factor_riesgo.value}}';
-    $('#id_situacion').focus();
-    $('#id_situacion').parent().addClass('md-input-focused');
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.situacion = '{{form.situacion.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+        $scope.factor_complejidad = '{{form.factor_complejidad.value}}';
+        $scope.factor_riesgo = '{{form.factor_riesgo.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.situacion.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.factor_complejidad.value}}');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.factor_riesgo.value}}');
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

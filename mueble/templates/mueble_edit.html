@@ -1,51 +1,85 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo_form %}
+{% block titulo_ficha %}
 
-Editar el mueble: {{form.mueble.value|lower}}
+Ficha del mueble: <small>{{form.mueble.value|lower}}</small>
 
-{% endblock titulo_form %}
+{% endblock titulo_ficha %}
 
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if mueble_previous %}
 
-        <li class="anterior">
-            <md-button href="{% url 'umuebles:edit_mueble' mueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
-        </li>
-    {% else %}
+<li class="anterior">
+    <md-button href="{% url 'umuebles:edit_mueble' mueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+</li>
+{% else %}
 
-        <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
-        </li>
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+</li>
 
-    {% endif %}
+{% endif %}
 
-    {% if mueble_next %}
+{% if mueble_next %}
 
-        <li class="siguiente">
-            <md-button href="{% url 'umuebles:edit_mueble' mueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
-        </li>
+<li class="siguiente">
+    <md-button href="{% url 'umuebles:edit_mueble' mueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% else %}
+{% else %}
 
-        <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
-        </li>
+<li class="siguienteBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+</li>
 
-    {% endif %}
+{% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.mueble}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.ambiente.id_for_label}}">
 
-{% block moduloAngular %}
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+<div class="grupoInputX2">
+    <md-input-container>
+<span class="labelSwitch">
+{{form.trasladable.label}}
+</span >
+
+    {{form.trasladable}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.tipo_de_mueble.id_for_label}}">
+
+{{form.tipo_de_mueble.label}}
+
+</label>
+
+{{form.tipo_de_mueble}}
+
+</md-input-container>
+</div>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -53,17 +87,27 @@ app.controller('controlForm',function($scope){
     $scope.descripcion = '{{form.descripcion.value}}';
     $scope.tipo_de_mueble = '{{form.tipo_de_mueble.value}}';
     $scope.trasladable = {{form.trasladable.value|lower}};
-    $('#id_tipo_de_mueble').focus();
-    //$('#id_mueble').parent().addClass('md-input-focused');
-    $('label[for=id_trasladable]').parent().each(function(){
-        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
-    });
-    $('label[for=id_trasladable]').css('display','none');
-    setTimeout(function() {
-        $("input[name='trasladable']").bootstrapSwitch();
-        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_trasladable">' + $('label[for=id_trasladable]').text() + '</label>');
-    }, 100);
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.mueble = '{{form.mueble.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+        $scope.tipo_de_mueble = '{{form.tipo_de_mueble.value}}';
+        $scope.trasladable = {{form.trasladable.value|lower}};
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.mueble.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.trasladable.value|yesno:"Trasladable,No trasladable"}}');
+    //tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.tipo_de_mueble.value}}');
+setTimeout(function() {
+    $("input[name='trasladable']").bootstrapSwitch();
+}, 100);
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

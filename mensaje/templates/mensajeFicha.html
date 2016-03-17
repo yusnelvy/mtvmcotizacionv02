@@ -1,0 +1,29 @@
+{% if messages %}
+
+{% for message in messages %}
+
+<div ng-controller="AppCtrl"></div>
+<style>
+md-toast div {
+    vertical-align:middle;
+    margin-top: 15px;
+}
+</style>
+<script>
+app.controller('AppCtrl', function($scope, $mdToast, $document) {
+    function toast(type, msg){
+        $mdToast.show({
+            template: '<md-toast class="md-toast ' + type +'" style="text-align:center;vertical-align:middle;display:block;position:absolute;bottom:30px;background-color: #323232;z-index:2000;">' + msg + '</md-toast>',
+            hideDelay: 6000,
+            position: 'top right'
+        });
+    }
+    setTimeout(function() {
+        toast('tipo', '{{ message }}');
+    }, 100);
+});
+</script>
+
+{% endfor %}
+
+{% endif %}

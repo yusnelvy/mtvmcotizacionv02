@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Vehículo
+Ficha del vehículo: <small>{{form.marca.value|lower}} {{form.modelo.value|lower}}</small>
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el vehículo: {{form.marca.value|lower}} {{form.modelo.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if vehiculo_previous %}
 
@@ -40,15 +34,15 @@ Editar el vehículo: {{form.marca.value|lower}} {{form.modelo.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
 {{ form.as_md }}
 
-{% endblock cuerpo_form %}
+{% endblock ficha_basica %}
 
-{% block moduloAngular %}
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -58,8 +52,28 @@ app.controller('controlForm',function($scope){
     $scope.motor = '{{form.motor.value}}';
     $scope.volumen_total_carga = '{{form.volumen_total_carga.value}}';
     $scope.peso_total_carga = '{{form.peso_total_carga.value}}';
-      $('#id_marca').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.marca = '{{form.marca.value}}';
+        $scope.modelo = '{{form.modelo.value}}';
+        $scope.transmision = '{{form.transmision.value}}';
+        $scope.motor = '{{form.motor.value}}';
+        $scope.volumen_total_carga = '{{form.volumen_total_carga.value}}';
+        $scope.peso_total_carga = '{{form.peso_total_carga.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.marca.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.modelo.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.transmision.value}}');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.motor.value}}');
+    tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.volumen_total_carga.value}}');
+    tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.peso_total_carga.value}}');
   });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

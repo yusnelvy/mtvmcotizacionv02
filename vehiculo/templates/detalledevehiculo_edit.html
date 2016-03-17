@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_fichas %}
 
-Vehículo
+Ficha del detalle de vehículo: <small>{{form.vehiculo.value|lower}}</small>
 
-{% endblock titulo %}
+{% endblock titulo_fichas %}
 
-{% block titulo_form %}
-
-Editar el detalle de vehículo: {{form.vehiculo.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if detalledevehiculo_previous %}
 
@@ -42,15 +36,15 @@ Editar el detalle de vehículo: {{form.vehiculo.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
 {{ form.as_md }}
 
-{% endblock cuerpo_form %}
+{% endblock ficha_basica %}
 
-{% block moduloAngular %}
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -64,8 +58,37 @@ app.controller('controlForm',function($scope){
     $scope.alto_aux = '{{form.alto_aux.value}}';
     $scope.tara_vehiculo = '{{form.tara_vehiculo.value}}';
     $scope.observacion = '{{form.observacion.value}}';
-    $('#id_vehiculo').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.vehiculo = '{{form.vehiculo.value}}';
+        $scope.numero_de_camion = '{{form.numero_de_camion.value}}';
+        $scope.ancho = '{{form.ancho.value}}';
+        $scope.largo = '{{form.largo.value}}';
+        $scope.alto = '{{form.alto.value}}';
+        $scope.ancho_aux = '{{form.ancho_aux.value}}';
+        $scope.largo_aux = '{{form.largo_aux.value}}';
+        $scope.alto_aux = '{{form.alto_aux.value}}';
+        $scope.tara_vehiculo = '{{form.tara_vehiculo.value}}';
+        $scope.observacion = '{{form.observacion.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.numero_de_camion.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.ancho.value}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.largo.value}}');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.alto.value}}');
+    tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.ancho_aux.value}}');
+    tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.largo_aux.value}}');
+    tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.alto_aux.value}}');
+    tr.children('td[id=td8_{{form.instance.pk}}]').text('{{form.tara_vehiculo.value}}');
+    tr.children('td[id=td9_{{form.instance.pk}}]').text('{{form.observacion.value}}');
+    //tr.children('td[id=td10_{{form.instance.pk}}]').text('{{form.vehiculo.value}}');
+
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}
