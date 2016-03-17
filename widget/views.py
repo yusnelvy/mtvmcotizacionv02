@@ -255,7 +255,6 @@ class ConfigurarWidgetView(View):
            for item in widgets:
                data.append({'nombre': item.nombre,
                             'visible': item.visible,
-                            'desplegable': item.desplegable,
                             'numero_de_columna': item.numero_de_columna,
                             'color': item.color,
                             'orden': item.orden,
