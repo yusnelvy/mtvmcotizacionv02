@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from menu.models import Menu, MenuFavorito, Relacion
 from menu.forms import MenuForm, MenuFavoritoForm, RelacionForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -40,7 +40,24 @@ class MenuListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['menu',
+                                             'transaccion',
+                                             'namespace',
+                                             'name',
+                                             'nivel',
+                                             'menu_padre__menu', ])
+            lista_menu = Menu.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['menu',
+                                             'transaccion',
+                                             'namespace',
+                                             'name',
+                                             'nivel',
+                                             'menu_padre__menu', ])
+            lista_menu = Menu.objects.filter(entry_query)
+        elif order_by:
             lista_menu = Menu.objects.all().order_by(order_by)
         else:
             lista_menu = Menu.objects.all()
@@ -76,7 +93,24 @@ class MenuListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['menu',
+                                             'transaccion',
+                                             'namespace',
+                                             'name',
+                                             'nivel',
+                                             'menu_padre__menu', ])
+            queryset = Menu.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['menu',
+                                             'transaccion',
+                                             'namespace',
+                                             'name',
+                                             'nivel',
+                                             'menu_padre__menu', ])
+            queryset = Menu.objects.filter(entry_query)
+        elif order_by:
             queryset = Menu.objects.all().order_by(order_by)
         else:
             queryset = Menu.objects.all()
@@ -272,7 +306,18 @@ class MenuFavoritoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['usuario__username',
+                                             'menu__menu',
+                                             'grupo', ])
+            lista_menufavorito = MenuFavorito.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['usuario__username',
+                                             'menu__menu',
+                                             'grupo', ])
+            lista_menufavorito = MenuFavorito.objects.filter(entry_query)
+        elif order_by:
             lista_menufavorito = MenuFavorito.objects.all().order_by(order_by)
         else:
             lista_menufavorito = MenuFavorito.objects.all()
@@ -308,7 +353,18 @@ class MenuFavoritoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['usuario__username',
+                                             'menu__menu',
+                                             'grupo', ])
+            queryset = MenuFavorito.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['usuario__username',
+                                             'menu__menu',
+                                             'grupo', ])
+            queryset = MenuFavorito.objects.filter(entry_query)
+        elif order_by:
             queryset = MenuFavorito.objects.all().order_by(order_by)
         else:
             queryset = MenuFavorito.objects.all()
@@ -504,7 +560,18 @@ class RelacionListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'item_origen__menu',
+                                             'item_relacion__menu', ])
+            lista_relacion = Relacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'item_origen__menu',
+                                             'item_relacion__menu', ])
+            lista_relacion = Relacion.objects.filter(entry_query)
+        elif order_by:
             lista_relacion = Relacion.objects.all().order_by(order_by)
         else:
             lista_relacion = Relacion.objects.all()
@@ -540,7 +607,18 @@ class RelacionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'item_origen__menu',
+                                             'item_relacion__menu', ])
+            queryset = Relacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'item_origen__menu',
+                                             'item_relacion__menu', ])
+            queryset = Relacion.objects.filter(entry_query)
+        elif order_by:
             queryset = Relacion.objects.all().order_by(order_by)
         else:
             queryset = Relacion.objects.all()
@@ -773,3 +851,8 @@ def lista_Transaccion(request):
             return JsonResponse({'url': reverse(url)}, safe=False)
 
     return JsonResponse({'url': ''}, safe=False)
+
+
+def mostrar_Menu(request):
+    """Docstring"""
+    return render(request, 'Menu_general.html')

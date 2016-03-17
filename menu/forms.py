@@ -22,8 +22,6 @@ class MenuForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'menu_padre': SelectMD(),
             'menu': TextInput(attrs={'required': 'required'}),
             'transaccion': TextInput(attrs={'required': 'required'}),
-            'namespace': TextInput(attrs={'required': 'required'}),
-            'name': TextInput(attrs={'required': 'required'}),
             'nivel': NumberInput(attrs={'required': 'required'})
             }
         labels = {

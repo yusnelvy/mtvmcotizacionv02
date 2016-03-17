@@ -13,12 +13,13 @@ from premisas.models import Empresa, PersonalizacionVisual, \
 from premisas.forms import EmpresaForm, PersonalizacionVisualForm, \
     VarianteVisualForm, VarianteVisualDetalleFormSet, \
     DatosPrecargadoForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.contenttypes.models import ContentType
 from django.core import serializers
+import json
 
 
 # Create your views here.
@@ -51,7 +52,30 @@ class EmpresaListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['codigo',
+                                             'empresa',
+                                             'telefonos',
+                                             'direccion',
+                                             'sitio_web',
+                                             'correo',
+                                             'responsable',
+                                             'cuit',
+                                             'telefono_call_center', ])
+            lista_empresa = Empresa.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['codigo',
+                                             'empresa',
+                                             'telefonos',
+                                             'direccion',
+                                             'sitio_web',
+                                             'correo',
+                                             'responsable',
+                                             'cuit',
+                                             'telefono_call_center', ])
+            lista_empresa = Empresa.objects.filter(entry_query)
+        elif order_by:
             lista_empresa = Empresa.objects.all().order_by(order_by)
         else:
             lista_empresa = Empresa.objects.all()
@@ -87,7 +111,30 @@ class EmpresaListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['codigo',
+                                             'empresa',
+                                             'telefonos',
+                                             'direccion',
+                                             'sitio_web',
+                                             'correo',
+                                             'responsable',
+                                             'cuit',
+                                             'telefono_call_center', ])
+            queryset = Empresa.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['codigo',
+                                             'empresa',
+                                             'telefonos',
+                                             'direccion',
+                                             'sitio_web',
+                                             'correo',
+                                             'responsable',
+                                             'cuit',
+                                             'telefono_call_center', ])
+            queryset = Empresa.objects.filter(entry_query)
+        elif order_by:
             queryset = Empresa.objects.all().order_by(order_by)
         else:
             queryset = Empresa.objects.all()
@@ -279,7 +326,18 @@ class PersonalizacionVisualListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo',
+                                             'usuario__username',
+                                             'valor', ])
+            lista_personalizacionvisual = PersonalizacionVisual.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo',
+                                             'usuario__username',
+                                             'valor', ])
+            lista_personalizacionvisual = PersonalizacionVisual.objects.filter(entry_query)
+        elif order_by:
             lista_personalizacionvisual = PersonalizacionVisual.objects.all().order_by(order_by)
         else:
             lista_personalizacionvisual = PersonalizacionVisual.objects.all()
@@ -315,8 +373,19 @@ class PersonalizacionVisualListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo',
+                                             'usuario__username',
+                                             'valor', ])
+            queryset = PersonalizacionVisual.objects.filter(entry_query).order_by(order_by)
+        elif order_by:
             queryset = PersonalizacionVisual.objects.all().order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo',
+                                             'usuario__username',
+                                             'valor', ])
+            queryset = PersonalizacionVisual.objects.filter(entry_query)
         else:
             queryset = PersonalizacionVisual.objects.all()
 
@@ -507,7 +576,18 @@ class VarianteVisualListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'usuario__username',
+                                             'model', ])
+            lista_variantevisual = VarianteVisual.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'usuario__username',
+                                             'model', ])
+            lista_variantevisual = VarianteVisual.objects.filter(entry_query)
+        elif order_by:
             lista_variantevisual = VarianteVisual.objects.all().order_by(order_by)
         else:
             lista_variantevisual = VarianteVisual.objects.all()
@@ -543,7 +623,18 @@ class VarianteVisualListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'usuario__username',
+                                             'model', ])
+            queryset = VarianteVisual.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'usuario__username',
+                                             'model', ])
+            queryset = VarianteVisual.objects.filter(entry_query)
+        elif order_by:
             queryset = VarianteVisual.objects.all().order_by(order_by)
         else:
             queryset = VarianteVisual.objects.all()
@@ -778,7 +869,22 @@ class DatosPrecargadoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre_app',
+                                             'dato',
+                                             'model',
+                                             'tipo_de_dato',
+                                             'valor', ])
+            lista_datosprecargado = DatosPrecargado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre_app',
+                                             'dato',
+                                             'model',
+                                             'tipo_de_dato',
+                                             'valor', ])
+            lista_datosprecargado = DatosPrecargado.objects.filter(entry_query)
+        elif order_by:
             lista_datosprecargado = DatosPrecargado.objects.all().order_by(order_by)
         else:
             lista_datosprecargado = DatosPrecargado.objects.all()
@@ -814,7 +920,22 @@ class DatosPrecargadoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre_app',
+                                             'dato',
+                                             'model',
+                                             'tipo_de_dato',
+                                             'valor', ])
+            queryset = DatosPrecargado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre_app',
+                                             'dato',
+                                             'model',
+                                             'tipo_de_dato',
+                                             'valor', ])
+            queryset = DatosPrecargado.objects.filter(entry_query)
+        elif order_by:
             queryset = DatosPrecargado.objects.all().order_by(order_by)
         else:
             queryset = DatosPrecargado.objects.all()
@@ -984,3 +1105,26 @@ class DatosPrecargadoDelete(DeleteView):
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
+
+
+# view para llenar select dinamico segun el model seleccionado
+def exchange_fields(model):
+
+    fields = _related_models(model)
+
+    def _related_models(m):
+        return [
+            f.related_model for f in m._meta.get_fields()
+        ]
+
+    if fields:
+
+        response = {
+            'cant_ambiente': 'consulto'
+            }
+    else:
+        response = {
+            'cant_ambiente': 0
+            }
+
+    return HttpResponse(json.dumps(response), content_type='application/json')

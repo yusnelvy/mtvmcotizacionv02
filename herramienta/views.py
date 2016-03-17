@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from herramienta.models import Herramienta, DotacionBasicaDeCamion
 from herramienta.forms import HerramientaForm, DotacionBasicaDeCamionForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -44,7 +44,24 @@ class HerramientaListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta',
+                                             'unidad__unidad',
+                                             'descripcion',
+                                             'volumen_en_camion',
+                                             'peso_kg', ])
+
+            lista_herramienta = Herramienta.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta',
+                                             'unidad__unidad',
+                                             'descripcion',
+                                             'volumen_en_camion',
+                                             'peso_kg', ])
+
+            lista_herramienta = Herramienta.objects.filter(entry_query)
+        elif order_by:
             lista_herramienta = Herramienta.objects.all().order_by(order_by)
         else:
             lista_herramienta = Herramienta.objects.all()
@@ -80,7 +97,24 @@ class HerramientaListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta',
+                                             'unidad__unidad',
+                                             'descripcion',
+                                             'volumen_en_camion',
+                                             'peso_kg', ])
+
+            queryset = Herramienta.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta',
+                                             'unidad__unidad',
+                                             'descripcion',
+                                             'volumen_en_camion',
+                                             'peso_kg', ])
+
+            queryset = Herramienta.objects.filter(entry_query)
+        elif order_by:
             queryset = Herramienta.objects.all().order_by(order_by)
         else:
             queryset = Herramienta.objects.all()
@@ -272,7 +306,18 @@ class DotacionBasicaDeCamionListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta__herramienta',
+                                             'cantidad', ])
+
+            lista_dotacionbasicadecamion = DotacionBasicaDeCamion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta__herramienta',
+                                             'cantidad', ])
+
+            lista_dotacionbasicadecamion = DotacionBasicaDeCamion.objects.filter(entry_query)
+        elif order_by:
             lista_dotacionbasicadecamion = DotacionBasicaDeCamion.objects.all().order_by(order_by)
         else:
             lista_dotacionbasicadecamion = DotacionBasicaDeCamion.objects.all()
@@ -308,7 +353,18 @@ class DotacionBasicaDeCamionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta__herramienta',
+                                             'cantidad', ])
+
+            queryset = DotacionBasicaDeCamion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['herramienta__herramienta',
+                                             'cantidad', ])
+
+            queryset = DotacionBasicaDeCamion.objects.filter(entry_query)
+        elif order_by:
             queryset = DotacionBasicaDeCamion.objects.all().order_by(order_by)
         else:
             queryset = DotacionBasicaDeCamion.objects.all()

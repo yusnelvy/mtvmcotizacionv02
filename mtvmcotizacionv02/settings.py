@@ -56,7 +56,8 @@ INSTALLED_APPS = (
     'material',
     'servicio',
     'talonario',
-    'djangular'
+    'djangular',
+    'widget'
 )
 
 MIDDLEWARE_CLASSES = (

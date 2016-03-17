@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, View, UpdateView, \
     DeleteView, DetailView, CreateView
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
@@ -10,12 +10,17 @@ from cliente.forms import SexoForm, EstadoCivilForm, TipoDeClienteForm, \
     TipoDeRelacionForm, TipoDeInformacionDeContactoForm, ClienteForm, \
     ContactoForm, InformacionDeContactoForm, ClienteDireccionForm, \
     ClienteEstadoDeRegistroForm, ClienteForm, InformacionDeContactoFormSet
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from direccion.models  import Direccion, Ciudad
-from direccion.forms import DireccionForm
+from direccion.models import Direccion, Ciudad, Inmueble, Edificacion, \
+    TipoDeEdificacion, Ascensor, HorarioDisponible
+from direccion.forms import DireccionForm, EdificacionForm, AscensorFormSet, \
+    HorarioDisponibleFormSet, InmuebleForm
+from ambiente.forms import Ambiente
+import json
+from django.db.models import Count
 
 
 # Create your views here.
@@ -48,7 +53,13 @@ class SexoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            lista_sexo = Sexo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            lista_sexo = Sexo.objects.filter(entry_query)
+        elif order_by:
             lista_sexo = Sexo.objects.all().order_by(order_by)
         else:
             lista_sexo = Sexo.objects.all()
@@ -84,7 +95,14 @@ class SexoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            queryset = Sexo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['sexo', ])
+            queryset = Sexo.objects.filter(entry_query)
+        elif order_by:
             queryset = Sexo.objects.all().order_by(order_by)
         else:
             queryset = Sexo.objects.all()
@@ -278,7 +296,14 @@ class EstadoCivilListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            lista_estado_civil = EstadoCivil.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            lista_estado_civil = EstadoCivil.objects.filter(entry_query)
+        elif order_by:
             lista_estado_civil = EstadoCivil.objects.all().order_by(order_by)
         else:
             lista_estado_civil = EstadoCivil.objects.all()
@@ -314,9 +339,15 @@ class EstadoCivilListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
-            queryset = EstadoCivil.objects.all().order_by(order_by)
-        else:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            queryset = EstadoCivil.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado_civil', ])
+            queryset = EstadoCivil.objects.filter(entry_query)
+        elif order_by:
+            lista_estado_civil = EstadoCivil.objects.all().order_by(order_by)
             queryset = EstadoCivil.objects.all()
 
         return queryset
@@ -508,7 +539,16 @@ class TipoDeClienteListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion' ])
+            lista_tipodecliente = TipoDeCliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion' ])
+            lista_tipodecliente = TipoDeCliente.objects.filter(entry_query)
+        elif order_by:
             lista_tipodecliente = TipoDeCliente.objects.all().order_by(order_by)
         else:
             lista_tipodecliente = TipoDeCliente.objects.all()
@@ -544,7 +584,16 @@ class TipoDeClienteListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion', ])
+            queryset = TipoDeCliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente',
+                                             'descripcion', ])
+            queryset = TipoDeCliente.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeCliente.objects.all().order_by(order_by)
         else:
             queryset = TipoDeCliente.objects.all()
@@ -676,7 +725,7 @@ class TipoDeClienteUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -719,10 +768,8 @@ class TipoDeRelacionListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -740,7 +787,16 @@ class TipoDeRelacionListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            lista_tipoderelacion = TipoDeRelacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            lista_tipoderelacion = TipoDeRelacion.objects.filter(entry_query)
+        elif order_by:
             lista_tipoderelacion = TipoDeRelacion.objects.all().order_by(order_by)
         else:
             lista_tipoderelacion = TipoDeRelacion.objects.all()
@@ -776,7 +832,16 @@ class TipoDeRelacionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            queryset = TipoDeRelacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_relacion',
+                                             'descripcion', ])
+            queryset = TipoDeRelacion.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeRelacion.objects.all().order_by(order_by)
         else:
             queryset = TipoDeRelacion.objects.all()
@@ -970,7 +1035,16 @@ class TipoDeInformacionDeContactoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.filter(entry_query)
+        elif order_by:
             lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.all().order_by(order_by)
         else:
             lista_tipodeinformaciondecontacto = TipoDeInformacionDeContacto.objects.all()
@@ -1006,7 +1080,16 @@ class TipoDeInformacionDeContactoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            queryset = TipoDeInformacionDeContacto.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_informacion_de_contacto',
+                                             'descripcion', ])
+            queryset = TipoDeInformacionDeContacto.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeInformacionDeContacto.objects.all().order_by(order_by)
         else:
             queryset = TipoDeInformacionDeContacto.objects.all()
@@ -1200,7 +1283,18 @@ class ClienteListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            lista_cliente = Cliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            lista_cliente = Cliente.objects.filter(entry_query)
+        elif order_by:
             lista_cliente = Cliente.objects.all().order_by(order_by)
         else:
             lista_cliente = Cliente.objects.all()
@@ -1237,7 +1331,18 @@ class ClienteListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            queryset = Cliente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_cliente__tipo_de_cliente',
+                                             'cuit',
+                                             'nombre', ])
+            queryset = Cliente.objects.filter(entry_query)
+        elif order_by:
             queryset = Cliente.objects.all().order_by(order_by)
         else:
             queryset = Cliente.objects.all()
@@ -1275,7 +1380,8 @@ class ClienteView(View):
                                                 "?cliente="+str(id_reg.id) +
                                                 "&relacion=cliente")
                 else:
-                    return HttpResponseRedirect(reverse('uclientes:list_cliente'))
+                    return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                args=(id_reg.id,)))
 
         return render(request, self.template_name, {'form': form})
 
@@ -1284,6 +1390,7 @@ class ClienteUpdate(UpdateView):
     template_name = 'cliente_edit.html'
     form_class = ClienteForm
     model = Cliente
+    second_form_class = ContactoForm
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -1373,12 +1480,34 @@ class ClienteUpdate(UpdateView):
 
         context['cliente_previous'] = cliente_previous
         context['cliente_next'] = cliente_next
+        contacto1 = Contacto.objects.filter(cliente=self.object.pk,
+                                            tipo_de_relacion__tipo_de_relacion='cliente')
+
+        if contacto1:
+            contacto = Contacto.objects.get(pk=contacto1[0].id)
+            if self.request.POST:
+                context['contacto'] = self.second_form_class(self.request.POST, instance=contacto)
+                item_form = InformacionDeContactoFormSet(self.request.POST, instance=contacto)
+            else:
+                context['contacto'] = self.second_form_class(instance=contacto)
+                item_form = InformacionDeContactoFormSet(instance=contacto)
+
+            context['item_form'] = item_form
 
         return context
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.save()
+        context = self.get_context_data()
+
+        if form.is_valid():
+            self.object = form.save()
+
+            if self.object.tipo_de_cliente == 'Particular':
+                contacto = context['contacto']
+                item_form = context['item_form']
+                if contacto.is_valid() and item_form.is_valid():
+                    contacto.save()
+                    item_form.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -1422,6 +1551,7 @@ class ClienteDetail(DetailView):
         context['contacto_cliente'] = InformacionDeContacto.objects.filter(contacto__cliente=self.object.pk,
                                                                            contacto__tipo_de_relacion__tipo_de_relacion='cliente')
         context['contactos'] = InformacionDeContacto.objects.filter(contacto__cliente=self.object.pk).exclude(contacto__tipo_de_relacion__tipo_de_relacion='cliente')
+        context['direcciones'] = ClienteDireccion.objects.filter(cliente=self.object.pk)
 
         return context
 
@@ -1542,9 +1672,12 @@ class ContactoUpdate(UpdateView):
                 order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
 
         if order_by:
-            lista_contacto = Contacto.objects.all().order_by(order_by)
+            lista_contacto = Contacto.objects.all().order_by(order_by
+                                                             ).exclude(tipo_de_relacion__tipo_de_relacion=
+                                                                       'cliente')
         else:
-            lista_contacto = Contacto.objects.all()
+            lista_contacto = Contacto.objects.all().exclude(tipo_de_relacion__tipo_de_relacion=
+                                                            'cliente')
 
         paginator = Paginator(lista_contacto, nropag)
         # Show 25 contacts per page
@@ -1611,21 +1744,21 @@ class ContactoUpdate(UpdateView):
         return context
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        item_form = InformacionDeContactoFormSet(self.request.POST,
-                                                 self.request.FILES,
-                                                 instance=self.object)
-        if item_form.is_valid():
-            id_reg = self.object.save()
+        context = self.get_context_data()
+        item_form = context['item_form']
+
+        if form.is_valid() and item_form.is_valid():
+            self.object = form.save()
             item_form.save()
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Persona de contacto " + str(id_reg) + "  guardado con éxito.")
+            messages.success(self.request, "Persona de contacto " + str(self.object) + "  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
+            messages.success(self.request, "Persona de contacto " + str(self.object) + "  guardado con éxito.")
             if redirect_to:
                 return HttpResponseRedirect(redirect_to)
             else:
@@ -1633,6 +1766,7 @@ class ContactoUpdate(UpdateView):
                                                     args=(self.object.cliente.id,)))
 
 
+# app direccion
 class ClienteDireccionView(View):
     form_class = DireccionForm
     template_name = 'clientedireccion_add.html'
@@ -1653,25 +1787,667 @@ class ClienteDireccionView(View):
         form = self.form_class(request.POST)
 
         titulo = self.request.POST.get('titulo_de_direccion', '')
-        cliente = self.request.POST.get('cliente', '')
+        cliente = self.request.GET.get('cliente', '')
 
         if form.is_valid():
             id_reg = form.save()
 
             direccion = Direccion.objects.filter(id=id_reg.id)
 
-            agregarclientedireccion = ClienteDireccion.objects.create(cliente=cliente,
-                                                                      direccion=id_reg.id,
+            agregarclientedireccion = ClienteDireccion.objects.create(cliente_id=cliente,
+                                                                      direccion_id=id_reg.id,
                                                                       titulo_de_direccion=titulo,
-                                                                      detalle_de_direccion=direccion[0].full_direccion)
-            clientedireccion = agregarclientedireccion.save()
+                                                                      detalle_de_direccion=direccion[0].full_direccion())
+            agregarclientedireccion.save()
 
             if 'regEdit' in request.POST:
                 messages.success(self.request, "Dirección '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:edit_direccion',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
-                                            "?clientedireccion="+str(clientedireccion.id))
+                                            "?clientedireccion="+str(agregarclientedireccion.id))
 
         return render(request, self.template_name, {'form': form})
+
+
+class ClienteDireccionUpdate(UpdateView):
+    template_name = 'clientedireccion_edit.html'
+    form_class = DireccionForm
+    model = Direccion
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ClienteDireccionUpdate, self).get_context_data(**kwargs)
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+
+        clientedireccion = Direccion.objects.get(pk=self.object.pk)
+        redirect_to = self.request.REQUEST.get('next', '')
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+
+        if order_by:
+            redirect_to = redirect_to + '&order_by=' + order_by
+
+        if page:
+            redirect_to = redirect_to + '&page=' + page
+
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'page':
+                page = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+            elif variable[1].split("=")[0] == 'order_by':
+                order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+
+        if order_by:
+            lista_clientedireccion = Direccion.objects.all().order_by(order_by)
+        else:
+            lista_clientedireccion = Direccion.objects.all()
+
+        paginator = Paginator(lista_clientedireccion, nropag)
+        # Show 25 contacts per page
+
+        if page == '0':
+            clientedirecciones = lista_clientedireccion
+        else:
+            try:
+                clientedirecciones = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                clientedirecciones = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                clientedirecciones = paginator.page(paginator.num_pages)
+
+        if page != '0':
+            countitem = int(nropag)
+            for i in range(0, countitem):
+                if(clientedirecciones.object_list[i].id == clientedireccion.id):
+                    if clientedirecciones.has_previous:
+                        try:
+                            previousitem = clientedirecciones.object_list[i-1].id
+                        except:
+                            previousitem = None
+
+                    if clientedirecciones.has_next:
+                        try:
+                            nextitem = clientedirecciones.object_list[i+1].id
+                        except:
+                            nextitem = None
+                    break
+        else:
+            countitem = len(clientedirecciones)
+            for i in range(0, countitem):
+                if(clientedirecciones[i].id == clientedirecciones.id):
+                    try:
+                        previousitem = clientedirecciones[i-1].id
+                    except:
+                        previousitem = None
+                    try:
+                        nextitem = clientedirecciones[i+1].id
+                    except:
+                        nextitem = None
+                    break
+
+        try:
+            clientedireccion_previous = DireccionForm.objects.get(pk=previousitem)
+        except:
+            clientedireccion_previous = None
+        try:
+            clientedireccion_next = DireccionForm.objects.get(pk=nextitem)
+        except:
+            clientedireccion_next = None
+
+        context['clientedireccion_previous'] = clientedireccion_previous
+        context['clientedireccion_next'] = clientedireccion_next
+
+        direccion = ClienteDireccion.objects.filter(id=self.request.GET.get('clientedireccion'))
+        context['titulo'] = direccion[0].titulo_de_direccion
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.save()
+
+        clientedireccion = self.request.GET.get('clientedireccion', '')
+        titulo = self.request.POST.get('titulo_de_direccion', '')
+
+        clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
+
+        clientedireccion.update(titulo_de_direccion=titulo)
+
+        if 'regEdit' in self.request.POST:
+
+            messages.success(self.request, "Dirección '" + str(self.object) + "'  guardado con éxito.")
+            return HttpResponseRedirect(self.request.get_full_path())
+
+        else:
+            redirect_to = self.request.REQUEST.get('next', '')
+            if redirect_to:
+                messages.success(self.request, "Dirección '" + str(self.object) + "'  guardado con éxito.")
+                return HttpResponseRedirect(redirect_to +
+                                            "&clientedireccion="+str(clientedireccion[0].id))
+            else:
+                return render_to_response(self.template_name, self.get_context_data())
+
+
+class ClienteInmuebleView(View):
+    form_class = InmuebleForm
+    template_name = 'clienteinmueble_add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ClienteInmuebleView, self).get_context_data(**kwargs)
+        direccion = Direccion.objects.filter(clientedireccion=
+                                             self.request.GET.get('clientedireccion'))
+        context['form'].fields['edificacion'].queryset = Edificacion.objects.for_direccion(direccion.id)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        """docstring"""
+
+        direccion = Direccion.objects.filter(clientedireccion=
+                                             self.request.GET.get('clientedireccion'))
+        if self.request.GET.get('edificacion'):
+            edificacion = Edificacion.objects.filter(id=self.request.GET.get('edificacion'))
+            data = {
+                'edificacion': edificacion[0].id
+                }
+            form = self.form_class(initial=data, direccion=direccion[0].id)
+        else:
+            form = self.form_class(direccion=direccion[0].id)
+        return render(request, self.template_name, {'form': form,
+                                                    'direccion': direccion})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        clientedireccion = self.request.GET.get('clientedireccion', '')
+
+        direccion = Direccion.objects.filter(clientedireccion=clientedireccion)
+
+        if form.is_valid():
+            id_reg = form.save()
+
+            inmueble = Inmueble.objects.filter(id=id_reg.id)
+
+            clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
+
+            clientedireccion.update(inmueble=inmueble[0].id, edificacion=inmueble[0].edificacion)
+
+            if 'regEdit' in request.POST:
+                messages.success(self.request, "Inmueble '" + str(id_reg) + "'  registrado con éxito.")
+                return HttpResponseRedirect(reverse('uclientes:edit_direccion',
+                                                    args=(id_reg.id,)))
+            else:
+                messages.success(self.request, "Inmueble:  '" + str(id_reg) + "'  registrado con éxito.")
+                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                    args=(clientedireccion[0].cliente.id,)))
+
+        return render(request, self.template_name, {'form': form,
+                                                    'direccion': direccion})
+
+
+class InmuebleUpdate(UpdateView):
+    template_name = 'clienteinmueble_edit.html'
+    form_class = InmuebleForm
+    model = Inmueble
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(InmuebleUpdate, self).get_context_data(**kwargs)
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+
+        inmueble = Inmueble.objects.get(pk=self.object.pk)
+        redirect_to = self.request.REQUEST.get('next', '')
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+
+        if order_by:
+            redirect_to = redirect_to + '&order_by=' + order_by
+
+        if page:
+            redirect_to = redirect_to + '&page=' + page
+
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'page':
+                page = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+            elif variable[1].split("=")[0] == 'order_by':
+                order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+
+        if order_by:
+            lista_inmueble = Inmueble.objects.all().order_by(order_by)
+        else:
+            lista_inmueble = Inmueble.objects.all()
+
+        paginator = Paginator(lista_inmueble, nropag)
+        # Show 25 contacts per page
+
+        if page == '0':
+            inmuebles = lista_inmueble
+        else:
+            try:
+                inmuebles = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                inmuebles = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                inmuebles = paginator.page(paginator.num_pages)
+
+        if page != '0':
+            countitem = int(nropag)
+            for i in range(0, countitem):
+                if(inmuebles.object_list[i].id == inmueble.id):
+                    if inmuebles.has_previous:
+                        try:
+                            previousitem = inmuebles.object_list[i-1].id
+                        except:
+                            previousitem = None
+
+                    if inmuebles.has_next:
+                        try:
+                            nextitem = inmuebles.object_list[i+1].id
+                        except:
+                            nextitem = None
+                    break
+        else:
+            countitem = len(inmuebles)
+            for i in range(0, countitem):
+                if(inmuebles[i].id == inmueble.id):
+                    try:
+                        previousitem = inmuebles[i-1].id
+                    except:
+                        previousitem = None
+                    try:
+                        nextitem = inmuebles[i+1].id
+                    except:
+                        nextitem = None
+                    break
+
+        try:
+            inmueble_previous = Inmueble.objects.get(pk=previousitem)
+        except:
+            inmueble_previous = None
+        try:
+            inmueble_next = Inmueble.objects.get(pk=nextitem)
+        except:
+            inmueble_next = None
+
+        context['inmueble_previous'] = inmueble_previous
+        context['inmueble_next'] = inmueble_next
+
+        direccion = Direccion.objects.filter(clientedireccion=
+                                             self.request.GET.get('clientedireccion'))
+        context['direccion'] = direccion
+        context['form'].fields['edificacion'].queryset = Edificacion.objects.filter(direccion=direccion[0].id)
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super(InmuebleUpdate, self).get_form_kwargs()
+        direccion = Direccion.objects.filter(clientedireccion=
+                                             self.request.GET.get('clientedireccion'))
+        kwargs['direccion'] = direccion[0].id
+        return kwargs
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.save()
+
+        clientedireccion = self.request.GET.get('clientedireccion', '')
+        clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
+        clientedireccion.update(inmueble=self.object.id, edificacion=self.object.edificacion)
+
+        if 'regEdit' in self.request.POST:
+
+            messages.success(self.request, "Inmueble '" + str(self.object) + "'  guardado con éxito.")
+            return HttpResponseRedirect(self.request.get_full_path())
+
+        else:
+            redirect_to = self.request.REQUEST.get('next', '')
+            if redirect_to:
+                messages.success(self.request, "Inmueble '" + str(self.object) + "'  guardado con éxito.")
+                return HttpResponseRedirect(redirect_to)
+            else:
+                return render_to_response(self.template_name, self.get_context_data())
+
+
+class EdificacionCreateView(CreateView):
+    template_name = 'clienteedificacion_add.html'
+    model = Edificacion
+    form_class = EdificacionForm
+
+    def get_initial(self):
+        super(EdificacionCreateView, self).get_initial()
+        clientedireccion = ClienteDireccion.objects.filter(id=self.request.GET.get('clientedireccion'))
+        data = {
+            'direccion': clientedireccion[0].direccion
+            }
+
+        self.initial = data
+        return self.initial
+
+    def get_context_data(self, **kwargs):
+        context = super(EdificacionCreateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['itemascensor_form'] = AscensorFormSet(self.request.POST)
+            context['itemhorariodisponible_form'] = HorarioDisponibleFormSet(self.request.POST)
+        else:
+            context['itemascensor_form'] = AscensorFormSet()
+            context['itemhorariodisponible_form'] = HorarioDisponibleFormSet()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        itemascensor_form = AscensorFormSet()
+        itemhorariodisponible_form = HorarioDisponibleFormSet()
+
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  itemascensor_form=itemascensor_form,
+                                  itemhorariodisponible_form=itemhorariodisponible_form))
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        if (form.is_valid()):
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        """
+        Called if all forms are valid. Creates a Contacto instance along with
+        associated Ingredients and Instructions and then redirects to a
+        success page.
+        """
+        context = self.get_context_data()
+        itemascensor_form = context['itemascensor_form']
+        itemhorariodisponible_form = context['itemhorariodisponible_form']
+        clientedireccion = self.request.GET.get('clientedireccion', '')
+        clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
+        redirect_to = self.request.GET.get('next', '')
+        nombre = self.request.POST.get('nombre_de_edificio', '')
+        if nombre:
+            nombre = nombre
+        else:
+            tipodeedificacion = TipoDeEdificacion.objects.filter(id=self.request.POST.get('tipo_de_edificacion', ''))
+            nombre = tipodeedificacion[0].tipo_de_edificacion
+
+        if itemascensor_form.is_valid() and itemhorariodisponible_form.is_valid():
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemascensor_form.instance = self.object
+            itemascensor_form.save()
+            itemhorariodisponible_form.instance = self.object
+            itemhorariodisponible_form.save()
+
+        elif itemascensor_form.is_valid():
+
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemascensor_form.instance = self.object
+            itemascensor_form.save()
+
+        elif itemhorariodisponible_form.is_valid():
+
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemhorariodisponible_form.instance = self.object
+            itemhorariodisponible_form.save()
+
+        else:
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+
+        if 'regEdit' in self.request.POST:
+            messages.success(self.request, "Registro guardado.")
+            return HttpResponseRedirect(reverse('uclientes:edit_contacto',
+                                                args=(self.object,)))
+        else:
+            if redirect_to:
+                messages.success(self.request, "Edificación '" + str(self.object) + "'  registrado con éxito.")
+                return HttpResponseRedirect(redirect_to +
+                                            "&edificacion="+str(self.object.id) +
+                                            "&clientedireccion="+str(clientedireccion[0].id))
+            else:
+                messages.success(self.request, "Edificación '" + str(self.object) + "'  registrado con éxito.")
+                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                    args=(clientedireccion[0].cliente.id,)))
+
+    def form_invalid(self, form):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form))
+
+
+class EdificacionUpdate(UpdateView):
+    template_name = 'clienteedificacion_edit.html'
+    form_class = EdificacionForm
+    model = Edificacion
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(EdificacionUpdate, self).get_context_data(**kwargs)
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+
+        edificacion = Edificacion.objects.get(pk=self.object.pk)
+        redirect_to = self.request.REQUEST.get('next', '')
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+
+        if order_by:
+            redirect_to = redirect_to + '&order_by=' + order_by
+
+        if page:
+            redirect_to = redirect_to + '&page=' + page
+
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'page':
+                page = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+            elif variable[1].split("=")[0] == 'order_by':
+                order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+
+        if order_by:
+            lista_edificacion = Edificacion.objects.all().order_by(order_by)
+        else:
+            lista_edificacion = Edificacion.objects.all()
+
+        paginator = Paginator(lista_edificacion, nropag)
+        # Show 25 contacts per page
+
+        if page == '0':
+            edificacions = lista_edificacion
+        else:
+            try:
+                edificacions = paginator.page(page)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                edificacions = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                edificacions = paginator.page(paginator.num_pages)
+
+        if page != '0':
+            countitem = int(nropag)
+            for i in range(0, countitem):
+                if(edificacions.object_list[i].id == edificacion.id):
+                    if edificacions.has_previous:
+                        try:
+                            previousitem = edificacions.object_list[i-1].id
+                        except:
+                            previousitem = None
+
+                    if edificacions.has_next:
+                        try:
+                            nextitem = edificacions.object_list[i+1].id
+                        except:
+                            nextitem = None
+                    break
+        else:
+            countitem = len(edificacions)
+            for i in range(0, countitem):
+                if(edificacions[i].id == edificacion.id):
+                    try:
+                        previousitem = edificacions[i-1].id
+                    except:
+                        previousitem = None
+                    try:
+                        nextitem = edificacions[i+1].id
+                    except:
+                        nextitem = None
+                    break
+
+        try:
+            edificacion_previous = Edificacion.objects.get(pk=previousitem)
+        except:
+            edificacion_previous = None
+        try:
+            edificacion_next = Edificacion.objects.get(pk=nextitem)
+        except:
+            edificacion_next = None
+
+        context['edificacion_previous'] = edificacion_previous
+        context['edificacion_next'] = edificacion_next
+        if self.request.POST:
+            itemascensor_form = AscensorFormSet(self.request.POST, instance=self.object)
+            itemhorariodisponible_form = HorarioDisponibleFormSet(self.request.POST, instance=self.object)
+        else:
+            itemascensor_form = AscensorFormSet(instance=self.object)
+            itemhorariodisponible_form = HorarioDisponibleFormSet(instance=self.object)
+
+        context['itemascensor_form'] = itemascensor_form
+        context['itemhorariodisponible_form'] = itemhorariodisponible_form
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        itemascensor_form = context['itemascensor_form']
+        itemhorariodisponible_form = context['itemhorariodisponible_form']
+        clientedireccion = self.request.GET.get('clientedireccion', '')
+        clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
+        nombre = self.request.POST.get('nombre_de_edificio', '')
+        if nombre:
+            nombre = nombre
+        else:
+            tipodeedificacion = TipoDeEdificacion.objects.filter(id=self.request.POST.get('tipo_de_edificacion', ''))
+            nombre = tipodeedificacion[0].tipo_de_edificacion
+
+        if itemascensor_form.is_valid() and itemhorariodisponible_form.is_valid():
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemascensor_form.instance = self.object
+            itemascensor_form.save()
+            itemhorariodisponible_form.instance = self.object
+            itemhorariodisponible_form.save()
+
+        elif itemascensor_form.is_valid():
+
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemascensor_form.instance = self.object
+            itemascensor_form.save()
+
+        elif itemhorariodisponible_form.is_valid():
+
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+            itemhorariodisponible_form.instance = self.object
+            itemhorariodisponible_form.save()
+
+        else:
+            self.object = form.save(commit=False)
+            self.object.nombre_de_edificio = nombre
+            self.object.save()
+
+        if 'regEdit' in self.request.POST:
+
+            messages.success(self.request, "Edificación " + str(self.object) + "  guardado con éxito.")
+            return HttpResponseRedirect(self.request.get_full_path())
+
+        else:
+            redirect_to = self.request.REQUEST.get('next', '')
+            messages.success(self.request, "Edificación " + str(self.object) + "  guardado con éxito.")
+            if redirect_to:
+                return HttpResponseRedirect(redirect_to +
+                                            "&clientedireccion="+str(clientedireccion[0].id))
+            else:
+                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                    args=(self.object.cliente.id,)))
+
+
+# view para obtener la cantidad de ambientes que tiene una especificacion de inmueble
+def exchange_especificaciondeinmueble(request, id_especificacion):
+
+    ambientes = Ambiente.objects.filter(ambienteportipodeinmueble__especificacion_de_inmueble=
+                                        id_especificacion,
+                                        conteo_de_ambientes=True
+                                        ).values('ambienteportipodeinmueble__especificacion_de_inmueble'
+                                                 ).annotate(tcount=Count('ambiente')
+                                                            ).order_by('ambienteportipodeinmueble__especificacion_de_inmueble')
+    if ambientes:
+        response = {'cant_ambiente': ambientes[0]['tcount']}
+    else:
+        response = {
+            'cant_ambiente': 0
+            }
+
+    return HttpResponse(json.dumps(response), content_type='application/json')
+
+
+def delete_ascensor(request, pk):
+    ascensor = Ascensor.objects.get(pk=pk)
+    ascensor.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+
+def delete_horariodisponible(request, pk):
+    horariodisponible = HorarioDisponible.objects.get(pk=pk)
+    horariodisponible.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+
+def delete_informaciondecontacto(request, pk):
+    informaciondecontacto = InformacionDeContacto.objects.get(pk=pk)
+    informaciondecontacto.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')

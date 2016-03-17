@@ -46,7 +46,8 @@ $("#id_nombre_app").on("change", function() {
 app.controller('controlForm',function($scope, $http){
   $("#id_nombre_app").on("change", function() {
     id_nombre_app = $("#id_nombre_app").val();
-    $http.get("/premisas/datos_precargado/nuevo/"+id_nombre_app+"/").success(function(list) {
+    $http.get("/premisas/datos_precargado/nuevo/"+id_nombre_app+"/")
+    .success(function(list) {
       //alert(list);
       $scope.results = list;
       console.log(list);

@@ -1,0 +1,124 @@
+{% extends "base_editar.html" %}
+{% block js_superior %}
+<script type="text/javascript">
+$(function() {
+        $(".inline.{{ itemascensor_form.prefix }}").formset({
+            prefix: "{{ itemascensor_form.prefix }}",
+        })
+        $(".inline.{{ itemhorariodisponible_form.prefix }}").formset({
+            prefix: "{{ itemhorariodisponible_form.prefix }}",
+        })
+    })
+</script>
+{% endblock js_superior %}
+{% block titulo %}
+
+    Edificación
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar edificación
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+  {{ form.as_md }}
+  <fieldset>
+    <legend>Ascensor</legend>
+    {{ itemascensor_form.management_form }}
+    {{ itemascensor_form.non_form_errors }}
+    {% for form in itemascensor_form %}
+    {{ form.id }}
+    <div class="inline {{ itemascensor_form.prefix }}">
+        {{ form.tipo_de_ascensor.errors }}
+        {{ form.tipo_de_ascensor.label_tag }}
+        {{ form.tipo_de_ascensor }}
+        {{ form.cantidad.errors }}
+        {{ form.cantidad.label_tag }}
+        {{ form.cantidad }}
+        {{ form.piso_ascensor.errors }}
+        {{ form.piso_ascensor.label_tag }}
+        {{ form.piso_ascensor }}
+        {{ form.velocidad_por_piso.errors }}
+        {{ form.velocidad_por_piso.label_tag }}
+        {{ form.velocidad_por_piso }}
+        {{ form.ancho.errors }}
+        {{ form.ancho.label_tag }}
+        {{ form.ancho }}
+        {{ form.largo.errors }}
+        {{ form.largo.label_tag }}
+        {{ form.largo }}
+        {{ form.alto.errors }}
+        {{ form.alto.label_tag }}
+        {{ form.alto }}
+        {{ form.capacidad_carga.errors }}
+        {{ form.capacidad_carga.label_tag }}
+        {{ form.capacidad_carga }}
+    </div>
+    {% endfor %}
+  </fieldset>
+
+  <fieldset>
+    <legend>Horarios Disponibles</legend>
+    {{ itemhorariodisponible_form.management_form }}
+    {{ itemhorariodisponible_form.non_form_errors }}
+    {% for form in itemhorariodisponible_form %}
+    {{ form.id }}
+    <div class="inline {{ itemhorariodisponible_form.prefix }}">
+        {{ form.lunes.errors }}
+        {{ form.lunes.label_tag }}
+        {{ form.lunes }}
+        {{ form.martes.errors }}
+        {{ form.martes.label_tag }}
+        {{ form.martes }}
+        {{ form.miercoles.errors }}
+        {{ form.miercoles.label_tag }}
+        {{ form.miercoles }}
+        {{ form.jueves.errors }}
+        {{ form.jueves.label_tag }}
+        {{ form.jueves }}
+        {{ form.viernes.errors }}
+        {{ form.viernes.label_tag }}
+        {{ form.viernes }}
+        {{ form.sabado.errors }}
+        {{ form.sabado.label_tag }}
+        {{ form.sabado }}
+        {{ form.domingo.errors }}
+        {{ form.domingo.label_tag }}
+        {{ form.domingo }}
+        {{ form.hora_desde.errors }}
+        {{ form.hora_desde.label_tag }}
+        {{ form.hora_desde }}
+        {{ form.hora_hasta.errors }}
+        {{ form.hora_hasta.label_tag }}
+        {{ form.hora_hasta }}
+        {{ form.edificio.errors }}
+        {{ form.edificio.label_tag }}
+        {{ form.edificio }}
+        {{ form.ascensor.errors }}
+        {{ form.ascensor.label_tag }}
+        {{ form.ascensor }}
+        {{ form.observacion.errors }}
+        {{ form.observacion.label_tag }}
+        {{ form.observacion }}
+
+    </div>
+    {% endfor %}
+  </fieldset>
+
+{% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.direccion="{{form.direccion.value}}";
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

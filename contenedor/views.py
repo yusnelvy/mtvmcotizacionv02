@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from contenedor.models import Contenedor, ContenedorTipicoPorMueble
 from contenedor.forms import ContenedorForm, ContenedorTipicoPorMuebleForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -43,7 +43,30 @@ class ContenedorListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor',
+                                             'descripcion',
+                                             'capacidad_de_volumen',
+                                             'capacidad_de_peso',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'volumen_en_camion', ])
+
+            lista_contenedor = Contenedor.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor',
+                                             'descripcion',
+                                             'capacidad_de_volumen',
+                                             'capacidad_de_peso',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'volumen_en_camion', ])
+
+            lista_contenedor = Contenedor.objects.filter(entry_query)
+        elif order_by:
             lista_contenedor = Contenedor.objects.all().order_by(order_by)
         else:
             lista_contenedor = Contenedor.objects.all()
@@ -79,7 +102,30 @@ class ContenedorListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor',
+                                             'descripcion',
+                                             'capacidad_de_volumen',
+                                             'capacidad_de_peso',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'volumen_en_camion', ])
+
+            queryset = Contenedor.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor',
+                                             'descripcion',
+                                             'capacidad_de_volumen',
+                                             'capacidad_de_peso',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'volumen_en_camion', ])
+
+            queryset = Contenedor.objects.filter(entry_query)
+        elif order_by:
             queryset = Contenedor.objects.all().order_by(order_by)
         else:
             queryset = Contenedor.objects.all()
@@ -211,7 +257,7 @@ class ContenedorUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -272,7 +318,20 @@ class ContenedorTipicoPorMuebleListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor__contenedor',
+                                             'especificacion_de_mueble__especificacion_de_mueble',
+                                             'cantidad', ])
+
+            lista_contenedor = ContenedorTipicoPorMueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor__contenedor',
+                                             'especificacion_de_mueble__especificacion_de_mueble',
+                                             'cantidad', ])
+
+            lista_contenedor = ContenedorTipicoPorMueble.objects.filter(entry_query)
+        elif order_by:
             lista_contenedor = ContenedorTipicoPorMueble.objects.all().order_by(order_by)
         else:
             lista_contenedor = ContenedorTipicoPorMueble.objects.all()
@@ -308,7 +367,20 @@ class ContenedorTipicoPorMuebleListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor__contenedor',
+                                             'especificacion_de_mueble__especificacion_de_mueble',
+                                             'cantidad', ])
+
+            queryset = ContenedorTipicoPorMueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['contenedor__contenedor',
+                                             'especificacion_de_mueble__especificacion_de_mueble',
+                                             'cantidad', ])
+
+            queryset = ContenedorTipicoPorMueble.objects.filter(entry_query)
+        elif order_by:
             queryset = ContenedorTipicoPorMueble.objects.all().order_by(order_by)
         else:
             queryset = ContenedorTipicoPorMueble.objects.all()

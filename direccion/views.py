@@ -12,7 +12,7 @@ from direccion.models import Pais, Provincia, Ciudad, \
 from direccion.forms import PaisForm, ProvinciaForm, \
     CiudadForm, BarrioForm, DireccionForm, TipoDeEdificacionForm, \
     TipoDeAscensorForm, TipoDeInmuebleForm, EspecificacionDeInmuebleForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -49,7 +49,16 @@ class PaisListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['pais',
+                                             'codigo_telefonico', ])
+            lista_pais = Pais.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['pais',
+                                             'codigo_telefonico', ])
+            lista_pais = Pais.objects.filter(entry_query)
+        elif order_by:
             lista_pais = Pais.objects.all().order_by(order_by)
         else:
             lista_pais = Pais.objects.all()
@@ -85,7 +94,16 @@ class PaisListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['pais',
+                                             'codigo_telefonico', ])
+            queryset = Pais.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['pais',
+                                             'codigo_telefonico', ])
+            queryset = Pais.objects.filter(entry_query)
+        elif order_by:
             queryset = Pais.objects.all().order_by(order_by)
         else:
             queryset = Pais.objects.all()
@@ -282,7 +300,20 @@ class ProvinciaListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['provincia',
+                                             'pais__pais',
+                                             'codigo_telefonico', ])
+
+            lista_provincia = Provincia.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['provincia',
+                                             'pais__pais',
+                                             'codigo_telefonico', ])
+
+            lista_provincia = Provincia.objects.filter(entry_query)
+        elif order_by:
             lista_provincia = Provincia.objects.all().order_by(order_by)
         else:
             lista_provincia = Provincia.objects.all()
@@ -318,7 +349,20 @@ class ProvinciaListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['provincia',
+                                             'pais__pais',
+                                             'codigo_telefonico', ])
+
+            queryset = Provincia.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['provincia',
+                                             'pais__pais',
+                                             'codigo_telefonico', ])
+
+            queryset = Provincia.objects.filter(entry_query)
+        elif order_by:
             queryset = Provincia.objects.all().order_by(order_by)
         else:
             queryset = Provincia.objects.all()
@@ -516,7 +560,20 @@ class CiudadListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad', ])
+
+            lista_ciudad = Ciudad.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad', ])
+
+            lista_ciudad = Ciudad.objects.filter(entry_query)
+        elif order_by:
             lista_ciudad = Ciudad.objects.all().order_by(order_by)
         else:
             lista_ciudad = Ciudad.objects.all()
@@ -552,7 +609,20 @@ class CiudadListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad', ])
+
+            queryset = Ciudad.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad', ])
+
+            queryset = Ciudad.objects.filter(entry_query)
+        elif order_by:
             queryset = Ciudad.objects.all().order_by(order_by)
         else:
             queryset = Ciudad.objects.all()
@@ -750,7 +820,22 @@ class BarrioListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['barrio',
+                                             'provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad__ciudad', ])
+
+            lista_barrio = Barrio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['barrio',
+                                             'provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad__ciudad', ])
+
+            lista_barrio = Barrio.objects.filter(entry_query)
+        elif order_by:
             lista_barrio = Barrio.objects.all().order_by(order_by)
         else:
             lista_barrio = Barrio.objects.all()
@@ -786,7 +871,22 @@ class BarrioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['barrio',
+                                             'provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad__ciudad', ])
+
+            queryset = Barrio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['barrio',
+                                             'provincia__provincia',
+                                             'pais__pais',
+                                             'ciudad__ciudad', ])
+
+            queryset = Barrio.objects.filter(entry_query)
+        elif order_by:
             queryset = Barrio.objects.all().order_by(order_by)
         else:
             queryset = Barrio.objects.all()
@@ -976,7 +1076,30 @@ class DireccionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['calle',
+                                             'altura',
+                                             'barrio__barrio',
+                                             'ciudad__ciudad',
+                                             'zip',
+                                             'provincia__provincia',
+                                             'pais__pais',
+                                             'punto_de_referencia', ])
+
+            queryset = Direccion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['calle',
+                                             'altura',
+                                             'barrio__barrio',
+                                             'ciudad__ciudad',
+                                             'zip',
+                                             'provincia__provincia',
+                                             'pais__pais',
+                                             'punto_de_referencia', ])
+
+            queryset = Direccion.objects.filter(entry_query)
+        elif order_by:
             queryset = Direccion.objects.all().order_by(order_by)
         else:
             queryset = Direccion.objects.all()
@@ -1052,7 +1175,18 @@ class TipoDeEdificacionListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_edificacion',
+                                             'descripcion', ])
+
+            lista_tipodeedificacion = TipoDeEdificacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_edificacion',
+                                             'descripcion', ])
+
+            lista_tipodeedificacion = TipoDeEdificacion.objects.filter(entry_query)
+        elif order_by:
             lista_tipodeedificacion = TipoDeEdificacion.objects.all().order_by(order_by)
         else:
             lista_tipodeedificacion = TipoDeEdificacion.objects.all()
@@ -1088,7 +1222,18 @@ class TipoDeEdificacionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_edificacion',
+                                             'descripcion', ])
+
+            queryset = TipoDeEdificacion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_edificacion',
+                                             'descripcion', ])
+
+            queryset = TipoDeEdificacion.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeEdificacion.objects.all().order_by(order_by)
         else:
             queryset = TipoDeEdificacion.objects.all()
@@ -1284,7 +1429,18 @@ class TipoDeAscensorListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_ascensor',
+                                             'descripcion', ])
+
+            lista_tipodeascensor = TipoDeAscensor.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_ascensor',
+                                             'descripcion', ])
+
+            lista_tipodeascensor = TipoDeAscensor.objects.filter(entry_query)
+        elif order_by:
             lista_tipodeascensor = TipoDeAscensor.objects.all().order_by(order_by)
         else:
             lista_tipodeascensor = TipoDeAscensor.objects.all()
@@ -1320,7 +1476,18 @@ class TipoDeAscensorListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_ascensor',
+                                             'descripcion', ])
+
+            queryset = TipoDeAscensor.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_ascensor',
+                                             'descripcion', ])
+
+            queryset = TipoDeAscensor.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeAscensor.objects.all().order_by(order_by)
         else:
             queryset = TipoDeAscensor.objects.all()
@@ -1516,7 +1683,18 @@ class TipoDeInmuebleListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble',
+                                             'descripcion', ])
+
+            lista_tipodeinmueble = TipoDeInmueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble',
+                                             'descripcion', ])
+
+            lista_tipodeinmueble = TipoDeInmueble.objects.filter(entry_query)
+        elif order_by:
             lista_tipodeinmueble = TipoDeInmueble.objects.all().order_by(order_by)
         else:
             lista_tipodeinmueble = TipoDeInmueble.objects.all()
@@ -1552,7 +1730,18 @@ class TipoDeInmuebleListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble',
+                                             'descripcion', ])
+
+            queryset = TipoDeInmueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble',
+                                             'descripcion', ])
+
+            queryset = TipoDeInmueble.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeInmueble.objects.all().order_by(order_by)
         else:
             queryset = TipoDeInmueble.objects.all()
@@ -1684,7 +1873,7 @@ class TipoDeInmuebleUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -1748,7 +1937,20 @@ class EspecificacionDeInmuebleListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble__tipo_de_inmueble',
+                                             'descripcion',
+                                             'especificacion_de_inmueble', ])
+
+            lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble__tipo_de_inmueble',
+                                             'descripcion',
+                                             'especificacion_de_inmueble', ])
+
+            lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.filter(entry_query)
+        elif order_by:
             lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.all().order_by(order_by)
         else:
             lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.all()
@@ -1784,7 +1986,20 @@ class EspecificacionDeInmuebleListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble__tipo_de_inmueble',
+                                             'descripcion',
+                                             'especificacion_de_inmueble', ])
+
+            queryset = EspecificacionDeInmueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_inmueble__tipo_de_inmueble',
+                                             'descripcion',
+                                             'especificacion_de_inmueble', ])
+
+            queryset = EspecificacionDeInmueble.objects.filter(entry_query)
+        elif order_by:
             queryset = EspecificacionDeInmueble.objects.all().order_by(order_by)
         else:
             queryset = EspecificacionDeInmueble.objects.all()
