@@ -12,7 +12,7 @@ from promocion.forms import MedioForm, MedioEspecificoForm, \
     TipoDeReferidoForm, AlianzaForm, InstitucionForm, PersonaAliadoForm, \
     FuenteDePromocionForm
 from estadoderegistro.models import EstadoDeRegistro
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -48,7 +48,16 @@ class MedioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['medio',
+                                             'descripcion', ])
+            lista_medio = Medio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['medio',
+                                             'descripcion', ])
+            lista_medio = Medio.objects.filter(entry_query)
+        elif order_by:
             lista_medio = Medio.objects.all().order_by(order_by)
         else:
             lista_medio = Medio.objects.all()
@@ -84,7 +93,16 @@ class MedioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['medio',
+                                             'descripcion', ])
+            queryset = Medio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['medio',
+                                             'descripcion', ])
+            queryset = Medio.objects.filter(entry_query)
+        elif order_by:
             queryset = Medio.objects.all().order_by(order_by)
         else:
             queryset = Medio.objects.all()
@@ -276,7 +294,18 @@ class MedioEspecificoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['medio__medio',
+                                             'descripcion',
+                                             'medio_especifico', ])
+            lista_medioespecifico = MedioEspecifico.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['medio__medio',
+                                             'descripcion',
+                                             'medio_especifico', ])
+            lista_medioespecifico = MedioEspecifico.objects.filter(entry_query)
+        elif order_by:
             lista_medioespecifico = MedioEspecifico.objects.all().order_by(order_by)
         else:
             lista_medioespecifico = MedioEspecifico.objects.all()
@@ -312,7 +341,18 @@ class MedioEspecificoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['medio__medio',
+                                             'descripcion',
+                                             'medio_especifico', ])
+            queryset = MedioEspecifico.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['medio__medio',
+                                             'descripcion',
+                                             'medio_especifico', ])
+            queryset = MedioEspecifico.objects.filter(entry_query)
+        elif order_by:
             queryset = MedioEspecifico.objects.all().order_by(order_by)
         else:
             queryset = MedioEspecifico.objects.all()
@@ -504,7 +544,18 @@ class TipoDeReferidoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_referido',
+                                             'descripcion',
+                                             'medio_especifico__medio_especifico', ])
+            lista_tipodereferido = TipoDeReferido.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_referido',
+                                             'descripcion',
+                                             'medio_especifico__medio_especifico', ])
+            lista_tipodereferido = TipoDeReferido.objects.filter(entry_query)
+        elif order_by:
             lista_tipodereferido = TipoDeReferido.objects.all().order_by(order_by)
         else:
             lista_tipodereferido = TipoDeReferido.objects.all()
@@ -540,7 +591,18 @@ class TipoDeReferidoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_referido',
+                                             'descripcion',
+                                             'medio_especifico__medio_especifico', ])
+            queryset = TipoDeReferido.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_referido',
+                                             'descripcion',
+                                             'medio_especifico__medio_especifico', ])
+            queryset = TipoDeReferido.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeReferido.objects.all().order_by(order_by)
         else:
             queryset = TipoDeReferido.objects.all()
@@ -732,7 +794,20 @@ class AlianzaListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['alianza',
+                                             'porcentaje_comision',
+                                             'medio_especifico__medio_especifico',
+                                             'fecha_vigencia', ])
+            lista_alianza = Alianza.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['alianza',
+                                             'porcentaje_comision',
+                                             'medio_especifico__medio_especifico',
+                                             'fecha_vigencia', ])
+            lista_alianza = Alianza.objects.filter(entry_query)
+        elif order_by:
             lista_alianza = Alianza.objects.all().order_by(order_by)
         else:
             lista_alianza = Alianza.objects.all()
@@ -768,7 +843,20 @@ class AlianzaListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['alianza',
+                                             'porcentaje_comision',
+                                             'medio_especifico__medio_especifico',
+                                             'fecha_vigencia', ])
+            queryset = Alianza.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['alianza',
+                                             'porcentaje_comision',
+                                             'medio_especifico__medio_especifico',
+                                             'fecha_vigencia', ])
+            queryset = Alianza.objects.filter(entry_query)
+        elif order_by:
             queryset = Alianza.objects.all().order_by(order_by)
         else:
             queryset = Alianza.objects.all()
@@ -970,7 +1058,28 @@ class InstitucionListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['alianza__alianza',
+                                             'nombre',
+                                             'cuit',
+                                             'pagina_web',
+                                             'persona_contacto',
+                                             'telefono',
+                                             'telefono_movil',
+                                             'email', ])
+            lista_institucion = Institucion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['alianza__alianza',
+                                             'nombre',
+                                             'cuit',
+                                             'pagina_web',
+                                             'persona_contacto',
+                                             'telefono',
+                                             'telefono_movil',
+                                             'email', ])
+            lista_institucion = Institucion.objects.filter(entry_query)
+        elif order_by:
             lista_institucion = Institucion.objects.all().order_by(order_by)
         else:
             lista_institucion = Institucion.objects.all()
@@ -1006,7 +1115,28 @@ class InstitucionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['alianza__alianza',
+                                             'nombre',
+                                             'cuit',
+                                             'pagina_web',
+                                             'persona_contacto',
+                                             'telefono',
+                                             'telefono_movil',
+                                             'email', ])
+            queryset = Institucion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['alianza__alianza',
+                                             'nombre',
+                                             'cuit',
+                                             'pagina_web',
+                                             'persona_contacto',
+                                             'telefono',
+                                             'telefono_movil',
+                                             'email', ])
+            queryset = Institucion.objects.filter(entry_query)
+        elif order_by:
             queryset = Institucion.objects.all().order_by(order_by)
         else:
             queryset = Institucion.objects.all()
@@ -1198,7 +1328,28 @@ class PersonaAliadoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['institucion__nombre',
+                                             'dni',
+                                             'nombre',
+                                             'telefono',
+                                             'telefono_movil_1',
+                                             'telefono_movil_2',
+                                             'email_principal',
+                                             'email_secundario', ])
+            lista_personaaliado = PersonaAliado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['institucion__nombre',
+                                             'dni',
+                                             'nombre',
+                                             'telefono',
+                                             'telefono_movil_1',
+                                             'telefono_movil_2',
+                                             'email_principal',
+                                             'email_secundario', ])
+            lista_personaaliado = PersonaAliado.objects.filter(entry_query)
+        elif order_by:
             lista_personaaliado = PersonaAliado.objects.all().order_by(order_by)
         else:
             lista_personaaliado = PersonaAliado.objects.all()
@@ -1234,7 +1385,28 @@ class PersonaAliadoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['institucion__nombre',
+                                             'dni',
+                                             'nombre',
+                                             'telefono',
+                                             'telefono_movil_1',
+                                             'telefono_movil_2',
+                                             'email_principal',
+                                             'email_secundario', ])
+            queryset = PersonaAliado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['institucion__nombre',
+                                             'dni',
+                                             'nombre',
+                                             'telefono',
+                                             'telefono_movil_1',
+                                             'telefono_movil_2',
+                                             'email_principal',
+                                             'email_secundario', ])
+            queryset = PersonaAliado.objects.filter(entry_query)
+        elif order_by:
             queryset = PersonaAliado.objects.all().order_by(order_by)
         else:
             queryset = PersonaAliado.objects.all()
@@ -1426,7 +1598,30 @@ class FuenteDePromocionListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['medio_especifico__medio_especifico',
+                                             'tipo_de_referido__tipo_de_referido',
+                                             'barrio__barrio',
+                                             'cliente__nombre',
+                                             'nombre_referido',
+                                             'telefono_referido',
+                                             'persona_aliado__nombre',
+                                             'institucion_aliado',
+                                             'alianza', ])
+            lista_fuentedepromocion = FuenteDePromocion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['medio_especifico__medio_especifico',
+                                             'tipo_de_referido__tipo_de_referido',
+                                             'barrio__barrio',
+                                             'cliente__nombre',
+                                             'nombre_referido',
+                                             'telefono_referido',
+                                             'persona_aliado__nombre',
+                                             'institucion_aliado',
+                                             'alianza', ])
+            lista_fuentedepromocion = FuenteDePromocion.objects.filter(entry_query)
+        elif order_by:
             lista_fuentedepromocion = FuenteDePromocion.objects.all().order_by(order_by)
         else:
             lista_fuentedepromocion = FuenteDePromocion.objects.all()
@@ -1462,7 +1657,30 @@ class FuenteDePromocionListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['medio_especifico__medio_especifico',
+                                             'tipo_de_referido__tipo_de_referido',
+                                             'barrio__barrio',
+                                             'cliente__nombre',
+                                             'nombre_referido',
+                                             'telefono_referido',
+                                             'persona_aliado__nombre',
+                                             'institucion_aliado',
+                                             'alianza', ])
+            queryset = FuenteDePromocion.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['medio_especifico__medio_especifico',
+                                             'tipo_de_referido__tipo_de_referido',
+                                             'barrio__barrio',
+                                             'cliente__nombre',
+                                             'nombre_referido',
+                                             'telefono_referido',
+                                             'persona_aliado__nombre',
+                                             'institucion_aliado',
+                                             'alianza', ])
+            queryset = FuenteDePromocion.objects.filter(entry_query)
+        elif order_by:
             queryset = FuenteDePromocion.objects.all().order_by(order_by)
         else:
             queryset = FuenteDePromocion.objects.all()

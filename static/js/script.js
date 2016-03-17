@@ -39,10 +39,6 @@ app.controller('ControlSidebar', function ($scope) {
        actualizarSidebar(nivel);
     };
 });
-app.controller('buscar',function($scope){
-  $('#search').focus();
-  $('#search').parent().addClass('md-input-focused');
-  });
 $('#sidebarWidget').sortable();
 $('#sidebarWidget').disableSelection();
 $('.iconoExpandirFull').click(function(){

@@ -1,0 +1,47 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Dirección
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+  Editar el dirección: {{titulo}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}
+
+{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+<input id="titulo_de_direccion" name="titulo_de_direccion" type="input" value="{{titulo}}">
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.calle = '{{form.calle.value}}';
+    $scope.altura = '{{form.altura.value}}';
+    $scope.barrio = '{{form.barrio.value}}';
+    $scope.ciudad = '{{form.ciudad.value}}';
+    $scope.zip = '{{form.zip.value}}';
+    $scope.provincia = '{{form.provincia.value}}';
+    $scope.pais = '{{form.pais.value}}';
+    $scope.punto_de_referencia = '{{form.punto_de_referencia.value}}';
+    $scope.observacion = '{{form.observacion.value}}';
+
+    $('#id_calle').focus();
+    $('#id_calle').parent().addClass('md-input-focused');
+});
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

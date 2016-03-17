@@ -1,0 +1,71 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Inmueble
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+  Editar el inmueble: {{form.numero_de_inmueble.value|lower}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}
+
+{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+<p>
+    <span>
+      <strong>Dirección: </strong>
+
+      {{direccion.0.full_direccion}}
+      <a title='Editar' data-toggle='tooltip' data-placement='left' href="{% url 'uclientes:edit_direccion' direccion.0.id %}?next={{request.get_full_path}}" class='iconoEditar'></a>
+
+    </span>
+</p>
+{{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope, $http){
+    {% if request.GET.edificacion %}
+        $scope.edificacion = '{{request.GET.edificacion}}';
+    {% else %}
+        $scope.edificacion = '{{form.edificacion.value}}';
+    {% endif %}
+
+    $scope.especificacion_de_inmueble = '{{form.especificacion_de_inmueble.value}}';
+    $scope.numero_de_inmueble = '{{form.numero_de_inmueble.value}}';
+    $scope.numero_de_pisos = '{{form.numero_de_pisos.value}}';
+    $scope.nombre_del_piso = '{{form.nombre_del_piso.value}}';
+    $scope.cantidad_de_ambientes = '{{form.cantidad_de_ambientes.value}}';
+    $scope.pisos_por_escalera = '{{form.pisos_por_escalera.value}}';
+    $scope.numero_de_plantas = '{{form.numero_de_plantas.value}}';
+    $scope.total_m2 = '{{form.total_m2.value}}';
+    $scope.baulera = {{form.baulera.value|lower}};
+    $scope.volumen_baulera = '{{form.volumen_baulera.value}}';
+
+    $('#id_numero_de_inmueble').focus();
+    $('#id_numero_de_inmueble').parent().addClass('md-input-focused');
+    $('#id_edificacion').after("<a title='Agregar' data-toggle='tooltip' data-placement='right' href='{% url 'uclientes:add_edificacion' %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoPlus'></a>");
+    $('#id_edificacion').after("<a title='Editar' data-toggle='tooltip' data-placement='left' href='{% url 'uclientes:edit_edificacion' form.edificacion.value %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoEditar'></a>");
+    $scope.selectChanged = function(){
+        id_especificacion_de_inmueble = $scope.especificacion_de_inmueble;
+        $http.get("/cliente/inmueble/exchange/"+id_especificacion_de_inmueble+"/")
+        .success(function(result) {
+            $scope.cantidad_de_ambientes = result.cant_ambiente;
+        });
+    };
+});
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from mensaje.models import TipoDeMensaje, Mensaje
 from mensaje.forms import TipoDeMensajeForm, MensajeForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -43,7 +43,16 @@ class TipoDeMensajeListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje',
+                                             'descripcion', ])
+            lista_mensaje = TipoDeMensaje.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje',
+                                             'descripcion', ])
+            lista_mensaje = TipoDeMensaje.objects.filter(entry_query)
+        elif order_by:
             lista_mensaje = TipoDeMensaje.objects.all().order_by(order_by)
         else:
             lista_mensaje = TipoDeMensaje.objects.all()
@@ -79,7 +88,16 @@ class TipoDeMensajeListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje',
+                                             'descripcion', ])
+            queryset = TipoDeMensaje.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje',
+                                             'descripcion', ])
+            queryset = TipoDeMensaje.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeMensaje.objects.all().order_by(order_by)
         else:
             queryset = TipoDeMensaje.objects.all()
@@ -274,7 +292,20 @@ class MensajeListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje__tipo_de_mensaje',
+                                             'codigo',
+                                             'mensaje',
+                                             'descripcion', ])
+            lista_mensaje = Mensaje.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje__tipo_de_mensaje',
+                                             'codigo',
+                                             'mensaje',
+                                             'descripcion', ])
+            lista_mensaje = Mensaje.objects.filter(entry_query)
+        elif order_by:
             lista_mensaje = Mensaje.objects.all().order_by(order_by)
         else:
             lista_mensaje = Mensaje.objects.all()
@@ -310,7 +341,20 @@ class MensajeListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje__tipo_de_mensaje',
+                                             'codigo',
+                                             'mensaje',
+                                             'descripcion', ])
+            queryset = Mensaje.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mensaje__tipo_de_mensaje',
+                                             'codigo',
+                                             'mensaje',
+                                             'descripcion', ])
+            queryset = Mensaje.objects.filter(entry_query)
+        elif order_by:
             queryset = Mensaje.objects.all().order_by(order_by)
         else:
             queryset = Mensaje.objects.all()
@@ -442,7 +486,7 @@ class MensajeUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 

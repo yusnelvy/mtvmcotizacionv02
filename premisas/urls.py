@@ -11,6 +11,7 @@ from premisas.views import EmpresaListView, EmpresaView, \
     VarianteVisualCreateView, VarianteVisualUpdate, \
     VarianteVisualDelete, DatosPrecargadoListView, \
     DatosPrecargadoView
+from premisas import views
 
 
 urlpatterns = patterns('',
@@ -56,4 +57,7 @@ urlpatterns = patterns('',
                        url(r'^datos_precargado/nuevo/',
                            DatosPrecargadoView.as_view(),
                            name='add_datosprecargado'),
+                       url(r'^model/exchange/(?P<model>\w+)/$',
+                           views.exchange_fields,
+                           name='exchange_fields'),
                        )

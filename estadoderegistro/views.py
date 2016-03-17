@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from estadoderegistro.models import Estado, EstadoDeRegistro
 from estadoderegistro.forms import EstadoForm, EstadoDeRegistroForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -25,10 +25,8 @@ class EstadoListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -44,9 +42,19 @@ class EstadoListView(ListView):
             range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        #range_gap = 3
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado',
+                                             'descripcion', ])
+
+            lista_estado = Estado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado',
+                                             'descripcion', ])
+
+            lista_estado = Estado.objects.filter(entry_query)
+        elif order_by:
             lista_estado = Estado.objects.all().order_by(order_by)
         else:
             lista_estado = Estado.objects.all()
@@ -82,7 +90,18 @@ class EstadoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado',
+                                             'descripcion', ])
+
+            queryset = Estado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado',
+                                             'descripcion', ])
+
+            queryset = Estado.objects.filter(entry_query)
+        elif order_by:
             queryset = Estado.objects.all().order_by(order_by)
         else:
             queryset = Estado.objects.all()
@@ -215,7 +234,7 @@ class EstadoUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -258,10 +277,8 @@ class EstadoDeRegistroListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -277,9 +294,21 @@ class EstadoDeRegistroListView(ListView):
             range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
-        #range_gap = 3
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado__estado',
+                                             'descripcion',
+                                             'model', ])
+
+            lista_estadoderegistro = EstadoDeRegistro.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado__estado',
+                                             'descripcion',
+                                             'model', ])
+
+            lista_estadoderegistro = EstadoDeRegistro.objects.filter(entry_query)
+        elif order_by:
             lista_estadoderegistro = EstadoDeRegistro.objects.all().order_by(order_by)
         else:
             lista_estadoderegistro = EstadoDeRegistro.objects.all()
@@ -315,7 +344,20 @@ class EstadoDeRegistroListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['estado__estado',
+                                             'descripcion',
+                                             'model', ])
+
+            queryset = EstadoDeRegistro.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['estado__estado',
+                                             'descripcion',
+                                             'model', ])
+
+            queryset = EstadoDeRegistro.objects.filter(entry_query)
+        elif order_by:
             queryset = EstadoDeRegistro.objects.all().order_by(order_by)
         else:
             queryset = EstadoDeRegistro.objects.all()

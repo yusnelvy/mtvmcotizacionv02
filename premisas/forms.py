@@ -62,7 +62,7 @@ class VarianteVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     model_choices = [(content.model, content.model) for content in ContentType.objects.all()]
     model = forms.ChoiceField(
-        widget=SelectMD(),
+        widget=SelectMD(attrs={'ng-change': 'selectChanged()'}),
         label='Model',
         choices=model_choices)
 

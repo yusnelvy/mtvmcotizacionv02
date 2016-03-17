@@ -10,7 +10,7 @@ from ambiente.models import Ambiente, AmbientePorTipoDeInmueble, \
     AmbienteEstadoDeRegistro
 from ambiente.forms import AmbienteForm, AmbientePorTipoDeInmuebleForm
 from estadoderegistro.models import EstadoDeRegistro
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -21,6 +21,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import Table
 
 from io import BytesIO
+
 
 # Create your views here.
 # app ambiente
@@ -52,7 +53,16 @@ class AmbienteListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente',
+                                             'descripcion', ])
+            lista_ambiente = Ambiente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente',
+                                             'descripcion', ])
+            lista_ambiente = Ambiente.objects.filter(entry_query)
+        elif order_by:
             lista_ambiente = Ambiente.objects.all().order_by(order_by)
         else:
             lista_ambiente = Ambiente.objects.all()
@@ -88,7 +98,16 @@ class AmbienteListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente',
+                                             'descripcion', ])
+            queryset = Ambiente.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente',
+                                             'descripcion', ])
+            queryset = Ambiente.objects.filter(entry_query)
+        elif order_by:
             queryset = Ambiente.objects.all().order_by(order_by)
         else:
             queryset = Ambiente.objects.all()
@@ -274,10 +293,8 @@ class AmbientePorTipoDeInmuebleListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -295,7 +312,16 @@ class AmbientePorTipoDeInmuebleListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente__ambiente',
+                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
+            lista_ambiente = AmbientePorTipoDeInmueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente__ambiente',
+                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
+            lista_ambiente = AmbientePorTipoDeInmueble.objects.filter(entry_query)
+        elif order_by:
             lista_ambiente = AmbientePorTipoDeInmueble.objects.all().order_by(order_by)
         else:
             lista_ambiente = AmbientePorTipoDeInmueble.objects.all()
@@ -331,7 +357,16 @@ class AmbientePorTipoDeInmuebleListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente__ambiente',
+                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
+            queryset = AmbientePorTipoDeInmueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['ambiente__ambiente',
+                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
+            queryset = AmbientePorTipoDeInmueble.objects.filter(entry_query)
+        elif order_by:
             queryset = AmbientePorTipoDeInmueble.objects.all().order_by(order_by)
         else:
             queryset = AmbientePorTipoDeInmueble.objects.all()

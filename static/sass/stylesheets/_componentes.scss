@@ -328,3 +328,35 @@ body{
 .columna11 {
     @extend .col-md-11;
 }
+.fixed-panel {
+min-height: 38px;
+max-height: 129px;
+width: 205px;
+overflow-y: hidden;
+margin-left: 15px;
+}
+.titulo-panel{
+  margin-top: -6px;
+  margin-bottom: -7px;
+  font-size: 12px;
+  color: #191970;
+}
+.forma-panel {
+    margin-bottom: 30px;
+    background-color: #fff;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    border-color: #809fff;
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2)
+}
+.size-panel{
+    height: 40px;
+    width: 175px;
+    margin-left: 15px;
+}
+.size-transaccion{
+    width: 140px;
+}
+.contenido {
+width: 10px;
+}

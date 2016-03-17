@@ -5,7 +5,7 @@ from mueble.models import TipoDeMueble, Mueble, EspecificacionDeMueble,\
     MueblePorAmbiente
 from mueble.forms import TipoDeMuebleForm, MuebleForm, EspecificacionDeMuebleForm, \
     MueblePorAmbienteForm
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,10 +22,8 @@ class TipoDeMuebleListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -43,7 +41,18 @@ class TipoDeMuebleListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mueble',
+                                             'descripcion', ])
+
+            lista_tipodemueble = TipoDeMueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mueble',
+                                             'descripcion', ])
+
+            lista_tipodemueble = TipoDeMueble.objects.filter(entry_query)
+        elif order_by:
             lista_tipodemueble = TipoDeMueble.objects.all().order_by(order_by)
         else:
             lista_tipodemueble = TipoDeMueble.objects.all()
@@ -79,7 +88,18 @@ class TipoDeMuebleListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mueble',
+                                             'descripcion', ])
+
+            queryset = TipoDeMueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_mueble',
+                                             'descripcion', ])
+
+            queryset = TipoDeMueble.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeMueble.objects.all().order_by(order_by)
         else:
             queryset = TipoDeMueble.objects.all()
@@ -276,7 +296,20 @@ class MuebleListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['mueble',
+                                             'descripcion',
+                                             'tipo_de_mueble_id__tipo_de_mueble', ])
+
+            lista_mueble = Mueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['mueble',
+                                             'descripcion',
+                                             'tipo_de_mueble_id__tipo_de_mueble', ])
+
+            lista_mueble = Mueble.objects.filter(entry_query)
+        elif order_by:
             lista_mueble = Mueble.objects.all().order_by(order_by)
         else:
             lista_mueble = Mueble.objects.all()
@@ -312,7 +345,20 @@ class MuebleListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['mueble',
+                                             'descripcion',
+                                             'tipo_de_mueble_id__tipo_de_mueble', ])
+
+            queryset = Mueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['mueble',
+                                             'descripcion',
+                                             'tipo_de_mueble_id__tipo_de_mueble', ])
+
+            queryset = Mueble.objects.filter(entry_query)
+        elif order_by:
             queryset = Mueble.objects.all().order_by(order_by)
         else:
             queryset = Mueble.objects.all()
@@ -487,10 +533,8 @@ class EspecificacionDeMuebleListView(ListView):
     def get_paginate_by(self, queryset):
         if self.request.user.id is not None:
             nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
-            range_gap = valor_Personalizacionvisual(self.request.user.id, "rangopaginacion")
         else:
             nropag = valor_Personalizacionvisual("std", "paginacion")
-            range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         page = self.request.GET.get('page')
         if page == '0':
@@ -508,7 +552,26 @@ class EspecificacionDeMuebleListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['mueble__mueble',
+                                             'especificacion_de_mueble',
+                                             'descripcion',
+                                             'ancho',
+                                             'largo',
+                                             'alto', ])
+
+            lista_especificaciondemueble = EspecificacionDeMueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['mueble__mueble',
+                                             'especificacion_de_mueble',
+                                             'descripcion',
+                                             'ancho',
+                                             'largo',
+                                             'alto', ])
+
+            lista_especificaciondemueble = EspecificacionDeMueble.objects.filter(entry_query)
+        elif order_by:
             lista_especificaciondemueble = EspecificacionDeMueble.objects.all().order_by(order_by)
         else:
             lista_especificaciondemueble = EspecificacionDeMueble.objects.all()
@@ -544,7 +607,26 @@ class EspecificacionDeMuebleListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['mueble__mueble',
+                                             'especificacion_de_mueble',
+                                             'descripcion',
+                                             'ancho',
+                                             'largo',
+                                             'alto', ])
+
+            queryset = EspecificacionDeMueble.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['mueble__mueble',
+                                             'especificacion_de_mueble',
+                                             'descripcion',
+                                             'ancho',
+                                             'largo',
+                                             'alto', ])
+
+            queryset = EspecificacionDeMueble.objects.filter(entry_query)
+        elif order_by:
             queryset = EspecificacionDeMueble.objects.all().order_by(order_by)
         else:
             queryset = EspecificacionDeMueble.objects.all()

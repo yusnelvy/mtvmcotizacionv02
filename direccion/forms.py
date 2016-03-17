@@ -4,13 +4,16 @@ Docstring documentación pendiente
 """
 
 
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Select, \
+    ModelChoiceField
 from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificacion, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
-    EspecificacionDeInmueble, Inmueble
+    EspecificacionDeInmueble, Inmueble, HorarioDisponible
 from djangular.forms import NgModelFormMixin, NgModelForm
 from base.forms import BaseFormMd, SelectMD, Checkbox
+from django.forms.models import inlineformset_factory
+from django import forms
 
 
 class PaisForm(NgModelFormMixin, NgModelForm, BaseFormMd):
@@ -137,19 +140,46 @@ class TipoDeEdificacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         }
 
 
-class EdificacionForm(ModelForm):
+class EdificacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
+
     class Meta:
         model = Edificacion
         fields = '__all__'
+
+AscensorFormSet = inlineformset_factory(Edificacion,
+                                        Ascensor,
+                                        fields=('tipo_de_ascensor',
+                                                'cantidad',
+                                                'piso_ascensor',
+                                                'velocidad_por_piso',
+                                                'ancho',
+                                                'largo',
+                                                'alto',
+                                                'capacidad_carga'), extra=1)
+HorarioDisponibleFormSet = inlineformset_factory(Edificacion,
+                                                 HorarioDisponible,
+                                                 fields=('lunes',
+                                                         'martes',
+                                                         'miercoles',
+                                                         'jueves',
+                                                         'viernes',
+                                                         'sabado',
+                                                         'domingo',
+                                                         'hora_desde',
+                                                         'hora_hasta',
+                                                         'edificio',
+                                                         'ascensor',
+                                                         'observacion'), extra=1)
 
 
 class TipoDeAscensorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
+
     class Meta:
         model = TipoDeAscensor
         fields = '__all__'
@@ -196,10 +226,15 @@ class EspecificacionDeInmuebleForm(ModelForm):
         fields = '__all__'
 
 
-class InmuebleForm(ModelForm):
+class InmuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
+    def __init__(self, *args, **kwargs):
+        direccion = kwargs.pop('direccion', '')
+        super(InmuebleForm, self).__init__(*args, **kwargs)
+        self.fields['edificacion'] = forms.ModelChoiceField(queryset=Edificacion.objects.filter(direccion=direccion))
+
     class Meta:
         model = Inmueble
         fields = '__all__'
@@ -211,4 +246,7 @@ class InmuebleForm(ModelForm):
             'cantidad_de_ambientes': ('N° de ambientes'),
             'numero_de_plantas': ('N° de pisos internos del inmueble'),
             'pisos_escalera': ('N° de pisos a recorrer por escaleras para llegar al inmueble')
+        }
+        widgets = {
+            'especificacion_de_inmueble': Select(attrs={'ng-change': 'selectChanged()'})
         }
