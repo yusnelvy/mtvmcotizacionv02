@@ -790,17 +790,15 @@ def lista_Relacion(request):
     menu = Menu.objects.filter(nivel=3)
     url1 = request.path
     relacion = ''
-    hola = 'diferentes'
     for i in menu:
 
         url2 = reverse('%s:%s' % (i.namespace, i.name))
         if (url1 == (url2)):
-            hola = 'iguales'
             relacion = Relacion.objects.filter(item_origen_id=i.id)
 
             break
 
-    context = {'relacion': relacion, 'url1': url1, 'hola': hola}
+    context = {'relacion': relacion, 'url1': url1}
     return context
 
 

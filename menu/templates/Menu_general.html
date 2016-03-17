@@ -1,12 +1,24 @@
+{% extends 'base_widget.html' %}
 {% load menu_extras %}
+{% load widgets_extras %}
 
-<div class="forma-panel panel-info fixed-panel">
-    <div class="panel-heading">
-        <h10 class="titulo-panel">Menú</h10>
-    </div>
-        <div class="panel-body">
+{% block idContenedor %}limenu{% endblock idContenedor %}
 
-            <div class="contenido">
+{% block clasesContenedor %}
+{% configurar_WidgetColumna 'Menú' %} {% configurar_WidgetColor 'Menú' %}
+{% endblock clasesContenedor %}
+
+{% block idPanel %}controlWidgetCerrar('limenu', 'Menú');{% endblock idPanel %}
+
+{% block titulo_widget %}
+Menú
+{% endblock titulo_widget %}
+
+{% block botones_widget %}{% endblock botones_widget %}
+
+{% block contenido_widget %}
+
+            <div class="cuerpo-panel">
                 <ul>
                     <li><a>Favoritos</a>
 
@@ -85,9 +97,6 @@
                 </ul>
 
                 {% endfor %}
+    </div>
 
-            </div>
-
-
-        </div>
-</div>
+{% endblock contenido_widget %}

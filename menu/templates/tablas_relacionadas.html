@@ -1,23 +1,36 @@
+{% extends 'base_widget.html' %}
 {% load menu_extras %}
+{% load widgets_extras %}
 
-<div class="forma-panel panel-info fixed-panel">
-    <div class="panel-heading">
-        <h12 class="titulo-panel">Tablas Relacionadas</h12>
+{% block idContenedor %}lirelacion{% endblock idContenedor %}
+
+{% block clasesContenedor %}
+{% configurar_WidgetColumna 'Tablas Relacionadas' %} {% configurar_WidgetColor 'Tablas Relacionadas' %}
+{% endblock clasesContenedor %}
+
+{% block idPanel %}controlWidgetCerrar('lirelacion', 'Tablas Relacionadas');{% endblock idPanel %}
+
+{% block titulo_widget %}
+Tablas Relacionadas
+{% endblock titulo_widget %}
+
+{% block botones_widget %}{% endblock botones_widget %}
+
+{% block contenido_widget %}
+
+    <div class="cuerpo-panel">
+
+        {% for k in relacion %}
+
+            <ul>
+                <li><a href="{% url_Menu k.item_relacion.namespace k.item_relacion.name %}">{{ k.nombre }}</a>
+                </li>
+            </ul>
+
+        {% endfor %}
+
     </div>
-        <div class="panel-body">
 
-            <div class="">
+{% endblock contenido_widget %}
 
-             {% for k in relacion %}
 
-                    <ul>
-                        <li><a href="{% url_Menu k.item_relacion.namespace k.item_relacion.name %}">{{ k.nombre }}</a>
-                        </li>
-                    </ul>
-
-            {% endfor %}
-
-            </div>
-
-        </div>
-</div>

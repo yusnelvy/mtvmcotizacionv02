@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load widgets_extras %}
 
 <!DOCTYPE html>
 <html lang="es-AR" >
@@ -12,13 +13,14 @@
 
     </title>
     <link rel="stylesheet" href="{% static 'css/material.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material2.css' %}">
 
     {% include "jquery.html" %}
 
     {% block js_superior %}{% endblock js_superior %}
 
 </head>
-<body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();">
+<body ng-app="AppMudarte" onload="{% configurar_WidgetVisible %} controlarAutofiltro(); controlarFiltroRapido();">
     <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
         <header>
             <div ng-controller="ControlSidebar" class="sidebar-wrapper md-whiteframe-20dp">
@@ -35,56 +37,7 @@
     </md-button>
 </span>
 <ul class="sidebarWidget" id="sidebarWidget">
-    <li>
-        < <span class="iconoExpandirFull"> </span> Ficha <span class="mega glyphicon glyphicon-modal-window"> </span>
-        <iframe class="iframeW" style="box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.26);overflow: hidden;" src="" height="" width="" scroll="no" frameborder="0" scrolling="no" id="divFrame">
-        </iframe>
-    </li>
-    <li>
-        < <span class="iconoExpandirFull"></span>
-        <h4>Menú</h4>
-
-        {% include "Menu_general.html" %}
-
-    </li>
-    <li>
-        < <span class="iconoExpandirFull"></span>
-        <h4>Auto-filtros</h4>
-
-        {% block auto_filto %}
-
-
-        <ul class="demo" ></ul>
-
-        {% endblock auto_filto %}
-
-    </li>
-    <li>
-        < <span class="iconoExpandirFull"></span>
-        <h4>Tablas Relacionadas</h4>
-
-        {% block widget_sidebar %}
-
-        <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)" class="size-transaccion"/>
-        <input type="button" value="Ir" onclick="transaccion()"/>
-
-        {% include "tablas_relacionadas.html" %}
-
-        {% endblock widget_sidebar %}
-
-    </li>
-    <li>
-        < <span class="iconoExpandirFull"></span>
-        <h4>Filtros Rápidos</h4>
-
-        {% block filtro_rapido %}
-
-        <select class="demo2" ></select>
-        <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
-
-        {% endblock filtro_rapido %}
-
-    </li>
+    {% include "widgets.html" %}
 </ul>
 <ul class="sidebar-na ">
     <li class="sidebar-brand">

@@ -1,9 +1,27 @@
-<div class="forma-panel panel-info fixed-panel">
-    <div class="panel-heading">
-        <h6 class="titulo-panel">Filtros Rápidos</h6>
+{% extends 'base_widget.html' %}
+{% load widgets_extras %}
+
+{% block idContenedor %}lifiltrorapido{% endblock idContenedor %}
+
+{% block clasesContenedor %}
+{% configurar_WidgetColumna 'Filtros Rápidos' %} {% configurar_WidgetColor 'Filtros Rápidos' %}
+{% endblock clasesContenedor %}
+
+{% block idPanel %}controlWidgetCerrar('lifiltrorapido', 'Filtros Rápidos');{% endblock idPanel %}
+
+{% block titulo_widget %}
+Filtros Rápidos
+{% endblock titulo_widget %}
+
+{% block botones_widget %}{% endblock botones_widget %}
+
+{% block contenido_widget %}
+
+    <div id='panelfiltrosrapidos' class="">
+        <div class="panel-body">
+            <select class="demo2" ></select>
+            <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
+        </div>
     </div>
-    <div class="panel-body">
-        <select class="demo2" ></select>
-        <input type="text" value="" id="filtro" onkeypress="controlarFiltroRapido()"/>
-    </div>
-</div>
+
+{% endblock contenido_widget %}
