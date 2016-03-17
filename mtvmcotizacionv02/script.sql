@@ -126,6 +126,67 @@ INSERT INTO django_migrations(id, app, name, applied) VALUES
 (45, 'direccion', '0004_auto_20160303_1403', '2016-03-03 18:33:16'),
 (46, 'direccion', '0005_auto_20160304_1558', '2016-03-04 20:32:37');
 
+-- cambios nuevos --
+
+ALTER TABLE widget_widget
+  DROP COLUMN desplegable,
+  DROP FOREIGN KEY widget_widget_usuario_id_165f0770_fk_auth_user_id,
+  DROP INDEX usuario_id,
+  CHANGE COLUMN nombre nombre VARCHAR(100) NOT NULL AFTER id,
+  CHANGE COLUMN usuario_id usuario_id INT(11) NOT NULL AFTER orden;
+
+ALTER TABLE widget_widget
+  ADD UNIQUE INDEX widget_widget_usuario_id_37ef8023_uniq (usuario_id, nombre);
+
+ALTER TABLE widget_widget
+  ADD CONSTRAINT widget_widget_usuario_id_1d62947a_fk_auth_user_id FOREIGN KEY (usuario_id)
+    REFERENCES auth_user(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Alter table cliente_clientedireccion
+--
+ALTER TABLE cliente_clientedireccion
+  DROP FOREIGN KEY cliente_clie_edificacion_id_3fdfea0c_fk_direccion_edificacion_id;
+ALTER TABLE cliente_clientedireccion
+  ADD CONSTRAINT cliente_clie_edificacion_id_3fdfea0c_fk_direccion_edificacion_id FOREIGN KEY (edificacion_id)
+    REFERENCES direccion_edificacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE cliente_clientedireccion
+  DROP FOREIGN KEY cliente_clientedire_inmueble_id_770c355_fk_direccion_inmueble_id;
+ALTER TABLE cliente_clientedireccion
+  ADD CONSTRAINT cliente_clientedire_inmueble_id_770c355_fk_direccion_inmueble_id FOREIGN KEY (inmueble_id)
+    REFERENCES direccion_inmueble(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+UPDATE django_migrations SET applied = '2016-02-04 19:20:53' WHERE id = 25;
+UPDATE django_migrations SET applied = '2016-02-04 19:23:15' WHERE id = 26;
+UPDATE django_migrations SET applied = '2016-02-12 13:41:18' WHERE id = 27;
+UPDATE django_migrations SET applied = '2016-02-15 19:30:54' WHERE id = 28;
+UPDATE django_migrations SET applied = '2016-02-15 19:30:59' WHERE id = 29;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:17' WHERE id = 30;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:23' WHERE id = 31;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:32' WHERE id = 32;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:49' WHERE id = 33;
+UPDATE django_migrations SET applied = '2016-02-17 19:29:15' WHERE id = 34;
+UPDATE django_migrations SET applied = '2016-02-17 19:29:20' WHERE id = 35;
+UPDATE django_migrations SET applied = '2016-03-01 12:58:37' WHERE id = 36;
+UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 37;
+UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 38;
+UPDATE django_migrations SET applied = '2016-03-01 21:04:28' WHERE id = 39;
+UPDATE django_migrations SET applied = '2016-03-01 21:04:31' WHERE id = 40;
+UPDATE django_migrations SET applied = '2016-03-02 18:05:31' WHERE id = 41;
+UPDATE django_migrations SET applied = '2016-03-02 18:05:32' WHERE id = 42;
+UPDATE django_migrations SET applied = '2016-03-03 18:31:53' WHERE id = 43;
+UPDATE django_migrations SET applied = '2016-03-03 18:31:59' WHERE id = 44;
+UPDATE django_migrations SET applied = '2016-03-03 18:33:16' WHERE id = 45;
+UPDATE django_migrations SET applied = '2016-03-04 20:32:37' WHERE id = 46;
+
+--
+-- Inserting data into table django_migrations
+--
+INSERT INTO django_migrations(id, app, name, applied) VALUES
+(47, 'widget', '0001_initial', '2016-03-14 19:29:32'),
+(48, 'widget', '0002_remove_widget_desplegable', '2016-03-14 19:33:38');
 
 --
 -- Enable foreign keys
