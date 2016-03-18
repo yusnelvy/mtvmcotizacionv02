@@ -53,6 +53,7 @@ class SexoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
+        search = self.request.GET.get('search')
         if order_by and search is not None and search != u"":
             entry_query = get_query(search, ['sexo', ])
             lista_sexo = Sexo.objects.filter(entry_query).order_by(order_by)
@@ -347,7 +348,8 @@ class EstadoCivilListView(ListView):
             entry_query = get_query(search, ['estado_civil', ])
             queryset = EstadoCivil.objects.filter(entry_query)
         elif order_by:
-            lista_estado_civil = EstadoCivil.objects.all().order_by(order_by)
+            queryset = EstadoCivil.objects.all().order_by(order_by)
+        else:
             queryset = EstadoCivil.objects.all()
 
         return queryset

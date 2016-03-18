@@ -10,7 +10,7 @@ from vehiculo.models import Vehiculo, DetalleDeVehiculo, EstadoDeVehiculo, \
     ChoferAsignado
 from vehiculo.forms import VehiculoForm, DetalleDeVehiculoForm, ChoferAsignadoForm
 from estadoderegistro.models import EstadoDeRegistro
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -46,7 +46,24 @@ class VehiculoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['marca',
+                                             'modelo',
+                                             'transmision',
+                                             'motor',
+                                             'volumen_total_carga',
+                                             'peso_total_carga', ])
+            lista_vehiculo = Vehiculo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['marca',
+                                             'modelo',
+                                             'transmision',
+                                             'motor',
+                                             'volumen_total_carga',
+                                             'peso_total_carga', ])
+            lista_vehiculo = Vehiculo.objects.filter(entry_query)
+        elif order_by:
             lista_vehiculo = Vehiculo.objects.all().order_by(order_by)
         else:
             lista_vehiculo = Vehiculo.objects.all()
@@ -82,7 +99,24 @@ class VehiculoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['marca',
+                                             'modelo',
+                                             'transmision',
+                                             'motor',
+                                             'volumen_total_carga',
+                                             'peso_total_carga', ])
+            queryset = Vehiculo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['marca',
+                                             'modelo',
+                                             'transmision',
+                                             'motor',
+                                             'volumen_total_carga',
+                                             'peso_total_carga', ])
+            queryset = Vehiculo.objects.filter(entry_query)
+        elif order_by:
             queryset = Vehiculo.objects.all().order_by(order_by)
         else:
             queryset = Vehiculo.objects.all()
@@ -274,7 +308,30 @@ class DetalleDeVehiculoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['vehiculo__marca',
+                                             'numero_de_camion',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'ancho_aux',
+                                             'largo_aux',
+                                             'alto_aux',
+                                             'tara_vehiculo', ])
+            lista_detalledevehiculo = DetalleDeVehiculo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['vehiculo__marca',
+                                             'numero_de_camion',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'ancho_aux',
+                                             'largo_aux',
+                                             'alto_aux',
+                                             'tara_vehiculo', ])
+            lista_detalledevehiculo = DetalleDeVehiculo.objects.filter(entry_query)
+        elif order_by:
             lista_detalledevehiculo = DetalleDeVehiculo.objects.all().order_by(order_by)
         else:
             lista_detalledevehiculo = DetalleDeVehiculo.objects.all()
@@ -310,7 +367,30 @@ class DetalleDeVehiculoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['vehiculo__marca',
+                                             'numero_de_camion',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'ancho_aux',
+                                             'largo_aux',
+                                             'alto_aux',
+                                             'tara_vehiculo', ])
+            queryset = DetalleDeVehiculo.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['vehiculo__marca',
+                                             'numero_de_camion',
+                                             'ancho',
+                                             'largo',
+                                             'alto',
+                                             'ancho_aux',
+                                             'largo_aux',
+                                             'alto_aux',
+                                             'tara_vehiculo', ])
+            queryset = DetalleDeVehiculo.objects.filter(entry_query)
+        elif order_by:
             queryset = DetalleDeVehiculo.objects.all().order_by(order_by)
         else:
             queryset = DetalleDeVehiculo.objects.all()
@@ -511,7 +591,20 @@ class ChoferAsignadoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['detalle_de_vehiculo__numero_de_camion',
+                                             'trabajador__nombre',
+                                             'fecha_desde',
+                                             'fecha_hasta', ])
+            lista_choferasignado = ChoferAsignado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['detalle_de_vehiculo__numero_de_camion',
+                                             'trabajador__nombre',
+                                             'fecha_desde',
+                                             'fecha_hasta', ])
+            lista_choferasignado = ChoferAsignado.objects.filter(entry_query)
+        elif order_by:
             lista_choferasignado = ChoferAsignado.objects.all().order_by(order_by)
         else:
             lista_choferasignado = ChoferAsignado.objects.all()
@@ -547,7 +640,20 @@ class ChoferAsignadoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['detalle_de_vehiculo__numero_de_camion',
+                                             'trabajador__nombre',
+                                             'fecha_desde',
+                                             'fecha_hasta', ])
+            queryset = ChoferAsignado.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['detalle_de_vehiculo__numero_de_camion',
+                                             'trabajador__nombre',
+                                             'fecha_desde',
+                                             'fecha_hasta', ])
+            queryset = ChoferAsignado.objects.filter(entry_query)
+        elif order_by:
             queryset = ChoferAsignado.objects.all().order_by(order_by)
         else:
             queryset = ChoferAsignado.objects.all()

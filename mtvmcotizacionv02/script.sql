@@ -192,3 +192,61 @@ INSERT INTO django_migrations(id, app, name, applied) VALUES
 -- Enable foreign keys
 --
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+
+
+-- para nueva para la bd 18-03-16
+
+ALTER TABLE menu_menu
+  DROP FOREIGN KEY menu_menu_menu_padre_id_2e39653d_fk_menu_menu_id;
+ALTER TABLE menu_menu
+  ADD CONSTRAINT menu_menu_menu_padre_id_2e39653d_fk_menu_menu_id FOREIGN KEY (menu_padre_id)
+    REFERENCES menu_menu(id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Alter table trabajador_cargotrabajador
+--
+ALTER TABLE trabajador_cargotrabajador
+  DROP FOREIGN KEY trabaja_cargo_padre_id_2378121d_fk_trabajador_cargotrabajador_id;
+ALTER TABLE trabajador_cargotrabajador
+  ADD CONSTRAINT trabaja_cargo_padre_id_2378121d_fk_trabajador_cargotrabajador_id FOREIGN KEY (cargo_padre_id)
+    REFERENCES trabajador_cargotrabajador(id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Alter table talonario_documentodeltalonario
+--
+ALTER TABLE talonario_documentodeltalonario
+  DROP COLUMN informacion_de_beneficiari,
+  ADD COLUMN informacion_de_beneficiario LONGTEXT NOT NULL AFTER informacion_de_proceso,
+  CHANGE COLUMN numero_final numero_final VARCHAR(250) NOT NULL;
+
+UPDATE django_migrations SET applied = '2016-02-04 19:20:53' WHERE id = 25;
+UPDATE django_migrations SET applied = '2016-02-04 19:23:15' WHERE id = 26;
+UPDATE django_migrations SET applied = '2016-02-12 13:41:18' WHERE id = 27;
+UPDATE django_migrations SET applied = '2016-02-15 19:30:54' WHERE id = 28;
+UPDATE django_migrations SET applied = '2016-02-15 19:30:59' WHERE id = 29;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:17' WHERE id = 30;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:23' WHERE id = 31;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:32' WHERE id = 32;
+UPDATE django_migrations SET applied = '2016-02-15 19:31:49' WHERE id = 33;
+UPDATE django_migrations SET applied = '2016-02-17 19:29:15' WHERE id = 34;
+UPDATE django_migrations SET applied = '2016-02-17 19:29:20' WHERE id = 35;
+UPDATE django_migrations SET applied = '2016-03-01 12:58:37' WHERE id = 36;
+UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 37;
+UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 38;
+UPDATE django_migrations SET applied = '2016-03-01 21:04:28' WHERE id = 39;
+UPDATE django_migrations SET applied = '2016-03-01 21:04:31' WHERE id = 40;
+UPDATE django_migrations SET applied = '2016-03-02 18:05:31' WHERE id = 41;
+UPDATE django_migrations SET applied = '2016-03-02 18:05:32' WHERE id = 42;
+UPDATE django_migrations SET applied = '2016-03-03 18:31:53' WHERE id = 43;
+UPDATE django_migrations SET applied = '2016-03-03 18:31:59' WHERE id = 44;
+UPDATE django_migrations SET applied = '2016-03-03 18:33:16' WHERE id = 45;
+UPDATE django_migrations SET applied = '2016-03-04 20:32:37' WHERE id = 46;
+UPDATE django_migrations SET applied = '2016-03-14 19:29:32' WHERE id = 47;
+UPDATE django_migrations SET applied = '2016-03-14 19:33:38' WHERE id = 48;
+
+--
+-- Inserting data into table django_migrations
+--
+INSERT INTO django_migrations(id, app, name, applied) VALUES
+(49, 'talonario', '0004_auto_20160318_1403', '2016-03-18 18:33:56');
+

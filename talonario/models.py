@@ -57,7 +57,7 @@ class DocumentoDelTalonario(models.Model):
     numero = models.CharField(max_length=50)
     estado = models.CharField(max_length=10)
     informacion_de_proceso = models.TextField()
-    informacion_de_beneficiari = models.TextField()
+    informacion_de_beneficiario = models.TextField()
     numero_final = models.CharField(max_length=250)
 
     def __str__(self):

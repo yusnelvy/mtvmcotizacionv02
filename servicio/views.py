@@ -546,7 +546,18 @@ class PrecioDeServicioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'precio_base',
+                                             'cantidad_de_gracia', ])
+            lista_preciodeservicio = PrecioDeServicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'precio_base',
+                                             'cantidad_de_gracia', ])
+            lista_preciodeservicio = PrecioDeServicio.objects.filter(entry_query)
+        elif order_by:
             lista_preciodeservicio = PrecioDeServicio.objects.all().order_by(order_by)
         else:
             lista_preciodeservicio = PrecioDeServicio.objects.all()
@@ -582,7 +593,18 @@ class PrecioDeServicioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'precio_base',
+                                             'cantidad_de_gracia', ])
+            queryset = PrecioDeServicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'precio_base',
+                                             'cantidad_de_gracia', ])
+            queryset = PrecioDeServicio.objects.filter(entry_query)
+        elif order_by:
             queryset = PrecioDeServicio.objects.all().order_by(order_by)
         else:
             queryset = PrecioDeServicio.objects.all()
@@ -774,7 +796,18 @@ class HerramientasPorServicioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'herramienta__herramienta',
+                                             'cantidad', ])
+            lista_herramientaporservicio = HerramientasPorServicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'herramienta__herramienta',
+                                             'cantidad', ])
+            lista_herramientaporservicio = HerramientasPorServicio.objects.filter(entry_query)
+        elif order_by:
             lista_herramientaporservicio = HerramientasPorServicio.objects.all().order_by(order_by)
         else:
             lista_herramientaporservicio = HerramientasPorServicio.objects.all()
@@ -810,7 +843,18 @@ class HerramientasPorServicioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'herramienta__herramienta',
+                                             'cantidad', ])
+            queryset = HerramientasPorServicio.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['servicio__servicio',
+                                             'herramienta__herramienta',
+                                             'cantidad', ])
+            queryset = HerramientasPorServicio.objects.filter(entry_query)
+        elif order_by:
             queryset = HerramientasPorServicio.objects.all().order_by(order_by)
         else:
             queryset = HerramientasPorServicio.objects.all()
