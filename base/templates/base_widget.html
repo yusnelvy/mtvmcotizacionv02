@@ -1,44 +1,10 @@
 {% load widgets_extras %}
 
-<style>
-
-    .c_td {
-        position: relative;
-        display: inline!important;
-        background: transparent!important;
-        border: none!important;
-        opacity: 1!important;
-        float: right;
-        bottom: 15px!important;
-    }
-    .c_td a {
-        margin-left: 5px;
-        margin-right: 5px;
-        border-top: 1px solid rgba(0, 0, 0, 0.12)!important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12)!important;
-        display: none;
-    }
-    .c_td span {
-        color: rgb(63,81,181);
-    }
-    .c_td:hover {
-        background: transparent!important;
-    }
-    .c_td:hover a {
-        cursor: pointer;
-        display: inline;
-        opacity: 1!important;
-    }
-    .c_td_hover {
-    opacity: .2;
-}
-</style>
-
 <li id="{% block idContenedor %}{% endblock idContenedor %}" class="{% block clasesContenedor %}{% endblock clasesContenedor %} forma-panel">
 
     <div class="cabecera-panel">
         <h3 class="titulo-panel">{% block titulo_widget %}{% endblock titulo_widget %}</h3>
-        <div class="c_td">
+        <div class="c_w">
             {% block botones_widget %}{% endblock botones_widget %}
             <a title="Cerrar" data-toggletooltip="tooltip" data-placement="left" id="cerrarPanel" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="{% block idPanel %}{% endblock idPanel %}"></a>
             <a title="Expandir" data-toggletooltip="tooltip" data-placement="left" class="iconoExpandirFull"></a>
@@ -52,10 +18,10 @@
 <script type="text/javascript">
 $('.titulo-panel').hover(function() {
     }, function(){
-    $(this).removeClass('c_td_hover');
+    $(this).removeClass('c_w_hover');
 });
-$('.c_td').hover(function() {
-    $(this).parent().children('h3').addClass('c_td_hover');
+$('.c_w').hover(function() {
+    $(this).parent().children('h3').addClass('c_w_hover');
 }, function(){
-    $(this).parent().children('h3').removeClass('c_td_hover');
+    $(this).parent().children('h3').removeClass('c_w_hover');
 });</script>

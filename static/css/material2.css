@@ -4783,10 +4783,7 @@ a.badge:hover, a.badge:focus {
 @import "bootstrap/progress-bars";
 @import "bootstrap/media";
 @import "bootstrap/list-group";
-<<<<<<< HEAD
-=======
 
->>>>>>> yohandri_04
 @import "bootstrap/responsive-embed";
 @import "bootstrap/wells"; */
 .close {
@@ -5346,5 +5343,35 @@ button.close {
 .expandirTablasRelacionadas {
   height: 600px;
   width: 475px; }
+
+.c_w {
+  position: relative;
+  display: inline !important;
+  background: transparent !important;
+  border: none !important;
+  opacity: 1 !important;
+  float: right;
+  bottom: 15px !important; }
+
+.c_w a {
+  margin-left: 5px;
+  margin-right: 5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  display: none; }
+
+.c_w span {
+  color: #3f51b5; }
+
+.c_w:hover {
+  background: transparent !important; }
+
+.c_w:hover a {
+  cursor: pointer;
+  display: inline;
+  opacity: 1 !important; }
+
+.c_w_hover {
+  opacity: .2; }
 
 /*# sourceMappingURL=material2.css.map */

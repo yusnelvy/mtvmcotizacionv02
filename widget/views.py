@@ -283,7 +283,6 @@ class ConfigurarWidgetView(View):
                                                 nombre=form.cleaned_data['nombre'])
                 if widgets:
                     widgets.update(visible=form.cleaned_data['visible'],
-                                   desplegable=form.cleaned_data['desplegable'],
                                    numero_de_columna=form.cleaned_data['numero_de_columna'],
                                    color=form.cleaned_data['color'],
                                    orden=form.cleaned_data['orden'])
