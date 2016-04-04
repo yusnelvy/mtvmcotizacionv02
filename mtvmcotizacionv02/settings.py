@@ -57,7 +57,9 @@ INSTALLED_APPS = (
     'servicio',
     'talonario',
     'djangular',
-    'widget'
+    'widget',
+    'cotizador',
+    'cotizacionweb'
 )
 
 MIDDLEWARE_CLASSES = (

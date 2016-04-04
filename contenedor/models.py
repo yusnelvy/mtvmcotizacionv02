@@ -10,8 +10,8 @@ class Contenedor(models.Model):
 
     contenedor = models.CharField(max_length=100, unique=True)
     descripcion = models.TextField()
-    capacidad_de_volumen = models.DecimalField(max_digits=7, decimal_places=3)
-    capacidad_de_peso = models.DecimalField(max_digits=7, decimal_places=3)
+    capacidad_de_volumen = models.DecimalField(max_digits=7, decimal_places=2)
+    capacidad_de_peso = models.DecimalField(max_digits=7, decimal_places=2)
     ancho = models.IntegerField()
     largo = models.IntegerField()
     alto = models.IntegerField()

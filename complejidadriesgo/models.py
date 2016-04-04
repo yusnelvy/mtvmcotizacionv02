@@ -29,7 +29,7 @@ class NivelComplejidadRiesgo(models.Model):
     nivel_complejidad_riesgo = models.CharField(max_length=25, unique=True)
     factor_inicial = models.IntegerField()
     factor_final = models.IntegerField()
-    porcentaje = models.DecimalField(max_digits=5, decimal_places=2)
+    porcentaje = models.DecimalField(max_digits=7, decimal_places=2)
 
     def __str__(self):
         return self.nivel_complejidad_riesgo

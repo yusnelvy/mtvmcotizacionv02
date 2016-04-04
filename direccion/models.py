@@ -95,7 +95,7 @@ class Direccion(models.Model):
     ciudad = ChainedForeignKey(Ciudad, chained_field='provincia', chained_model_field='provincia')
     provincia = ChainedForeignKey(Provincia, chained_field='pais', chained_model_field='pais')
     pais = models.ForeignKey(Pais, on_delete=models.PROTECT)
-    zip = models.CharField(max_length=100)
+    zip = models.CharField(max_length=100, blank=True)
     punto_referencia = models.TextField(blank=True)
     observacion = models.TextField(blank=True)
 
@@ -186,7 +186,7 @@ class Ascensor(models.Model):
     ancho = models.DecimalField(max_digits=7, decimal_places=2)
     largo = models.DecimalField(max_digits=7, decimal_places=2)
     alto = models.DecimalField(max_digits=7, decimal_places=2)
-    capacidad_carga = models.DecimalField(max_digits=8, decimal_places=3)
+    capacidad_carga = models.DecimalField(max_digits=7, decimal_places=2)
 
     def __str__(self):
         return u' %s - %s' % (self.edificacion, self.tipo_de_ascensor)
@@ -242,13 +242,15 @@ class Inmueble(models.Model):
                                                    on_delete=models.PROTECT)
     numero_de_inmueble = models.CharField(max_length=100)
     numero_de_pisos = models.IntegerField(null=True, blank=True)
-    nombre_del_piso = models.CharField(max_length=100)
+    nombre_del_piso = models.CharField(max_length=100, blank=True)
     cantidad_de_ambientes = models.IntegerField()
-    pisos_por_escalera = models.IntegerField(default=0)
-    numero_de_plantas = models.IntegerField(default=1)
-    total_m2 = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    pisos_por_escalera = models.IntegerField(default=0, blank=True)
+    numero_de_plantas = models.IntegerField(default=1, blank=True)
+    total_m2 = models.DecimalField(max_digits=7, decimal_places=2,
+                                   null=True, blank=True)
     baulera = models.BooleanField(default=False)
-    volumen_baulera = models.DecimalField(max_digits=8, decimal_places=3, null=True, blank=True)
+    volumen_baulera = models.DecimalField(max_digits=7, decimal_places=2,
+                                          null=True, blank=True)
 
     def __str__(self):
         return str(self.numero_de_inmueble)

@@ -17,38 +17,175 @@ SET NAMES 'utf8';
 USE db_mtvmcotizacionv2;
 
 --
--- Alter table menu_menu
+-- Alter table complejidadriesgo_nivelcomplejidadriesgo
 --
-ALTER TABLE menu_menu
-  DROP FOREIGN KEY menu_menu_menu_padre_id_2e39653d_fk_menu_menu_id;
-ALTER TABLE menu_menu
-  ADD CONSTRAINT menu_menu_menu_padre_id_2e39653d_fk_menu_menu_id FOREIGN KEY (menu_padre_id)
-    REFERENCES menu_menu(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE complejidadriesgo_nivelcomplejidadriesgo
+  CHANGE COLUMN porcentaje porcentaje DECIMAL(7, 2) NOT NULL;
 
 --
--- Alter table trabajador_cargotrabajador
+-- Alter table contenedor_contenedor
 --
-ALTER TABLE trabajador_cargotrabajador
-  DROP FOREIGN KEY trabaja_cargo_padre_id_2378121d_fk_trabajador_cargotrabajador_id;
-ALTER TABLE trabajador_cargotrabajador
-  ADD CONSTRAINT trabaja_cargo_padre_id_2378121d_fk_trabajador_cargotrabajador_id FOREIGN KEY (cargo_padre_id)
-    REFERENCES trabajador_cargotrabajador(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE contenedor_contenedor
+  CHANGE COLUMN capacidad_de_volumen capacidad_de_volumen DECIMAL(7, 2) NOT NULL,
+  CHANGE COLUMN capacidad_de_peso capacidad_de_peso DECIMAL(7, 2) NOT NULL;
 
 --
--- Create table widget_widget
+-- Create table cotizacionweb_conceptodecotizacion
 --
-CREATE TABLE widget_widget (
+CREATE TABLE cotizacionweb_conceptodecotizacion (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  usuario_id INT(11) NOT NULL,
-  nombre VARCHAR(100) NOT NULL,
-  visible TINYINT(1) NOT NULL,
-  desplegable INT(11) NOT NULL,
-  numero_de_columna VARCHAR(100) NOT NULL,
-  color VARCHAR(100) NOT NULL,
-  orden INT(11) NOT NULL,
+  concepto VARCHAR(100) NOT NULL,
+  descripcion LONGTEXT NOT NULL,
+  positivo TINYINT(1) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE INDEX usuario_id (usuario_id, nombre),
-  CONSTRAINT widget_widget_usuario_id_165f0770_fk_auth_user_id FOREIGN KEY (usuario_id)
+  UNIQUE INDEX concepto (concepto)
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_fechadecotizacion
+--
+CREATE TABLE cotizacionweb_fechadecotizacion (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_fecha VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX nombre_fecha (nombre_fecha)
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_tipoabono
+--
+CREATE TABLE cotizacionweb_tipoabono (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  tipo_abono VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX tipo_abono (tipo_abono)
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_tipodireccion
+--
+CREATE TABLE cotizacionweb_tipodireccion (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  tipo_direccion VARCHAR(100) NOT NULL,
+  descripcion LONGTEXT NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX tipo_direccion (tipo_direccion)
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Alter table vehiculo_vehiculo
+--
+ALTER TABLE vehiculo_vehiculo
+  CHANGE COLUMN volumen_total_carga volumen_total_carga DECIMAL(7, 2) NOT NULL,
+  CHANGE COLUMN peso_total_carga peso_total_carga DECIMAL(7, 2) NOT NULL;
+
+--
+-- Alter table material_material
+--
+ALTER TABLE material_material
+  CHANGE COLUMN peso_unidad_consumo_kg peso_unidad_consumo_kg DECIMAL(7, 2) NOT NULL;
+
+--
+-- Alter table vehiculo_detalledevehiculo
+--
+ALTER TABLE vehiculo_detalledevehiculo
+  CHANGE COLUMN tara_vehiculo tara_vehiculo DECIMAL(7, 7) NOT NULL;
+
+--
+-- Create table cotizador_cotizador
+--
+CREATE TABLE cotizador_cotizador (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  id_trabajador_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizador_c_id_trabajador_id_af23de8_fk_trabajador_trabajador_id (id_trabajador_id),
+  CONSTRAINT cotizador_c_id_trabajador_id_af23de8_fk_trabajador_trabajador_id FOREIGN KEY (id_trabajador_id)
+    REFERENCES trabajador_trabajador(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Alter table promocion_alianza
+--
+ALTER TABLE promocion_alianza
+  CHANGE COLUMN porcentaje_comision porcentaje_comision DECIMAL(7, 2) NOT NULL;
+
+--
+-- Alter table servicio_complejidadservicio
+--
+ALTER TABLE servicio_complejidadservicio
+  CHANGE COLUMN porcentaje porcentaje DECIMAL(7, 2) NOT NULL;
+
+--
+-- Create table cotizacionweb_cotizacion
+--
+CREATE TABLE cotizacionweb_cotizacion (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  numero_contrato VARCHAR(100) NOT NULL,
+  numero_cotizacion VARCHAR(100) NOT NULL,
+  nombre_cliente VARCHAR(300) NOT NULL,
+  fecha_de_cotizacion DATE NOT NULL,
+  hora_de_cotizacion TIME NOT NULL,
+  tiempo_carga DECIMAL(7, 2) NOT NULL,
+  total_recorrido_tiempo DECIMAL(7, 2) NOT NULL,
+  total_recorrido_km DECIMAL(7, 2) NOT NULL,
+  nivel_de_complejidad_riesgo VARCHAR(25) NOT NULL,
+  porcentaje_complejidad_riesgo DECIMAL(7, 2) NOT NULL,
+  cliente_id INT(11) NOT NULL,
+  como_abona_id INT(11) DEFAULT NULL,
+  cotizador_id INT(11) DEFAULT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacionweb_cotizaci_cliente_id_62b996bb_fk_cliente_cliente_id (cliente_id),
+  INDEX cotizacionweb_cotizacion_0f3c5103 (cotizador_id),
+  INDEX cotizacionweb_cotizacion_af5f3f96 (como_abona_id),
+  CONSTRAINT cotizacionw_como_abona_id_782088a9_fk_cotizacionweb_tipoabono_id FOREIGN KEY (como_abona_id)
+    REFERENCES cotizacionweb_tipoabono(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_co_cotizador_id_14a15214_fk_cotizador_cotizador_id FOREIGN KEY (cotizador_id)
+    REFERENCES cotizador_cotizador(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_cotizaci_cliente_id_62b996bb_fk_cliente_cliente_id FOREIGN KEY (cliente_id)
+    REFERENCES cliente_cliente(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_abono
+--
+CREATE TABLE cotizacionweb_abono (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  fecha_registro DATE NOT NULL,
+  hora_registro TIME NOT NULL,
+  monto_pagado DECIMAL(9, 2) NOT NULL,
+  monto_cotizacion DECIMAL(9, 2) NOT NULL,
+  banco VARCHAR(100) NOT NULL,
+  numero_transaccion VARCHAR(100) NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  tipo_abono_id INT(11) NOT NULL,
+  usuario_registro_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacionweb_abono_1b44b901 (cotizacion_id),
+  INDEX cotizacionweb_abono_6bab39c7 (tipo_abono_id),
+  INDEX cotizacionweb_abono_8a4ba14d (usuario_registro_id),
+  CONSTRAINT cotizacion_cotizacion_id_41bc6d09_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionw_tipo_abono_id_58c80f86_fk_cotizacionweb_tipoabono_id FOREIGN KEY (tipo_abono_id)
+    REFERENCES cotizacionweb_tipoabono(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_abono_usuario_registro_id_32303558_fk_auth_user_id FOREIGN KEY (usuario_registro_id)
     REFERENCES auth_user(id) ON DELETE RESTRICT ON UPDATE RESTRICT
 )
 ENGINE = INNODB
@@ -56,169 +193,498 @@ CHARACTER SET utf8
 COLLATE utf8_unicode_ci;
 
 --
--- Alter table direccion_edificacion
+-- Create table cotizacionweb_argumentodeventa
 --
-ALTER TABLE direccion_edificacion
-  CHANGE COLUMN cantidad_de_pisos cantidad_de_pisos INT(11) DEFAULT NULL,
-  CHANGE COLUMN cantidad_de_inmuebles_por_piso cantidad_de_inmuebles_por_piso INT(11) DEFAULT NULL,
-  CHANGE COLUMN total_inmuebles total_inmuebles INT(11) DEFAULT NULL,
-  CHANGE COLUMN distancia_del_vehiculo distancia_del_vehiculo INT(11) DEFAULT NULL;
+CREATE TABLE cotizacionweb_argumentodeventa (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  titulo VARCHAR(100) NOT NULL,
+  descripcion LONGTEXT NOT NULL,
+  valor DECIMAL(9, 2) NOT NULL,
+  aplicado TINYINT(1) NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacionweb_argumentodeventa_1b44b901 (cotizacion_id),
+  CONSTRAINT cotizacion_cotizacion_id_6284f7a8_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacionbitacora
+--
+CREATE TABLE cotizacionweb_cotizacionbitacora (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  fecha_registro DATE NOT NULL,
+  hora_registro TIME NOT NULL,
+  observacion LONGTEXT NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  usuario_registro_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacion_cotizacion_id_226415c2_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacionweb_cotiz_usuario_registro_id_24e108af_fk_auth_user_id (usuario_registro_id),
+  CONSTRAINT cotizacion_cotizacion_id_226415c2_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_cotiz_usuario_registro_id_24e108af_fk_auth_user_id FOREIGN KEY (usuario_registro_id)
+    REFERENCES auth_user(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacioncomplejidadriesgo
+--
+CREATE TABLE cotizacionweb_cotizacioncomplejidadriesgo (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  situacion VARCHAR(100) NOT NULL,
+  factor_complejidad INT(11) NOT NULL,
+  factor_riesgo INT(11) NOT NULL,
+  observacion LONGTEXT NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacion_cotizacion_id_20f15e2a_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  CONSTRAINT cotizacion_cotizacion_id_20f15e2a_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacionestado
+--
+CREATE TABLE cotizacionweb_cotizacionestado (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  fecha_registro DATE NOT NULL,
+  observacion LONGTEXT NOT NULL,
+  predefinido TINYINT(1) NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  estado_de_documento_id INT(11) DEFAULT NULL,
+  estado_de_registro_id INT(11) DEFAULT NULL,
+  usuario_registro_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacion_cotizacion_id_2a91d242_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacionweb_cotiz_usuario_registro_id_74f7df55_fk_auth_user_id (usuario_registro_id),
+  INDEX D2bef8617eb35de8c4cc6a136eb43915 (estado_de_registro_id),
+  INDEX D98ad9819c53e0481303ed9a0d6b522b (estado_de_documento_id),
+  CONSTRAINT cotizacion_cotizacion_id_2a91d242_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_cotiz_usuario_registro_id_74f7df55_fk_auth_user_id FOREIGN KEY (usuario_registro_id)
+    REFERENCES auth_user(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT D2bef8617eb35de8c4cc6a136eb43915 FOREIGN KEY (estado_de_registro_id)
+    REFERENCES estadoderegistro_estadoderegistro(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT D98ad9819c53e0481303ed9a0d6b522b FOREIGN KEY (estado_de_documento_id)
+    REFERENCES gestiondedocumento_estadodedocumento(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacionherramienta
+--
+CREATE TABLE cotizacionweb_cotizacionherramienta (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_herramienta VARCHAR(100) NOT NULL,
+  cantidad DECIMAL(7, 2) NOT NULL,
+  descripcion_de_cantidad LONGTEXT NOT NULL,
+  cantidad_asignada DECIMAL(7, 2) NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  herramienta_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacion_cotizacion_id_58316b94_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacion_herramienta_id_4b40721b_fk_herramienta_herramienta_id (herramienta_id),
+  CONSTRAINT cotizacion_cotizacion_id_58316b94_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacion_herramienta_id_4b40721b_fk_herramienta_herramienta_id FOREIGN KEY (herramienta_id)
+    REFERENCES herramienta_herramienta(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacionhistoricofecha
+--
+CREATE TABLE cotizacionweb_cotizacionhistoricofecha (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_tipo_fecha VARCHAR(100) NOT NULL,
+  fecha_actual DATE NOT NULL,
+  hora_actual TIME NOT NULL,
+  observacion LONGTEXT NOT NULL,
+  aplicar TINYINT(1) NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  tipo_fecha_id INT(11) NOT NULL,
+  usuario_registro_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacion_cotizacion_id_6a84fc66_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacionweb_cotizacionhistoricofecha_8a4ba14d (usuario_registro_id),
+  INDEX cotizacionweb_cotizacionhistoricofecha_a6c39426 (tipo_fecha_id),
+  CONSTRAINT cot_tipo_fecha_id_237994bf_fk_cotizacionweb_fechadecotizacion_id FOREIGN KEY (tipo_fecha_id)
+    REFERENCES cotizacionweb_fechadecotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacion_cotizacion_id_6a84fc66_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_cotiz_usuario_registro_id_2d4090ad_fk_auth_user_id FOREIGN KEY (usuario_registro_id)
+    REFERENCES auth_user(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacionmaterial
+--
+CREATE TABLE cotizacionweb_cotizacionmaterial (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_material VARCHAR(100) NOT NULL,
+  cantidad DECIMAL(7, 2) NOT NULL,
+  descripcion_de_cantidad LONGTEXT NOT NULL,
+  cantidad_asignada DECIMAL(7, 2) NOT NULL,
+  precio_unitario DECIMAL(9, 2) NOT NULL,
+  monto_material DECIMAL(9, 2) NOT NULL,
+  monto_material_asignado DECIMAL(9, 2) NOT NULL,
+  peso_unitario DECIMAL(7, 2) NOT NULL,
+  peso_total DECIMAL(7, 2) NOT NULL,
+  inlcuido TINYINT(1) NOT NULL,
+  basico TINYINT(1) NOT NULL,
+  aplicar TINYINT(1) NOT NULL,
+  observacion LONGTEXT NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  material_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacion_cotizacion_id_704c800c_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacionweb_cotiz_material_id_2e6397a9_fk_material_material_id (material_id),
+  CONSTRAINT cotizacion_cotizacion_id_704c800c_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_cotiz_material_id_2e6397a9_fk_material_material_id FOREIGN KEY (material_id)
+    REFERENCES material_material(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacionpresupuesto
+--
+CREATE TABLE cotizacionweb_cotizacionpresupuesto (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_concepto VARCHAR(100) NOT NULL,
+  cantidad DECIMAL(7, 2) NOT NULL,
+  precio_unitario DECIMAL(9, 2) NOT NULL,
+  precio_total DECIMAL(9, 2) NOT NULL,
+  precio_total_asignado DECIMAL(9, 2) NOT NULL,
+  descripcion_precio_total LONGTEXT NOT NULL,
+  concepto_id INT(11) NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  unidad_de_medida_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX co_concepto_id_737a50ac_fk_cotizacionweb_conceptodecotizacion_id (concepto_id),
+  INDEX cotizacion_cotizacion_id_61d2124f_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacionweb_unidad_de_medida_id_30caf577_fk_premisas_unidad_id (unidad_de_medida_id),
+  CONSTRAINT co_concepto_id_737a50ac_fk_cotizacionweb_conceptodecotizacion_id FOREIGN KEY (concepto_id)
+    REFERENCES cotizacionweb_conceptodecotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacion_cotizacion_id_61d2124f_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_unidad_de_medida_id_30caf577_fk_premisas_unidad_id FOREIGN KEY (unidad_de_medida_id)
+    REFERENCES premisas_unidad(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_cotizacionservicio
+--
+CREATE TABLE cotizacionweb_cotizacionservicio (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_de_servicio VARCHAR(100) NOT NULL,
+  complejidad_servicio VARCHAR(100) NOT NULL,
+  porcentaje_complejidad DECIMAL(7, 2) NOT NULL,
+  monto_servicio DECIMAL(9, 2) NOT NULL,
+  descripcion_de_monto_servicio LONGTEXT NOT NULL,
+  monto_servicio_asignado DECIMAL(9, 2) NOT NULL,
+  incluido_en_precio TINYINT(1) NOT NULL,
+  aplicar_servicio TINYINT(1) NOT NULL,
+  basico TINYINT(1) NOT NULL,
+  observacion LONGTEXT NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  servicio_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacion_cotizacion_id_4d15c561_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacionweb_cotiza_servicio_id_31acdf3_fk_servicio_servicio_id (servicio_id),
+  CONSTRAINT cotizacion_cotizacion_id_4d15c561_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacionweb_cotiza_servicio_id_31acdf3_fk_servicio_servicio_id FOREIGN KEY (servicio_id)
+    REFERENCES servicio_servicio(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Alter table direccion_ascensor
+--
+ALTER TABLE direccion_ascensor
+  CHANGE COLUMN capacidad_carga capacidad_carga DECIMAL(7, 2) NOT NULL;
 
 --
 -- Alter table direccion_inmueble
 --
 ALTER TABLE direccion_inmueble
-  CHANGE COLUMN numero_de_pisos numero_de_pisos INT(11) DEFAULT NULL,
-  CHANGE COLUMN total_m2 total_m2 DECIMAL(7, 2) DEFAULT NULL,
-  CHANGE COLUMN volumen_baulera volumen_baulera DECIMAL(8, 3) DEFAULT NULL;
+  CHANGE COLUMN volumen_baulera volumen_baulera DECIMAL(7, 2) DEFAULT NULL;
 
 --
--- Alter table cliente_clientedireccion
+-- Create table cotizacionweb_cotizaciondireccion
 --
-ALTER TABLE cliente_clientedireccion
-  ADD COLUMN edificacion_id INT(11) DEFAULT NULL AFTER titulo_de_direccion,
-  ADD COLUMN inmueble_id INT(11) DEFAULT NULL AFTER edificacion_id;
-
-ALTER TABLE cliente_clientedireccion
-  ADD INDEX cliente_clientedireccion_1b0d6425 (edificacion_id);
-
-ALTER TABLE cliente_clientedireccion
-  ADD INDEX cliente_clientedireccion_9846f97f (inmueble_id);
-
-ALTER TABLE cliente_clientedireccion
-  ADD CONSTRAINT cliente_clie_edificacion_id_3fdfea0c_fk_direccion_edificacion_id FOREIGN KEY (edificacion_id)
-    REFERENCES direccion_edificacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE cliente_clientedireccion
-  ADD CONSTRAINT cliente_clientedire_inmueble_id_770c355_fk_direccion_inmueble_id FOREIGN KEY (inmueble_id)
-    REFERENCES direccion_inmueble(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-INSERT INTO auth_permission(id, name, content_type_id, codename) VALUES
-(265, 'Can add Widget', 89, 'add_widget'),
-(266, 'Can change Widget', 89, 'change_widget'),
-(267, 'Can delete Widget', 89, 'delete_widget');
-
-INSERT INTO django_content_type(id, app_label, model) VALUES
-(89, 'widget', 'widget');
-
-UPDATE django_migrations SET applied = '2016-02-04 19:20:53' WHERE id = 25;
-UPDATE django_migrations SET applied = '2016-02-04 19:23:15' WHERE id = 26;
-UPDATE django_migrations SET applied = '2016-02-12 13:41:18' WHERE id = 27;
-UPDATE django_migrations SET applied = '2016-02-15 19:30:54' WHERE id = 28;
-UPDATE django_migrations SET applied = '2016-02-15 19:30:59' WHERE id = 29;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:17' WHERE id = 30;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:23' WHERE id = 31;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:32' WHERE id = 32;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:49' WHERE id = 33;
-UPDATE django_migrations SET applied = '2016-02-17 19:29:15' WHERE id = 34;
-UPDATE django_migrations SET applied = '2016-02-17 19:29:20' WHERE id = 35;
-UPDATE django_migrations SET applied = '2016-03-01 12:58:37' WHERE id = 36;
-UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 37;
-UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 38;
-UPDATE django_migrations SET applied = '2016-03-01 21:04:28' WHERE id = 39;
-UPDATE django_migrations SET applied = '2016-03-01 21:04:31' WHERE id = 40;
-UPDATE django_migrations SET applied = '2016-03-02 18:05:31' WHERE id = 41;
-UPDATE django_migrations SET applied = '2016-03-02 18:05:32' WHERE id = 42;
-
-INSERT INTO django_migrations(id, app, name, applied) VALUES
-(43, 'direccion', '0003_auto_20160303_1401', '2016-03-03 18:31:53'),
-(44, 'cliente', '0004_auto_20160303_1401', '2016-03-03 18:31:59'),
-(45, 'direccion', '0004_auto_20160303_1403', '2016-03-03 18:33:16'),
-(46, 'direccion', '0005_auto_20160304_1558', '2016-03-04 20:32:37');
-
--- cambios nuevos --
-
-ALTER TABLE widget_widget
-  DROP COLUMN desplegable,
-  DROP FOREIGN KEY widget_widget_usuario_id_165f0770_fk_auth_user_id,
-  DROP INDEX usuario_id,
-  CHANGE COLUMN nombre nombre VARCHAR(100) NOT NULL AFTER id,
-  CHANGE COLUMN usuario_id usuario_id INT(11) NOT NULL AFTER orden;
-
-ALTER TABLE widget_widget
-  ADD UNIQUE INDEX widget_widget_usuario_id_37ef8023_uniq (usuario_id, nombre);
-
-ALTER TABLE widget_widget
-  ADD CONSTRAINT widget_widget_usuario_id_1d62947a_fk_auth_user_id FOREIGN KEY (usuario_id)
-    REFERENCES auth_user(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+CREATE TABLE cotizacionweb_cotizaciondireccion (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  direccion LONGTEXT NOT NULL,
+  orden INT(11) NOT NULL,
+  nombre_de_edificio VARCHAR(250) NOT NULL,
+  tipo_de_edificacion VARCHAR(100) NOT NULL,
+  rampa TINYINT(1) NOT NULL,
+  distancia_del_vehiculo INT(11) NOT NULL,
+  cantidad_pisos INT(11) NOT NULL,
+  escalera_estrecha TINYINT(1) NOT NULL,
+  escalera_inclinada TINYINT(1) NOT NULL,
+  escalon_grande TINYINT(1) NOT NULL,
+  especificacion_de_inmueble VARCHAR(250) NOT NULL,
+  numero_de_inmueble VARCHAR(100) NOT NULL,
+  numero_de_pisos INT(11) NOT NULL,
+  nombre_piso VARCHAR(100) NOT NULL,
+  cantidad_de_ambientes INT(11) NOT NULL,
+  pisos_por_escalera INT(11) NOT NULL,
+  numero_de_plantas INT(11) NOT NULL,
+  total_m2 DECIMAL(7, 2) DEFAULT NULL,
+  baulera TINYINT(1) NOT NULL,
+  volumen_baulera DECIMAL(7, 2) DEFAULT NULL,
+  clientedireccion_id INT(11) NOT NULL,
+  cotizacion_id INT(11) NOT NULL,
+  tipo_direccion_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX coti_clientedireccion_id_6ef6e2f0_fk_cliente_clientedireccion_id (clientedireccion_id),
+  INDEX cotizacion_cotizacion_id_5690e297_fk_cotizacionweb_cotizacion_id (cotizacion_id),
+  INDEX cotizacionweb_cotizaciondireccion_aa27db54 (tipo_direccion_id),
+  CONSTRAINT cot_tipo_direccion_id_1c6cfe71_fk_cotizacionweb_tipodireccion_id FOREIGN KEY (tipo_direccion_id)
+    REFERENCES cotizacionweb_tipodireccion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT coti_clientedireccion_id_6ef6e2f0_fk_cliente_clientedireccion_id FOREIGN KEY (clientedireccion_id)
+    REFERENCES cliente_clientedireccion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT cotizacion_cotizacion_id_5690e297_fk_cotizacionweb_cotizacion_id FOREIGN KEY (cotizacion_id)
+    REFERENCES cotizacionweb_cotizacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
 
 --
--- Alter table cliente_clientedireccion
+-- Create table cotizacionweb_cotizacionambiente
 --
-ALTER TABLE cliente_clientedireccion
-  DROP FOREIGN KEY cliente_clie_edificacion_id_3fdfea0c_fk_direccion_edificacion_id;
-ALTER TABLE cliente_clientedireccion
-  ADD CONSTRAINT cliente_clie_edificacion_id_3fdfea0c_fk_direccion_edificacion_id FOREIGN KEY (edificacion_id)
-    REFERENCES direccion_edificacion(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE cliente_clientedireccion
-  DROP FOREIGN KEY cliente_clientedire_inmueble_id_770c355_fk_direccion_inmueble_id;
-ALTER TABLE cliente_clientedireccion
-  ADD CONSTRAINT cliente_clientedire_inmueble_id_770c355_fk_direccion_inmueble_id FOREIGN KEY (inmueble_id)
-    REFERENCES direccion_inmueble(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-
-UPDATE django_migrations SET applied = '2016-02-04 19:20:53' WHERE id = 25;
-UPDATE django_migrations SET applied = '2016-02-04 19:23:15' WHERE id = 26;
-UPDATE django_migrations SET applied = '2016-02-12 13:41:18' WHERE id = 27;
-UPDATE django_migrations SET applied = '2016-02-15 19:30:54' WHERE id = 28;
-UPDATE django_migrations SET applied = '2016-02-15 19:30:59' WHERE id = 29;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:17' WHERE id = 30;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:23' WHERE id = 31;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:32' WHERE id = 32;
-UPDATE django_migrations SET applied = '2016-02-15 19:31:49' WHERE id = 33;
-UPDATE django_migrations SET applied = '2016-02-17 19:29:15' WHERE id = 34;
-UPDATE django_migrations SET applied = '2016-02-17 19:29:20' WHERE id = 35;
-UPDATE django_migrations SET applied = '2016-03-01 12:58:37' WHERE id = 36;
-UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 37;
-UPDATE django_migrations SET applied = '2016-03-01 12:58:38' WHERE id = 38;
-UPDATE django_migrations SET applied = '2016-03-01 21:04:28' WHERE id = 39;
-UPDATE django_migrations SET applied = '2016-03-01 21:04:31' WHERE id = 40;
-UPDATE django_migrations SET applied = '2016-03-02 18:05:31' WHERE id = 41;
-UPDATE django_migrations SET applied = '2016-03-02 18:05:32' WHERE id = 42;
-UPDATE django_migrations SET applied = '2016-03-03 18:31:53' WHERE id = 43;
-UPDATE django_migrations SET applied = '2016-03-03 18:31:59' WHERE id = 44;
-UPDATE django_migrations SET applied = '2016-03-03 18:33:16' WHERE id = 45;
-UPDATE django_migrations SET applied = '2016-03-04 20:32:37' WHERE id = 46;
+CREATE TABLE cotizacionweb_cotizacionambiente (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  observaciones LONGTEXT NOT NULL,
+  ambiente_id INT(11) NOT NULL,
+  direccion_origen_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacionweb_cotiz_ambiente_id_704539fd_fk_ambiente_ambiente_id (ambiente_id),
+  INDEX cotizacionweb_cotizacionambiente_c6b82c03 (direccion_origen_id),
+  CONSTRAINT cotizacionweb_cotiz_ambiente_id_704539fd_fk_ambiente_ambiente_id FOREIGN KEY (ambiente_id)
+    REFERENCES ambiente_ambiente(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT e4a05b069ad545e95fe0fa2f2a356cc0 FOREIGN KEY (direccion_origen_id)
+    REFERENCES cotizacionweb_cotizaciondireccion(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
 
 --
--- Inserting data into table django_migrations
+-- Create table cotizacionweb_cotizacionmueble
 --
-INSERT INTO django_migrations(id, app, name, applied) VALUES
-(47, 'widget', '0001_initial', '2016-03-14 19:29:32'),
-(48, 'widget', '0002_remove_widget_desplegable', '2016-03-14 19:33:38');
+CREATE TABLE cotizacionweb_cotizacionmueble (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_especificacion_de_mueble VARCHAR(100) NOT NULL,
+  ancho DECIMAL(7, 2) NOT NULL,
+  largo DECIMAL(7, 2) NOT NULL,
+  alto DECIMAL(7, 2) NOT NULL,
+  cantidad INT(11) NOT NULL,
+  volumen_en_camion INT(11) NOT NULL,
+  trasladable TINYINT(1) NOT NULL,
+  observaciones LONGTEXT NOT NULL,
+  cotizacion_ambiente_id INT(11) NOT NULL,
+  direccion_destino_id INT(11) NOT NULL,
+  especificacion_de_mueble_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX D5a79206faac8e496d9ef943eb010e47 (direccion_destino_id),
+  INDEX D6d60e2eb43a2a0a09043be0278170e0 (especificacion_de_mueble_id),
+  INDEX D995f768802fe0b4eb7c1bc865c9e6eb (cotizacion_ambiente_id),
+  CONSTRAINT D5a79206faac8e496d9ef943eb010e47 FOREIGN KEY (direccion_destino_id)
+    REFERENCES cotizacionweb_cotizaciondireccion(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT D6d60e2eb43a2a0a09043be0278170e0 FOREIGN KEY (especificacion_de_mueble_id)
+    REFERENCES mueble_especificaciondemueble(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT D995f768802fe0b4eb7c1bc865c9e6eb FOREIGN KEY (cotizacion_ambiente_id)
+    REFERENCES cotizacionweb_cotizacionambiente(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_contenedormueble
+--
+CREATE TABLE cotizacionweb_contenedormueble (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre_contenedor VARCHAR(100) NOT NULL,
+  cantidad INT(11) NOT NULL,
+  contenedor_id INT(11) NOT NULL,
+  cotizacion_mueble_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacionweb_contenedormueble_b5b2cb6f (contenedor_id),
+  INDEX cotizacionweb_contenedormueble_c01c3066 (cotizacion_mueble_id),
+  CONSTRAINT cotizacionweb__contenedor_id_a1e7a99_fk_contenedor_contenedor_id FOREIGN KEY (contenedor_id)
+    REFERENCES contenedor_contenedor(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT D7d8647317d727aa39a6e3be6848f8ba FOREIGN KEY (cotizacion_mueble_id)
+    REFERENCES cotizacionweb_cotizacionmueble(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+
+--
+-- Create table cotizacionweb_serviciomueble
+--
+CREATE TABLE cotizacionweb_serviciomueble (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  descripcion_servicio VARCHAR(100) NOT NULL,
+  complejidad_servicio VARCHAR(100) NOT NULL,
+  porcentaje_complejidad DECIMAL(7, 2) NOT NULL,
+  monto_servicio DECIMAL(9, 2) NOT NULL,
+  descripcion_monto_servicio LONGTEXT NOT NULL,
+  monto_servicio_asignado DECIMAL(9, 2) NOT NULL,
+  incluido TINYINT(1) NOT NULL,
+  cotizacion_mueble_id INT(11) NOT NULL,
+  servicio_id INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX cotizacionweb_servi_servicio_id_3a88c415_fk_servicio_servicio_id (servicio_id),
+  INDEX D2ed22e52a41c9003e6196c6fac1701a (cotizacion_mueble_id),
+  CONSTRAINT cotizacionweb_servi_servicio_id_3a88c415_fk_servicio_servicio_id FOREIGN KEY (servicio_id)
+    REFERENCES servicio_servicio(id) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT D2ed22e52a41c9003e6196c6fac1701a FOREIGN KEY (cotizacion_mueble_id)
+    REFERENCES cotizacionweb_cotizacionmueble(id) ON DELETE RESTRICT ON UPDATE RESTRICT
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
 
 --
 -- Enable foreign keys
 --
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 
-
--- para nueva para la bd 18-03-16
-
-ALTER TABLE menu_menu
-  DROP FOREIGN KEY menu_menu_menu_padre_id_2e39653d_fk_menu_menu_id;
-ALTER TABLE menu_menu
-  ADD CONSTRAINT menu_menu_menu_padre_id_2e39653d_fk_menu_menu_id FOREIGN KEY (menu_padre_id)
-    REFERENCES menu_menu(id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+--
+-- Inserting data into table auth_permission
+--
+INSERT INTO auth_permission(id, name, content_type_id, codename) VALUES
+(268, 'Can add Cotizador', 90, 'add_cotizador'),
+(269, 'Can change Cotizador', 90, 'change_cotizador'),
+(270, 'Can delete Cotizador', 90, 'delete_cotizador'),
+(271, 'Can add Tipo de dirección', 91, 'add_tipodireccion'),
+(272, 'Can change Tipo de dirección', 91, 'change_tipodireccion'),
+(273, 'Can delete Tipo de dirección', 91, 'delete_tipodireccion'),
+(274, 'Can add Fecha de cotización', 92, 'add_fechadecotizacion'),
+(275, 'Can change Fecha de cotización', 92, 'change_fechadecotizacion'),
+(276, 'Can delete Fecha de cotización', 92, 'delete_fechadecotizacion'),
+(277, 'Can add Concepto de cotización', 93, 'add_conceptodecotizacion'),
+(278, 'Can change Concepto de cotización', 93, 'change_conceptodecotizacion'),
+(279, 'Can delete Concepto de cotización', 93, 'delete_conceptodecotizacion'),
+(280, 'Can add Tipo de abono', 94, 'add_tipoabono'),
+(281, 'Can change Tipo de abono', 94, 'change_tipoabono'),
+(282, 'Can delete Tipo de abono', 94, 'delete_tipoabono'),
+(283, 'Can add Cotización', 95, 'add_cotizacion'),
+(284, 'Can change Cotización', 95, 'change_cotizacion'),
+(285, 'Can delete Cotización', 95, 'delete_cotizacion'),
+(286, 'Can add Dirección de la cotización', 96, 'add_cotizaciondireccion'),
+(287, 'Can change Dirección de la cotización', 96, 'change_cotizaciondireccion'),
+(288, 'Can delete Dirección de la cotización', 96, 'delete_cotizaciondireccion'),
+(289, 'Can add Ambiente de la cotización', 97, 'add_cotizacionambiente'),
+(290, 'Can change Ambiente de la cotización', 97, 'change_cotizacionambiente'),
+(291, 'Can delete Ambiente de la cotización', 97, 'delete_cotizacionambiente'),
+(292, 'Can add Mueble de la cotización', 98, 'add_cotizacionmueble'),
+(293, 'Can change Mueble de la cotización', 98, 'change_cotizacionmueble'),
+(294, 'Can delete Mueble de la cotización', 98, 'delete_cotizacionmueble'),
+(295, 'Can add Contenedor del mueble', 99, 'add_contenedormueble'),
+(296, 'Can change Contenedor del mueble', 99, 'change_contenedormueble'),
+(297, 'Can delete Contenedor del mueble', 99, 'delete_contenedormueble'),
+(298, 'Can add Servicio del mueble', 100, 'add_serviciomueble'),
+(299, 'Can change Servicio del mueble', 100, 'change_serviciomueble'),
+(300, 'Can delete Servicio del mueble', 100, 'delete_serviciomueble'),
+(301, 'Can add Servicio de la cotización', 101, 'add_cotizacionservicio'),
+(302, 'Can change Servicio de la cotización', 101, 'change_cotizacionservicio'),
+(303, 'Can delete Servicio de la cotización', 101, 'delete_cotizacionservicio'),
+(304, 'Can add Material de la cotización', 102, 'add_cotizacionmaterial'),
+(305, 'Can change Material de la cotización', 102, 'change_cotizacionmaterial'),
+(306, 'Can delete Material de la cotización', 102, 'delete_cotizacionmaterial'),
+(307, 'Can add Herramienta de la cotización', 103, 'add_cotizacionherramienta'),
+(308, 'Can change Herramienta de la cotización', 103, 'change_cotizacionherramienta'),
+(309, 'Can delete Herramienta de la cotización', 103, 'delete_cotizacionherramienta'),
+(310, 'Can add Concepto de la cotización', 104, 'add_cotizacionpresupuesto'),
+(311, 'Can change Concepto de la cotización', 104, 'change_cotizacionpresupuesto'),
+(312, 'Can delete Concepto de la cotización', 104, 'delete_cotizacionpresupuesto'),
+(313, 'Can add Concepto de la cotización', 105, 'add_abono'),
+(314, 'Can change Concepto de la cotización', 105, 'change_abono'),
+(315, 'Can delete Concepto de la cotización', 105, 'delete_abono'),
+(316, 'Can add Situación de la cotización', 106, 'add_cotizacioncomplejidadriesgo'),
+(317, 'Can change Situación de la cotización', 106, 'change_cotizacioncomplejidadriesgo'),
+(318, 'Can delete Situación de la cotización', 106, 'delete_cotizacioncomplejidadriesgo'),
+(319, 'Can add Observación de la cotización', 107, 'add_cotizacionbitacora'),
+(320, 'Can change Observación de la cotización', 107, 'change_cotizacionbitacora'),
+(321, 'Can delete Observación de la cotización', 107, 'delete_cotizacionbitacora'),
+(322, 'Can add Observación de la cotización', 108, 'add_cotizacionhistoricofecha'),
+(323, 'Can change Observación de la cotización', 108, 'change_cotizacionhistoricofecha'),
+(324, 'Can delete Observación de la cotización', 108, 'delete_cotizacionhistoricofecha'),
+(325, 'Can add Estado de la cotización', 109, 'add_cotizacionestado'),
+(326, 'Can change Estado de la cotización', 109, 'change_cotizacionestado'),
+(327, 'Can delete Estado de la cotización', 109, 'delete_cotizacionestado'),
+(328, 'Can add Argumento de venta', 110, 'add_argumentodeventa'),
+(329, 'Can change Argumento de venta', 110, 'change_argumentodeventa'),
+(330, 'Can delete Argumento de venta', 110, 'delete_argumentodeventa');
 
 --
--- Alter table trabajador_cargotrabajador
+-- Inserting data into table cotizacionweb_tipodireccion
 --
-ALTER TABLE trabajador_cargotrabajador
-  DROP FOREIGN KEY trabaja_cargo_padre_id_2378121d_fk_trabajador_cargotrabajador_id;
-ALTER TABLE trabajador_cargotrabajador
-  ADD CONSTRAINT trabaja_cargo_padre_id_2378121d_fk_trabajador_cargotrabajador_id FOREIGN KEY (cargo_padre_id)
-    REFERENCES trabajador_cargotrabajador(id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+INSERT INTO cotizacionweb_tipodireccion(id, tipo_direccion, descripcion) VALUES
+(1, 'Origen', 'EL tipo de dirección origen es la dirección de donde se realizara la mudanza'),
+(2, 'Destino', 'EL tipo de dirección destino es la dirección donde se llevara la mudanza');
 
 --
--- Alter table talonario_documentodeltalonario
+-- Inserting data into table django_content_type
 --
-ALTER TABLE talonario_documentodeltalonario
-  DROP COLUMN informacion_de_beneficiari,
-  ADD COLUMN informacion_de_beneficiario LONGTEXT NOT NULL AFTER informacion_de_proceso,
-  CHANGE COLUMN numero_final numero_final VARCHAR(250) NOT NULL;
+INSERT INTO django_content_type(id, app_label, model) VALUES
+(90, 'cotizador', 'cotizador'),
+(91, 'cotizacionweb', 'tipodireccion'),
+(92, 'cotizacionweb', 'fechadecotizacion'),
+(93, 'cotizacionweb', 'conceptodecotizacion'),
+(94, 'cotizacionweb', 'tipoabono'),
+(95, 'cotizacionweb', 'cotizacion'),
+(96, 'cotizacionweb', 'cotizaciondireccion'),
+(97, 'cotizacionweb', 'cotizacionambiente'),
+(98, 'cotizacionweb', 'cotizacionmueble'),
+(99, 'cotizacionweb', 'contenedormueble'),
+(100, 'cotizacionweb', 'serviciomueble'),
+(101, 'cotizacionweb', 'cotizacionservicio'),
+(102, 'cotizacionweb', 'cotizacionmaterial'),
+(103, 'cotizacionweb', 'cotizacionherramienta'),
+(104, 'cotizacionweb', 'cotizacionpresupuesto'),
+(105, 'cotizacionweb', 'abono'),
+(106, 'cotizacionweb', 'cotizacioncomplejidadriesgo'),
+(107, 'cotizacionweb', 'cotizacionbitacora'),
+(108, 'cotizacionweb', 'cotizacionhistoricofecha'),
+(109, 'cotizacionweb', 'cotizacionestado'),
+(110, 'cotizacionweb', 'argumentodeventa');
 
+--
+-- Updating data of table django_migrations
+--
 UPDATE django_migrations SET applied = '2016-02-04 19:20:53' WHERE id = 25;
 UPDATE django_migrations SET applied = '2016-02-04 19:23:15' WHERE id = 26;
 UPDATE django_migrations SET applied = '2016-02-12 13:41:18' WHERE id = 27;
@@ -243,10 +709,57 @@ UPDATE django_migrations SET applied = '2016-03-03 18:33:16' WHERE id = 45;
 UPDATE django_migrations SET applied = '2016-03-04 20:32:37' WHERE id = 46;
 UPDATE django_migrations SET applied = '2016-03-14 19:29:32' WHERE id = 47;
 UPDATE django_migrations SET applied = '2016-03-14 19:33:38' WHERE id = 48;
+UPDATE django_migrations SET applied = '2016-03-18 18:33:56' WHERE id = 49;
 
 --
 -- Inserting data into table django_migrations
 --
 INSERT INTO django_migrations(id, app, name, applied) VALUES
-(49, 'talonario', '0004_auto_20160318_1403', '2016-03-18 18:33:56');
+(50, 'complejidadriesgo', '0002_auto_20160331_1430', '2016-03-31 19:02:05'),
+(51, 'contenedor', '0002_auto_20160331_1430', '2016-03-31 19:02:07'),
+(52, 'direccion', '0006_auto_20160331_1430', '2016-03-31 19:02:09'),
+(53, 'material', '0003_auto_20160331_1430', '2016-03-31 19:02:11'),
+(54, 'promocion', '0003_auto_20160331_1430', '2016-03-31 19:02:12'),
+(55, 'servicio', '0003_auto_20160331_1430', '2016-03-31 19:02:14'),
+(56, 'vehiculo', '0002_auto_20160331_1430', '2016-03-31 19:02:19'),
+(57, 'cotizador', '0001_initial', '2016-03-31 19:05:16'),
+(58, 'cotizacionweb', '0001_initial', '2016-03-31 19:06:09'),
+(59, 'cotizacionweb', '0002_auto_20160331_1434', '2016-03-31 19:06:27'),
+(60, 'cotizacionweb', '0003_auto_20160401_1206', '2016-04-01 16:36:45'),
+(61, 'direccion', '0007_auto_20160401_1206', '2016-04-01 16:36:46'),
+(62, 'cotizacionweb', '0004_auto_20160404_1616', '2016-04-04 20:47:06'),
+(63, 'direccion', '0008_auto_20160404_1616', '2016-04-04 20:47:07');
+
+--
+-- Inserting data into table estadoderegistro_estadoderegistro
+--
+INSERT INTO estadoderegistro_estadoderegistro(id, model, descripcion, observacion, estado_id) VALUES
+(4, 'cotizacion', 'Es el estado que asigna cuando se crea una cotización', '', 1);
+
+--
+-- Inserting data into table gestiondedocumento_estadodedocumento
+--
+INSERT INTO gestiondedocumento_estadodedocumento(id, estado_de_documento, descripcion, orden, observacion, tipo_de_documento_id) VALUES
+(3, 'cargando', 'Es el estado que asigna cuando se esta cargando la data inicial de una cotización', 0, '', 3),
+(4, 'por cotizar', 'Es el estado que asigna cuando se cargaron todo los datos básicos de una cotización', 1, '', 3),
+(5, 'cotización agendada', 'Es el estado que asigna cuando se agenda una visita a un cliente para capturar los datos del inmueble a cotizar', 2, '', 3),
+(6, 'cliente visitado', 'Es el estado que asigna cuando se realizo la visita a un cliente para capturar los datos del inmueble a cotizar', 3, '', 3);
+
+--
+-- Inserting data into table gestiondedocumento_tipodedocumento
+--
+INSERT INTO gestiondedocumento_tipodedocumento(id, tipo_de_documento, descripcion) VALUES
+(3, 'cotizacion', 'cotización');
+
+--
+-- Updating data of table menu_menu
+--
+UPDATE menu_menu SET name = 'add_tipodedocumentoimpreso' WHERE id = 208;
+UPDATE menu_menu SET name = 'list_tipodedocumentoimpreso' WHERE id = 209;
+
+--
+-- Updating data of table premisas_personalizacionvisual
+--
+UPDATE premisas_personalizacionvisual SET valor = '2' WHERE id = 3;
+
 

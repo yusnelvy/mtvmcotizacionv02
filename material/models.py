@@ -36,7 +36,7 @@ class Material(models.Model):
     ancho = models.DecimalField(max_digits=7, decimal_places=2)
     largo = models.DecimalField(max_digits=7, decimal_places=2)
     alto = models.DecimalField(max_digits=7, decimal_places=2)
-    peso_unidad_consumo_kg = models.DecimalField(max_digits=9, decimal_places=3)
+    peso_unidad_consumo_kg = models.DecimalField(max_digits=7, decimal_places=2)
     cotizable = models.BooleanField(default=None)
 
     def __str__(self):
