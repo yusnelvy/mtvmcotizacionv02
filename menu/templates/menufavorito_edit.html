@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Menú
+'Ficha del menú favorito: {{form.grupo.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el menú favorito: {{form.menu.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if menufavorito_previous %}
 
@@ -30,7 +24,7 @@ Editar el menú favorito: {{form.menu.value|lower}}
 
     {% if menufavorito_next %}
 
-        <li class="siguinte">
+        <li class="siguiente">
             <md-button href="{% url 'umenus:edit_menufavorito' menufavorito_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
         </li>
 
@@ -42,17 +36,51 @@ Editar el menú favorito: {{form.menu.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+  {{form.grupo}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.orden.id_for_label}}">
 
-{% block moduloAngular %}
+  {{form.orden.label}}
+
+</label>
+
+{{form.orden}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.menu.id_for_label}}">
+
+  {{form.menu.label}}
+
+</span>
+
+{{form.menu}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.usuario.id_for_label}}">
+
+  {{form.usuario.label}}
+
+</span>
+
+{{form.usuario}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -60,9 +88,40 @@ app.controller('controlForm',function($scope){
     $scope.menu = '{{form.menu.value}}';
     $scope.grupo = '{{form.grupo.value}}';
     $scope.orden = '{{form.orden.value}}';
-    $('#id_menu').focus();
-    //$('#id_menu').parent().addClass('md-input-focused');
+    $scope.CancelarCambios = function() {
+    removeHandler();
+    $scope.usuario = '{{form.usuario.value}}';
+    $scope.menu = '{{form.menu.value}}';
+    $scope.grupo = '{{form.grupo.value}}';
+    $scope.orden = '{{form.orden.value}}';
+  }
+  $scope.onChange = function() {
+    controlSubmit(event);
+  }
+  function enterNone(elemento) {
+    $(elemento).keypress(function(e){
+      if(e.which == 13){
+        return false;
+      }
+    });
+  }
+  $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+  $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+  var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+  tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.grupo.value}}');
+  tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.orden.value}}');
+  tr.children('td[id=td3_{{form.instance.pk}}]').text('{{menufavorito.usuario}}');
+  tr.children('td[id=td4_{{form.instance.pk}}]').text('{{menufavorito.menu}}');
+
+  setTimeout(function() {
+    //$("input[name='trasladable']").bootstrapSwitch();
+    $('#id_usuario').zelect();
+    $('#id_menu').zelect();
+    enterNone('form');
+    $('#id_usuario, #id_menu').on('change', function(event) { controlSubmit(event); })
+
+  }, 100);
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

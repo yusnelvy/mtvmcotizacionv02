@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Talonario
+'Ficha del documento del talonario: {{form.numero.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el documento de talonario: {{form.numero.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if documentodeltalonario_previous %}
 
@@ -42,15 +36,73 @@ Editar el documento de talonario: {{form.numero.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.numero}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.estado.id_for_label}}">
+
+    {{form.estado.label}}
+
+</label>
+
+{{form.estado}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.informacion_de_proceso.id_for_label}}">
+
+    {{form.informacion_de_proceso.label}}
+
+</label>
+
+{{form.informacion_de_proceso}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.informacion_de_beneficiari.id_for_label}}">
+
+    {{form.informacion_de_beneficiari.label}}
+
+</label>
+
+{{form.informacion_de_beneficiari}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.numero_final.id_for_label}}">
+
+    {{form.numero_final.label}}
+
+</label>
+
+{{form.numero_final}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.talonario.id_for_label}}">
+
+    {{form.talonario.label}}
+
+</span>
+
+{{form.talonario}}
+
+</md-input-container>
+
+
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -60,8 +112,28 @@ app.controller('controlForm',function($scope){
     $scope.informacion_de_beneficiari = '{{form.informacion_de_beneficiari.value}}';
     $scope.numero_final = '{{form.numero_final.value}}';
     $scope.talonario = '{{form.talonario.value}}';
-    $('#id_talonario').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.numero = '{{form.numero.value}}';
+        $scope.estado = '{{form.estado.value}}';
+        $scope.informacion_de_proceso = '{{form.informacion_de_proceso.value}}';
+        $scope.informacion_de_beneficiari = '{{form.informacion_de_beneficiari.value}}';
+        $scope.numero_final = '{{form.numero_final.value}}';
+        $scope.talonario = '{{form.talonario.value}}';
+    };
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
 });
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.numero.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.estado.value}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.informacion_de_proceso.value}}');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.informacion_de_beneficiari.value}}');
+    tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.numero_final.value}}');
+    tr.children('td[id=td6_{{form.instance.pk}}]').text('{{documentodeltalonario.talonario}}');
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

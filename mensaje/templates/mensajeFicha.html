@@ -1,29 +1,50 @@
-{% if messages %}
-
-{% for message in messages %}
-
-<div ng-controller="AppCtrl"></div>
 <style>
-md-toast div {
-    vertical-align:middle;
-    margin-top: 15px;
+#toast-container {
+    z-index: 2030!important;
+}
+md-toast {
+    background: #323232;
+}
+md-toast .md-toast-content > span {
+    padding-top: 25px;
+    max-width: 90%!important;
+}
+md-toast .md-toast-content > button {
+    float: right;
+    position: absolute;
+    right: 5px;
+    top: 1px;
+}
+.md-toast-content {
+    width: 100%;
 }
 </style>
 <script>
-app.controller('AppCtrl', function($scope, $mdToast, $document) {
-    function toast(type, msg){
-        $mdToast.show({
-            template: '<md-toast class="md-toast ' + type +'" style="text-align:center;vertical-align:middle;display:block;position:absolute;bottom:30px;background-color: #323232;z-index:2000;">' + msg + '</md-toast>',
-            hideDelay: 6000,
-            position: 'top right'
-        });
-    }
+app.controller('Ctrlmsj', function($scope, $mdToast) {
+
+    $scope.showToast = function (message, parentId) {
+        var el = angular.element(document.getElementById(parentId));
+        var toast = $mdToast.simple()
+        .content(message)
+        .action('OK')
+        .highlightAction(false)
+        .hideDelay(6000)
+        .position('top')
+        .parent(el);
+        $mdToast.show(toast);
+    };
+
+    {% if messages %}
+
+    {% for message in messages %}
+
     setTimeout(function() {
-        toast('tipo', '{{ message }}');
+        $scope.showToast("{{ message }}", "toast-container");
     }, 100);
+
+    {% endfor %}
+
+    {% endif %}
+
 });
 </script>
-
-{% endfor %}
-
-{% endif %}

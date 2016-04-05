@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Servicio
+'Ficha de la complejidad de servicio: {{form.descripcion.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar la complejidad de servicio: {{form.descripcion.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if complejidadservicio_previous %}
 
@@ -40,15 +34,51 @@ Editar la complejidad de servicio: {{form.descripcion.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.descripcion}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.porcentaje.id_for_label}}">
+
+    {{form.porcentaje.label}}
+
+</label>
+
+{{form.porcentaje}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.servicio.id_for_label}}">
+
+    {{form.servicio.label}}
+
+</label>
+
+{{form.servicio}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch">
+
+{{form.predefinido.label}}
+
+</span >
+
+{{form.predefinido}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -56,8 +86,27 @@ app.controller('controlForm',function($scope){
     $scope.porcentaje = '{{form.porcentaje.value}}';
     $scope.descripcion = '{{form.descripcion.value}}';
     $scope.predefinido = {{form.predefinido.value|lower}};
-    $('#id_servicio').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.servicio = '{{form.servicio.value}}';
+        $scope.porcentaje = '{{form.porcentaje.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+        $scope.predefinido = {{form.predefinido.value|lower}};
+    };
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+     setTimeout(function() {
+         $("input[name='predefinido']").bootstrapSwitch();
+     }, 100);
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{complejidadservicio.servicio}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.porcentaje.value}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.predefinido.value|yesno:"Predefinido,No predefinido"}}');
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

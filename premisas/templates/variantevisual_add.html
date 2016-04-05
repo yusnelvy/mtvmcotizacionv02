@@ -1,5 +1,7 @@
 {% extends "base_editar.html" %}
+
 {% block js_superior %}
+
 <script type="text/javascript">
 $(function() {
         $(".inline.{{ item_form.prefix }}").formset({
@@ -7,7 +9,9 @@ $(function() {
         })
     })
 </script>
+
 {% endblock js_superior %}
+
 {% block titulo %}
 
 Variante visual
@@ -23,27 +27,65 @@ Agregar una variante visual
 {% block nav_lista_form %}{% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
-<div class="prueba">
-  {{ form.as_md }}
+
+  <md-input-container>
+<label for="{{form.nombre.id_for_label}}">
+
+    {{form.nombre.label}}
+
+</label>
+
+{{form.nombre}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch">
+
+{{form.model.label}}
+
+</span >
+
+{{form.model}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch">
+
+{{form.usuario.label}}
+
+</span >
+
+{{form.usuario}}
+
+</md-input-container>
+
 <fieldset>
-<legend>Variante Detalle</legend>
+<legend>Detalle de variante</legend>
+
 {{ item_form.management_form }}
+
 {{ item_form.non_form_errors }}
+
 {% for form in item_form %}
+
     {{ form.id }}
+
     <div class="inline {{ item_form.prefix }}">
+
         {{ form.campo.errors }}
-        {{ form.campo.label_tag }}
+        {{ form.campo.label }}
         {{ form.campo }}
         {{ form.visibilidad.errors }}
-        {{ form.visibilidad.label_tag }}
+        {{ form.visibilidad.label }}
         {{ form.visibilidad }}
+
     </div>
+
 {% endfor %}
+
 </fieldset>
-</div>
 <script type="text/javascript">
-document.getElementById('id_usuario').focus()
+document.getElementById('id_usuario').focus();
 </script>
 
 {% endblock cuerpo_form %}
@@ -52,7 +94,6 @@ document.getElementById('id_usuario').focus()
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
-
   });
 </script>
 <style>.paginacionEdit{height: 0;}</style>

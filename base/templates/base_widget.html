@@ -4,7 +4,7 @@
 
     <div class="cabecera-panel">
         <h3 class="titulo-panel">{% block titulo_widget %}{% endblock titulo_widget %}</h3>
-        <div class="c_w">
+        <div class="c_w" style="height: 10px;">
             {% block botones_widget %}{% endblock botones_widget %}
             <a title="Cerrar" data-toggletooltip="tooltip" data-placement="left" id="cerrarPanel" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="{% block idPanel %}{% endblock idPanel %}"></a>
             <a title="Expandir" data-toggletooltip="tooltip" data-placement="left" class="iconoExpandirFull"></a>

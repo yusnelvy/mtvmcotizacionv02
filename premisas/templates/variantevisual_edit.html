@@ -1,4 +1,4 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 {% block js_superior %}
 <script type="text/javascript">
 $(function() {
@@ -8,19 +8,15 @@ $(function() {
     })
 </script>
 {% endblock js_superior %}
-{% block titulo %}
 
-Variante visual
 
-{% endblock titulo %}
+{% block titulo_ficha %}
 
-{% block titulo_form %}
+'Ficha de la variante visual: {{form.nombre.value|lower}}'
 
-Editar la variante visual: {{form.usuario.value|lower}}
+{% endblock titulo_ficha %}
 
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if variantevisual_previous %}
 
@@ -48,9 +44,9 @@ Editar la variante visual: {{form.usuario.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
 <div class="prueba">
 
@@ -58,9 +54,12 @@ Editar la variante visual: {{form.usuario.value|lower}}
 
     <fieldset>
         <legend>Variante Detalle</legend>
+
         {{ item_form.management_form }}
         {{ item_form.non_form_errors }}
+
         {% for form in item_form %}
+
         <div class="inline {{ item_form.prefix }}">
             {{ form.id }}
             {{ form.campo.errors }}
@@ -70,18 +69,15 @@ Editar la variante visual: {{form.usuario.value|lower}}
             {{ form.visibilidad.label_tag }}
             {{ form.visibilidad }}
         </div>
+
         {% endfor %}
+
     </fieldset>
 </div>
-<script type="text/javascript">
-document.getElementById('id_usuario').focus()
-</script>
 
-{% endblock cuerpo_form %}
+{% endblock ficha_basica %}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
-
-{% block moduloAngular %}
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope, $http){
@@ -95,6 +91,21 @@ app.controller('controlForm',function($scope, $http){
             alert(result);
         });
     };
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.usuario = '{{form.usuario.value}}';
+        $scope.nombre = '{{form.nombre.value}}';
+        $scope.model = '{{form.model.value}}';
+    };
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{variantevisual.usuario}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.nombre.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.model.value}}');
     $('.delete-row').click(function(){
         id_remove = $(this).parent().children('input[type=hidden]').val();
         if (id_remove!=''){
@@ -113,4 +124,4 @@ app.controller('controlForm',function($scope, $http){
   });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

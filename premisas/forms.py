@@ -7,7 +7,7 @@ from premisas.models import Empresa, PersonalizacionVisual, \
 from base.forms import BaseFormMd, SelectMD
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms.models import inlineformset_factory
-from django.forms import Select, ModelChoiceField, TextInput, NumberInput
+from django.forms import Select, ModelChoiceField, TextInput, NumberInput, RadioSelect
 from django.contrib.contenttypes.models import ContentType
 from django import forms
 
@@ -63,18 +63,22 @@ class VarianteVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     model_choices = [(content.model, content.model) for content in ContentType.objects.all()]
     model = forms.ChoiceField(
         widget=SelectMD(attrs={'ng-change': 'selectChanged()'}),
-        label='Model',
+        label='Nombre del model',
         choices=model_choices)
 
     class Meta:
         model = VarianteVisual
-        fields = '__all__'
+        fields = 'nombre', 'model', 'usuario'
+        labels = {
+            'nombre': ('Nombre de la variante'),
+            'model': ('Nombre del model')
+        }
         widgets = {
             'usuario': SelectMD()
         }
 
 VarianteVisualDetalleFormSet = inlineformset_factory(VarianteVisual,
-                                                     VarianteVisualDetalle,
+                                                     VarianteVisualDetalle, widgets={'visibilidad': RadioSelect()} ,
                                                      fields=('campo', 'visibilidad'), extra=1)
 
 

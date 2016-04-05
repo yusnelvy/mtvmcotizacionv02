@@ -817,7 +817,7 @@ function controlarFiltroRapido() {
           }
        });
 
-
+    var id = "";
     var elementosSelect = document.getElementsByTagName('select');
     var seleccionado = elementosSelect[0].value;
     var valor = document.getElementById("filtro").value;

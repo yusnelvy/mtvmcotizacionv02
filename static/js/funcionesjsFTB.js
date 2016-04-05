@@ -11,3 +11,4 @@ function removeHandler() {
  $('.botonCancelar').addClass('hidden');
  $('.msj').addClass('hidden');
 }
+

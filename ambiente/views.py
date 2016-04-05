@@ -252,7 +252,7 @@ class AmbienteUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Ambiente '" + str(self.object) + "'  guardado con éxito.")
+            messages.success(self.request, "Ambiente " + str(self.object) + "  guardado con éxito.")
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:

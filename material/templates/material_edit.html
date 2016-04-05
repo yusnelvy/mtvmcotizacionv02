@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Material
+'Ficha del material: {{form.material.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el material: {{form.material.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if material_previous %}
 
@@ -40,15 +34,112 @@ Editar el material: {{form.material.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.material}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
+
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.relacion_consumo_venta.id_for_label}}">
+
+    {{form.relacion_consumo_venta.label}}
+
+</label>
+
+{{form.relacion_consumo_venta}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.ancho.id_for_label}}">
+
+    {{form.ancho.label}}
+
+</label>
+
+{{form.ancho}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.largo.id_for_label}}">
+
+    {{form.largo.label}}
+
+</label>
+
+{{form.largo}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.alto.id_for_label}}">
+
+    {{form.alto.label}}
+
+</label>
+
+{{form.alto}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.peso_unidad_consumo_kg.id_for_label}}">
+
+    {{form.peso_unidad_consumo_kg.label}}
+
+</label>
+
+{{form.peso_unidad_consumo_kg}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.unidad_de_consumo.id_for_label}}">
+
+    {{form.unidad_de_consumo.label}}
+
+</label>
+
+{{form.unidad_de_consumo}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.cotizable.id_for_label}}">
+
+    {{form.cotizable.label}}
+
+</span>
+
+{{form.cotizable}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.tipo_de_material.id_for_label}}">
+
+    {{form.tipo_de_material.label}}
+
+</label>
+
+{{form.tipo_de_material}}
+
+</md-input-container>
+
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -61,10 +152,43 @@ app.controller('controlForm',function($scope){
     $scope.peso_unidad_consumo_kg = '{{form.peso_unidad_consumo_kg.value}}';
     $scope.unidad_de_consumo = '{{form.unidad_de_consumo.value}}';
     $scope.unidad_de_venta = '{{form.unidad_de_venta.value}}';
-    $scope.tipo_de_material = '{{form.cotizable.value}}';
+    $scope.tipo_de_material = '{{form.tipo_de_material.value}}';
     $scope.cotizable = {{form.cotizable.value|lower}};
-    $('#id_material').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.material = '{{form.material.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+        $scope.relacion_consumo_venta = '{{form.relacion_consumo_venta.value}}';
+        $scope.ancho = '{{form.ancho.value}}';
+        $scope.largo = '{{form.largo.value}}';
+        $scope.alto = '{{form.alto.value}}';
+        $scope.peso_unidad_consumo_kg = '{{form.peso_unidad_consumo_kg.value}}';
+        $scope.unidad_de_consumo = '{{form.unidad_de_consumo.value}}';
+        $scope.unidad_de_venta = '{{form.unidad_de_venta.value}}';
+        $scope.tipo_de_material = '{{form.tipo_de_material.value}}';
+        $scope.cotizable = {{form.cotizable.value|lower}};
+    };
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    setTimeout(function() {
+        $("input[name='cotizable']").bootstrapSwitch();
+    }, 100);
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.material.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.relacion_consumo_venta.value}}');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.ancho.value}}');
+    tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.largo.value}}');
+    tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.alto.value}}');
+    tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.peso_unidad_consumo_kg.value}}');
+    tr.children('td[id=td8_{{form.instance.pk}}]').text('{{material.unidad_de_consumo}}');
+    tr.children('td[id=td9_{{form.instance.pk}}]').text('{{material.unidad_de_venta}}');
+    tr.children('td[id=td10_{{form.instance.pk}}]').text('{{form.cotizable.value|yesno:"Es cotizable,No cotizable"}}');
+    tr.children('td[id=td11_{{form.instance.pk}}]').text('{{material.tipo_de_material}}');
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

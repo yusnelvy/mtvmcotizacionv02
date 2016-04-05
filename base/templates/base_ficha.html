@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
-<html lang="es-AR" >
+<html lang="es-AR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,52 +10,44 @@
         Ficha
     </title>
     <link rel="stylesheet" href="{% static 'css/material.css' %}">
+    <link rel="stylesheet" href="{% static 'preBuscador.css' %}">
 
     {% include "jquery.html" %}
 
     {% block js_superior %}{% endblock js_superior %}
 
     <script src="{% static 'js/funcionesjsFTB.js' %}"></script>
-
 </head>
-<body ng-app="AppMudarte">
-
+<body ng-app="AppMudarte" ng-cloak ng-csp>
+    <section  ng-controller="Ctrlmsj" id="toast-container"></section>
     <div class="contenedorFicha">
 
-        <h4 class="tituloFicha">
-
-        {% block titulo_ficha %}{% endblock titulo_ficha %}
-
-        </h4>
         <ul class="paginacionEdit">
 
             {% block paginacionFicha %}{% endblock paginacionFicha %}
 
         </ul>
-        <form ng-controller="controlForm" action="" method="post" id="myformEdit">
+
+        <form ng-controller="controlForm" action="" method="post" id="myformEdit" ng-cloak ng-csp>
 
             {% csrf_token %}
 
             <span class="msj hidden"></span>
             <h6>
                 <md-button tabindex="-1" class="md-fab botonGuardar hidden" type="submit" name="regEdit">
-                <md-icon class="glyphicon glyphicon-ok"></md-icon>
-                <md-tooltip md-direction="buttom">
-                Guardar
-            </md-tooltip>
-        </md-button>
-        <md-button tabindex="-1" class="md-fab botonCancelar hidden" ng-click="CancelarCambios();">
-        <md-icon class="iconoRemover"></md-icon>
-        <md-tooltip md-direction="buttom">
-        Cancelar
-    </md-tooltip>
-</md-button>
-</h6>
-<div class="grupoInput">
+                    <md-icon class="glyphicon glyphicon-ok"></md-icon>
+                    <md-tooltip md-direction="buttom">Guardar</md-tooltip>
+                </md-button>
+                <md-button tabindex="-1" class="md-fab botonCancelar hidden" ng-click="CancelarCambios();">
+                    <md-icon class="iconoRemover"></md-icon>
+                    <md-tooltip md-direction="buttom">Cancelar</md-tooltip>
+                </md-button>
+            </h6>
+    <div class="grupoInput">
 
-    {% block ficha_basica %}{% endblock ficha_basica %}
+        {% block ficha_basica %}{% endblock ficha_basica %}
 
-</div>
+    </div>
 </form>
 </div>
 
@@ -66,5 +58,14 @@
 {% block moduloAngularFicha %}{% endblock moduloAngularFicha %}
 
 <script src="{% static 'js/scriptTB.js' %}"></script>
+<script>
+var lificha = $(parent.document.getElementById("Ficha"));
+$(lificha).children('.cabecera-panel').children('.titulo-panel').text(
+
+    {% block titulo_ficha %}{% endblock titulo_ficha %}
+
+    );
+
+</script>
 </body>
 </html>

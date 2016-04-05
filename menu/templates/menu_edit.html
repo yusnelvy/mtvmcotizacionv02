@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Menú
+'Ficha del menú: {{form.menu.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el menú: {{form.menu.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if menu_previous %}
 
@@ -42,17 +36,81 @@ Editar el menú: {{form.menu.value|lower}}
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+  {{form.menu}}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.transaccion.id_for_label}}">
 
-{% block moduloAngular %}
+  {{form.transaccion.label}}
+
+</label>
+
+{{form.transaccion}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.namespace.id_for_label}}">
+
+  {{form.namespace.label}}
+
+</label>
+
+{{form.namespace}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.name.id_for_label}}">
+
+  {{form.name.label}}
+
+</label>
+
+{{form.name}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.nivel.id_for_label}}">
+
+  {{form.nivel.label}}
+
+</label>
+
+{{form.nivel}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.padre.id_for_label}}">
+
+  {{form.padre.label}}
+
+</span>
+
+{{form.padre}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.menu_padre.id_for_label}}">
+
+  {{form.menu_padre.label}}
+
+</span>
+
+{{form.menu_padre}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -62,17 +120,43 @@ app.controller('controlForm',function($scope){
     $scope.name = '{{form.name.value}}';
     $scope.nivel = '{{form.nivel.value}}';
     $scope.padre = {{form.padre.value|lower}};
-    $('#id_menu').focus();
-    $('#id_menu').parent().addClass('md-input-focused');
-    $('label[for=id_padre]').parent().each(function(){
-        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
+    $scope.CancelarCambios = function() {
+    removeHandler();
+    $scope.menu = '{{form.menu.value}}';
+    $scope.transaccion = '{{form.transaccion.value}}';
+    $scope.namespace = '{{form.namespace.value}}';
+    $scope.name = '{{form.name.value}}';
+    $scope.nivel = '{{form.nivel.value}}';
+    $scope.padre = {{form.padre.value|lower}};
+  }
+  $scope.onChange = function() {
+    controlSubmit(event);
+  }
+  function enterNone(elemento) {
+    $(elemento).keypress(function(e){
+      if(e.which == 13){
+        return false;
+      }
     });
-    $('label[for=id_padre]').css('display','none');
-    setTimeout(function() {
-        $("input[name='padre']").bootstrapSwitch();
-        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_padre">' + $('label[for=id_padre]').text() + '</label>');
-    }, 100);
+  }
+  $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+  $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+  var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+  tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.menu.value}}');
+  tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.transaccion.value}}');
+  tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.namespace.value}}');
+  tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.name.value}}');
+  tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.nivel.value}}');
+  tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.padre.value|yesno:"Es padre,No es padre"}}');
+  tr.children('td[id=td7_{{form.instance.pk}}]').text('{{menu.menu_padre}}');
+  setTimeout(function() {
+    $("input[name='padre']").bootstrapSwitch();
+    $('#id_menu_padre').zelect();
+    enterNone('form');
+    $('#id_menu_padre').on('change', function(event) { controlSubmit(event); })
+
+  }, 100);
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

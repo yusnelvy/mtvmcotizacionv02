@@ -37,9 +37,9 @@ class ComplejidadServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = 'servicio', 'porcentaje', 'descripcion', 'predefinido'
         labels = {
             'servicio': ('Nombre del servicio'),
-            'descripcion': ('Descripción del de la complejidad del servicio'),
+            'descripcion': ('Descripción de la complejidad del servicio'),
             'porcentaje': ('Porcentaje complejidad del servicio'),
-            'predefinido': ('Complejidad predefinida del servicio')
+            'predefinido': ('¿La complejidad es predefinida del servicio?')
         }
         widgets = {
             'servicio': SelectMD(attrs={'tabindex': '1'})

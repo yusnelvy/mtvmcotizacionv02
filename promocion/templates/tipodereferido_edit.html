@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Promoción
+'Ficha del tipo de referido: {{form.tipo_de_referido.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el tipo de referido: {{form.tipo_de_referido.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if tipodereferido_previous %}
 
@@ -40,23 +34,68 @@ Editar el tipo de referido: {{form.tipo_de_referido.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.tipo_de_referido}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
+
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.medio_especifico.id_for_label}}">
+
+    {{form.medio_especifico.label}}
+
+</span>
+
+{{form.medio_especifico}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
     $scope.medio_especifico = '{{form.medio_especifico.value}}';
     $scope.tipo_de_referido = '{{form.tipo_de_referido.value}}';
     $scope.descripcion = '{{form.descripcion.value}}';
-    $('#id_medio_especifico').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.medio_especifico = '{{form.medio_especifico.value}}';
+        $scope.tipo_de_referido = '{{form.tipo_de_referido.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    }
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_referido.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{tipodereferido.medio_especifico}}');
+    setTimeout(function() {
+    $('#id_medio_especifico').zelect();
+    enterNone('form');
+    $('#id_medio_especifico').on('change', function(event) { controlSubmit(event); })
+}, 1);
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

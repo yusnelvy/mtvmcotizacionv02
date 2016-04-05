@@ -28,7 +28,7 @@ class MaterialForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'largo': ('Largo del material'),
             'alto': ('Alto del material'),
             'peso_unidad_consumo_kg': ('Peso de consumo del material'),
-            'cotizable': ('Material cotizable')
+            'cotizable': ('¿El material es cotizable?')
         }
         widgets = {
             'tipo_de_material': SelectMD(attrs={'tabindex': '1'}),

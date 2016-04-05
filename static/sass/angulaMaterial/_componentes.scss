@@ -8,11 +8,16 @@
     margin-top: 20px;
 }
 .paginacionEdit {
+    position: fixed;
+    top: 0;
+    background: #eee;
+    width: 100%;
     padding: 0;
     margin-right: 5px;
     list-style: none;
     display: block;
-    height: 35px;
+    height: 45px;
+    z-index: 2000;
     .anteriorBloqueado {
         float: left;
         height: 20px;
@@ -36,6 +41,7 @@ ul {
 .grupoInput {
     background: #fff;
     padding: 1px 15px;
+    padding-bottom: 50px;
     box-shadow: $sombra;
     md-input-container {
       color: $brand-primary;
@@ -91,23 +97,34 @@ span.labelSwitch {
 
     position: absolute;
     right: 150px;
-    top: 35px;
+    top: -45px;
     background: #5cb85c!important;
+    z-index: 2001!important;
 }
 .botonCancelar {
 
     position: absolute;
     right: 250px;
-    top: 35px;
+    top: -45px;
     background: #777!important;
+    z-index: 2001!important;
 }
 .tituloFicha {
     display: inline-block;
 }
 .contenedorFicha {
     margin-right: 5px;
-    height: calc(100% - 40px);
+    height: calc(100% - 15%);
     overflow-y: auto;
+    margin-top: 45px;
+    form {
+      h6 {
+        margin: 0;
+      }
+    }
+}
+.dynamic-form {
+  border-bottom: 1px solid #eee;
 }
 @media (max-width:225px) {
   .paginacionEdit{
@@ -232,6 +249,7 @@ span.labelSwitch {
   border-top: 1px solid rgba(0, 0, 0, 0.12)!important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12)!important;
   display: none;
+  font-size: 23px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -239,7 +257,7 @@ span.labelSwitch {
 }
 .c_td span {
   color: rgb(63,81,181);
-  font-size: 18px;
+  font-size: 24px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -251,7 +269,6 @@ span.labelSwitch {
 .c_td:hover a {
   display: inline-block;
   opacity: 1!important;
-  font-size: 23px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -473,7 +490,7 @@ span.labelSwitch {
     display: inline-block;
     overflow-y: hidden;
     overflow-x: hidden;
-    box-shadow: $sombra
+    box-shadow: $sombra;
 }
 .sidebarWidget li span {
   float: right;
@@ -524,6 +541,86 @@ span.labelSwitch {
     }
 }
 /*!
+ * componente select con buscador
+ */
+.zelect {
+      display: inline-block;
+      background-color: white;
+      cursor: pointer;
+      line-height: 25px;
+      border-radius: 6px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+ .zelected {
+      display:block;
+      position: absolute;
+      padding-left: 0;
+      padding: 10px 0;
+      margin-bottom: 10;
+      top: 0;
+      width: 100%;
+      border-bottom: 2px solid #dbdece;
+    }
+
+ .zelected.placeholder {
+      color: #999f82;
+    }
+
+ .zelected:hover {
+      border-color: $brand-primary;
+
+    }
+
+ .zelect.open {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+ .dropdown {
+      background-color: white;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border: 1px solid #dbdece;
+      border-top: none;
+      position: absolute;
+      left:-1px;
+      right:-1px;
+      top: 36px;
+      z-index: 2;
+      padding: 3px 5px 3px 3px;
+      max-height: 280px;
+      box-shadow: $sombra;
+    }
+
+ .dropdown input {
+      font-family: sans-serif;
+      outline: none;
+      font-size: 14px;
+      border: none;
+      border-bottom: 2px solid $brand-primary;
+      width: 100%;
+      padding: 7px 0 7px 10px;
+    }
+
+ .dropdown ol {
+      padding: 0;
+      margin: 3px 0 0 0;
+      list-style-type: none;
+      max-height: 225px;
+      overflow-y: scroll;
+    }
+
+ .dropdown li {
+      padding: 10px;
+    }
+
+ .dropdown li.current {
+      background-color: $brand-primary;
+      color: #fff;
+    }
+/*!
  * general
  */
 .btn-disabled {
@@ -537,6 +634,18 @@ span.labelSwitch {
 body{
     overflow-y: hidden;
     background: #eee;
+}
+.add-row {
+  @extend .iconoPlus;
+  float: right;
+  padding-bottom: 5px;
+}
+.delete-row{
+  @extend .iconoRemover;
+  margin-left: 96%;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: hidden!important;
 }
 .contenedor {
     @extend .container-fluid;
@@ -605,6 +714,7 @@ body{
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  box-shadow: $sombra;
 }
 .bootstrap-switch .bootstrap-switch-container {
   display: inline-block;
