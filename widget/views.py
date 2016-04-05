@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, JsonResponse
 from django.template import RequestContext
 from django.views.generic import ListView, View, UpdateView, DeleteView
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -41,7 +41,22 @@ class WidgetListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'visible',
+                                             'numero_de_columna',
+                                             'color',
+                                             'usuario__username', ])
+            lista_widget = Widget.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'visible',
+                                             'numero_de_columna',
+                                             'color',
+                                             'usuario__username', ])
+            lista_widget = Widget.objects.filter(entry_query)
+        elif order_by:
             lista_widget = Widget.objects.all().order_by(order_by)
         else:
             lista_widget = Widget.objects.all()
@@ -77,7 +92,22 @@ class WidgetListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'visible',
+                                             'numero_de_columna',
+                                             'color',
+                                             'usuario__username', ])
+            queryset = Widget.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['nombre',
+                                             'visible',
+                                             'numero_de_columna',
+                                             'color',
+                                             'usuario__username', ])
+            queryset = Widget.objects.filter(entry_query)
+        elif order_by:
             queryset = Widget.objects.all().order_by(order_by)
         else:
             queryset = Widget.objects.all()

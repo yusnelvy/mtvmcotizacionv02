@@ -14,8 +14,8 @@ class Vehiculo(models.Model):
     modelo = models.CharField(max_length=100)
     transmision = models.CharField(max_length=100)
     motor = models.CharField(max_length=100)
-    volumen_total_carga = models.DecimalField(max_digits=9, decimal_places=3)
-    peso_total_carga = models.DecimalField(max_digits=9, decimal_places=3)
+    volumen_total_carga = models.DecimalField(max_digits=7, decimal_places=2)
+    peso_total_carga = models.DecimalField(max_digits=7, decimal_places=2)
 
     def __str__(self):
         return u' %s - %s' % (self.marca, self.modelo)
@@ -38,7 +38,7 @@ class DetalleDeVehiculo(models.Model):
     ancho_aux = models.DecimalField(max_digits=7, decimal_places=2, blank=True)
     largo_aux = models.DecimalField(max_digits=7, decimal_places=2, blank=True)
     alto_aux = models.DecimalField(max_digits=7, decimal_places=2, blank=True)
-    tara_vehiculo = models.DecimalField(max_digits=9, decimal_places=3)
+    tara_vehiculo = models.DecimalField(max_digits=7, decimal_places=7)
     observacion = models.TextField(blank=True)
 
     def __str__(self):
@@ -53,7 +53,7 @@ class DetalleDeVehiculo(models.Model):
     volumen_maximo_aux = property(_get_volumenmaximoaux)
 
     def _get_superficiecaja(self):
-        return round((self.ancho*self.larg)/1000000, 2)
+        return round((self.ancho*self.largo)/1000000, 2)
     superficie_caja = property(_get_superficiecaja)
 
     def _get_superficiecajaaux(self):

@@ -21,6 +21,8 @@ from direccion.forms import DireccionForm, EdificacionForm, AscensorFormSet, \
 from ambiente.forms import Ambiente
 import json
 from django.db.models import Count
+from cotizacionweb.views import add_cotizacion, add_cotizacion_direccion, \
+    update_cotizacion_direccion
 
 
 # Create your views here.
@@ -53,6 +55,7 @@ class SexoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
+        search = self.request.GET.get('search')
         if order_by and search is not None and search != u"":
             entry_query = get_query(search, ['sexo', ])
             lista_sexo = Sexo.objects.filter(entry_query).order_by(order_by)
@@ -347,7 +350,8 @@ class EstadoCivilListView(ListView):
             entry_query = get_query(search, ['estado_civil', ])
             queryset = EstadoCivil.objects.filter(entry_query)
         elif order_by:
-            lista_estado_civil = EstadoCivil.objects.all().order_by(order_by)
+            queryset = EstadoCivil.objects.all().order_by(order_by)
+        else:
             queryset = EstadoCivil.objects.all()
 
         return queryset
@@ -542,11 +546,11 @@ class TipoDeClienteListView(ListView):
         search = self.request.GET.get('search')
         if order_by and search is not None and search != u"":
             entry_query = get_query(search, ['tipo_de_cliente',
-                                             'descripcion' ])
+                                             'descripcion', ])
             lista_tipodecliente = TipoDeCliente.objects.filter(entry_query).order_by(order_by)
         elif search is not None and search != u"":
             entry_query = get_query(search, ['tipo_de_cliente',
-                                             'descripcion' ])
+                                             'descripcion', ])
             lista_tipodecliente = TipoDeCliente.objects.filter(entry_query)
         elif order_by:
             lista_tipodecliente = TipoDeCliente.objects.all().order_by(order_by)
@@ -1375,13 +1379,30 @@ class ClienteView(View):
                 return HttpResponseRedirect(reverse('uclientes:edit_cliente',
                                                     args=(id_reg.id,)))
             else:
+                redirect_to = self.request.REQUEST.get('next', '')
+                cotizacion = self.request.REQUEST.get('cotizacion', '')
+
                 if id_reg.tipo_de_cliente.tipo_de_cliente == 'Particular':
-                    return HttpResponseRedirect(reverse('uclientes:add_contacto') +
-                                                "?cliente="+str(id_reg.id) +
-                                                "&relacion=cliente")
+                    if cotizacion:
+                        cotizacion_id = add_cotizacion(id_reg.id)
+                        return HttpResponseRedirect(reverse('uclientes:add_contacto') +
+                                                    "?cliente="+str(id_reg.id) +
+                                                    "&relacion=cliente&cotizacion="+str(cotizacion_id))
+                    else:
+                        return HttpResponseRedirect(reverse('uclientes:add_contacto') +
+                                                    "?cliente="+str(id_reg.id) +
+                                                    "&relacion=cliente")
                 else:
-                    return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
-                                                args=(id_reg.id,)))
+                    if cotizacion:
+                        cotizacion_id = add_cotizacion(id_reg.id)
+                        return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',
+                                                    args=(cotizacion_id,)))
+                    else:
+                        if redirect_to:
+                            return HttpResponseRedirect(redirect_to)
+                        else:
+                            return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                        args=(id_reg.id,)))
 
         return render(request, self.template_name, {'form': form})
 
@@ -1626,8 +1647,13 @@ class ContactoCreateView(CreateView):
                                                 args=(self.object,)))
         else:
             messages.success(self.request, "Contacto '" + str(self.object) + "'  registrado con éxito.")
-            return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
-                                                args=(self.object.cliente.id,)))
+            cotizacion = self.request.REQUEST.get('cotizacion', '')
+            if cotizacion:
+                return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',
+                                                    args=(cotizacion,)))
+            else:
+                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                    args=(self.object.cliente.id,)))
 
     def form_invalid(self, form, item_form):
         """
@@ -1788,6 +1814,8 @@ class ClienteDireccionView(View):
 
         titulo = self.request.POST.get('titulo_de_direccion', '')
         cliente = self.request.GET.get('cliente', '')
+        cotizacion = self.request.REQUEST.get('cotizacion', '')
+        redirect_to = self.request.REQUEST.get('next', '')
 
         if form.is_valid():
             id_reg = form.save()
@@ -1805,9 +1833,23 @@ class ClienteDireccionView(View):
                 return HttpResponseRedirect(reverse('uclientes:edit_direccion',
                                                     args=(id_reg.id,)))
             else:
-                messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
-                return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
-                                            "?clientedireccion="+str(agregarclientedireccion.id))
+                if cotizacion:
+                    tipo = self.request.REQUEST.get('tipo', '')
+                    direccion_cotizacion = add_cotizacion_direccion(cotizacion,
+                                                                    agregarclientedireccion.id,
+                                                                    tipo)
+
+                    messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
+                    return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
+                                                "?clientedireccion="+str(agregarclientedireccion.id) +
+                                                "&cotizacion="+str(cotizacion))
+                else:
+                    messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
+                    if redirect_to:
+                        return HttpResponseRedirect(redirect_to)
+                    else:
+                        return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
+                                                    "?clientedireccion="+str(agregarclientedireccion.id))
 
         return render(request, self.template_name, {'form': form})
 
@@ -1964,11 +2006,11 @@ class ClienteInmuebleView(View):
                                                     'direccion': direccion})
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-
         clientedireccion = self.request.GET.get('clientedireccion', '')
+        cotizacion = self.request.GET.get('cotizacion', '')
 
         direccion = Direccion.objects.filter(clientedireccion=clientedireccion)
+        form = self.form_class(request.POST, direccion=direccion[0].id)
 
         if form.is_valid():
             id_reg = form.save()
@@ -1985,8 +2027,13 @@ class ClienteInmuebleView(View):
                                                     args=(id_reg.id,)))
             else:
                 messages.success(self.request, "Inmueble:  '" + str(id_reg) + "'  registrado con éxito.")
-                return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
-                                                    args=(clientedireccion[0].cliente.id,)))
+                if cotizacion:
+                    cotizaciondireccion = update_cotizacion_direccion(cotizacion, clientedireccion[0].id)
+                    return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',
+                                                        args=(cotizacion,)))
+                else:
+                    return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                        args=(clientedireccion[0].cliente.id,)))
 
         return render(request, self.template_name, {'form': form,
                                                     'direccion': direccion})
@@ -2090,6 +2137,7 @@ class InmuebleUpdate(UpdateView):
                                              self.request.GET.get('clientedireccion'))
         context['direccion'] = direccion
         context['form'].fields['edificacion'].queryset = Edificacion.objects.filter(direccion=direccion[0].id)
+
         return context
 
     def get_form_kwargs(self):
@@ -2189,6 +2237,8 @@ class EdificacionCreateView(CreateView):
         clientedireccion = self.request.GET.get('clientedireccion', '')
         clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
         redirect_to = self.request.GET.get('next', '')
+        cotizacion = self.request.GET.get('cotizacion', '')
+
         nombre = self.request.POST.get('nombre_de_edificio', '')
         if nombre:
             nombre = nombre
@@ -2233,9 +2283,15 @@ class EdificacionCreateView(CreateView):
         else:
             if redirect_to:
                 messages.success(self.request, "Edificación '" + str(self.object) + "'  registrado con éxito.")
-                return HttpResponseRedirect(redirect_to +
-                                            "&edificacion="+str(self.object.id) +
-                                            "&clientedireccion="+str(clientedireccion[0].id))
+                if cotizacion:
+                    return HttpResponseRedirect(redirect_to +
+                                                "&edificacion="+str(self.object.id) +
+                                                "&cotizacion="+str(cotizacion))
+                else:
+                    return HttpResponseRedirect(redirect_to +
+                                                "&edificacion="+str(self.object.id) +
+                                                "&clientedireccion="+str(clientedireccion[0].id))
+
             else:
                 messages.success(self.request, "Edificación '" + str(self.object) + "'  registrado con éxito.")
                 return HttpResponseRedirect(reverse('uclientes:ficha_cliente',

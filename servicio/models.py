@@ -24,7 +24,7 @@ class ComplejidadServicio(models.Model):
     """docstring for ComplejidadServicio"""
     descripcion = models.CharField(max_length=100)
     servicio = models.ForeignKey(Servicio)
-    porcentaje = models.DecimalField(max_digits=5, decimal_places=2)
+    porcentaje = models.DecimalField(max_digits=7, decimal_places=2)
     predefinido = models.BooleanField(default=None)
 
     def __str__(self):

@@ -11,7 +11,7 @@ from talonario.models import TipoDeDocumentoImpreso, Talonario, DocumentoDelTalo
 from talonario.forms import TipoDeDocumentoImpresoForm, TalonarioForm, \
     DocumentoDelTalonarioForm
 from gestiondedocumento.models import EstadoDeDocumento
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -48,7 +48,16 @@ class TipoDeDocumentoImpresoListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento_impreso',
+                                             'descripcion', ])
+            lista_tipodedocumentoimpreso = TipoDeDocumentoImpreso.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento_impreso',
+                                             'descripcion', ])
+            lista_tipodedocumentoimpreso = TipoDeDocumentoImpreso.objects.filter(entry_query)
+        elif order_by:
             lista_tipodedocumentoimpreso = TipoDeDocumentoImpreso.objects.all().order_by(order_by)
         else:
             lista_tipodedocumentoimpreso = TipoDeDocumentoImpreso.objects.all()
@@ -84,7 +93,16 @@ class TipoDeDocumentoImpresoListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento_impreso',
+                                             'descripcion', ])
+            queryset = TipoDeDocumentoImpreso.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['tipo_de_documento_impreso',
+                                             'descripcion', ])
+            queryset = TipoDeDocumentoImpreso.objects.filter(entry_query)
+        elif order_by:
             queryset = TipoDeDocumentoImpreso.objects.all().order_by(order_by)
         else:
             queryset = TipoDeDocumentoImpreso.objects.all()
@@ -276,7 +294,32 @@ class TalonarioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['talonario',
+                                             'descripcion',
+                                             'prefijo',
+                                             'separador',
+                                             'numero_desde',
+                                             'numero_hasta',
+                                             'separado_sufijo',
+                                             'sufijo',
+                                             'numero_de_documento',
+                                             'tipo_de_documento_impreso__tipo_de_documento_impreso', ])
+            lista_talonario = Talonario.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['talonario',
+                                             'descripcion',
+                                             'prefijo',
+                                             'separador',
+                                             'numero_desde',
+                                             'numero_hasta',
+                                             'separado_sufijo',
+                                             'sufijo',
+                                             'numero_de_documento',
+                                             'tipo_de_documento_impreso__tipo_de_documento_impreso', ])
+            lista_talonario = Talonario.objects.filter(entry_query)
+        elif order_by:
             lista_talonario = Talonario.objects.all().order_by(order_by)
         else:
             lista_talonario = Talonario.objects.all()
@@ -312,7 +355,32 @@ class TalonarioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['talonario',
+                                             'descripcion',
+                                             'prefijo',
+                                             'separador',
+                                             'numero_desde',
+                                             'numero_hasta',
+                                             'separado_sufijo',
+                                             'sufijo',
+                                             'numero_de_documento',
+                                             'tipo_de_documento_impreso__tipo_de_documento_impreso', ])
+            queryset = Talonario.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['talonario',
+                                             'descripcion',
+                                             'prefijo',
+                                             'separador',
+                                             'numero_desde',
+                                             'numero_hasta',
+                                             'separado_sufijo',
+                                             'sufijo',
+                                             'numero_de_documento',
+                                             'tipo_de_documento_impreso__tipo_de_documento_impreso', ])
+            queryset = Talonario.objects.filter(entry_query)
+        elif order_by:
             queryset = Talonario.objects.all().order_by(order_by)
         else:
             queryset = Talonario.objects.all()
@@ -524,7 +592,24 @@ class DocumentoDelTalonarioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'numero',
+                                             'estado',
+                                             'informacion_de_proceso',
+                                             'informacion_de_beneficiario',
+                                             'numero_final', ])
+            lista_documentodeltalonario = DocumentoDelTalonario.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'numero',
+                                             'estado',
+                                             'informacion_de_proceso',
+                                             'informacion_de_beneficiario',
+                                             'numero_final', ])
+            lista_documentodeltalonario = DocumentoDelTalonario.objects.filter(entry_query)
+        elif order_by:
             lista_documentodeltalonario = DocumentoDelTalonario.objects.all().order_by(order_by)
         else:
             lista_documentodeltalonario = DocumentoDelTalonario.objects.all()
@@ -560,7 +645,24 @@ class DocumentoDelTalonarioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'numero',
+                                             'estado',
+                                             'informacion_de_proceso',
+                                             'informacion_de_beneficiario',
+                                             'numero_final', ])
+            queryset = DocumentoDelTalonario.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'numero',
+                                             'estado',
+                                             'informacion_de_proceso',
+                                             'informacion_de_beneficiario',
+                                             'numero_final', ])
+            queryset = DocumentoDelTalonario.objects.filter(entry_query)
+        elif order_by:
             queryset = DocumentoDelTalonario.objects.all().order_by(order_by)
         else:
             queryset = DocumentoDelTalonario.objects.all()
@@ -761,7 +863,22 @@ class TrazabilidadTalonarioListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'fecha_registro',
+                                             'fecha_modificacion',
+                                             'usuario__username',
+                                             'descripcion', ])
+            lista_trazabilidadtalonario = TrazabilidadTalonario.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'fecha_registro',
+                                             'fecha_modificacion',
+                                             'usuario__username',
+                                             'descripcion', ])
+            lista_trazabilidadtalonario = TrazabilidadTalonario.objects.filter(entry_query)
+        elif order_by:
             lista_trazabilidadtalonario = TrazabilidadTalonario.objects.all().order_by(order_by)
         else:
             lista_trazabilidadtalonario = TrazabilidadTalonario.objects.all()
@@ -797,7 +914,22 @@ class TrazabilidadTalonarioListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'fecha_registro',
+                                             'fecha_modificacion',
+                                             'usuario__username',
+                                             'descripcion', ])
+            queryset = TrazabilidadTalonario.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['talonario__talonario',
+                                             'fecha_registro',
+                                             'fecha_modificacion',
+                                             'usuario__username',
+                                             'descripcion', ])
+            queryset = TrazabilidadTalonario.objects.filter(entry_query)
+        elif order_by:
             queryset = TrazabilidadTalonario.objects.all().order_by(order_by)
         else:
             queryset = TrazabilidadTalonario.objects.all()

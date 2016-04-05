@@ -63,7 +63,7 @@ class Alianza(models.Model):
 
     medio_especifico = models.ForeignKey(MedioEspecifico, on_delete=models.PROTECT)
     alianza = models.CharField(max_length=100)
-    porcentaje_comision = models.DecimalField(max_digits=5, decimal_places=2)
+    porcentaje_comision = models.DecimalField(max_digits=7, decimal_places=2)
     observacion = models.TextField()
     fecha_vigencia = models.DateField()
 

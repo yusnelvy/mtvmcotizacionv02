@@ -3,3 +3,7 @@
 {% block titulo %}
     Pagina inicial
 {% endblock titulo %}
+
+{% block contenido %}
+<a target="_blank" href="{% url 'uclientes:add_cliente' %}?next={{request.get_full_path}}&cotizacion=cotizacion">Cotización</a>
+{% endblock contenido %}

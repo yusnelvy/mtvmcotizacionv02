@@ -10,7 +10,7 @@ from trabajador.models import CargoTrabajador, Trabajador, \
     TrabajadorEstadoDeRegistro
 from trabajador.forms import CargoTrabajadorForm, TrabajadorForm
 from estadoderegistro.models import EstadoDeRegistro
-from mtvmcotizacionv02.views import valor_Personalizacionvisual
+from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -46,7 +46,28 @@ class TrabajadorListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['dni',
+                                             'nombre',
+                                             'apellido',
+                                             'direccion',
+                                             'telefono',
+                                             'email',
+                                             'volumen_en_camion',
+                                             'cargo_trabajador__cargo_trabajador', ])
+            lista_trabajador = Trabajador.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['dni',
+                                             'nombre',
+                                             'apellido',
+                                             'direccion',
+                                             'telefono',
+                                             'email',
+                                             'volumen_en_camion',
+                                             'cargo_trabajador__cargo_trabajador', ])
+            lista_trabajador = Trabajador.objects.filter(entry_query)
+        elif order_by:
             lista_trabajador = Trabajador.objects.all().order_by(order_by)
         else:
             lista_trabajador = Trabajador.objects.all()
@@ -82,7 +103,28 @@ class TrabajadorListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['dni',
+                                             'nombre',
+                                             'apellido',
+                                             'direccion',
+                                             'telefono',
+                                             'email',
+                                             'volumen_en_camion',
+                                             'cargo_trabajador__cargo_trabajador', ])
+            queryset = Trabajador.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['dni',
+                                             'nombre',
+                                             'apellido',
+                                             'direccion',
+                                             'telefono',
+                                             'email',
+                                             'volumen_en_camion',
+                                             'cargo_trabajador__cargo_trabajador', ])
+            queryset = Trabajador.objects.filter(entry_query)
+        elif order_by:
             queryset = Trabajador.objects.all().order_by(order_by)
         else:
             queryset = Trabajador.objects.all()
@@ -284,7 +326,18 @@ class CargoTrabajadorListView(ListView):
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['cargo_trabajador',
+                                             'descripcion',
+                                             'cargo_padre__cargo_trabajador', ])
+            lista_cargotrabajador = CargoTrabajador.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['cargo_trabajador',
+                                             'descripcion',
+                                             'cargo_padre__cargo_trabajador', ])
+            lista_cargotrabajador = CargoTrabajador.objects.filter(entry_query)
+        elif order_by:
             lista_cargotrabajador = CargoTrabajador.objects.all().order_by(order_by)
         else:
             lista_cargotrabajador = CargoTrabajador.objects.all()
@@ -320,7 +373,18 @@ class CargoTrabajadorListView(ListView):
     def get_queryset(self):
 
         order_by = self.request.GET.get('order_by')
-        if order_by:
+        search = self.request.GET.get('search')
+        if order_by and search is not None and search != u"":
+            entry_query = get_query(search, ['cargo_trabajador',
+                                             'descripcion',
+                                             'cargo_padre__cargo_trabajador', ])
+            queryset = CargoTrabajador.objects.filter(entry_query).order_by(order_by)
+        elif search is not None and search != u"":
+            entry_query = get_query(search, ['cargo_trabajador',
+                                             'descripcion',
+                                             'cargo_padre__cargo_trabajador', ])
+            queryset = CargoTrabajador.objects.filter(entry_query)
+        elif order_by:
             queryset = CargoTrabajador.objects.all().order_by(order_by)
         else:
             queryset = CargoTrabajador.objects.all()
