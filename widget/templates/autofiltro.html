@@ -1,13 +1,23 @@
 {% extends 'base_widget.html' %}
 {% load widgets_extras %}
 
-{% block idContenedor %}liautofiltros{% endblock idContenedor %}
+{% block idContenedor %}Autofiltros{% endblock idContenedor %}
 
 {% block clasesContenedor %}
 {% configurar_WidgetColumna 'Autofiltros' %} {% configurar_WidgetColor 'Autofiltros' %}
 {% endblock clasesContenedor %}
 
-{% block idPanel %}controlWidgetCerrar('liautofiltros', 'Autofiltros');{% endblock idPanel %}
+{% block btnCerrar %}controlWidgetCerrar('Autofiltros', 'Autofiltros');{% endblock btnCerrar %}
+
+{% block btnMinimizar %}minimizarColumna('Autofiltros', 'Autofiltros');{% endblock btnMinimizar %}
+
+{% block idbtnEN1 %}Autofiltros-btnEN1{% endblock idbtnEN1 %}
+
+{% block idbtnEN2 %}Autofiltros-btnEN2{% endblock idbtnEN2 %}
+
+{% block btnExpandir1 %}actualizarColumna1('Autofiltros-btnEN1', 'Autofiltros-btnEN2', 'Autofiltros', 'Autofiltros');{% endblock btnExpandir1 %}
+
+{% block btnExpandir2 %}actualizarColumna2('Autofiltros-btnEN1', 'Autofiltros-btnEN2', 'Autofiltros', 'Autofiltros');{% endblock btnExpandir2 %}
 
 {% block titulo_widget %}
 Auto-filtros
@@ -16,8 +26,10 @@ Auto-filtros
 {% block botones_widget %}{% endblock botones_widget %}
 
 {% block contenido_widget %}
+
         <div class="cuerpo-panel">
             <ul class="demo" ></ul>
         </div>
+
 {% endblock contenido_widget %}
 

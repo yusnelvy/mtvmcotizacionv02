@@ -6,6 +6,7 @@ from django.template import RequestContext
 import re
 from premisas.models import PersonalizacionVisual
 from django.core.urlresolvers import reverse
+from widget.models import Widget
 
 
 def pantalla_inicial(request):
@@ -130,4 +131,13 @@ def sidebar(request):
 
     return {
         'sidebar': all_categories[0]['valor'],
+    }
+
+
+def wVisible(request):
+    """e"""
+    all_categories2 = Widget.objects.values('nombre','visible', 'numero_de_columna').filter(usuario=1)
+
+    return {
+        'w_visble': all_categories2,
     }

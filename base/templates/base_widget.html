@@ -6,22 +6,27 @@
         <h3 class="titulo-panel">{% block titulo_widget %}{% endblock titulo_widget %}</h3>
         <div class="c_w">
             {% block botones_widget %}{% endblock botones_widget %}
-            <a title="Cerrar" data-toggletooltip="tooltip" data-placement="left" id="cerrarPanel" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="{% block idPanel %}{% endblock idPanel %}"></a>
-            <a title="Expandir" data-toggletooltip="tooltip" data-placement="left" class="iconoExpandirFull"></a>
+            <a title="Minimizar" data-toggletooltip="tooltip" data-placement="left" class="iconoMinimizar" onclick="{% block btnMinimizar %}{% endblock btnMinimizar %}"></a>
+            <a title="Expandir" data-toggletooltip="tooltip" id="{% block idbtnEN1 %}{% endblock idbtnEN1 %}" data-placement="left" class="iconoExpandirMax" onclick="{% block btnExpandir1 %}{% endblock btnExpandir1 %}"></a>
+            <a title="Expandir" data-toggletooltip="tooltip" id="{% block idbtnEN2 %}{% endblock idbtnEN2 %}" data-placement="left" class="iconoExpandirMin hidden" onclick="{% block btnExpandir2 %}{% endblock btnExpandir2 %}"></a>
+            <a title="Cerrar" data-toggletooltip="tooltip" data-placement="left" id="cerrarPanel" title="Cerrar" class="glyphicon glyphicon-remove-circle" onclick="{% block btnCerrar %}{% endblock btnCerrar %}"></a>
             <span class="glyphicon glyphicon-option-horizontal"></span>
         </div>
     </div>
     {% block contenido_widget %}{% endblock contenido_widget %}
+    <span id="q"></span>
 </li>
 
 
 <script type="text/javascript">
 $('.titulo-panel').hover(function() {
-    }, function(){
+}, function(){
     $(this).removeClass('c_w_hover');
 });
 $('.c_w').hover(function() {
     $(this).parent().children('h3').addClass('c_w_hover');
 }, function(){
     $(this).parent().children('h3').removeClass('c_w_hover');
-});</script>
+});
+
+</script>

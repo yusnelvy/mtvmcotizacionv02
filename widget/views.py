@@ -9,6 +9,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from widget.models import Widget
 from widget.forms import WidgetForm
 from django.forms.formsets import formset_factory
+from django.core import serializers
+import json
 
 
 # Create your views here.
@@ -241,6 +243,7 @@ class WidgetDelete(DeleteView):
 
 
 class ConfigurarWidgetView(View):
+
     form_class_formset = formset_factory(WidgetForm,
                                          extra=Widget.objects.filter(usuario=1).count(),
                                          max_num=Widget.objects.filter(usuario=1).count())
@@ -299,6 +302,53 @@ def cambiar_WidgetVisible(request):
         name = request.GET['name']
         Widget.objects.filter(nombre=name).update(visible=False)
 
+def cambiar_WidgetColumna(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        name = request.GET['name']
+        Widget.objects.filter(nombre=name).update(numero_de_columna='2x3')
+
+def cambiar_WidgetColumnaMin(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        name = request.GET['name']
+        Widget.objects.filter(nombre=name).update(numero_de_columna='1x2')
+
+def cambiar_WidgetColumna2(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        name = request.GET['name']
+        Widget.objects.filter(nombre=name).update(numero_de_columna='1x0')
+
+def cambiar_WidgetOrden(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        nuevoOrden = request.GET['nuevoOrden']
+        ordenNuevo = nuevoOrden.split(",")
+
+        return JsonResponse(ordenNuevo, safe=False)
+
+def cambiar_WidgetOrden2(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        name = request.GET['name']
+        order = request.GET['order']
+
+        Widget.objects.filter(nombre=name).update(orden=order)
+
+
+def configurar_WidgetVisible(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        name = request.GET['name']
+        visible = Widget.objects.values('visible').filter(nombre=name, usuario=1)
+
+        if visible:
+            isVisible = [{'isVisible': visible[0]['visible']}]
+        else:
+            isVisible = ''
+        return JsonResponse(isVisible, safe=False)
+
 
 def orden_Widgets(request):
     """docstring"""
@@ -332,3 +382,30 @@ def orden_Widgets(request):
                'ordenFRD': ordenFRD, 'ordenMD': ordenMD,
                'ordenTRD': ordenTRD}
     return context
+
+
+def cambiar_WidgetOrdenNV(request):
+    """docstring"""
+    widgetsN = Widget.objects.values('nombre').filter(usuario=1)
+    widgetsO = Widget.objects.values('orden').filter(usuario=1)
+
+    arrayNombres = []
+    arrayOrdenes = []
+    k = 0
+    for m in widgetsN:
+        arrayNombres.append([k]*1)
+        arrayOrdenes.append([k]*1)
+        arrayNombres[k] = widgetsN[k]
+        arrayOrdenes[k] = widgetsO[k]
+        k += 1
+    context = {'widgetsN': widgetsN, 'arrayNombres': arrayNombres, 'arrayOrdenes': arrayOrdenes}
+    return context
+
+def retornar_WidgetPorUsuario(request):
+    """docstring"""
+    if request.method == "GET" and request.is_ajax():
+        usuario = request.GET['usuario']
+        widgetsN = Widget.objects.values('nombre').filter(usuario=usuario)
+        widgetsO = Widget.objects.values('orden').filter(usuario=usuario)
+
+        return JsonResponse(widgetsN, safe=False)

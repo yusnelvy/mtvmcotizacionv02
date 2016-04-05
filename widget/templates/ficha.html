@@ -1,13 +1,23 @@
 {% extends 'base_widget.html' %}
 {% load widgets_extras %}
 
-{% block idContenedor %}lificha{% endblock idContenedor %}
+{% block idContenedor %}Ficha{% endblock idContenedor %}
 
 {% block clasesContenedor %}
 {% configurar_WidgetColumna 'Ficha' %} {% configurar_WidgetColor 'Ficha' %}
 {% endblock clasesContenedor %}
 
-{% block idPanel %}controlWidgetCerrar('lificha', 'Ficha');{% endblock idPanel %}
+{% block btnCerrar %}controlWidgetCerrar('Ficha', 'Ficha');{% endblock btnCerrar %}
+
+{% block btnMinimizar %}minimizarColumna('Ficha', 'Ficha');{% endblock btnMinimizar %}
+
+{% block idbtnEN1 %}Ficha-btnEN1{% endblock idbtnEN1 %}
+
+{% block idbtnEN2 %}Ficha-btnEN2{% endblock idbtnEN2 %}
+
+{% block btnExpandir1 %}actualizarColumna1('Ficha-btnEN1', 'Ficha-btnEN2', 'Ficha', 'Ficha');{% endblock btnExpandir1 %}
+
+{% block btnExpandir2 %}actualizarColumna2('Ficha-btnEN1', 'Ficha-btnEN2', 'Ficha', 'Ficha');{% endblock btnExpandir2 %}
 
 {% block titulo_widget %}
 Ficha
