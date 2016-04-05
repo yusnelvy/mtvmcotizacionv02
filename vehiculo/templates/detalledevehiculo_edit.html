@@ -1,10 +1,10 @@
 {% extends "base_ficha.html" %}
 
-{% block titulo_fichas %}
+{% block titulo_ficha %}
 
-Ficha del detalle de vehículo: <small>{{form.vehiculo.value|lower}}</small>
+'Ficha del detalle de vehículo: N° {{form.numero_de_camion.value}} {{detalledevehiculo.vehiculo}}'
 
-{% endblock titulo_fichas %}
+{% endblock titulo_ficha %}
 
 {% block paginacionFicha %}
 
@@ -40,7 +40,103 @@ Ficha del detalle de vehículo: <small>{{form.vehiculo.value|lower}}</small>
 
 {% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
+
+    {{form.numero_de_camion}}
+
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.vehiculo.id_for_label}}">
+
+    {{form.vehiculo.label}}
+
+</label>
+
+{{form.vehiculo}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.ancho.id_for_label}}">
+
+    {{form.ancho.label}}
+
+</label>
+
+{{form.ancho}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.largo.id_for_label}}">
+
+    {{form.largo.label}}
+
+</label>
+
+{{form.largo}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.alto.id_for_label}}">
+
+    {{form.alto.label}}
+
+</label>
+
+{{form.alto}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.ancho_aux.id_for_label}}">
+
+    {{form.ancho_aux.label}}
+
+</label>
+
+{{form.ancho_aux}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.largo_aux.id_for_label}}">
+
+    {{form.largo_aux.label}}
+
+</label>
+
+{{form.largo_aux}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.alto_aux.id_for_label}}">
+
+    {{form.alto_aux.label}}
+
+</label>
+
+{{form.alto_aux}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.tara_vehiculo.id_for_label}}">
+
+    {{form.tara_vehiculo.label}}
+
+</label>
+
+{{form.tara_vehiculo}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.observacion.id_for_label}}">
+
+    {{form.observacion.label}}
+
+</label>
+
+{{form.observacion}}
+
+</md-input-container>
 
 {% endblock ficha_basica %}
 

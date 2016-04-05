@@ -32,13 +32,13 @@ Talonario
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% endif %}
@@ -64,13 +64,13 @@ Talonario
 {% if request.GET.page == "1" %}
 
 <li class="btn-disabled">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Primero...</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Primero...</a>
 </li>
 
 {% endif %}
@@ -80,13 +80,13 @@ Talonario
 {% if p == page_obj.number %}
 
 <li class="active">
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{p}}</a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{p}}</a>
 </li>
 
 {% endif %}
@@ -98,13 +98,13 @@ Talonario
 {% if request.GET.page == ultimo %}
 
 <li class="btn-disabled">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">...Ultimo</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">...Ultimo</a>
 </li>
 
 {% endif %}
@@ -116,13 +116,13 @@ Talonario
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% endif %}
@@ -161,13 +161,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=talonario&page={{request.GET.page}}" id="talonario" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-talonario&page={{request.GET.page}}" id="-talonario"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=talonario&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="talonario" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-talonario&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-talonario"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=talonario" id="talonario" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-talonario" id="-talonario"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=talonario{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="talonario" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-talonario{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-talonario"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -177,13 +177,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-descripcion&page={{request.GET.page}}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=descripcion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=descripcion" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-descripcion" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -193,13 +193,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=prefijo&page={{request.GET.page}}" id="prefijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-prefijo&page={{request.GET.page}}" id="-prefijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=prefijo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="prefijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-prefijo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-prefijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=prefijo" id="prefijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-prefijo" id="-prefijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=prefijo{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="prefijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-prefijo{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-prefijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -209,13 +209,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=separador&page={{request.GET.page}}" id="separador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-separador&page={{request.GET.page}}" id="-separador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=separador&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="separador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-separador&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-separador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=separador" id="separador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-separador" id="-separador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=separador{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="separador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-separador{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-separador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -225,13 +225,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=numero_desde&page={{request.GET.page}}" id="numero_desde" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_desde&page={{request.GET.page}}" id="-numero_desde"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numero_desde&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numero_desde" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_desde&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numero_desde"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=numero_desde" id="numero_desde" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_desde" id="-numero_desde"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numero_desde{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numero_desde" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_desde{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numero_desde"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -241,13 +241,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=numero_hasta&page={{request.GET.page}}" id="numero_hasta" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_hasta&page={{request.GET.page}}" id="-numero_hasta"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numero_hasta&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numero_hasta" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_hasta&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numero_hasta"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=numero_hasta" id="numero_hasta" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_hasta" id="-numero_hasta"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numero_hasta{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numero_hasta" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_hasta{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numero_hasta"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -257,13 +257,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=separado_sufijo&page={{request.GET.page}}" id="separado_sufijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-separado_sufijo&page={{request.GET.page}}" id="-separado_sufijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=separado_sufijo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="separado_sufijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-separado_sufijo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-separado_sufijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=separado_sufijo" id="separado_sufijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-separado_sufijo" id="-separado_sufijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=separado_sufijo{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="separado_sufijo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-separado_sufijo{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-separado_sufijo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -273,13 +273,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=numeracion_correlativa&page={{request.GET.page}}" id="numeracion_correlativa" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numeracion_correlativa&page={{request.GET.page}}" id="-numeracion_correlativa"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numeracion_correlativa&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numeracion_correlativa" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numeracion_correlativa&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numeracion_correlativa"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=numeracion_correlativa" id="numeracion_correlativa" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numeracion_correlativa" id="-numeracion_correlativa"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numeracion_correlativa{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numeracion_correlativa" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numeracion_correlativa{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numeracion_correlativa"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -289,13 +289,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=numero_de_documento&page={{request.GET.page}}" id="numero_de_documento" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_de_documento&page={{request.GET.page}}" id="-numero_de_documento"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numero_de_documento&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numero_de_documento" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_de_documento&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numero_de_documento"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=numero_de_documento" id="numero_de_documento" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-numero_de_documento" id="-numero_de_documento"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=numero_de_documento{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="numero_de_documento" class="ascendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_de_documento{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-numero_de_documento"  class="descendenteNumerico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -305,13 +305,13 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=cantidad_fija&page={{request.GET.page}}" id="cantidad_fija" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-cantidad_fija&page={{request.GET.page}}" id="-cantidad_fija"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=cantidad_fija&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="cantidad_fija" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cantidad_fija&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-cantidad_fija"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=cantidad_fija" id="cantidad_fija" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-cantidad_fija" id="-cantidad_fija"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=cantidad_fija{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="cantidad_fija" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-cantidad_fija{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-cantidad_fija"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
@@ -321,88 +321,80 @@ Talonario
 
         {% if request.GET.page %}
 
-        <a href="?order_by=tipo_de_documento_impreso&page={{request.GET.page}}" id="tipo_de_documento_impreso" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-tipo_de_documento_impreso&page={{request.GET.page}}" id="-tipo_de_documento_impreso"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=tipo_de_documento_impreso&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="tipo_de_documento_impreso" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tipo_de_documento_impreso&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-tipo_de_documento_impreso"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% else %}
 
-        <a href="?order_by=tipo_de_documento_impreso" id="tipo_de_documento_impreso" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-tipo_de_documento_impreso" id="-tipo_de_documento_impreso"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=tipo_de_documento_impreso{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="tipo_de_documento_impreso" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-tipo_de_documento_impreso{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-tipo_de_documento_impreso"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
 
         {% endif %}
 
     </th>
-    <th class="controlLista">Ficha</th>
-    <th class="controlLista">Editar</th>
-    <th class="controlLista">Eliminar</th>
 </tr>
 
 {% for i in talonarios %}
 
-<tr id="tr{{i.pk}}">
-    <td>
+<tr id="tr{{i.pk}}" data-url="{% url 'utalonarios:edit_talonario' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
+    <td id="td1_{{i.pk}}">
 
         {{ i.talonario }}
 
     </td>
-    <td>
+    <td id="td2_{{i.pk}}">
 
         {{ i.descripcion }}
 
     </td>
-    <td>
+    <td id="td3_{{i.pk}}">
 
         {{ i.prefijo }}
 
     </td>
-    <td>
+    <td id="td4_{{i.pk}}">
 
         {{ i.separador }}
 
     </td>
-    <td>
+    <td id="td5_{{i.pk}}">
 
         {{ i.numero_desde }}
 
     </td>
-    <td>
+    <td id="td6_{{i.pk}}">
 
         {{ i.numero_hasta }}
 
     </td>
-    <td>
+    <td id="td7_{{i.pk}}">
 
         {{ i.separado_sufijo }}
 
     </td>
-    <td>
+    <td id="td8_{{i.pk}}">
 
         {{ i.numeracion_correlativa|yesno:"Numeración correlativa,No numeración correlativa" }}
 
     </td>
-    <td>
+    <td id="td9_{{i.pk}}">
 
         {{ i.numero_de_documento }}
 
     </td>
-    <td>
+    <td id="td10_{{i.pk}}">
 
         {{ i.cantidad_fija|yesno:"Cantidad fija,No es cantidad fija" }}
 
     </td>
-    <td>
+    <td id="td11_{{i.pk}}">
 
         {{ i.tipo_de_documento_impreso }}
 
     </td>
-    <td>
-      <a title="Ver ficha" data-toggletooltip="tooltip" data-placement="left" href="#" class="iconoVerFicha"></a>
-    </td>
-    <td>
-        <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'utalonarios:edit_talonario' i.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
-    </td>
-    <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'utalonarios:eliminar_talonario' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+    <td class="c_td">
+            <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'utalonarios:eliminar_talonario' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+            <span class="iconoGrupoControl"></span>
     </td>
 </tr>
 

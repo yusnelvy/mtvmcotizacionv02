@@ -2,7 +2,7 @@
 
 {% block titulo_ficha %}
 
-Ficha del ambiente: <small>{{form.ambiente.value|lower}}</small>
+'Ficha del ambiente: {{form.ambiente.value|lower}}'
 
 {% endblock titulo_ficha %}
 
@@ -48,7 +48,7 @@ Ficha del ambiente: <small>{{form.ambiente.value|lower}}</small>
 </h3>
 </md-input-container>
 <md-input-container>
-<label for="{{form.ambiente.id_for_label}}">
+<label for="{{form.descripcion.id_for_label}}">
 
     {{form.descripcion.label}}
 
@@ -57,7 +57,7 @@ Ficha del ambiente: <small>{{form.ambiente.value|lower}}</small>
 {{form.descripcion}}
 
 </md-input-container>
-<md-input-container>
+<md-input-container ng-cloak>
 <span class="labelSwitch">
 
 {{form.conteo_de_ambientes.label}}
@@ -82,20 +82,13 @@ app.controller('controlForm',function($scope){
         $scope.ambiente = '{{form.ambiente.value}}';
         $scope.descripcion = '{{form.descripcion.value}}';
         $scope.conteo_de_ambientes = {{form.conteo_de_ambientes.value|lower}};
-    }
-    $('input, textarea, h3').hover(function(){
-        $(this).parent().addClass('md-input-focused');
-    }, function(){
-        $(this).parent().removeClass('md-input-focused');
-    });
-    $('label[for=id_conteo_de_ambientes]').parent().each(function(){
-        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
-    });
-    $('label[for=id_conteo_de_ambientes]').css('display','none');
+    };
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
     setTimeout(function() {
         $("input[name='conteo_de_ambientes']").bootstrapSwitch();
-        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_conteo_de_ambientes">' + $('label[for=id_conteo_de_ambientes]').text() + '</label>');
-    }, 100);
+    }, 1);
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));

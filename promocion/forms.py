@@ -5,7 +5,7 @@ Docstring documentación pendiente
 from promocion.models import Medio, MedioEspecifico, \
     TipoDeReferido, Alianza, Institucion, PersonaAliado, \
     FuenteDePromocion
-from base.forms import BaseFormMd, SelectMD
+from base.forms import BaseFormMd, SelectMD, selectSearchMD
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms import ModelForm, TextInput
 
@@ -31,7 +31,7 @@ class MedioEspecificoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = MedioEspecifico
         fields = '__all__'
         widgets = {
-            'medio': SelectMD(attrs={'tabindex': '1'})
+            'medio': selectSearchMD(attrs={'tabindex': '1'})
         }
         labels = {
             'medio': ('Nombre del medio'),
@@ -48,7 +48,7 @@ class TipoDeReferidoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = TipoDeReferido
         fields = '__all__'
         widgets = {
-            'medio_especifico': SelectMD(attrs={'tabindex': '1'})
+            'medio_especifico': selectSearchMD(attrs={'tabindex': '1'})
         }
         labels = {
             'tipo_de_referido': ('Nombre del tipo de referido'),
@@ -65,7 +65,7 @@ class AlianzaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Alianza
         fields = '__all__'
         widgets = {
-            'medio_especifico': SelectMD(attrs={'tabindex': '1'}),
+            'medio_especifico': selectSearchMD(attrs={'tabindex': '1'}),
             'fecha_vigencia': TextInput(attrs={'type': 'date'})
         }
         labels = {
@@ -85,7 +85,7 @@ class InstitucionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Institucion
         fields = '__all__'
         widgets = {
-            'alianza': SelectMD(attrs={'tabindex': '1'})
+            'alianza': selectSearchMD(attrs={'tabindex': '1'})
         }
         labels = {
             'nombre': ('Nombre de la institución'),
@@ -107,7 +107,7 @@ class PersonaAliadoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = PersonaAliado
         fields = '__all__'
         widgets = {
-            'institucion': SelectMD(attrs={'tabindex': '1'})
+            'institucion': selectSearchMD(attrs={'tabindex': '1'})
         }
         labels = {
             'nombre': ('Nombre de la persona aliada'),

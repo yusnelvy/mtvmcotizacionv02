@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Promoción
+'Ficha de la alianza: {{form.alianza.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar la alianza: {{form.alianza.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if alianza_previous %}
 
@@ -40,15 +34,61 @@ Editar la alianza: {{form.alianza.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+  {{form.alianza}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.porcentaje_comision.id_for_label}}">
+
+  {{form.porcentaje_comision.label}}
+
+</label>
+
+{{form.porcentaje_comision}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.observacion.id_for_label}}">
+
+  {{form.observacion.label}}
+
+</label>
+
+{{form.observacion}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.fecha_vigencia.id_for_label}}">
+
+  {{form.fecha_vigencia.label}}
+
+</label>
+
+{{form.fecha_vigencia}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.medio_especifico.id_for_label}}">
+
+  {{form.medio_especifico.label}}
+
+</span>
+
+{{form.medio_especifico}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -57,8 +97,41 @@ app.controller('controlForm',function($scope){
     $scope.porcentaje_comision = '{{form.porcentaje_comision.value}}';
     $scope.observacion = '{{form.observacion.value}}';
     $scope.fecha_vigencia = '{{form.fecha_vigencia.value}}';
-    $('#id_medio_especifico').focus();
+    $scope.CancelarCambios = function() {
+    removeHandler();
+    $scope.medio_especifico = '{{form.medio_especifico.value}}';
+    $scope.alianza = '{{form.alianza.value}}';
+    $scope.porcentaje_comision = '{{form.porcentaje_comision.value}}';
+    $scope.observacion = '{{form.observacion.value}}';
+    $scope.fecha_vigencia = '{{form.fecha_vigencia.value}}';
+
+  }
+  $scope.onChange = function() {
+    controlSubmit(event);
+  }
+  function enterNone(elemento) {
+    $(elemento).keypress(function(e){
+      if(e.which == 13){
+        return false;
+      }
+    });
+  }
+  $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+  $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+  var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+  tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.alianza.value}}');
+  tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.porcentaje_comision.value}}');
+  tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.observacion.value}}');
+  tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.fecha_vigencia.value|date:"d-m-Y"}}');
+  tr.children('td[id=td5_{{form.instance.pk}}]').text('{{alianza.medio_especifico}}');
+  setTimeout(function() {
+    //$("input[name='trasladable']").bootstrapSwitch();
+    $('#id_medio_especifico').zelect();
+    enterNone('form');
+    $('#id_medio_especifico').on('change', function(event) { controlSubmit(event); })
+
+  }, 100);
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

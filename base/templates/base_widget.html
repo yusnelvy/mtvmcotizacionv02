@@ -4,7 +4,7 @@
 
     <div class="cabecera-panel">
         <h3 class="titulo-panel">{% block titulo_widget %}{% endblock titulo_widget %}</h3>
-        <div class="c_w">
+        <div class="c_w" style="height: 10px;">
             {% block botones_widget %}{% endblock botones_widget %}
             <a title="Minimizar" data-toggletooltip="tooltip" data-placement="left" class="iconoMinimizar" onclick="{% block btnMinimizar %}{% endblock btnMinimizar %}"></a>
             <a title="Expandir" data-toggletooltip="tooltip" id="{% block idbtnEN1 %}{% endblock idbtnEN1 %}" data-placement="left" class="iconoExpandirMax" onclick="{% block btnExpandir1 %}{% endblock btnExpandir1 %}"></a>

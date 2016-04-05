@@ -25,6 +25,13 @@ Agregar una alianza
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
       $('#id_medio_especifico').focus();
+      setTimeout(function() {
+    //$("input[name='trasladable']").bootstrapSwitch();
+    $('#id_medio_especifico').zelect();
+    enterNone('form');
+    $('#id_medio_especifico').on('change', function(event) { controlSubmit(event); })
+
+  }, 100);
   });
 </script>
 <style>.paginacionEdit{height: 0;}</style>

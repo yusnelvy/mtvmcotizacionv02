@@ -18,10 +18,10 @@ function controlSubmit(event) {
 }
 $(document).ready(function (){
   var  warn_on_unload = "Si sale de la pagina, no se guardarán los datos, guarde los datos antes de abandonar la pagina.";
-  $('input,.md-text').on('change', function(event){
+  $('input:text,input:checkbox,input:radio,textarea,input[type=number]').on('change', function(event){
     controlSubmit(event);
   });
-  $('input:text,input:checkbox,input:radio,textarea,select,md-select').on('keyup', function(event){
+  $(':input').on('keyup', function(event){
     controlSubmit(event);
   });
   $('input[type="checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {

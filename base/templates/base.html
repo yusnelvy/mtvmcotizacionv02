@@ -26,13 +26,13 @@
             <div ng-controller="ControlSidebar" class="sidebar-wrapper md-whiteframe-20dp">
                 <span class="headerSidebar">
                     <md-button class="md-icon-button expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="nivel2(2);" tabindex="-1">
-                    <md-icon title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></md-icon>
+                    <md-icon ng-cloak title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></md-icon>
                 </md-button>
                 <md-button class="md-icon-button expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="nivel1(1);" tabindex="-1">
-                <md-icon title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></md-icon>
+                <md-icon ng-cloak title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></md-icon>
             </md-button>
             <md-button class="md-icon-button menu-toggle" ng-click="toggleSide(0);" tabindex="-1">
-            <md-icon class="iconoRemover">
+            <md-icon ng-cloak class="iconoRemover">
         </md-icon>
     </md-button>
 </span>
@@ -50,7 +50,7 @@
 <nav ng-controller="ControlNavbar" class="navbarApp">
     <md-toolbar>
     <div class="md-toolbar-tools">
-        <h2>
+        <h2 ng-cloak>
             <span>Mudarte
                 <span class="glyphicon glyphicon-road"></span>
             </span>

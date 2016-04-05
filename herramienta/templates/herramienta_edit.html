@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Herramienta
+'Ficha de la herramienta: {{form.herramienta.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar la herramienta: {{form.herramienta.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if herramienta_previous %}
 
@@ -42,15 +36,61 @@ Editar la herramienta: {{form.herramienta.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.herramienta}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
+
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.volumen_en_camion.id_for_label}}">
+
+    {{form.volumen_en_camion.label}}
+
+</label>
+
+{{form.volumen_en_camion}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.peso_kg.id_for_label}}">
+
+    {{form.peso_kg.label}}
+
+</label>
+
+{{form.peso_kg}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.unidad.id_for_label}}">
+
+    {{form.unidad.label}}
+
+</label>
+
+{{form.unidad}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -59,8 +99,26 @@ app.controller('controlForm',function($scope){
     $scope.descripcion = '{{form.descripcion.value}}';
     $scope.volumen_en_camion = '{{form.volumen_en_camion.value}}';
     $scope.peso_kg = '{{form.peso_kg.value}}';
-    $('#id_herramienta').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.unidad = '{{form.unidad.value}}';
+        $scope.herramienta = '{{form.herramienta.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+        $scope.volumen_en_camion = '{{form.volumen_en_camion.value}}';
+        $scope.peso_kg = '{{form.peso_kg.value}}';
+    };
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.herramienta.value|truncatechars:"40"}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.volumen_en_camion.value}} p');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.peso_kg.value}} Kg');
+    tr.children('td[id=td5_{{form.instance.pk}}]').text('{{herramienta.unidad}}');
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

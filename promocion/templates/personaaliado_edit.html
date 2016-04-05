@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Promoción
+'Ficha de la persona aliada: {{form.nombre.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar la persona aliada: {{form.nombre.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if personaaliado_previous %}
 
@@ -40,15 +34,101 @@ Editar la persona aliada: {{form.nombre.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+  {{form.dni}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.nombre.id_for_label}}">
+
+  {{form.nombre.label}}
+
+</label>
+
+{{form.nombre}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.telefono.id_for_label}}">
+
+  {{form.telefono.label}}
+
+</label>
+
+{{form.telefono}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.telefono_movil_1.id_for_label}}">
+
+  {{form.telefono_movil_1.label}}
+
+</label>
+
+{{form.telefono_movil_1}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.telefono_movil_2.id_for_label}}">
+
+  {{form.telefono_movil_2.label}}
+
+</label>
+
+{{form.telefono_movil_2}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.email_principal.id_for_label}}">
+
+  {{form.email_principal.label}}
+
+</label>
+
+{{form.email_principal}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.email_secundario.id_for_label}}">
+
+  {{form.email_secundario.label}}
+
+</label>
+
+{{form.email_secundario}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.observacion.id_for_label}}">
+
+  {{form.observacion.label}}
+
+</label>
+
+{{form.observacion}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.institucion.id_for_label}}">
+
+  {{form.institucion.label}}
+
+</span>
+
+{{form.institucion}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
@@ -61,8 +141,48 @@ app.controller('controlForm',function($scope){
     $scope.telefono_movil_2 = '{{form.telefono_movil_2.value}}';
     $scope.email_secundario = '{{form.email_secundario.value}}';
     $scope.observacion = '{{form.observacion.value}}';
-    $('#id_institucion').focus();
+    $scope.CancelarCambios = function() {
+    removeHandler();
+    $scope.institucion = '{{form.institucion.value}}';
+    $scope.dni = '{{form.dni.value}}';
+    $scope.nombre = '{{form.nombre.value}}';
+    $scope.telefono = '{{form.telefono.value}}';
+    $scope.telefono_movil_1 = '{{form.telefono_movil_1.value}}';
+    $scope.email_principal = '{{form.email_principal.value}}';
+    $scope.telefono_movil_2 = '{{form.telefono_movil_2.value}}';
+    $scope.email_secundario = '{{form.email_secundario.value}}';
+    $scope.observacion = '{{form.observacion.value}}';
+  }
+  $scope.onChange = function() {
+    controlSubmit(event);
+  }
+  function enterNone(elemento) {
+    $(elemento).keypress(function(e){
+      if(e.which == 13){
+        return false;
+      }
+    });
+  }
+  $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+  $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+  var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+  tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.dni.value}}');
+  tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.nombre.value}}');
+  tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.telefono.value}}');
+  tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.telefono_movil_1.value}}');
+  tr.children('td[id=td5_{{form.instance.pk}}]').text('{{alianza.telefono_movil_2}}');
+  tr.children('td[id=td5_{{form.instance.pk}}]').text('{{alianza.email_principal}}');
+  tr.children('td[id=td5_{{form.instance.pk}}]').text('{{alianza.email_secundario}}');
+  tr.children('td[id=td5_{{form.instance.pk}}]').text('{{alianza.observacion}}');
+  tr.children('td[id=td5_{{form.instance.pk}}]').text('{{personaaliado.institucion}}');
+  setTimeout(function() {
+    //$("input[name='trasladable']").bootstrapSwitch();
+    $('#id_institucion').zelect();
+    enterNone('form');
+    $('#id_institucion').on('change', function(event) { controlSubmit(event); })
+
+  }, 100);
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

@@ -16,7 +16,46 @@ Agregar un mueble
 
 {% block cuerpo_form %}
 
-  {{ form.as_md }}
+<md-input-container>
+<span class="labelSwitch" for="{{form.tipo_de_mueble.id_for_label}}">
+
+  {{form.tipo_de_mueble.label}}
+
+</span>
+
+{{form.tipo_de_mueble}}
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.mueble.id_for_label}}">
+
+  {{form.mueble.label}}
+
+</label>
+
+{{form.mueble}}
+
+
+</md-input-container>
+<md-input-container>
+<label for="{{form.ambiente.id_for_label}}">
+
+  {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch">
+  {{form.trasladable.label}}
+</span >
+
+{{form.trasladable}}
+
+</md-input-container>
+
 
 {% endblock cuerpo_form %}
 
@@ -24,17 +63,20 @@ Agregar un mueble
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
-      $('#id_tipo_de_mueble').focus();
-      //$('#id_mueble').parent().addClass('md-input-focused');
-      $('label[for=id_trasladable]').parent().each(function(){
-        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
+  function enterNone(elemento) {
+    $(elemento).keypress(function(e){
+      if(e.which == 13){
+        return false;
+      }
     });
-    $('label[for=id_trasladable]').css('display','none');
-    setTimeout(function() {
-        $("input[name='trasladable']").bootstrapSwitch();
-        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_trasladable">' + $('label[for=id_trasladable]').text() + '</label>');
-    }, 100);
-  });
+  }
+  setTimeout(function() {
+    $("#id_tipo_de_mueble").zelect();
+    $("input[name='trasladable']").bootstrapSwitch();
+    enterNone('form');
+    $('.zelected').click();
+  }, 100);
+});
 </script>
 <style>.paginacionEdit{height: 0;}</style>
 

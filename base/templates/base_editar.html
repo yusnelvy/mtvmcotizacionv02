@@ -29,7 +29,7 @@ Mueble
         {% block nav_lista_form %}{% endblock nav_lista_form %}
 
     </ul>
-    <form ng-controller="controlForm" action="" method="post" id="myformEdit">
+    <form ng-controller="controlForm" action="" method="post" id="myformEdit" ng-cloak>
 
         {% csrf_token %}
 

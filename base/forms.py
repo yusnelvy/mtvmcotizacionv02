@@ -68,7 +68,7 @@ class Checkbox(Widget):
         if not (value is True or value is False or value is None or value == ''):
             # Only add the 'value' attribute if a value is non-empty.
             final_attrs['value'] = force_text(value)
-        return format_html('<md-switch{} />', flatatt(final_attrs))
+        return format_html('<input{0} />', flatatt(final_attrs))
 
     def value_from_datadict(self, data, files, name):
         if name not in data:
@@ -81,3 +81,33 @@ class Checkbox(Widget):
         if isinstance(value, six.string_types):
             value = values.get(value.lower(), value)
         return bool(value)
+
+
+class selectSearchMD(Select):
+
+    def render(self, name, value, attrs=None, choices=()):
+        if value is None:
+            value = ''
+        final_attrs = self.build_attrs(attrs, name=name)
+        output = [format_html('<select{}>', flatatt(final_attrs))]
+        options = self.render_options(choices, [value])
+        if options:
+            output.append(options)
+        output.append('</select>')
+        return mark_safe('\n'.join(output))
+
+    def render_option(self, selected_choices, option_value, option_label):
+        if option_value is None:
+            option_value = ''
+        option_value = force_text(option_value)
+        if option_value in selected_choices:
+            selected_html = mark_safe(' selected="selected"')
+            if not self.allow_multiple_selected:
+                # Only allow for a single selection.
+                selected_choices.remove(option_value)
+        else:
+            selected_html = ''
+        return format_html('<option value="{}"{} tabindex="-1">{}</option>',
+                           option_value,
+                           selected_html,
+                           force_text(option_label))

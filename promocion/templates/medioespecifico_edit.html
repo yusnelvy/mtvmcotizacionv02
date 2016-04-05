@@ -1,18 +1,12 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Promoción
+'Ficha del medio específico: {{form.medio_especifico.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el medio específico: {{form.medio_especifico.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if medioespecifico_previous %}
 
@@ -42,23 +36,68 @@ Editar el medio específico: {{form.medio_especifico.value|lower}}
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+<md-input-container>
+<h3>
 
-{% endblock cuerpo_form %}
+    {{form.medio_especifico}}
 
-{% block moduloAngular %}
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
+
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+<md-input-container>
+<span class="labelSwitch" for="{{form.medio.id_for_label}}">
+
+    {{form.medio.label}}
+
+</span>
+
+{{form.medio}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
 
 <script type="text/javascript">
 app.controller('controlForm',function($scope){
     $scope.medio = '{{form.medio.value}}';
     $scope.descripcion = '{{form.descripcion.value}}';
     $scope.medio_especifico = '{{form.medio_especifico.value}}';
-    $('#id_medio').focus();
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.medio = '{{form.medio.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+        $scope.medio_especifico = '{{form.medio_especifico.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    }
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.medio_especifico.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{medioespecifico.medio}}');
+    setTimeout(function() {
+    $('#id_medio').zelect();
+    enterNone('form');
+    $('#id_medio').on('change', function(event) { controlSubmit(event); })
+}, 1);
 });
 </script>
 
-{% endblock moduloAngular %}
+{% endblock moduloAngularFicha %}

@@ -7,7 +7,7 @@ Docstring documentación pendiente
 from django.forms import ModelForm, TextInput, NumberInput, Select
 from menu.models import Menu, MenuFavorito, Relacion
 from djangular.forms import NgModelFormMixin, NgModelForm
-from base.forms import BaseFormMd, SelectMD, Checkbox
+from base.forms import BaseFormMd, SelectMD, Checkbox, selectSearchMD
 from django import forms
 
 
@@ -19,7 +19,7 @@ class MenuForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Menu
         fields = '__all__'
         widgets = {
-            'menu_padre': SelectMD(),
+            'menu_padre': selectSearchMD(),
             'menu': TextInput(attrs={'required': 'required'}),
             'transaccion': TextInput(attrs={'required': 'required'}),
             'nivel': NumberInput(attrs={'required': 'required'})
@@ -30,7 +30,7 @@ class MenuForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'namespace': ('Nombre del namespace'),
             'name': ('Texto del name'),
             'nivel': ('Numero del nivel'),
-            'padre': ('Menú padre'),
+            'padre': ('¿Es menú padre?'),
             'menu_padre': ('Menú padre asignado')
             }
 
@@ -43,8 +43,8 @@ class MenuFavoritoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = MenuFavorito
         fields = '__all__'
         widgets = {
-            'usuario': SelectMD(attrs={'required': 'required', 'tabindex': '-1'}),
-            'menu': SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
+            'usuario': selectSearchMD(attrs={'required': 'required', 'tabindex': '-1'}),
+            'menu': selectSearchMD(attrs={'required': 'required', 'tabindex': '1'}),
             'grupo': TextInput(attrs={'required': 'required'}),
             'orden': NumberInput(attrs={'required': 'required'})
             }
@@ -60,23 +60,17 @@ class RelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     """
     Docstring documentación pendiente
     """
-    item_choices = [(content.item_origen, content.item_relacion) for content in Menu.objects.filter(nivel=3)]
-
-    item_origen = forms.ChoiceField(
-        widget=SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
-        label='Item origen',
-        choices=item_choices)
-    item_relacion = forms.ChoiceField(
-        widget=SelectMD(attrs={'required': 'required'}),
-        label='item relación',
-        choices=item_choices)
+    def __init__(self, *args, **kwargs):
+       super(RelacionForm, self).__init__(*args, **kwargs)
+       self.fields['item_origen'].query_set = Menu.objects.filter(nivel=3)
+       self.fields['item_relacion'].query_set = Menu.objects.filter(nivel=3)
 
     class Meta:
         model = Relacion
         fields = '__all__'
         widgets = {
-            #'item_origen': SelectMD(),
-            #'item_relacion': SelectMD(),
+            'item_origen': selectSearchMD(),
+            'item_relacion': selectSearchMD(),
             'nombre': TextInput(attrs={'required': 'required'})
             }
         labels = {

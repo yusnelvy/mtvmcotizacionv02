@@ -2,7 +2,7 @@
 
 {% block titulo_ficha %}
 
-Ficha de la complejidad y riesgo: <small>{{form.situacion.value|lower}}</small>
+'Ficha de la complejidad y riesgo: {{form.situacion.value|lower}}'
 
 {% endblock titulo_ficha %}
 
@@ -103,8 +103,8 @@ app.controller('controlForm',function($scope){
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.situacion.value}}');
     tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
-    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.factor_complejidad.value}}');
-    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.factor_riesgo.value}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.factor_complejidad.value}} UND');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.factor_riesgo.value}} UND');
 });
 </script>
 
