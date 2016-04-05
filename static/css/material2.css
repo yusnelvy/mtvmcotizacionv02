@@ -254,7 +254,7 @@ th {
   font-family: 'Glyphicons Halflings';
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-.glyphicon {
+.glyphicon, .iconoExpandirMax, .iconoExpandirMin, .iconoMinimizar {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -275,7 +275,7 @@ th {
 .glyphicon-eur:before {
   content: "\20ac"; }
 
-.glyphicon-minus:before {
+.glyphicon-minus:before, .iconoMinimizar:before {
   content: "\2212"; }
 
 .glyphicon-cloud:before {
@@ -566,10 +566,10 @@ th {
 .glyphicon-share-alt:before {
   content: "\e095"; }
 
-.glyphicon-resize-full:before {
+.glyphicon-resize-full:before, .iconoExpandirMax:before {
   content: "\e096"; }
 
-.glyphicon-resize-small:before {
+.glyphicon-resize-small:before, .iconoExpandirMin:before {
   content: "\e097"; }
 
 .glyphicon-exclamation-sign:before {
@@ -5323,26 +5323,6 @@ button.close {
   height: 600px;
   width: 475px;
   margin: 5px; }
-
-.expandirFicha {
-  height: 600px;
-  width: 475px; }
-
-.expandirMenu {
-  height: 600px;
-  width: 475px; }
-
-.expandirAutoFiltos {
-  height: 600px;
-  width: 475px; }
-
-.expandirFiltrosRapidos {
-  height: 600px;
-  width: 475px; }
-
-.expandirTablasRelacionadas {
-  height: 600px;
-  width: 475px; }
 
 .c_w {
   position: relative;

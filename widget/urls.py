@@ -2,8 +2,7 @@
 Docstring pendiente para este documento
 """
 from django.conf.urls import patterns, url
-from widget.views import WidgetListView, WidgetView, \
-    WidgetUpdate, WidgetDelete, ConfigurarWidgetView
+from widget.views import WidgetListView, WidgetView, WidgetUpdate, WidgetDelete, ConfigurarWidgetView
 from widget import views
 
 urlpatterns = patterns('',
@@ -25,6 +24,30 @@ urlpatterns = patterns('',
                        url(r'^actualizarVisible/$',
                            views.cambiar_WidgetVisible,
                            name='actualizarVisible'),
+                       url(r'^actualizarColumna/$',
+                           views.cambiar_WidgetColumna,
+                           name='actualizarColumna'),
+                       url(r'^actualizarColumna2/$',
+                           views.cambiar_WidgetColumna2,
+                           name='actualizarColumna2'),
+                       url(r'^actualizarColumnaMin/$',
+                           views.cambiar_WidgetColumnaMin,
+                           name='actualizarColumnaMin'),
+                       url(r'^actualizarOrden/$',
+                           views.cambiar_WidgetOrden,
+                           name='actualizarOrden'),
+                       url(r'^actualizarOrden2/$',
+                           views.cambiar_WidgetOrden2,
+                           name='actualizarOrden2'),
+                       url(r'^actualizarOrdenFinal/$',
+                           views.cambiar_WidgetOrdenNV,
+                            name='actualizarOrdenFinal'),
+                       url(r'^configurar_WidgetVisible/$',
+                           views.configurar_WidgetVisible,
+                           name='configurar_WidgetVisible'),
+                       url(r'^retornar_WidgetPorUsuario/$',
+                           views.retornar_WidgetPorUsuario,
+                           name='retornar_WidgetPorUsuario'),
                        url(r'^orden_widgets/$',
                            views.orden_Widgets,
                            name='orden_widgets'),

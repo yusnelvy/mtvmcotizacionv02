@@ -1,6 +1,7 @@
 {% load widgets_extras %}
-
-    {# {% include "transaccion.html" %} #}
+widgets:{{widgets}}
+Nombres:{{arrayNombres}}
+Ordenes:{{arrayOrdenes}}
 
     {% if ordenAD = 1 %}
 
@@ -139,3 +140,18 @@
 
     {% endif %}
 
+<script type="text/javascript">
+ //$('#q').append('{{w_visble }}');
+
+{% for i in w_visble %}
+
+{% if i.numero_de_columna == '2x3' %}
+
+  $('#{{i.nombre}}-btnEN1').addClass('hidden');
+  $('#{{i.nombre}}-btnEN2').removeClass('hidden');
+
+  {% endif %}
+
+{% endfor %}
+
+</script>

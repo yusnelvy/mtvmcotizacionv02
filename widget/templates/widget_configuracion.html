@@ -21,7 +21,7 @@ Widget
        <tr id="trlista" class="active">
            <th>Nombre</th>
            <th>Visible</th>
-           <th>Numero de Columnas</th>
+           <th>Tamaño</th>
            <th>Color</th>
            <th>Orden</th>
        </tr>
@@ -53,11 +53,34 @@ app.controller('controlForm',function($scope){
 
   $(function() {
 
+
+{% for i in w_visble %}
+
+  {% if i.visible == False %}
+
+  document.getElementById('{{i.nombre.split|join:"-"}}').style.display='none';
+
+    {% else %}
+
+  {% endif %}
+
+{% endfor %}
+
 {% for form in formset %}
 var fila =$("#id_form-"+{{forloop.counter0}}+"-numero_de_columna");
 $("#id_form-"+{{forloop.counter0}}+"-numero_de_columna option").remove();
 
   {% if form.nombre.value == 'Autofiltros' %}
+
+    {% if form.numero_de_columna.value == '1x0' %}
+
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+
+      {% else %}
+
+         fila.append('<option value=1x0>minimizado</option>');
+
+    {% endif %}
 
     {% if form.numero_de_columna.value == '1x1' %}
         fila.append('<option value=1x1 selected="selected">1x1</option>');
@@ -78,6 +101,12 @@ $("#id_form-"+{{forloop.counter0}}+"-numero_de_columna option").remove();
     {% endif %}
 
   {% elif form.nombre.value == 'Ficha' %}
+
+    {% if form.numero_de_columna.value == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
     {% if form.numero_de_columna.value == '1x3' %}
         fila.append('<option value=1x3 selected="selected">1x3</option>');
     {% else %}
@@ -92,6 +121,12 @@ $("#id_form-"+{{forloop.counter0}}+"-numero_de_columna option").remove();
 
   {% elif form.nombre.value == 'Filtros Rápidos' %}
 
+    {% if form.numero_de_columna.value == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
+
     {% if form.numero_de_columna.value == '1x1' %}
         fila.append('<option value=1x1 selected="selected">1x1</option>');
       {% else %}
@@ -105,6 +140,12 @@ $("#id_form-"+{{forloop.counter0}}+"-numero_de_columna option").remove();
     {% endif %}
 
   {% elif form.nombre.value == 'Menú' %}
+
+    {% if form.numero_de_columna.value == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
 
     {% if form.numero_de_columna.value == '1x2' %}
         fila.append('<option value=1x2 selected="selected">1x2</option>');
@@ -125,6 +166,12 @@ $("#id_form-"+{{forloop.counter0}}+"-numero_de_columna option").remove();
     {% endif %}
 
   {% elif form.nombre.value == 'Tablas Relacionadas' %}
+
+    {% if form.numero_de_columna.value == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
 
     {% if form.numero_de_columna.value == '1x2' %}
         fila.append('<option value=1x2 selected="selected">1x2</option>');

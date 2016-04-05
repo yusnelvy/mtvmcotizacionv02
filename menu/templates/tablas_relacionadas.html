@@ -2,13 +2,23 @@
 {% load menu_extras %}
 {% load widgets_extras %}
 
-{% block idContenedor %}lirelacion{% endblock idContenedor %}
+{% block idContenedor %}Tablas-Relacionadas{% endblock idContenedor %}
 
 {% block clasesContenedor %}
 {% configurar_WidgetColumna 'Tablas Relacionadas' %} {% configurar_WidgetColor 'Tablas Relacionadas' %}
 {% endblock clasesContenedor %}
 
-{% block idPanel %}controlWidgetCerrar('lirelacion', 'Tablas Relacionadas');{% endblock idPanel %}
+{% block btnCerrar %}controlWidgetCerrar('Tablas-Relacionadas', 'Tablas Relacionadas');{% endblock btnCerrar %}
+
+{% block btnMinimizar %}minimizarColumna('Tablas-Relacionadas', 'Tablas Relacionadas');{% endblock btnMinimizar %}
+
+{% block idbtnEN1 %}TablasRelacionadas-btnEN1{% endblock idbtnEN1 %}
+
+{% block idbtnEN2 %}TablasRelacionadas-btnEN2{% endblock idbtnEN2 %}
+
+{% block btnExpandir1 %}actualizarColumna1('TablasRelacionadas-btnEN1', 'TablasRelacionadas-btnEN2', 'Tablas-Relacionadas', 'Tablas Relacionadas');{% endblock btnExpandir1 %}
+
+{% block btnExpandir2 %}actualizarColumna2('TablasRelacionadas-btnEN1', 'TablasRelacionadas-btnEN2', 'Tablas-Relacionadas', 'Tablas Relacionadas');{% endblock btnExpandir2 %}
 
 {% block titulo_widget %}
 Tablas Relacionadas

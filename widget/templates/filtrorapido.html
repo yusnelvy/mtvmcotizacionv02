@@ -1,13 +1,23 @@
 {% extends 'base_widget.html' %}
 {% load widgets_extras %}
 
-{% block idContenedor %}lifiltrorapido{% endblock idContenedor %}
+{% block idContenedor %}Filtros-Rápidos{% endblock idContenedor %}
 
 {% block clasesContenedor %}
 {% configurar_WidgetColumna 'Filtros Rápidos' %} {% configurar_WidgetColor 'Filtros Rápidos' %}
 {% endblock clasesContenedor %}
 
-{% block idPanel %}controlWidgetCerrar('lifiltrorapido', 'Filtros Rápidos');{% endblock idPanel %}
+{% block btnCerrar %}controlWidgetCerrar('Filtros-Rápidos', 'Filtros Rápidos');{% endblock btnCerrar %}
+
+{% block btnMinimizar %}minimizarColumna('Filtros-Rápidos', 'Filtros Rápidos');{% endblock btnMinimizar %}
+
+{% block idbtnEN1 %}FiltrosRápidos-btnEN1{% endblock idbtnEN1 %}
+
+{% block idbtnEN2 %}FiltrosRápidos-btnEN2{% endblock idbtnEN2 %}
+
+{% block btnExpandir1 %}actualizarColumna1('FiltrosRápidos-btnEN1', 'FiltrosRápidos-btnEN2', 'Filtros-Rápidos', 'FiltrosRápidos');{% endblock btnExpandir1 %}
+
+{% block btnExpandir2 %}actualizarColumna2('FiltrosRápidos-btnEN1', 'FiltrosRápidos-btnEN2', 'Filtros-Rápidos', 'FiltrosRápidos');{% endblock btnExpandir2 %}
 
 {% block titulo_widget %}
 Filtros Rápidos

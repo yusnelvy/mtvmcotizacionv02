@@ -79,30 +79,6 @@ margin-left: 15px;
     width: 475px;
     margin: 5px;
 }
-.expandirFicha{
-    height: 600px;
-    width: 475px;
-}
-.expandirMenu{
-    height: 600px;
-    width: 475px;
-
-}
-.expandirAutoFiltos{
-    height: 600px;
-    width: 475px;
-
-}
-.expandirFiltrosRapidos{
-    height: 600px;
-    width: 475px;
-
-}
-.expandirTablasRelacionadas{
-    height: 600px;
-    width: 475px;
-
-}
 .c_w {
     position: relative;
     display: inline!important;
@@ -111,6 +87,7 @@ margin-left: 15px;
     opacity: 1!important;
     float: right;
     bottom: 15px!important;
+    height: 10px;
 }
 .c_w a {
     margin-left: 5px;
@@ -132,4 +109,16 @@ margin-left: 15px;
 }
 .c_w_hover {
     opacity: .2;
+}
+.iconoExpandirMax {
+  @extend .glyphicon;
+  @extend .glyphicon-resize-full;
+}
+.iconoExpandirMin {
+  @extend .glyphicon;
+  @extend .glyphicon-resize-small;
+}
+.iconoMinimizar {
+  @extend .glyphicon;
+  @extend .glyphicon-minus;
 }

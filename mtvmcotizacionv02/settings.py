@@ -108,8 +108,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'base.forms.BaseFormMd',
                 'mtvmcotizacionv02.views.sidebar',
+                'mtvmcotizacionv02.views.wVisible',
                 'menu.views.lista_Menu',
                 'widget.views.orden_Widgets',
+                'widget.views.cambiar_WidgetOrdenNV',
                 'menu.views.lista_Relacion'
             ]
             # 'allowed_include_roots': [

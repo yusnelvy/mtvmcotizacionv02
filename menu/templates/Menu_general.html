@@ -2,13 +2,23 @@
 {% load menu_extras %}
 {% load widgets_extras %}
 
-{% block idContenedor %}limenu{% endblock idContenedor %}
+{% block idContenedor %}Menú{% endblock idContenedor %}
 
 {% block clasesContenedor %}
 {% configurar_WidgetColumna 'Menú' %} {% configurar_WidgetColor 'Menú' %}
 {% endblock clasesContenedor %}
 
-{% block idPanel %}controlWidgetCerrar('limenu', 'Menú');{% endblock idPanel %}
+{% block btnCerrar %}controlWidgetCerrar('Menú', 'Menú');{% endblock btnCerrar %}
+
+{% block btnMinimizar %}minimizarColumna('Menú', 'Menú');{% endblock btnMinimizar %}
+
+{% block idbtnEN1 %}Menú-btnEN1{% endblock idbtnEN1 %}
+
+{% block idbtnEN2 %}Menú-btnEN2{% endblock idbtnEN2 %}
+
+{% block btnExpandir1 %}actualizarColumna1('Menú-btnEN1', 'Menú-btnEN2', 'Menú', 'Menú');{% endblock btnExpandir1 %}
+
+{% block btnExpandir2 %}actualizarColumna2('Menú-btnEN1', 'Menú-btnEN2', 'Menú', 'Menú');{% endblock btnExpandir2 %}
 
 {% block titulo_widget %}
 Menú
