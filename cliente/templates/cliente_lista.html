@@ -213,7 +213,7 @@
         <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:edit_cliente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
     </td>
     <td>
-        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_tipo_de_cliente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_cliente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
     </td>
 </tr>
 

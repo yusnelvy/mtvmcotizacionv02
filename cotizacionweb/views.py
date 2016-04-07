@@ -1,17 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.views.generic import DetailView
 from cotizacionweb.models import Cotizacion, CotizacionEstado,\
-    CotizacionDireccion, TipoDireccion, CotizacionBitacora
+    CotizacionDireccion, TipoDireccion, CotizacionBitacora, \
+    CotizacionAmbiente, CotizacionMueble, FechaDeCotizacion, \
+    CotizacionHistoricoFecha
+from cotizacionweb.forms import CotizacionForm
 from cliente.models import Cliente, InformacionDeContacto, ClienteDireccion
 from estadoderegistro.models import EstadoDeRegistro
 from gestiondedocumento.models import EstadoDeDocumento
 from direccion.models import Edificacion, Inmueble
+from django.views.generic.edit import FormMixin
+from django.core.urlresolvers import reverse
+from ambiente.models import AmbientePorTipoDeInmueble
+from mueble.models import MueblePorAmbiente
 
 
 # Create your views here.
 # app cotización
-class CotizacionDetail(DetailView):
+class CotizacionDetail(FormMixin, DetailView):
     model = Cotizacion
+    form_class = CotizacionForm
     context_object_name = "cotizacion"
     template_name = 'cotizacion_ficha.html'
 
@@ -26,7 +34,64 @@ class CotizacionDetail(DetailView):
             cotizacion=self.object.pk, tipo_direccion__tipo_direccion="Origen")
         context['direccion_destino'] = CotizacionDireccion.objects.filter(
             cotizacion=self.object.pk, tipo_direccion__tipo_direccion="Destino")
+
+        context['mudanza'] = CotizacionHistoricoFecha.objects.filter(cotizacion=self.object.pk,
+                                                                     nombre_tipo_fecha='Mudanza')
+        context['visita'] = CotizacionHistoricoFecha.objects.filter(cotizacion=self.object.pk,
+                                                                    nombre_tipo_fecha='Visita del cotizador')
+        context['form'] = self.get_form()
+
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        # Here, we would record the user's interest using the message
+        # passed in form.cleaned_data['message']
+        cotizacion = Cotizacion.objects.filter(pk=self.object.pk)
+        cotizacion.update(cotizador=form.cleaned_data['cotizador'])
+
+        if form.cleaned_data['fecha_mudanza'] and form.cleaned_data['hora_mudanza']:
+            mudanza = FechaDeCotizacion.objects.filter(nombre_fecha='Mudanza')
+            if mudanza:
+                agregarfecha = CotizacionHistoricoFecha.objects.create(cotizacion_id=self.object.pk,
+                                                                       usuario_registro_id=2,
+                                                                       tipo_fecha_id=mudanza[0].id,
+                                                                       nombre_tipo_fecha=mudanza[0].nombre_fecha,
+                                                                       fecha_actual=form.cleaned_data['fecha_mudanza'],
+                                                                       hora_actual=form.cleaned_data['hora_mudanza'],
+                                                                       observacion='Fecha de la mudanza',
+                                                                       aplicar=True)
+                agregarfecha.save()
+
+        if form.cleaned_data['fecha_visita'] and form.cleaned_data['hora_visita']:
+            visita = FechaDeCotizacion.objects.filter(nombre_fecha='Visita del cotizador')
+            if visita:
+                agregarfecha = CotizacionHistoricoFecha.objects.create(cotizacion_id=self.object.pk,
+                                                                       usuario_registro_id=2,
+                                                                       tipo_fecha_id=visita[0].id,
+                                                                       nombre_tipo_fecha=visita[0].nombre_fecha,
+                                                                       fecha_actual=form.cleaned_data['fecha_visita'],
+                                                                       hora_actual=form.cleaned_data['hora_visita'],
+                                                                       observacion='Fecha de la visita',
+                                                                       aplicar=True)
+                agregarfecha.save()
+
+        return render_to_response(self.template_name, self.get_context_data())
+
+    def form_invalid(self, form):
+        """
+        Called if a form is invalid. Re-renders the context data with the
+        data-filled forms and errors.
+        """
+        return self.render_to_response(
+            self.get_context_data(form=form))
 
 
 def add_cotizacion(cliente):
@@ -78,6 +143,18 @@ def add_cotizacion_direccion(cotizacion, clientedireccion, tipo):
                                                  usuario_registro_id=2,
                                                  observacion='Creación de una dirección de la cotización')
     bitacora.save()
+
+    cantOrig = CotizacionDireccion.objects.filter(cotizacion=cotizacion,
+                                                  tipo_direccion__tipo_direccion='Origen').count()
+    cantDest = CotizacionDireccion.objects.filter(cotizacion=cotizacion,
+                                                  tipo_direccion__tipo_direccion='Destino').count()
+    estado_documento = CotizacionEstado.objects.filter(cotizacion=cotizacion,
+                                                       predefinido=True).exclude(estado_de_documento=None)
+    if estado_documento:
+        estadodedocumento = estado_documento[0].estado_de_documento.estado_de_documento
+
+    if cantOrig > 0 and cantDest > 0 and estadodedocumento == 'cargando':
+        add_cotizacion_detalle(cotizacion)
 
     return(agregarcotizaciondireccion.id)
 
@@ -154,3 +231,60 @@ def update_cotizacion_direccion(cotizacion, clientedireccion):
                                 volumen_baulera=volumen_baulera)
 
     return(cotizacion_direccion[0].id)
+
+
+def add_cotizacion_detalle(cotizacion):
+
+    direccion_origen = CotizacionDireccion.objects.filter(cotizacion=cotizacion,
+                                                          tipo_direccion__tipo_direccion='Origen',
+                                                          orden='1')
+    direccion_destino = CotizacionDireccion.objects.filter(cotizacion=cotizacion,
+                                                           tipo_direccion__tipo_direccion='Destino',
+                                                           orden='1')
+
+    ambientes = AmbientePorTipoDeInmueble.objects.filter(predeterminado=True,
+                                                         especificacion_de_inmueble__especificacion_de_inmueble=direccion_origen[0].especificacion_de_inmueble)
+    if ambientes:
+        for ambiente in ambientes:
+            agregarambiente = CotizacionAmbiente.objects.create(direccion_origen_id=direccion_origen[0].id,
+                                                                ambiente_id=ambiente.ambiente.id,
+                                                                observaciones='Creado por inteligencia de negocio')
+            agregarambiente.save()
+
+            muebles = MueblePorAmbiente.objects.filter(predefinido=True,
+                                                       ambiente_por_tipo_de_inmueble=ambiente.id)
+            if muebles:
+                for mueble in muebles:
+                    agregarmueble = CotizacionMueble.objects.create(cotizacion_ambiente_id=agregarambiente.id,
+                                                                    especificacion_de_mueble_id=mueble.especificacion_de_mueble.id,
+                                                                    direccion_destino_id=direccion_destino[0].id,
+                                                                    nombre_especificacion_de_mueble=mueble.especificacion_de_mueble.especificacion_de_mueble,
+                                                                    ancho=mueble.especificacion_de_mueble.ancho,
+                                                                    alto=mueble.especificacion_de_mueble.alto,
+                                                                    largo=mueble.especificacion_de_mueble.largo,
+                                                                    cantidad=1,
+                                                                    volumen_en_camion=mueble.especificacion_de_mueble.volumen_en_camion,
+                                                                    trasladable=mueble.especificacion_de_mueble.mueble.trasladable,
+                                                                    observaciones='Creado por inteligencia de negocio')
+                    agregarmueble.save()
+
+    bitacora = CotizacionBitacora.objects.create(cotizacion_id=cotizacion,
+                                                 usuario_registro_id=2,
+                                                 observacion='Creación de ambientes y muebles propuestos')
+    bitacora.save()
+
+    updateestado = CotizacionEstado.objects.filter(cotizacion=cotizacion,
+                                                   predefinido=True).exclude(estado_de_documento=None)
+    updateestado.update(predefinido=False)
+
+    estadoactual = EstadoDeDocumento.objects.filter(tipo_de_documento__tipo_de_documento='cotizacion',
+                                                    estado_de_documento='por cotizar')
+
+    agregarestadodedocumento = CotizacionEstado.objects.create(cotizacion_id=cotizacion,
+                                                               estado_de_documento_id=estadoactual[0].id,
+                                                               usuario_registro_id=2,
+                                                               observacion='Cotización lista para cotizar',
+                                                               predefinido=True)
+    agregarestadodedocumento.save()
+
+    return(cotizacion)

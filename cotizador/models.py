@@ -17,7 +17,7 @@ class Cotizador(models.Model):
     id_trabajador = models.ForeignKey(Trabajador)
 
     def __str__(self):
-        return self.id_trabajador
+        return str(self.id_trabajador)
 
     class Meta:
         verbose_name = "Cotizador"

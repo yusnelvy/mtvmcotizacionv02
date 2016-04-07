@@ -18,8 +18,29 @@ Agregar Fuente de promoción
 
   {{ form.as_md }}
 
-<script type="text/javascript">
-document.getElementById('id_medio_especifico').focus()
-</script>
-
 {% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    function enterNone(elemento) {
+        $(elemento).keypress(function(e){
+            if(e.which == 13){
+                return false;
+            }
+        });
+    }
+    $scope.cliente = '{{request.GET.cliente}}';
+    $('#id_medio_especifico').focus();
+    setTimeout(function() {
+        $('#id_medio_especifico').zelect();
+        $('#id_tipo_de_referido').zelect();
+        $('#id_barrio').zelect();
+        enterNone('form');
+        $('#id_medio_especifico').on('change', function(event) { controlSubmit(event); })
+    }, 100);
+});
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

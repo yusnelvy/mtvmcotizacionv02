@@ -131,7 +131,7 @@ class PersonaAliado(models.Model):
     telefono_movil_2 = models.CharField(max_length=25, blank=True)
     email_principal = models.CharField(max_length=250, blank=True)
     email_secundario = models.CharField(max_length=250, blank=True)
-    observacion = models.TextField()
+    observacion = models.TextField(blank=True)
 
     def __str__(self):
         return self.nombre
@@ -153,9 +153,9 @@ class FuenteDePromocion(models.Model):
     nombre_referido = models.CharField(max_length=250, blank=True)
     telefono_referido = models.CharField(max_length=100, blank=True)
     persona_aliado = models.ForeignKey(PersonaAliado)
-    institucion_aliado = models.TextField()
-    alianza = models.TextField()
-    condiciones_de_calculo_alianza = models.TextField()
+    institucion_aliado = models.TextField(blank=True)
+    alianza = models.TextField(blank=True)
+    condiciones_de_calculo_alianza = models.TextField(blank=True)
 
     def __str__(self):
         return u' %s - %s' % (self.medio_especifico, self.tipo_de_referido)

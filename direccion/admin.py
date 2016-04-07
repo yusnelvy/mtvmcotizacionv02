@@ -2,7 +2,7 @@ from django.contrib import admin
 from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificacion, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
-    EspecificacionDeInmueble, Inmueble
+    EspecificacionDeInmueble, Inmueble, Calle
 
 # Register your models here.
 admin.site.register(Pais)
@@ -17,3 +17,4 @@ admin.site.register(Ascensor)
 admin.site.register(TipoDeInmueble)
 admin.site.register(EspecificacionDeInmueble)
 admin.site.register(Inmueble)
+admin.site.register(Calle)

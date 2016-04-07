@@ -1694,21 +1694,43 @@ class FuenteDePromocionView(View):
 
     def get(self, request, *args, **kwargs):
         """docstring"""
-        form = self.form_class()
+
+        if self.request.GET.get('cliente'):
+            data = {
+                'cliente': self.request.GET.get('cliente')
+            }
+            form = self.form_class(initial=data)
+        else:
+            form = self.form_class()
+
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+        redirect_to = self.request.GET.get('next', '')
+        cotizacion = self.request.GET.get('cotizacion', '')
 
         if form.is_valid():
             id_reg = form.save()
+
+            fuentedepromocion = FuenteDePromocion.objects.filter(pk=id_reg.id)
+            if fuentedepromocion[0].persona_aliado:
+                fuentedepromocion.update(alianza=fuentedepromocion[0].persona_aliado.institucion.alianza.alianza,
+                                         institucion_aliado=fuentedepromocion[0].persona_aliado.institucion.nombre)
 
             if 'regEdit' in request.POST:
                 messages.success(request, "Registro guardado.")
                 return HttpResponseRedirect(reverse('upromociones:edit_fuentedepromocion',
                                                     args=(id_reg.id,)))
             else:
-                return HttpResponseRedirect(reverse('upromociones:list_fuentedepromocion'))
+                if cotizacion:
+                    return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',
+                                                        args=(cotizacion,)))
+                else:
+                    if redirect_to:
+                        return HttpResponseRedirect(redirect_to)
+                    else:
+                        return HttpResponseRedirect(reverse('upromociones:list_fuentedepromocion'))
 
         return render(request, self.template_name, {'form': form})
 
