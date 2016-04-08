@@ -60,6 +60,7 @@
 <script src="{% static 'js/scriptTB.js' %}"></script>
 <script>
 var lificha = $(parent.document.getElementById("Ficha"));
+removeHandler();
 $(lificha).children('.cabecera-panel').children('.titulo-panel').text(
 
     {% block titulo_ficha %}{% endblock titulo_ficha %}

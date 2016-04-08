@@ -3,7 +3,9 @@ function removeHandler() {
  var parenDoc = parent.document;
  var btnFicha = $(parent.document.getElementsByClassName('btnFicha'));
  var tag = $(parent.document.getElementsByTagName('a'));
+ var parenDoca = parent.document.getElementsByTagName('a');
  $(tag).unbind('click');
+ $(parenDoca).unbind('click');
  $(btnFicha).unbind('click');
  $(parenDoc).unbind('click');
  $('a').unbind('click');

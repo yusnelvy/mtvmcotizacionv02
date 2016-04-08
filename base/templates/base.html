@@ -20,7 +20,7 @@
     {% block js_superior %}{% endblock js_superior %}
 
 </head>
-<body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();">
+<body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();" ng-cloak ng-csp>
     <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
         <header>
             <div ng-controller="ControlSidebar" class="sidebar-wrapper md-whiteframe-20dp">

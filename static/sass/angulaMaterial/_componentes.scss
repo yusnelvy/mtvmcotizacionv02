@@ -635,17 +635,8 @@ body{
     overflow-y: hidden;
     background: #eee;
 }
-.add-row {
-  @extend .iconoPlus;
-  float: right;
-  padding-bottom: 5px;
-}
-.delete-row{
-  @extend .iconoRemover;
-  margin-left: 96%;
-}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: hidden!important;
+  visibility: hidden!important;
 }
 .contenedor {
     @extend .container-fluid;
