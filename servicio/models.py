@@ -2,6 +2,7 @@ from django.db import models
 from premisas.models import Unidad
 from django.contrib.auth.models import User
 from herramienta.models import Herramienta
+from mueble.models import EspecificacionDeMueble
 
 
 # Create your models here.
@@ -79,3 +80,21 @@ class HerramientasPorServicio(models.Model):
         verbose_name = "Herramienta por servicio"
         verbose_name_plural = "Herramientas por servicio"
         ordering = ["servicio", "herramienta"]
+
+
+class ServicioTipicoPorMueble(models.Model):
+    """docstring for ContenedorTipicoPorMueble"""
+    def __init__(self, *args, **kwargs):
+        super(ServicioTipicoPorMueble, self).__init__(*args, **kwargs)
+
+    servicio = models.ForeignKey(Servicio, on_delete=models.PROTECT)
+    especificacion_de_mueble = models.ForeignKey(EspecificacionDeMueble, on_delete=models.PROTECT)
+    cantidad = models.IntegerField()
+
+    def __str__(self):
+        return u' %s - %s' % (self.servicio, self.especificacion_de_mueble)
+
+    class Meta:
+        verbose_name = "Servicio tipico por mueble"
+        verbose_name_plural = "Servicios tipicos por Muebles"
+        ordering = ['servicio']

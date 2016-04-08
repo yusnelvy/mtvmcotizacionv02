@@ -40,7 +40,7 @@ class Material(models.Model):
     cotizable = models.BooleanField(default=None)
 
     def __str__(self):
-        return self.tipo_de_material
+        return self.material
 
     class Meta:
         verbose_name = "Material "
