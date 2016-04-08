@@ -22425,7 +22425,7 @@ span.labelSwitch {
   margin: 0;
   list-style-type: none; }
 
-.sidebarWidget li {
+.sidebarWidget > li {
   float: left;
   cursor: move;
   display: inline-block;
@@ -22433,7 +22433,7 @@ span.labelSwitch {
   overflow-x: hidden;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
 
-.sidebarWidget li span {
+.sidebarWidget > li > span {
   float: right;
   cursor: default; }
 

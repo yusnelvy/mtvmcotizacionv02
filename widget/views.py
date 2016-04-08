@@ -413,29 +413,3 @@ def orden_Widgets(request):
                'ordenTRD': ordenTRD}
     return context
 
-
-def cambiar_WidgetOrdenNV(request):
-    """docstring"""
-    widgetsN = Widget.objects.values('nombre').filter(usuario=1)
-    widgetsO = Widget.objects.values('orden').filter(usuario=1)
-
-    arrayNombres = []
-    arrayOrdenes = []
-    k = 0
-    for m in widgetsN:
-        arrayNombres.append([k]*1)
-        arrayOrdenes.append([k]*1)
-        arrayNombres[k] = widgetsN[k]
-        arrayOrdenes[k] = widgetsO[k]
-        k += 1
-    context = {'widgetsN': widgetsN, 'arrayNombres': arrayNombres, 'arrayOrdenes': arrayOrdenes}
-    return context
-
-def retornar_WidgetPorUsuario(request):
-    """docstring"""
-    if request.method == "GET" and request.is_ajax():
-        usuario = request.GET['usuario']
-        widgetsN = Widget.objects.values('nombre').filter(usuario=usuario)
-        widgetsO = Widget.objects.values('orden').filter(usuario=usuario)
-
-        return JsonResponse(widgetsN, safe=False)

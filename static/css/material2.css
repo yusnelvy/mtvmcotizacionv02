@@ -254,7 +254,7 @@ th {
   font-family: 'Glyphicons Halflings';
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-.glyphicon, .iconoExpandirMax, .iconoExpandirMin, .iconoMinimizar {
+.glyphicon, .iconoExpandirMax, .iconoExpandirMin, .iconoMinimizar, .iconoCarpetaAbierta, .iconoCarpetaCerrada {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -620,10 +620,10 @@ th {
 .glyphicon-shopping-cart:before {
   content: "\e116"; }
 
-.glyphicon-folder-close:before {
+.glyphicon-folder-close:before, .iconoCarpetaCerrada:before {
   content: "\e117"; }
 
-.glyphicon-folder-open:before {
+.glyphicon-folder-open:before, .iconoCarpetaAbierta:before {
   content: "\e118"; }
 
 .glyphicon-resize-vertical:before {
@@ -1071,7 +1071,6 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
-  color: #333333;
   background-color: #eee; }
 
 input,
@@ -5268,26 +5267,36 @@ button.close {
   border-top-right-radius: 0;
   border-top-left-radius: 0; }
 
+.cuerpo-panel {
+  overflow-y: scroll;
+  height: calc(100% - 40px); }
+
 .size-transaccion {
-  width: 140px; }
+  width: 120px;
+  margin: -5px;
+  background-color: #fafafa;
+  color: #333;
+  margin-bottom: 28px; }
+  .size-transaccion button {
+    color: #3F51B5; }
 
 .claseRojo {
-  border-color: #D0231C; }
+  border-color: #455A64; }
   .claseRojo .cabecera-panel {
-    color: #fff;
-    background-color: #DC4040; }
+    color: #263238;
+    background-color: #607D8B; }
 
 .claseAzul {
-  border-color: #809fff; }
+  border-color: #0288D1; }
   .claseAzul .cabecera-panel {
-    color: #31708f;
-    background-color: #bce8f1; }
+    color: #01579B;
+    background-color: #03A9F4; }
 
 .claseVerde {
-  border-color: #1CD0A6; }
+  border-color: #009688; }
   .claseVerde .cabecera-panel {
-    color: #3DA073;
-    background-color: #7DEAC7; }
+    color: #00796B;
+    background-color: #4DB6AC; }
 
 .minima {
   height: 44px;
@@ -5331,7 +5340,8 @@ button.close {
   border: none !important;
   opacity: 1 !important;
   float: right;
-  bottom: 15px !important; }
+  bottom: 15px !important;
+  height: 10px; }
 
 .c_w a {
   margin-left: 5px;
@@ -5353,5 +5363,104 @@ button.close {
 
 .c_w_hover {
   opacity: .2; }
+
+.claseFavorito {
+  border-color: #1CD0A6;
+  padding-left: 0;
+  list-style: none;
+  cursor: default; }
+  .claseFavorito p {
+    margin: 0;
+    padding: 10px; }
+    .claseFavorito p p:hover {
+      background: rgba(0, 0, 0, 0.2); }
+  .claseFavorito li {
+    padding-left: 10px; }
+    .claseFavorito li p {
+      margin: 0;
+      padding: 10px;
+      background: #EEE; }
+  .claseFavorito ul {
+    padding: 0;
+    list-style: none;
+    cursor: default; }
+    .claseFavorito ul li.activo {
+      background-color: #7DEAC7;
+      padding-left: 30px; }
+      .claseFavorito ul li.activo a {
+        padding: 10px;
+        padding-left: 5px;
+        width: 100%;
+        display: block;
+        text-decoration: none; }
+    .claseFavorito ul li {
+      padding: 0;
+      padding-left: 30px; }
+      .claseFavorito ul li a {
+        padding: 10px;
+        padding-left: 5px;
+        width: 100%;
+        display: block;
+        text-decoration: none; }
+      .claseFavorito ul li a:hover {
+        background: rgba(0, 0, 0, 0.2); }
+
+.claseMenu {
+  border-color: #1CD0A6;
+  padding-left: 0;
+  list-style: none;
+  cursor: default; }
+  .claseMenu li {
+    padding-left: 10px; }
+    .claseMenu li ul {
+      padding: 0;
+      list-style: none;
+      cursor: default; }
+      .claseMenu li ul li {
+        padding-left: 10px; }
+        .claseMenu li ul li p {
+          margin: 0;
+          padding: 10px;
+          background: #EEE; }
+        .claseMenu li ul li ul {
+          padding: 0;
+          list-style: none;
+          cursor: default; }
+          .claseMenu li ul li ul li.activo {
+            background-color: #7DEAC7;
+            padding-left: 30px; }
+            .claseMenu li ul li ul li.activo a {
+              padding: 10px;
+              padding-left: 5px;
+              width: 100%;
+              display: block;
+              text-decoration: none; }
+          .claseMenu li ul li ul li {
+            padding: 0;
+            padding-left: 30px; }
+            .claseMenu li ul li ul li a {
+              padding: 10px;
+              padding-left: 5px;
+              width: 100%;
+              display: block;
+              text-decoration: none; }
+            .claseMenu li ul li ul li a:hover {
+              background: rgba(0, 0, 0, 0.2); }
+
+.claseTablasRelacionadas {
+  border-color: #1CD0A6;
+  padding-left: 0;
+  list-style: none;
+  cursor: default; }
+  .claseTablasRelacionadas li {
+    padding-left: 0; }
+    .claseTablasRelacionadas li a {
+      padding: 10px;
+      padding-left: 15px;
+      width: 100%;
+      display: block;
+      text-decoration: none; }
+    .claseTablasRelacionadas li a:hover {
+      background: rgba(0, 0, 0, 0.2); }
 
 /*# sourceMappingURL=material2.css.map */

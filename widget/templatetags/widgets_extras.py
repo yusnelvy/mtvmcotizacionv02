@@ -37,13 +37,6 @@ def configurar_WidgetVisible(name):
     return isVisible
 
 @register.simple_tag
-def retornar_WidgetPorUsuario(name):
-    """docstring"""
-    widgetsN = Widget.objects.values('nombre').filter(usuario=usuario)
-    widgetsO = Widget.objects.values('orden').filter(usuario=usuario)
-    return widgetsN
-
-@register.simple_tag
 def cambiar_WidgetVisible(name):
     """docstring"""
     Widget.objects.filter(nombre=name).update(visible=False)

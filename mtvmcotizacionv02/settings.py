@@ -57,9 +57,7 @@ INSTALLED_APPS = (
     'servicio',
     'talonario',
     'djangular',
-    'widget',
-    'cotizador',
-    'cotizacionweb'
+    'widget'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -109,9 +107,9 @@ TEMPLATES = [
                 'base.forms.BaseFormMd',
                 'mtvmcotizacionv02.views.sidebar',
                 'mtvmcotizacionv02.views.wVisible',
+                'mtvmcotizacionv02.views.wOrden',
                 'menu.views.lista_Menu',
                 'widget.views.orden_Widgets',
-                'widget.views.cambiar_WidgetOrdenNV',
                 'menu.views.lista_Relacion'
             ]
             # 'allowed_include_roots': [

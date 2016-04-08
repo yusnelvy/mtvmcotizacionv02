@@ -75,3 +75,7 @@ function minimizarColumna(e, name) {
 
      });
 }
+
+function activarNivel2(){
+  alert('entro');
+}

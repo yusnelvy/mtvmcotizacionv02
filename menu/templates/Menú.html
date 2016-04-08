@@ -29,80 +29,84 @@ Menú
 {% block contenido_widget %}
 
             <div class="cuerpo-panel">
-                <ul>
-                    <li><a>Favoritos</a>
+
+                    <div>
+                        <ul class="claseFavorito">
+                            <p class="nivel1">
+                                <span class="iconoCarpetaCerrada"></span> Favoritos
+                            </p>
 
                         {% for o in grupos %}
 
-                        <ul>
-                            <li><a>{{o.grupo}}</a>
 
-                            {% for a in favoritos %}
+                            <li class="nivel33" ><p class="nivel2"><span class="iconoCarpetaCerrada"> {{o.grupo}}</span></p>
+                                <ul class="nivel3">
+                                {% for a in favoritos %}
 
-                                {% if o.grupo = a.grupo %}
+                                    {% if o.grupo = a.grupo %}
 
-                                    {% if a.id = idActualFav %}
-                                    <ul>
-                                        <li><a>{{ a.menu }}</a>
-                                        </li>
-                                    </ul>
-                                    {% else %}
-                                    <ul>
-                                        <li><a title='{{a.menu.transaccion}}' data-toggletooltip="tooltip" data-placement="left" href="{% url_Menu a.menu.namespace a.menu.name %}?next={{ request.get_full_path }}">{{ a.menu.menu }}</a>
-                                        </li>
-                                    </ul>
+                                        {% if a.id = idActualFav %}
+
+                                            <li><span class=""></span> {{ a.menu }}
+                                            </li>
+
+                                        {% else %}
+
+                                            <li>
+                                                <a title='{{a.menu.transaccion}}' data-toggletooltip="tooltip" data-placement="left" href="{% url_Menu a.menu.namespace a.menu.name %}?next={{ request.get_full_path }}">{{ a.menu.menu }}</a>
+                                            </li>
+
+                                        {% endif %}
+
                                     {% endif %}
 
-                                {% endif %}
-
-                            {% endfor %}
-
+                                {% endfor %}
+                                </ul>
                             </li>
-                        </ul>
+
 
                         {% endfor %}
-
-                    </li>
-                </ul>
+                    </ul>
+                    </div>
                 {% for i in nivel1 %}
 
-                <ul>
-                    <li><a>{{ i.menu }}</a>
-
+                <ul class="claseMenu">
+                    <li><p class="nivel1"><span class="iconoCarpetaCerrada"></span> {{ i.menu }}</p>
+                    <ul class="nivel33">
                         {% for j in nivel2 %}
 
                         {% if j.menu_padre.id = i.id %}
 
-                        <ul>
-                            <li><a>{{ j.menu }}</a>
 
+                            <li><p class="nivel2"><span class="iconoCarpetaCerrada"> {{ j.menu }}</span></p>
+                        <ul class="nivel3">
                                 {% for k in nivel3 %}
 
                                 {% if k.menu_padre.id = j.id %}
                                 {% if k.id = idActual %}
-                                <ul>
+
                                     <li><a>{{ k.menu }}</a>
 
                                     </li>
-                                </ul>
+
                                 {% else %}
 
-                                <ul>
+
                                     <li><a title= {{k.transaccion}} data-toggletooltip="tooltip" data-placement="left" href="{% url_Menu k.namespace k.name %}?next={{ request.get_full_path }}">{{ k.menu }}</a>
 
                                     </li>
-                                </ul>
+
 
                                 {% endif %}
                                 {% endif %}
                                 {% endfor %}
-
-                            </li>
                         </ul>
+                            </li>
+
 
                         {% endif %}
                         {% endfor %}
-
+                    </ul>
                     </li>
                 </ul>
 

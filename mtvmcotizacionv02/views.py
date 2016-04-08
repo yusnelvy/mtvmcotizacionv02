@@ -141,3 +141,11 @@ def wVisible(request):
     return {
         'w_visble': all_categories2,
     }
+
+def wOrden(request):
+    """e"""
+    all_widgets = Widget.objects.values('nombre','orden').filter(usuario=1).order_by('orden')
+
+    return {
+        'w_orden': all_widgets,
+    }
