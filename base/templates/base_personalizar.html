@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block titulo %}{% endblock titulo %}
+
+{% block acceso_rapido %}
+
+<md-button title="Volver" class="md-icon-button" ng-href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
+<md-icon class="iconoVolver"></md-icon>
+</md-button>
+
+{% endblock acceso_rapido %}
+
+{% block contenido %}{% endblock contenido %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}

@@ -261,3 +261,39 @@ margin-left: 15px;
     }
   }
 }
+.iconoOK {
+  @extend .glyphicon;
+  @extend .glyphicon-ok;
+}
+.iconoMinus {
+  @extend .glyphicon;
+  @extend .glyphicon-minus;
+}
+.iconoStar {
+  @extend .glyphicon;
+  @extend .glyphicon-star;
+}
+.claseFasesSuperadas {
+  cursor: default;
+  color: #00C853;
+  padding: 5px;
+  padding-left: 10px;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+}
+.claseFaseActual {
+  cursor: default;
+  padding: 5px;
+  padding-left: 10px;
+  width: 100%;
+  display: block;
+  text-decoration: none;}
+.claseFasesFaltantes {
+  cursor: default;
+  padding: 5px;
+  padding-left: 10px;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+}

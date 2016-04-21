@@ -11,3 +11,199 @@
 <script src="{% static 'js/material.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script src="{% static 'js/script2.js' %}"></script>
+
+<script language="javascript">
+
+$(function() {
+
+
+{% for i in w_visble %}
+
+    {% if i.visible == False %}
+
+        document.getElementById('{{i.nombre.split|join:"-"}}').style.display='none';
+
+    {% else %}
+
+    {% endif %}
+
+{% endfor %}
+
+{% for j in w_visble %}
+var fila =$("#id_form-"+{{forloop.counter0}}+"-numero_de_columna");
+$("#id_form-"+{{forloop.counter0}}+"-numero_de_columna option").remove();
+
+  {% if j.nombre == 'Autofiltros' %}
+
+    {% if j.numero_de_columna == '1x0' %}
+
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+
+      {% else %}
+
+         fila.append('<option value=1x0>minimizado</option>');
+
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x1' %}
+        fila.append('<option value=1x1 selected="selected">1x1</option>');
+      {% else %}
+         fila.append('<option value=1x1>1x1</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x1' %}
+        fila.append('<option value=2x1 selected="selected">2x1</option>');
+      {% else %}
+         fila.append('<option value=2x1>2x1</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x2' %}
+        fila.append('<option value=2x2 selected="selected">2x2</option>');
+      {% else %}
+      fila.append('<option value=2x2>2x2</option>');
+    {% endif %}
+
+  {% elif j.nombre == 'Ficha' %}
+
+    {% if j.numero_de_columna == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
+    {% if j.numero_de_columna == '1x3' %}
+        fila.append('<option value=1x3 selected="selected">1x3</option>');
+    {% else %}
+         fila.append('<option value=1x3>1x3</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x3' %}
+        fila.append('<option value=2x3 selected="selected">2x3</option>');
+    {% else %}
+      fila.append('<option value=2x3>2x3</option>');
+    {% endif %}
+
+  {% elif j.nombre == 'Filtros Rápidos' %}
+
+    {% if j.numero_de_columna == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x1' %}
+        fila.append('<option value=1x1 selected="selected">1x1</option>');
+      {% else %}
+      fila.append('<option value=1x1>1x1</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x2' %}
+        fila.append('<option value=1x2 selected="selected">1x2</option>');
+      {% else %}
+      fila.append('<option value=1x2>1x2</option>');
+    {% endif %}
+
+  {% elif j.nombre == 'Menú' %}
+
+    {% if j.numero_de_columna == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x2' %}
+        fila.append('<option value=1x2 selected="selected">1x2</option>');
+      {% else %}
+      fila.append('<option value=1x2>1x2</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x3' %}
+        fila.append('<option value=1x3 selected="selected">1x3</option>');
+    {% else %}
+         fila.append('<option value=1x3>1x3</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x3' %}
+        fila.append('<option value=2x3 selected="selected">2x3</option>');
+      {% else %}
+      fila.append('<option value=2x3>2x3</option>');
+    {% endif %}
+
+  {% elif j.nombre == 'Tablas Relacionadas' %}
+
+    {% if j.numero_de_columna == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x2' %}
+        fila.append('<option value=1x2 selected="selected">1x2</option>');
+      {% else %}
+      fila.append('<option value=1x2>1x2</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x3' %}
+        fila.append('<option value=1x3 selected="selected">1x3</option>');
+    {% else %}
+         fila.append('<option value=1x3>1x3</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x2' %}
+        fila.append('<option value=2x2 selected="selected">2x2</option>');
+      {% else %}
+      fila.append('<option value=2x2>2x2</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x3' %}
+        fila.append('<option value=2x3 selected="selected">2x3</option>');
+      {% else %}
+      fila.append('<option value=2x3>2x3</option>');
+    {% endif %}
+
+  {% elif j.nombre == 'Fases del Proceso' %}
+
+    {% if j.numero_de_columna == '1x0' %}
+        fila.append('<option value=1x0 selected="selected">minimizado</option>');
+      {% else %}
+         fila.append('<option value=1x0>minimizado</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x2' %}
+        fila.append('<option value=1x2 selected="selected">1x2</option>');
+      {% else %}
+      fila.append('<option value=1x2>1x2</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '1x3' %}
+        fila.append('<option value=1x3 selected="selected">1x3</option>');
+    {% else %}
+         fila.append('<option value=1x3>1x3</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x2' %}
+        fila.append('<option value=2x2 selected="selected">2x2</option>');
+      {% else %}
+      fila.append('<option value=2x2>2x2</option>');
+    {% endif %}
+
+    {% if j.numero_de_columna == '2x3' %}
+        fila.append('<option value=2x3 selected="selected">2x3</option>');
+      {% else %}
+      fila.append('<option value=2x3>2x3</option>');
+    {% endif %}
+
+  {% else %}
+
+    {% if j.numero_de_columna == '1x1' %}
+          fila.append('<option value=1x1 selected="selected">Estandar</option>');
+      {% else %}
+           fila.append('<option value=1x1>1x1</option>');
+    {% endif %}
+
+  {% endif %}
+
+{% endfor %}
+
+});
+
+</script>
