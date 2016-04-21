@@ -9,7 +9,7 @@ from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
     Contacto, InformacionDeContacto, ClienteDireccion, \
     ClienteEstadoDeRegistro
 from djangular.forms import NgModelFormMixin, NgModelForm
-from base.forms import BaseFormMd, SelectMD, Checkbox
+from base.forms import BaseFormMd, SelectMD, Checkbox, InputFecha
 from django import forms
 from django.forms.models import inlineformset_factory
 
@@ -111,6 +111,9 @@ class ContactoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
     class Meta:
         model = Contacto
         fields = '__all__'
+        widgets = {
+            'fecha_nacimiento': InputFecha()
+        }
 
 InformacionDeContactoFormSet = inlineformset_factory(Contacto,
                                                      InformacionDeContacto,

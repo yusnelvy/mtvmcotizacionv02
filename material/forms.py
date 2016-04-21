@@ -8,9 +8,9 @@ from base.forms import BaseFormMd
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms.models import inlineformset_factory
 from base.forms import BaseFormMd, SelectMD, Checkbox
+from django.forms import ModelForm, TextInput
 
-
-class MaterialForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class MaterialForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -24,16 +24,14 @@ class MaterialForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'unidad_de_venta': ('Unidad de venta del material'),
             'material': ('Nombre del material'),
             'relacion_consumo_venta': ('Relación de consumo del material'),
-            'ancho': ('Ancho del material'),
-            'largo': ('Largo del material'),
-            'alto': ('Alto del material'),
-            'peso_unidad_consumo_kg': ('Peso de consumo del material'),
+            'ancho': ('Ancho del material (cm)'),
+            'largo': ('Largo del material (cm)'),
+            'alto': ('Alto del material (cm)'),
+            'peso_unidad_consumo_kg': ('Peso de consumo del material (Kg)'),
             'cotizable': ('¿El material es cotizable?')
         }
         widgets = {
-            'tipo_de_material': SelectMD(attrs={'tabindex': '1'}),
-            'unidad_de_consumo': SelectMD(attrs={'tabindex': '2'}),
-            'unidad_de_venta': SelectMD(attrs={'tabindex': '3'}),
+            'descripcion': TextInput()
             }
 
 

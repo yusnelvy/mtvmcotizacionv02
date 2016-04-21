@@ -1,0 +1,91 @@
+{% load staticfiles %}
+{% load widgets_extras %}
+
+<!DOCTYPE html>
+<html lang="es-AR" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+
+        {% block titulo %}{% endblock titulo %}
+
+    </title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material2.css' %}">
+
+    {% include "jquery.html" %}
+
+    {% block js_superior %}{% endblock js_superior %}
+
+</head>
+<body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();" ng-cloak ng-csp>
+    <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
+        <header>
+            <div ng-controller="ControlSidebar" class="sidebar-wrapper md-whiteframe-20dp">
+                <span class="headerSidebar">
+                    <md-button class="md-icon-button expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="nivel2(2);" tabindex="-1">
+                    <md-icon ng-cloak title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="nivel1(1);" tabindex="-1">
+                <md-icon ng-cloak title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button menu-toggle" ng-click="toggleSide(0);" tabindex="-1">
+            <md-icon ng-cloak class="iconoRemover">
+        </md-icon>
+    </md-button>
+</span>
+<ul class="sidebarWidget" id="sidebarWidget">
+    {% include "widgets.html" %}
+</ul>
+<ul class="sidebar-na ">
+    <li class="sidebar-brand">
+        <a href="#" tabindex="-1">
+            <span flex></span>
+        </a>
+    </li>
+</ul>
+</div>
+<nav ng-controller="ControlNavbar" class="navbarApp">
+
+    <div class="md-toolbar-tools">
+        <h2 ng-cloak>
+            <a>Mudarte
+                <span class="glyphicon glyphicon-road"></span>
+            </a>
+
+
+
+        {% block acceso_rapido %}{% endblock acceso_rapido %}
+
+        <span flex></span>
+        <md-button class="md-icon-button menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="toggleSide(1);"  aria-label="Favorite" tabindex="-1">
+        <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
+    </md-button>
+    </h2>
+</div>
+
+</nav>
+</header>
+<section class="page-content-wrapper">
+    <div class="contenedor">
+        <div class="contenedorFila">
+
+            {% block contenido %}{% endblock contenido %}
+
+        </div>
+    </div>
+</section>
+</div>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include "mensaje.html" %}
+
+{% block js_inferior %}{% endblock js_inferior %}
+
+{% block moduloAngular %}{% endblock moduloAngular %}
+
+</body>
+</html>

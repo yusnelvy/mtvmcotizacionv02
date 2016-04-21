@@ -31,9 +31,7 @@ function controlarEnter(e) {
     }
 }
 //Abrir y cerrar sidebar
-function sidebarBtn() {
-    $(".wrapper").toggleClass("toggled");
-}
+
 function nivel2Btn() {
     $(".wrapper").toggleClass("nivel2");
 }
@@ -42,12 +40,37 @@ function actualizarSidebar(nivel) {
       {},
       function(data) {
         $('#forty').text(data.sidebarStatus);
-        if (data.sidebarStatus == 1) {
+        if (data.sidebarStatus == '2') {
+          $('.menuSidebar').addClass('hidden');
+          $('.expandirNivel2').addClass('hidden');
+          $('.expandirNivel1').removeClass('hidden');
+        }
+        if (data.sidebarStatus == '1') {
+          $('.menuSidebar').addClass('hidden');
+          $('.expandirNivel1').addClass('hidden');
+          $('.expandirNivel2').removeClass('hidden');
+        }
+        if (data.sidebarStatus == '0') {
+          $('.menuSidebar').removeClass('hidden');
           $('.expandirNivel1').addClass('hidden');
           $('.expandirNivel2').removeClass('hidden');
         }
         //alert(data.sidebarStatus);
       });
+}
+function sidebarBtn(nivel) {
+  actualizarSidebar(nivel);
+  if (nivel == '0') {
+    $(".wrapper").removeClass("toggled nivel2");
+  }
+  if (nivel == '1') {
+    $(".wrapper").removeClass("toggled nivel2");
+    $(".wrapper").addClass("toggled");
+  }
+  if (nivel == '2') {
+    $(".wrapper").removeClass("toggled nivel2");
+    $(".wrapper").addClass("toggled nivel2");
+  }
 }
 function tamañoFrame() {
 var frameW = $('.iframeW');
@@ -57,7 +80,55 @@ var liFraH = $('.iframeW').parent().css('height');
 frameW.attr('width', liFra);
 frameW.attr('height', liFraH);
 }
+function actutamanoFrame() {
+  var wFicha = $("#Ficha").css('width');
+    var hFicha = $("#Ficha").css('height');
+    $("#divFrame").attr('width', wFicha);
+    $("#divFrame").attr('height', hFicha);
+}
+function tamanoFicha() {
+var lificha = $(parent.document.getElementById("Ficha"));
+var th = $(lificha).outerHeight() - 140;
+var tw = $(lificha).css('width');
+$('.grupoInput').css('height', th+'px');
+$('.grupoInput').css('width', tw);
+//$('.contenedorFicha').css('height', th+'px');
+$('.contenedorFicha').css('width', tw);
+}
+function actutamanoFicha() {
+var lificha = $(document.getElementById("Ficha"));
+var tw = $(lificha).css('width');
+var th = $(lificha).outerHeight() - 140;
+$("#divFrame").contents().find("html body").children('.contenedorFicha').css('width', tw);
+//$("#divFrame").contents().find("html body").children('.contenedorFicha').css('height', th);
+$("#divFrame").contents().find("html body").children('.contenedorFicha').children('form').children('.grupoInput').css('width', tw);
+$("#divFrame").contents().find("html body").children('.contenedorFicha').children('form').children('.grupoInput').css('height', th+'px');
+}
+function restForm(name) {
+  document.getElementById(name).reset();
+  $('.botonGuardarf button').css('color', '#333');
+  $('.botonGuardarf button').css('background-color', '#FFF');
+  $('.botonGuardarf button').css('border-color', '#CCC');
+}
+function cambiosporGuardar() {
+  $('.botonGuardarf button').css('color', '#FFF');
+  $('.botonGuardarf button').css('background-color', '#5CB85C');
+  $('.botonGuardarf button').css('border-color', '#4CAE4C');
+}
+function eliminarSubmit() {
+  $(".modalEliminar").contents().find("html body").children('form').submit();
 
+  setTimeout(function() {
+    //$('#modalCerrar').click();
+    //$('#modalEliminar').modal('hide');
+    //$('.modal-backdrop').addClass('hidden');
+    //$("#divFrame").attr('src', '/static/images/eliminado.html');
+    //actualizar();
+  }, 1000);
+}
+    function urlSuccess(url){
+        $('#divFrame').attr('src', url);
+}
 /* ========================================================================
  * bootstrap-switch - v3.3.2
  */

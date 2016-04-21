@@ -12,61 +12,63 @@
         {% block titulo %}{% endblock titulo %}
 
     </title>
-    <link rel="stylesheet" href="{% static 'css/material.css' %}">
-    <link rel="stylesheet" href="{% static 'css/material2.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos2.css' %}">
 
     {% include "jquery.html" %}
 
     {% block js_superior %}{% endblock js_superior %}
 
 </head>
-<body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();" ng-cloak ng-csp>
+<body onload="controlarAutofiltro(); controlarFiltroRapido();">
     <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
-        <header>
-            <div ng-controller="ControlSidebar" class="sidebar-wrapper md-whiteframe-20dp">
-                <span class="headerSidebar">
-                    <md-button class="md-icon-button expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="nivel2(2);" tabindex="-1">
-                    <md-icon ng-cloak title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="nivel1(1);" tabindex="-1">
-                <md-icon ng-cloak title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button menu-toggle" ng-click="toggleSide(0);" tabindex="-1">
-            <md-icon ng-cloak class="iconoRemover">
-        </md-icon>
-    </md-button>
-</span>
-<ul class="sidebarWidget" id="sidebarWidget">
-    {% include "widgets.html" %}
-</ul>
-<ul class="sidebar-na ">
-    <li class="sidebar-brand">
-        <a href="#" tabindex="-1">
-            <span flex></span>
-        </a>
-    </li>
+
+{% block header %}
+
+    <header>
+    <div class="sidebar-wrapper">
+        <span class="headerSidebar">
+            <a class="expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(2);" tabindex="-1">
+                <span title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></span>
+            </a>
+            <a class="expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1">
+                <span title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></span>
+            </a>
+            <a class="cerrarSidebar menu-toggle" onclick="sidebarBtn(0);" tabindex="-1">
+                <span class="iconoRemover"></span>
+            </a>
+        </span>
+        <ul class="sidebarWidget" id="sidebarWidget">
+
+            {% include "widgets.html" %}
+
+        </ul>
+
+    </div>
+    <nav class="navbarApp">
+        <div>
+            <div>
+                <ul>
+                <a>Mudarte
+                    <span class="glyphicon glyphicon-road"></span>
+                </a>
+                <a href="/" tabindex="-1">Inicio</a>
+
+                <span class="barDivide"></span>
+
+                {% block acceso_rapido %}{% endblock acceso_rapido %}
+
+                <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1"></a>
 </ul>
 </div>
-<nav ng-controller="ControlNavbar" class="navbarApp">
-    <md-toolbar>
-    <div class="md-toolbar-tools">
-        <h2 ng-cloak>
-            <span>Mudarte
-                <span class="glyphicon glyphicon-road"></span>
-            </span>
-        </h2>
-        <span class="divide"></span>
-
-        {% block acceso_rapido %}{% endblock acceso_rapido %}
-
-        <span flex></span>
-        <md-button class="md-icon-button menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="toggleSide(1);"  aria-label="Favorite" tabindex="-1">
-        <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
-    </md-button>
 </div>
-</md-toolbar>
 </nav>
 </header>
+
+{% endblock header %}
+
+
 <section class="page-content-wrapper">
     <div class="contenedor">
         <div class="contenedorFila">
@@ -81,6 +83,8 @@
 {% include "script.html" %}
 
 {% include "mensaje.html" %}
+
+{% include "modalEliminar.html" %}
 
 {% block js_inferior %}{% endblock js_inferior %}
 

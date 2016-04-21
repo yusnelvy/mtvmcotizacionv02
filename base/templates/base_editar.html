@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block header %}{% endblock header %}
+
 {% block titulo %}
 
 Mueble
@@ -8,9 +10,9 @@ Mueble
 
 {% block acceso_rapido %}
 
-<md-button title="Volver" class="md-icon-button" ng-href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
-<md-icon class="iconoVolver"></md-icon>
-</md-button>
+<a title="Volver" class="md-icon-button" href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
+<span class="iconoVolver"></span>
+</a>
 
 {% endblock acceso_rapido %}
 
@@ -39,8 +41,8 @@ Mueble
 
         </div>
         <div class="botonRegistrar">
-            <md-button type="submit" name="reg">Registrar</md-button>
-            <md-button type="submit" name="regEdit">Registrar y seguir editando</md-button>
+            <button type="submit" name="reg">Registrar</button>
+            <button type="submit" name="regEdit">Registrar y seguir editando</button>
         </div>
     </form>
     <br>

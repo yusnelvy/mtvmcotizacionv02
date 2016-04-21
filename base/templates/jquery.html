@@ -5,4 +5,8 @@
 <script src="{% static 'js/jquery.formset.js' %}"></script>
 <script src="{% static 'js/jqueryUI.js' %}"></script>
 <script src="{% static 'preBuscador.js' %}"></script>
-
+<script>
+    function actualizar() {
+        window.location.assign("{{request.path}}");
+    }
+</script>

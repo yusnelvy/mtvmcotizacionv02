@@ -1,50 +1,25 @@
-<style>
-#toast-container {
-    z-index: 2030!important;
-}
-md-toast {
-    background: #323232;
-}
-md-toast .md-toast-content > span {
-    padding-top: 25px;
-    max-width: 90%!important;
-}
-md-toast .md-toast-content > button {
-    float: right;
-    position: absolute;
-    right: 5px;
-    top: 1px;
-}
-.md-toast-content {
-    width: 100%;
-}
-</style>
 <script>
-app.controller('Ctrlmsj', function($scope, $mdToast) {
 
-    $scope.showToast = function (message, parentId) {
-        var el = angular.element(document.getElementById(parentId));
-        var toast = $mdToast.simple()
-        .content(message)
-        .action('OK')
-        .highlightAction(false)
-        .hideDelay(6000)
-        .position('top')
-        .parent(el);
-        $mdToast.show(toast);
-    };
+{% if messages %}
 
-    {% if messages %}
+{% for message in messages %}
 
-    {% for message in messages %}
+var alerta = $(parent.document.getElementById("mensaje"));
+var msj = $(parent.document.getElementsByClassName("msjSuccess"));
+$(msj).text('{{ message|truncatechars:"40" }}');
+$(alerta).css('opacity', '1');
+setTimeout(function() {
+    $(alerta).css('opacity', '0');
+}, 6000);
 
-    setTimeout(function() {
-        $scope.showToast("{{ message }}", "toast-container");
-    }, 100);
+{% if message.tags == 'success' %}
 
-    {% endfor %}
+parent.document.reload();
 
-    {% endif %}
+{% endif %}
 
-});
+{% endfor %}
+
+{% endif %}
+
 </script>

@@ -40,6 +40,8 @@ function actualizarColumna1(id1, id2, e, name) {
       $('#'+id1).addClass('hidden');
       $('#'+id2).removeClass('hidden');
       $('#'+e).addClass('tamano2x3');
+      actutamanoFicha();
+      actutamanoFrame();
       $.get('/widget/actualizarColumna/?name='+name,
         {},
       function(data) {
@@ -48,11 +50,12 @@ function actualizarColumna1(id1, id2, e, name) {
 }
 
 function actualizarColumna2(id1, id2, e, name) {
-
       $('#'+id2).addClass('hidden');
       $('#'+id1).removeClass('hidden');
       $('#'+e).removeClass('tamano2x3');
       $('#'+e).addClass('tamano1x2');
+      actutamanoFicha();
+      actutamnoFrame();
       $.get('/widget/actualizarColumnaMin/?name='+name,
         {},
       function(data) {

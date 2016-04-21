@@ -1,83 +1,25 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Mueble
+'Agregar un mueble'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
+{% block paginacionFicha %}{% endblock paginacionFicha %}
 
-Agregar un mueble
+{% block ficha_basica %}
 
-{% endblock titulo_form %}
+{{ form.as_p }}
 
-{% block nav_lista_form %}{% endblock nav_lista_form %}
+{% endblock ficha_basica %}
 
-{% block cuerpo_form %}
+{% block jsFicha %}
 
-<md-input-container>
-<span class="labelSwitch" for="{{form.tipo_de_mueble.id_for_label}}">
-
-  {{form.tipo_de_mueble.label}}
-
-</span>
-
-{{form.tipo_de_mueble}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.mueble.id_for_label}}">
-
-  {{form.mueble.label}}
-
-</label>
-
-{{form.mueble}}
-
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.ambiente.id_for_label}}">
-
-  {{form.descripcion.label}}
-
-</label>
-
-{{form.descripcion}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch">
-  {{form.trasladable.label}}
-</span >
-
-{{form.trasladable}}
-
-</md-input-container>
-
-
-{% endblock cuerpo_form %}
-
-{% block moduloAngular %}
-
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-  function enterNone(elemento) {
-    $(elemento).keypress(function(e){
-      if(e.which == 13){
-        return false;
-      }
-    });
-  }
-  setTimeout(function() {
-    $("#id_tipo_de_mueble").zelect();
-    $("input[name='trasladable']").bootstrapSwitch();
-    enterNone('form');
-    $('.zelected').click();
-  }, 100);
-});
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
 </script>
+
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

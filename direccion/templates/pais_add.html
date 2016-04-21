@@ -16,13 +16,14 @@ Dirección
 
 {% block cuerpo_form %}
 
-  {{ form.as_md }}
+  {{ form.as_p }}
 
 {% endblock cuerpo_form %}
 
 {% block moduloAngular %}
 
 <script type="text/javascript">
+$('#id_pais').focus();
 app.controller('controlForm',function($scope){
       $('#id_pais').focus();
       $('#id_pais').parent().addClass('md-input-focused');
