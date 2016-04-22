@@ -12,10 +12,12 @@
             <table class="table table-hover">
               <tr>
                 <td colspan="2">
-                  <strong> Nro de cotización: </strong>
+                  {{muebles.0.volumen}}
+                  {{mudanza}}
+                  <strong> Nro de cotización: </strong><br>
+                  <p>Estado actual de la cotización: {{estadoactual.0.estado_de_documento.estado_de_documento}}</p>
                 </td>
               </tr>
-
               {% if mudanza and visita %}
 
               <tr>
@@ -27,9 +29,7 @@
                     <span>
                       <strong>Fecha de la visita: </strong>
 
-                      {{ visita.0.fecha_actual }}
-                      <strong>Hora de la visita: </strong>
-                      {{ visita.0.hora_actual }}
+                      {{ visita.0.fecha }}
 
                     </span>
                   </p>
@@ -37,9 +37,7 @@
                     <span>
                       <strong>Fecha de la mudanza: </strong>
 
-                      {{ mudanza.0.fecha_actual }}
-                      <strong>Hora de la mudanza: </strong>
-                      {{ mudanza.0.hora_actual }}
+                      {{ mudanza.0.fecha }}
 
                     </span>
                   </p>
@@ -196,8 +194,73 @@
                   {% endif %}
                 </td>
               </tr>
+              <tr>
+                <td>
+                  {% if not ambientes %}
+                  <table>
+                    <tr>
+                      <td colspan="2">
+                        <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Origen" title="Agregar dirección">Agregar ambiente
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                  {% else %}
+                  <table>
+                    <tr>
+                      <td class="">
+                        <strong>Ambientes: </strong>
+                      </td>
+                      <td>
+                        <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Origen" class="iconoPlus"></a>
+                      </td>
+                    </tr>
+                    {% for ambiente in ambientes %}
+                    {% if ambiente.direccion_origen.id = direccion.id %}
+                    <tr>
+                      <td>
+                        <strong>{{ambiente.nombre}}</strong>
+                        {% if not muebles %}
+                        <table>
+                          <tr>
+                            <td colspan="2">
+                              <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Origen" title="Agregar dirección">Agregar mueble
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                        {% else %}
+                        <table>
+                          <tr>
+                            <td class="">
+                              <strong>Muebles: </strong>
+                            </td>
+                            <td>
+                              <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Origen" class="iconoPlus"></a>
+                            </td>
+                          </tr>
+                          {% for mueble in muebles %}
+                          {% if mueble.cotizacion_ambiente.id = ambiente.id %}
+                          <tr>
+                            <td>
+                              {{mueble.nombre_especificacion_de_mueble}}
+                            </td>
+                          </tr>
+                          {% endif %}
+                          {% endfor %}
+                          {% endif %}
+                        </table>
+                      </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                  </table>
+                </td>
+              </tr>
               {% endfor %}
               {% endif %}
+
               {% if not direccion_destino %}
               <tr>
                 <td colspan="2">
@@ -263,6 +326,44 @@
                 </td>
               </tr>
               {% endif %}
+              <tr>
+                <td>
+                  {% if not bitacora %}
+              <tr>
+                <td colspan="2">
+                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_bitacoradecotizacion' %}?cotizacion={{cotizacion.pk}}&origen=M" title="Agregar dirección">Agregar bitácora
+                  </a>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td class="">
+                  <strong>Bitácora: </strong>
+                </td>
+                <td>
+                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_bitacoradecotizacion' %}?cotizacion={{cotizacion.pk}}&origen=M" class="iconoPlus"></a>
+                </td>
+              </tr>
+              {% for i in bitacora %}
+              <tr>
+                <td colspan="2">
+                  <strong>
+                    {{i.origen_de_registro}}
+                  </strong>
+                  {{i.fecha_registro}}
+                  {{i.hora_registro}}
+                  <p>
+                    <span>
+                      {{i.observacion}}
+                    </span>
+                  </p>
+                </td>
+
+              </tr>
+              {% endfor %}
+              {% endif %}
+                </td>
+              </tr>
             </table>
           </div>
         </div>

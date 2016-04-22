@@ -11,13 +11,19 @@ from gestiondedocumento.models import EstadoDeDocumento
 from cotizador.models import Cotizador
 from django.contrib.auth.models import User
 from mueble.models import EspecificacionDeMueble
-from contenedor.models import Contenedor
+from contenedor.models import Contenedor, TipoDeContenido
 from ambiente.models import Ambiente
 from servicio.models import Servicio
 from material.models import Material
 from herramienta.models import Herramienta
 from cliente.models import Cliente, ClienteDireccion
-from premisas.models import Unidad
+from almacen.models import Unidad
+
+ORIGEN_CHOICES = (
+    ('A', 'Automatico'),
+    ('C', 'Call center'),
+    ('M', 'Manual'),
+    )
 
 
 # Create your models here.
@@ -42,6 +48,7 @@ class FechaDeCotizacion(models.Model):
     def __init__(self, *args, **kwargs):
         super(FechaDeCotizacion, self).__init__(*args, **kwargs)
     nombre_fecha = models.CharField(max_length=100, unique=True)
+    obligatoria = models.BooleanField(default=None)
 
     def __str__(self):
         return self.nombre_fecha
@@ -176,10 +183,11 @@ class CotizacionAmbiente(models.Model):
         super(CotizacionAmbiente, self).__init__(*args, **kwargs)
     direccion_origen = models.ForeignKey(CotizacionDireccion)
     ambiente = models.ForeignKey(Ambiente)
+    nombre = models.CharField(max_length=100)
     observaciones = models.TextField()
 
     def __str__(self):
-        return self.ambiente
+        return str(self.ambiente)
 
     def _get_cantidad_muebles(self):
         return round((2*2*2)/1000000, 3)
@@ -227,7 +235,7 @@ class CotizacionMueble(models.Model):
         return u' %s - %s' % (self.cotizacion_ambiente, self.especificacion_de_mueble)
 
     def _get_volumen(self):
-        return round((2*2*2)/1000000, 3)
+        return self.especificacion_de_mueble.volumen_de_mueble
         # falta definir el calculo
     volumen = property(_get_volumen)
 
@@ -243,6 +251,7 @@ class ContenedorMueble(models.Model):
         super(ContenedorMueble, self).__init__(*args, **kwargs)
     cotizacion_mueble = models.ForeignKey(CotizacionMueble)
     contenedor = models.ForeignKey(Contenedor)
+    tipo_de_contenido = models.ForeignKey(TipoDeContenido)
     nombre_contenedor = models.CharField(max_length=100)
     cantidad = models.IntegerField()
 
@@ -250,7 +259,7 @@ class ContenedorMueble(models.Model):
         return u' %s - %s' % (self.cotizacion_mueble, self.contenedor)
 
     def _get_volumen_total_en_camion(self):
-        return round((2*2*2)/1000000, 3)
+        return self.contenedor.volumen_en_camion
         # falta definir el calculo
     volumen_total_en_camion = property(_get_volumen_total_en_camion)
 
@@ -267,12 +276,8 @@ class ServicioMueble(models.Model):
     cotizacion_mueble = models.ForeignKey(CotizacionMueble)
     servicio = models.ForeignKey(Servicio)
     descripcion_servicio = models.CharField(max_length=100)
-    complejidad_servicio = models.CharField(max_length=100)
-    porcentaje_complejidad = models.DecimalField(max_digits=7, decimal_places=2)
-    monto_servicio = models.DecimalField(max_digits=9, decimal_places=2)
-    descripcion_monto_servicio = models.TextField()
-    monto_servicio_asignado = models.DecimalField(max_digits=9, decimal_places=2)
-    incluido = models.BooleanField(default=None)
+    cantidad = models.DecimalField(max_digits=7, decimal_places=2)
+    descripcion_cantidad = models.TextField()
 
     def __str__(self):
         return u' %s - %s' % (self.cotizacion_mueble, self.servicio)
@@ -292,6 +297,7 @@ class CotizacionServicio(models.Model):
     nombre_de_servicio = models.CharField(max_length=100)
     complejidad_servicio = models.CharField(max_length=100)
     porcentaje_complejidad = models.DecimalField(max_digits=7, decimal_places=2)
+    cantidad_servicio = models.DecimalField(max_digits=7, decimal_places=2)
     monto_servicio = models.DecimalField(max_digits=9, decimal_places=2)
     descripcion_de_monto_servicio = models.TextField()
     monto_servicio_asignado = models.DecimalField(max_digits=9, decimal_places=2)
@@ -432,6 +438,7 @@ class CotizacionBitacora(models.Model):
     fecha_registro = models.DateField(auto_now_add=True)
     hora_registro = models.TimeField(auto_now_add=True)
     observacion = models.TextField()
+    origen_de_registro = models.CharField(max_length=20, choices=ORIGEN_CHOICES)
 
     def __str__(self):
         return u' %s - %s' % (self.cotizacion, self.observacion)
@@ -450,8 +457,7 @@ class CotizacionHistoricoFecha(models.Model):
     usuario_registro = models.ForeignKey(User)
     tipo_fecha = models.ForeignKey(FechaDeCotizacion)
     nombre_tipo_fecha = models.CharField(max_length=100)
-    fecha_actual = models.DateField()
-    hora_actual = models.TimeField()
+    fecha = models.DateTimeField()
     observacion = models.TextField()
     aplicar = models.BooleanField(default=None)
 
@@ -472,7 +478,7 @@ class CotizacionEstado(models.Model):
     usuario_registro = models.ForeignKey(User)
     estado_de_documento = models.ForeignKey(EstadoDeDocumento, null=True, blank=True)
     estado_de_registro = models.ForeignKey(EstadoDeRegistro, null=True, blank=True)
-    fecha_registro = models.DateField(auto_now_add=True)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
     observacion = models.TextField(blank=True)
     predefinido = models.BooleanField(default=None)
 

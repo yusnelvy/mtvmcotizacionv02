@@ -16,6 +16,12 @@ Agregar inmueble
 
 {% block cuerpo_form %}
 <p>
+{% if request.GET.cotizacion %}
+    <a title="Ficha" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucotizacionesweb:ficha_cotizacion' request.GET.cotizacion %}" class="iconoVerFicha">Regresar a la cotización</a>
+
+{% endif %}
+</p>
+<p>
     <span>
       <strong>Dirección: </strong>
 

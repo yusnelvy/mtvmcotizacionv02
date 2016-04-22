@@ -7,7 +7,8 @@ from django.conf.urls import patterns, url
 from contenedor.views import ContenedorListView, ContenedorView, \
     ContenedorUpdate, ContenedorDelete, ContenedorTipicoPorMuebleListView, \
     ContenedorTipicoPorMuebleView, ContenedorTipicoPorMuebleUpdate, \
-    ContenedorTipicoPorMuebleDelete
+    ContenedorTipicoPorMuebleDelete, TipoDeContenidoListView, \
+    TipoDeContenidoView, TipoDeContenidoUpdate, TipoDeContenidoDelete
 
 
 urlpatterns = patterns('',
@@ -35,4 +36,16 @@ urlpatterns = patterns('',
                        url(r'^contenedor_tipico_por_mueble/eliminar/(?P<pk>\d+)/$',
                            ContenedorTipicoPorMuebleDelete.as_view(),
                            name='eliminar_contenedortipico'),
+                       url(r'^tipo_de_contenido/$',
+                           TipoDeContenidoListView.as_view(),
+                           name='list_tipodecontenido'),
+                       url(r'^tipo_de_contenido/nuevo',
+                           TipoDeContenidoView.as_view(),
+                           name='add_tipodecontenido'),
+                       url(r'^tipo_de_contenido/editar/(?P<pk>\d+)/$',
+                           TipoDeContenidoUpdate.as_view(),
+                           name='edit_tipodecontenido'),
+                       url(r'^tipo_de_contenido/eliminar/(?P<pk>\d+)/$',
+                           TipoDeContenidoDelete.as_view(),
+                           name='eliminar_tipodecontenido'),
                        )

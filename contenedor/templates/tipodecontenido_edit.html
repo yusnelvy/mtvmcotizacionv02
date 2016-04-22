@@ -1,0 +1,85 @@
+{% extends "base_ficha.html" %}
+
+{% block titulo_ficha %}
+
+'Ficha del tipo de contenido: {{form.nombre.value|lower}}'
+
+{% endblock titulo_ficha %}
+
+{% block paginacionFicha %}
+
+    {% if tipodecontenido_previous %}
+
+        <li class="anterior">
+            <md-button href="{% url 'ucontenedores:edit_tipodecontenido' tipodecontenido_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</md-button>
+        </li>
+
+    {% else %}
+
+        <li class="anteriorBloqueado">
+            <md-button href="#" ng-disabled="true">&larr; Anterior</md-button>
+        </li>
+
+    {% endif %}
+
+    {% if tipodecontenido_next %}
+
+        <li class="siguiente">
+            <md-button href="{% url 'ucontenedores:edit_tipodecontenido' tipodecontenido_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</md-button>
+        </li>
+
+    {% else %}
+
+        <li class="siguienteBloqueado">
+            <md-button href="#" ng-disabled="true">Siguiente &rarr;</md-button>
+        </li>
+
+    {% endif %}
+
+{% endblock paginacionFicha %}
+
+{% block ficha_basica %}
+
+<md-input-container>
+<h3>
+
+    {{form.nombre}}
+
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.descripcion.id_for_label}}">
+
+    {{form.descripcion.label}}
+
+</label>
+
+{{form.descripcion}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.tipodecontenido = '{{form.nombre.value}}';
+    $scope.descripcion = '{{form.descripcion.value}}';
+    $scope.CancelarCambios = function() {
+        removeHandler();
+        $scope.tipodecontenido = '{{form.nombre.value}}';
+        $scope.descripcion = '{{form.descripcion.value}}';
+    }
+    $scope.onChange = function() {
+        controlSubmit(event);
+    };
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.nombre.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+});
+</script>
+
+{% endblock moduloAngularFicha %}

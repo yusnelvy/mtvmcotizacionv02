@@ -30,12 +30,30 @@ class Contenedor(models.Model):
         ordering = ['contenedor']
 
 
+class TipoDeContenido(models.Model):
+    """docstring for ContenedorTipicoPorMueble"""
+    def __init__(self, *args, **kwargs):
+        super(TipoDeContenido, self).__init__(*args, **kwargs)
+
+    nombre = models.CharField(max_length=100, unique=True)
+    descripcion = models.TextField()
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = "Tipo de contenido"
+        verbose_name_plural = "Tipos de contenido"
+        ordering = ['nombre']
+
+
 class ContenedorTipicoPorMueble(models.Model):
     """docstring for ContenedorTipicoPorMueble"""
     def __init__(self, *args, **kwargs):
         super(ContenedorTipicoPorMueble, self).__init__(*args, **kwargs)
 
     contenedor = models.ForeignKey(Contenedor, on_delete=models.PROTECT)
+    tipo_de_contenido = models.ForeignKey(TipoDeContenido, on_delete=models.PROTECT)
     especificacion_de_mueble = models.ForeignKey(EspecificacionDeMueble, on_delete=models.PROTECT)
     cantidad = models.IntegerField()
 

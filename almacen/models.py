@@ -40,3 +40,17 @@ class TipoDeMovimiento(models.Model):
         verbose_name = "Tipo de movimiento"
         verbose_name_plural = "Tipos de movimientos"
         ordering = ["tipo_de_movimiento"]
+
+
+class Unidad(models.Model):
+    """docstring for Unidad"""
+    unidad = models.CharField(max_length=20, unique=True)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.unidad
+
+    class Meta:
+        verbose_name = "Unidad"
+        verbose_name_plural = "Unidades"

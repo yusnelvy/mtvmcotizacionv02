@@ -1,0 +1,33 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Concepto de cotización
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar un concepto de cotización
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_concepto').focus();
+      $('#id_concepto').parent().addClass('md-input-focused');
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

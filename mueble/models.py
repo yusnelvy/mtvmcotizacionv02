@@ -33,6 +33,10 @@ class Mueble(models.Model):
     descripcion = models.TextField(blank=True)
     tipo_de_mueble = models.ForeignKey(TipoDeMueble, on_delete=models.PROTECT)
     trasladable = models.BooleanField(default=None)
+    fragil = models.BooleanField(default=None)
+    pesado = models.BooleanField(default=None)
+    contenido_fragil = models.BooleanField(default=None)
+    contenido_textil = models.BooleanField(default=None)
 
     def __str__(self):
         return self.mueble
@@ -60,7 +64,7 @@ class EspecificacionDeMueble(models.Model):
         return self.especificacion_de_mueble
 
     def _get_volumendemueble(self):
-        return round((self.ancho*self.alto*self.largo)/1000000, 3)
+        return round((self.ancho*self.alto*self.largo), 2)
     volumen_de_mueble = property(_get_volumendemueble)
 
     class Meta:

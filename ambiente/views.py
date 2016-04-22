@@ -231,7 +231,6 @@ class AmbienteUpdate(UpdateView):
                     except:
                         nextitem = None
                     break
-
         try:
             ambiente_previous = Ambiente.objects.get(pk=previousitem)
         except:

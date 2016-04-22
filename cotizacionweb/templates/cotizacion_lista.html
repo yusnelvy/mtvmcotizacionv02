@@ -1,0 +1,288 @@
+{% extends "base_lista.html" %}
+
+{% load menu_extras %}
+
+{% block titulo %}
+
+Cotización
+
+{% endblock titulo %}
+
+{% block titulo_lista %}
+
+<h2>Listado de cotizaciones</h2>
+<h6>Cantidad de cotizaciones encontrados:
+    <span class="badge" id="count_reg">
+
+        {{ cotizaciones.count }}
+
+    </span>
+</h6>
+
+{% endblock titulo_lista %}
+
+{% block paginacion_lista %}
+
+{% if request.GET.page == "0" %}
+
+<li><a href="?page=1">Paginar</a></li>
+
+{% else %}
+
+{% if page_obj.has_previous %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
+
+{% if request.GET.page == "1" %}
+
+<li class="btn-disabled">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+</li>
+
+{% endif %}
+
+{% for p in page_range2 %}
+
+{% if p == page_obj.number %}
+
+<li class="active">
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+</li>
+
+{% endif %}
+
+{% endfor %}
+
+{% if page_obj.paginator.num_pages %}
+
+{% if request.GET.page == ultimo %}
+
+<li class="btn-disabled">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% else %}
+
+<li class="">
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+{% if page_obj.has_next %}
+
+{% if request.GET.order_by %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li>
+    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% else %}
+
+{% if request.GET.order_by %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% else %}
+
+<li class="btn-disabled">
+    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+</li>
+
+{% endif %}
+
+{% endif %}
+
+<li><a href="?page=0">Ver todo</a></li>
+
+{% endif %}
+
+{% endblock paginacion_lista %}
+
+{% block lista %}
+
+{% if cotizaciones %}
+
+<tr class="active">
+    <th>
+        Cotización
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=id&page={{request.GET.page}}" id="id" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-id&page={{request.GET.page}}" id="-id"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=id" id="id" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-id" id="-id"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        numero de contrato
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=numero_contrato&page={{request.GET.page}}" id="numero_contrato" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_contrato&page={{request.GET.page}}" id="-numero_contrato"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=numero_contrato" id="numero_contrato" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_contrato" id="-numero_contrato"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        numero de cotización
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=numero_cotizacion&page={{request.GET.page}}" id="numero_cotizacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_cotizacion&page={{request.GET.page}}" id="-numero_cotizacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=numero_cotizacion" id="numero_cotizacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-numero_cotizacion" id="-numero_cotizacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        nombre del cliente
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=nombre_cliente&page={{request.GET.page}}" id="nombre_cliente" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre_cliente&page={{request.GET.page}}" id="-nombre_cliente"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=nombre_cliente" id="nombre_cliente" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-nombre_cliente" id="-nombre_cliente"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+    <th>
+        fecha de cotización
+
+        {% if request.GET.page %}
+
+        <a href="?order_by=fecha_de_cotizacion&page={{request.GET.page}}" id="fecha_de_cotizacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_de_cotizacion&page={{request.GET.page}}" id="-fecha_de_cotizacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% else %}
+
+        <a href="?order_by=fecha_de_cotizacion" id="fecha_de_cotizacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
+        <a href="?order_by=-fecha_de_cotizacion" id="-fecha_de_cotizacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+
+        {% endif %}
+
+    </th>
+
+</tr>
+
+{% for i in cotizaciones %}
+
+<tr id="tr{{i.pk}}" data-url="{% url 'ucotizacionesweb:ficha_cotizacion' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
+    <td id="td1_{{i.pk}}">
+
+        {{ i.pk }}
+
+    </td>
+    <td id="td2_{{i.pk}}">
+
+        {{ i.numero_contrato }}
+
+    </td>
+    <td id="td3_{{i.pk}}">
+
+        {{ i.numero_cotizacion }}
+
+    </td>
+    <td id="td4_{{i.pk}}">
+
+        {{ i.nombre_cliente }}
+
+    </td>
+    <td id="td5_{{i.pk}}">
+
+        {{ i.fecha_de_cotizacion }}
+
+    </td>
+    <td class="c_td">
+            <a title="Ficha" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucotizacionesweb:ficha_cotizacion' i.pk %}?next={{request.get_full_path}}" class="iconoVerFicha"></a>
+            <span class="iconoGrupoControl"></span>
+    </td>
+
+</tr>
+
+{% endfor %}
+
+
+{% else %}
+
+<tr>
+    <td>No se encontraron registros</td>
+</tr>
+
+{% endif %}
+
+<script>
+$(document).on('ready',function(){
+    ocultarASCDesc('ambiente');
+    ocultarASCDesc('descripcion');
+    ocultarASCDesc('conteo_de_cotizaciones');
+});
+</script>
+
+{% endblock lista %}

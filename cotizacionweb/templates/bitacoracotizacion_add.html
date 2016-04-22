@@ -1,0 +1,37 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Bitácora de cotización
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar un bitácora cotización
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+  {{ form.as_md }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+    $scope.cotizacion = '{{form.cotizacion.value}}';
+    $scope.usuario_registro = '{{form.usuario_registro.value}}';
+    $scope.origen_de_registro = '{{form.origen_de_registro.value}}';
+    $('#observacion').focus();
+    $('#observacion').parent().addClass('md-input-focused');
+
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

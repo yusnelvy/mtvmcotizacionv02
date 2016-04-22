@@ -165,6 +165,7 @@ class ClienteDireccion(models.Model):
         verbose_name = "Dirección del cliente"
         verbose_name_plural = "Direcciones del cliente"
         ordering = ["cliente", "direccion"]
+        unique_together = (("cliente", "direccion"),)
 
 
 class ClienteEstadoDeRegistro(models.Model):

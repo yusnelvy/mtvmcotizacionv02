@@ -18,6 +18,38 @@ from django.contrib import admin
 from django.conf import settings
 from mtvmcotizacionv02 import views
 
+from django.contrib.auth.models import User
+from rest_framework import routers, serializers, viewsets
+from api.views import ClienteViewSet, PaisViewSet, \
+    ProvinciaViewSet, TipoDeClienteViewSet, \
+    CiudadViewSet, BarrioViewSet, CalleViewSet, \
+    DireccionViewSet
+
+
+# Serializers define the API representation.
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'is_staff')
+
+
+# ViewSets define the view behavior.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'api/v1/tipodecliente', TipoDeClienteViewSet)
+router.register(r'api/v1/cliente', ClienteViewSet)
+router.register(r'api/v1/pais', PaisViewSet)
+router.register(r'api/v1/provincia', ProvinciaViewSet)
+router.register(r'api/v1/ciudad', CiudadViewSet)
+router.register(r'api/v1/barrio', BarrioViewSet)
+router.register(r'api/v1/calle', CalleViewSet)
+router.register(r'api/v1/direccion', DireccionViewSet)
+
 urlpatterns = [
     url(r'^$', views.pantalla_inicial,
         name='pantalla_inicial'),
@@ -86,11 +118,24 @@ urlpatterns = [
     url(r'^cotizacionweb/',
         include('cotizacionweb.urls',
                 namespace="ucotizacionesweb")),
+    url(r'^almacen/',
+        include('almacen.urls',
+                namespace="ualmacenes")),
+    url(r'^cotizador/',
+        include('cotizador.urls',
+                namespace="ucotizadores")),
+    url(r'^api/',
+        include('api.urls',
+                namespace="uapis")),
     url(r'^chaining/',
         include('smart_selects.urls')),
     url(r'^sidebarUpdate/$',
         'mtvmcotizacionv02.views.sidebarUpdate',
-        name='sidebarUpdate')
+        name='sidebarUpdate'),
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/',
+        include('rest_framework.urls',
+                namespace='rest_framework'))
 ]
 
 if settings.DEBUG:

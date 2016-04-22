@@ -182,11 +182,15 @@ class Ascensor(models.Model):
     tipo_de_ascensor = models.ForeignKey(TipoDeAscensor, on_delete=models.PROTECT)
     cantidad = models.IntegerField(default=1)
     piso_ascensor = models.IntegerField()
-    velocidad_por_piso = models.DecimalField(max_digits=7, decimal_places=2, default=6)
+    velocidad_por_piso = models.DecimalField(max_digits=7,
+                                             decimal_places=2,
+                                             default=6)
     ancho = models.DecimalField(max_digits=7, decimal_places=2)
     largo = models.DecimalField(max_digits=7, decimal_places=2)
     alto = models.DecimalField(max_digits=7, decimal_places=2)
-    capacidad_carga = models.DecimalField(max_digits=7, decimal_places=2)
+    capacidad_carga = models.DecimalField(max_digits=7,
+                                          decimal_places=2,
+                                          null=True, blank=True)
 
     def __str__(self):
         return u' %s - %s' % (self.edificacion, self.tipo_de_ascensor)
