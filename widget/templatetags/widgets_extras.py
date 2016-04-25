@@ -1,6 +1,8 @@
 from django import template
 from django.core.urlresolvers import reverse
 from widget.models import Widget
+from gestiondedocumento.models import EstadoDeDocumento
+from cotizacionweb.models import CotizacionEstado
 
 register = template.Library()
 
@@ -37,13 +39,6 @@ def configurar_WidgetVisible(name):
     return isVisible
 
 @register.simple_tag
-def retornar_WidgetPorUsuario(name):
-    """docstring"""
-    widgetsN = Widget.objects.values('nombre').filter(usuario=usuario)
-    widgetsO = Widget.objects.values('orden').filter(usuario=usuario)
-    return widgetsN
-
-@register.simple_tag
 def cambiar_WidgetVisible(name):
     """docstring"""
     Widget.objects.filter(nombre=name).update(visible=False)
@@ -77,3 +72,41 @@ def configurar_WidgetColumna(name):
     context = columna
     return context
 
+# @register.inclusion_tag('Fases-del-Proceso.html', takes_context=True)
+# def pruebaContext(context):
+#     prueba = context
+#     return prueba
+
+
+
+# @register.simple_tag
+# def url_FasesDelProceso(request):
+#     """e"""
+#     url = request.path
+
+#     contador = EstadoDeDocumento.objects.filter(tipo_de_documento=3).count()
+#     incremento = (100/contador)
+#     cotizacion = request.GET.get('cotizacion')
+#     id_estado = CotizacionEstado.objects.filter(predefinido=True).exclude(estado_de_documento=None)
+#     # id_estado = CotizacionEstado.objects.filter(predefinido=True, cotizacion=cotizacion).exclude(estado_de_documento=None)
+#     ordenActual = id_estado[0].estado_de_documento.orden
+#     porcentajeString = str(round(incremento*ordenActual))
+#     porcentaje = porcentajeString + '%'
+#     return {
+#         'w_porcentaje': porcentaje,
+#     }
+
+# @register.simple_tag
+# def fases_FasesDelProceso(request):
+#     """e"""
+#     id_estado = CotizacionEstado.objects.filter(predefinido=True).exclude(estado_de_documento=None)
+#     # id_estado = CotizacionEstado.objects.filter(predefinido=True, cotizacion=cotizacion).exclude(estado_de_documento=None)
+#     ordenActual = id_estado[0].estado_de_documento.orden
+#     fasesFaltantes = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden__gt=ordenActual)
+#     fasesSuperadas = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3).exclude(orden__gt=ordenActual).exclude(orden=ordenActual)
+#     faseActual = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden=ordenActual)
+#     return {
+#         'w_fasesA': faseActual,
+#         'w_fasesS': fasesSuperadas,
+#         'w_fasesF': fasesFaltantes,
+#     }

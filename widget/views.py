@@ -12,7 +12,6 @@ from django.forms.formsets import formset_factory
 from django.core import serializers
 import json
 
-
 # Create your views here.
 # app personalizacion visual
 class WidgetListView(ListView):
@@ -366,7 +365,6 @@ def cambiar_WidgetOrden2(request):
 
         Widget.objects.filter(nombre=name).update(orden=order)
 
-
 def configurar_WidgetVisible(request):
     """docstring"""
     if request.method == "GET" and request.is_ajax():
@@ -413,29 +411,25 @@ def orden_Widgets(request):
                'ordenTRD': ordenTRD}
     return context
 
+# def cambiar_EstadoFases(request):
+#     """docstring"""
+#     if request.method == "GET" and request.is_ajax():
+          # idTipo = request.GET['idTipo']
+#         idEstado = request.GET['idEstado']
+          # idDocumento = ?
+          # if idTipo = 3:
+          #   if idEstado == 22:
+          #       idEstadoAlCancelar = CotizacionEstado.objects.values('estado_de_documento').filter(predefinido=True)
+#           CotizacionEstado.objects.filter(predefinido=True).update(predefinido=False)
+#           estadoCotizacion = CotizacionEstado.objects.create(cotizacion=idDocumento, usuario_registro=2, estado_de_documento=idEstado, estado_de_registro=4, predefinido=True)
+#           estadoCotizacion.save()
+#           return JsonResponse(idEstadoAlCancelar, safe=False)
 
-def cambiar_WidgetOrdenNV(request):
-    """docstring"""
-    widgetsN = Widget.objects.values('nombre').filter(usuario=1)
-    widgetsO = Widget.objects.values('orden').filter(usuario=1)
+# def cantidad_Seguimientos(request):
+#     """docstring"""
+#     if request.method == "GET" and request.is_ajax():
+        # idDocumento = ?
+#         idCotizacion = request.GET['idCotizacion']
+#         seguimientos = CotizacionEstado.objects.count(estado_de_documento='Ejecución del seguimiento',id=idDocumento)
 
-    arrayNombres = []
-    arrayOrdenes = []
-    k = 0
-    for m in widgetsN:
-        arrayNombres.append([k]*1)
-        arrayOrdenes.append([k]*1)
-        arrayNombres[k] = widgetsN[k]
-        arrayOrdenes[k] = widgetsO[k]
-        k += 1
-    context = {'widgetsN': widgetsN, 'arrayNombres': arrayNombres, 'arrayOrdenes': arrayOrdenes}
-    return context
-
-def retornar_WidgetPorUsuario(request):
-    """docstring"""
-    if request.method == "GET" and request.is_ajax():
-        usuario = request.GET['usuario']
-        widgetsN = Widget.objects.values('nombre').filter(usuario=usuario)
-        widgetsO = Widget.objects.values('orden').filter(usuario=usuario)
-
-        return JsonResponse(widgetsN, safe=False)
+#         return JsonResponse(seguimientos, safe=False)

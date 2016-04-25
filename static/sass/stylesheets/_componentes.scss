@@ -1,6 +1,7 @@
 /*
  * componentes de crear nuevo y editar
  */
+ @import "../stylesheets/_bootstrap.scss";
 .botonRegistrar > button {
     @extend .btn;
     @extend .btn-default;

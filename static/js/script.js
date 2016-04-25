@@ -1,3 +1,4 @@
+$(document).ready(function() {
 $('.c_td,div,a').hover(function() {
     $(this).parent().children('td').addClass('c_td_hover');
 }, function(){
@@ -89,7 +90,9 @@ $("input[type='checkbox']").on('switchChange.bootstrapSwitch', function(event, s
   cambiosporGuardar();
 });
 
-$(document).ready(function() {
+
   $("select").select2();
   $("input[type='checkbox']").bootstrapSwitch();
+
 });
+$('[data-toggletooltip="tooltip"]').tooltip();

@@ -4,91 +4,91 @@
 <!DOCTYPE html>
 <html lang="es-AR" >
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
 
-        {% block titulo %}{% endblock titulo %}
+    {% block titulo %}{% endblock titulo %}
 
-    </title>
+  </title>
 
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-    <link rel="stylesheet" href="{% static 'css/estilos2.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilos2.css' %}">
 
-    {% include "jquery.html" %}
+  {% include "jquery.html" %}
 
-    {% block js_superior %}{% endblock js_superior %}
+  {% block js_superior %}{% endblock js_superior %}
 
 </head>
 <body onload="controlarAutofiltro(); controlarFiltroRapido();">
-    <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
+  <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
 
-{% block header %}
+    {% block header %}
 
     <header>
-    <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper">
         <span class="headerSidebar">
-            <a class="expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(2);" tabindex="-1">
-                <span title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></span>
-            </a>
-            <a class="expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1">
-                <span title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></span>
-            </a>
-            <a class="cerrarSidebar menu-toggle" onclick="sidebarBtn(0);" tabindex="-1">
-                <span class="iconoRemover"></span>
-            </a>
+          <a class="expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(2);" tabindex="-1">
+            <span title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></span>
+          </a>
+          <a class="expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1">
+            <span title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></span>
+          </a>
+          <a class="cerrarSidebar menu-toggle" onclick="sidebarBtn(0);" tabindex="-1">
+            <span class="iconoRemover"></span>
+          </a>
         </span>
         <ul class="sidebarWidget" id="sidebarWidget">
 
-            {% include "widgets.html" %}
+          {% include "widgets.html" %}
 
         </ul>
 
-    </div>
-    <nav class="navbarApp">
+      </div>
+      <nav class="navbarApp">
         <div>
-            <div>
-                <ul>
-                <a>Mudarte
-                    <span class="glyphicon glyphicon-road"></span>
-                </a>
-                <a href="/" tabindex="-1">Inicio</a>
+          <div>
+            <ul>
+              <a>Mudarte
+                <span class="glyphicon glyphicon-road"></span>
+              </a>
+              <a href="/" tabindex="-1">Inicio</a>
 
-                <span class="barDivide"></span>
+              <span class="barDivide"></span>
 
-                {% block acceso_rapido %}{% endblock acceso_rapido %}
+              {% block acceso_rapido %}{% endblock acceso_rapido %}
 
-                <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1"></a>
-</ul>
-</div>
-</div>
-</nav>
-</header>
+              {% include "Transacciones.html" %}
 
-{% endblock header %}
+              <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1"></a>
+            </ul>
 
+          </div>
+        </div>
+      </nav>
+    </header>
 
-<section class="page-content-wrapper">
-    <div class="contenedor">
+    {% endblock header %}
+
+    <section class="page-content-wrapper">
+      <div class="contenedor">
         <div class="contenedorFila">
 
-            {% block contenido %}{% endblock contenido %}
+          {% block contenido %}{% endblock contenido %}
 
         </div>
-    </div>
-</section>
-</div>
+      </div>
+    </section>
+  </div>
 
-{% include "script.html" %}
+  {% include "script.html" %}
 
-{% include "mensaje.html" %}
+  {% include "mensaje.html" %}
 
-{% include "modalEliminar.html" %}
+  {% include "modalEliminar.html" %}
 
-{% block js_inferior %}{% endblock js_inferior %}
-
-{% block moduloAngular %}{% endblock moduloAngular %}
+  {% block js_inferior %}{% endblock js_inferior %}
 
 </body>
 </html>

@@ -1,6 +1,4 @@
-$(function () {
-  $('[data-toggletooltip="tooltip"]').tooltip();
-});
+
 
 function transaccion()
     {

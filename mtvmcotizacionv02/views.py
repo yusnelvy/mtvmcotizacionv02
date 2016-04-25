@@ -7,6 +7,8 @@ import re
 from premisas.models import PersonalizacionVisual
 from django.core.urlresolvers import reverse
 from widget.models import Widget
+from gestiondedocumento.models import EstadoDeDocumento
+from cotizacionweb.models import CotizacionEstado
 
 
 def pantalla_inicial(request):
@@ -140,4 +142,40 @@ def wVisible(request):
 
     return {
         'w_visble': all_categories2,
+    }
+
+def wOrden(request):
+    """e"""
+    all_widgets = Widget.objects.values('nombre','orden', 'visible').filter(usuario=1).order_by('orden')
+
+    return {
+        'w_orden': all_widgets,
+    }
+
+def porcentaje_FasesDelProceso(request):
+    """e"""
+    contador = EstadoDeDocumento.objects.filter(tipo_de_documento=3).count()
+    incremento = (100/contador)
+    cotizacion = request.GET.get('cotizacion')
+    id_estado = CotizacionEstado.objects.filter(predefinido=True).exclude(estado_de_documento=None)
+    # id_estado = CotizacionEstado.objects.filter(predefinido=True, cotizacion=cotizacion).exclude(estado_de_documento=None)
+    ordenActual = id_estado[0].estado_de_documento.orden
+    porcentajeString = str(round(incremento*ordenActual))
+    porcentaje = porcentajeString + '%'
+    return {
+        'w_porcentaje': porcentaje,
+    }
+
+def fases_FasesDelProceso(request):
+    """e"""
+    id_estado = CotizacionEstado.objects.filter(predefinido=True).exclude(estado_de_documento=None)
+    # id_estado = CotizacionEstado.objects.filter(predefinido=True, cotizacion=cotizacion).exclude(estado_de_documento=None)
+    ordenActual = id_estado[0].estado_de_documento.orden
+    fasesFaltantes = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden__gt=ordenActual)
+    fasesSuperadas = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3).exclude(orden__gt=ordenActual).exclude(orden=ordenActual)
+    faseActual = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden=ordenActual)
+    return {
+        'w_fasesA': faseActual,
+        'w_fasesS': fasesSuperadas,
+        'w_fasesF': fasesFaltantes,
     }

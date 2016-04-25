@@ -1,0 +1,60 @@
+{% extends 'base_widget.html' %}
+{% load widgets_extras %}
+
+{% block idContenedor %}Fases-del-Proceso{% endblock idContenedor %}
+
+{% block clasesContenedor %}
+{% configurar_WidgetColumna 'Fases del Proceso' %} {% configurar_WidgetColor 'Fases del Proceso' %}
+{% endblock clasesContenedor %}
+
+{% block btnCerrar %}controlWidgetCerrar('Fases-del-Proceso', 'Fases del Proceso');{% endblock btnCerrar %}
+
+{% block btnMinimizar %}minimizarColumna('Fases-del-Proceso', 'Fases del Proceso');{% endblock btnMinimizar %}
+
+{% block idbtnEN1 %}FasesdelProceso-btnEN1{% endblock idbtnEN1 %}
+
+{% block idbtnEN2 %}FasesdelProceso-btnEN2{% endblock idbtnEN2 %}
+
+{% block btnExpandir1 %}actualizarColumna1('FasesdelProceso-btnEN1', 'FasesdelProceso-btnEN2', 'Fases-del-Proceso', 'Fases del Proceso');{% endblock btnExpandir1 %}
+
+{% block btnExpandir2 %}actualizarColumna2('FasesdelProceso-btnEN1', 'FasesdelProceso-btnEN2', 'Fases-del-Proceso', 'Fases del Proceso');{% endblock btnExpandir2 %}
+
+{% block titulo_widget %}
+Fases del Proceso
+{% endblock titulo_widget %}
+
+{% block botones_widget %}{% endblock botones_widget %}
+
+{% block contenido_widget %}
+<div class="cuerpo-panel">
+   <div class="progress progress-striped" style="margin-left: 5px; margin-right: 5px; margin-top: 6px;">
+        <div class="progress-bar progress-bar-success" role="progressbar" style="width:{{w_porcentaje}}">{{w_porcentaje}}</div>
+    </div>
+
+{% for i in w_fasesS %}
+<div style=" margin-left:5px;">
+    <a class="claseFasesSuperadas iconoOK">{{i.estado_de_documento}}</a>
+</div>
+{% endfor %}
+
+{% for i in w_fasesA %}
+<div style=" margin-left:5px;">
+    <a class="claseFaseActual iconoStar">{{i.estado_de_documento}}</a>
+</div>
+{% endfor %}
+
+{% for i in w_fasesF %}
+<div style=" margin-left:5px;">
+    <a class="claseFasesFaltantes iconoMinus">{{i.estado_de_documento}}</a>
+</div>
+{% endfor %}
+
+<input type="button" id="regSeguimiento" value="Registrar Seguimiento" onclick="gestionarCotizacion('regSeguimiento')">
+<input type="button" id="canCotizacion" value="Cancelar Cotización" onclick="gestionarCotizacion('canCotizacion')">
+<input type="button" id="reaCotizacion" value="Reactivar Cotizción" onclick="gestionarCotizacion('reaCotizacion')" class="hidden">
+<input type="button" id="confCotizacion" value="Cotización Confirmada" onclick="gestionarCotizacion('confCotizacion')">
+<input type="button" id="terCotizacion" value="Mudanza Realizada" onclick="gestionarCotizacion('terCotizacion')" class="hidden">
+
+
+</div>
+{% endblock contenido_widget %}

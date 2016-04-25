@@ -28,11 +28,11 @@ Tablas Relacionadas
 
 {% block contenido_widget %}
 
-    <div class="cuerpo-panel">
+    <div class="claseTablasRelacionadas">
 
         {% for k in relacion %}
 
-            <ul>
+            <ul class="claseTablasRelacionadas">
                 <li><a href="{% url_Menu k.item_relacion.namespace k.item_relacion.name %}">{{ k.nombre }}</a>
                 </li>
             </ul>
