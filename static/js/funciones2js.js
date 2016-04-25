@@ -41,7 +41,7 @@ function actualizarColumna1(id1, id2, e, name) {
       $('#'+id2).removeClass('hidden');
       $('#'+e).addClass('tamano2x3');
       actutamanoFicha();
-      actuTamanoFrame();
+      actutamanoFrame();
       $.get('/widget/actualizarColumna/?name='+name,
         {},
       function(data) {
@@ -52,13 +52,12 @@ function actualizarColumna1(id1, id2, e, name) {
 //funcion que controla el boton expandir en segundo nivel y cambia el
 //tamaño del widget a el tamaño medio.
 function actualizarColumna2(id1, id2, e, name) {
-
       $('#'+id2).addClass('hidden');
       $('#'+id1).removeClass('hidden');
       $('#'+e).removeClass('tamano2x3');
       $('#'+e).addClass('tamano1x2');
       actutamanoFicha();
-      actuTamanoFrame();
+      actutamnoFrame();
       $.get('/widget/actualizarColumnaMin/?name='+name,
         {},
       function(data) {

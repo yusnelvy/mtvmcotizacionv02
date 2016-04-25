@@ -1,28 +1,22 @@
-{% extends "base.html" %}
+{% load staticfiles %}
 
-{% block contenido %}
-
+<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+<style>
+  body {
+    background-color: #fff;
+  }
+  .pEliminar {
+    font-size: 18px;
+    color: #333;
+  }
+</style>
 <br>
-<form action="" method="post" ng-controller="controlEliminar">{% csrf_token %}
-    <din class="">
-    <p class="grupoInput">Are you sure you want to delete "{{ object }}" ?</p>
-    </din>
-    <div class="botonRegistrar">
+<form action="" method="post">{% csrf_token %}
+
+    <p class="pEliminar">¿Desea eliminar el registro <strong>"{{ object }}"</strong>?</p>
+
+    <div class="botonRegistrar hidden">
         <a href="{{request.GET.next}}">Cancelar</a>
-        <md-button type="submit">Confirmar</md-button>
+        <button type="submit">Confirmar</button>
     </div>
 </form>
-
-{% endblock contenido %}
-
-{% block moduloAngular %}
-
-<script>
-    app.controller('controlEliminar', function ($scope) {
-    $scope.cancelar = function () {
-
-    };
-});
-</script>
-
-{% endblock moduloAngular %}

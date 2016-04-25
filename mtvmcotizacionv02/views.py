@@ -146,7 +146,7 @@ def wVisible(request):
 
 def wOrden(request):
     """e"""
-    all_widgets = Widget.objects.values('nombre','orden').filter(usuario=1).order_by('orden')
+    all_widgets = Widget.objects.values('nombre','orden', 'visible').filter(usuario=1).order_by('orden')
 
     return {
         'w_orden': all_widgets,

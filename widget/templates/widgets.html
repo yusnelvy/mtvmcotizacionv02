@@ -2,7 +2,11 @@
 
 {% for i in w_orden %}
 
+{% if i.visible == True %}
+
 {% include i.nombre.split|join:"-"|add:".html" %}
+
+{% endif %}
 
 {% endfor %}
 

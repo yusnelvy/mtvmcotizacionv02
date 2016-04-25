@@ -1,9 +1,9 @@
 (function($) {
 
-$('.nivel1').parent().children('.nivel33').slideUp();
-$('.nivel2').parent().children('.nivel3').slideUp();
+  $('.nivel_1').parent().children('.nivel33').slideUp();
+  $('.nivel_2').parent().children('.nivel3').slideUp();
 
-$('.nivel1').click(function(){
+$('.nivel_1').click(function(){
     $(this).parent().children('.nivel33').slideToggle();
     var clase1 = $(this).children().attr('class');
 
@@ -17,8 +17,9 @@ $('.nivel1').click(function(){
 });
 
 
-$('.nivel2').click(function(){
-    $(this).parent().children('.nivel3').slideToggle();
+$('.nivel_2').click(function(){
+
+   $(this).parent().children('.nivel3').slideToggle();
     var clase2 = $(this).children().attr('class');
 
     if (clase2 == 'iconoCarpetaAbierta') {
@@ -31,3 +32,13 @@ $('.nivel2').click(function(){
 });
 
 })(window.jQuery);
+
+$('.titulo-panel').hover(function() {
+}, function(){
+    $(this).removeClass('c_w_hover');
+});
+$('.c_w').hover(function() {
+    $(this).parent().children('h3').addClass('c_w_hover');
+}, function(){
+    $(this).parent().children('h3').removeClass('c_w_hover');
+});

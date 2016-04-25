@@ -2,7 +2,7 @@
 {% block js_superior %}
 <script type="text/javascript">
 $(function() {
-        $(".inline.{{ item_form.prefix }}").formset({
+        $(".inline{% if item_form.prefix %}.{{ item_form.prefix }} {% else %}{% endif %}").formset({
             prefix: "{{ item_form.prefix }}",
         })
     })
@@ -114,5 +114,5 @@ app.controller('controlForm',function($scope, $http){
 });
 
 </script>
-
+<style>.paginacionEdit{height: 0;display: none;}</style>
 {% endblock moduloAngular %}

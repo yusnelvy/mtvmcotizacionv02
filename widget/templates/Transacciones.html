@@ -1,12 +1,8 @@
 {% load widgets_extras %}
-
-<li class="">
-
-    <div class="">
-        <div class="panel-body">
-            <input type="text" value="" id="transaccion" onkeypress="controlarEnter(event)" class="size-transaccion"/>
-            <input type="button" value="Ir" onclick="transaccion()">
-        </div>
+<form class="navbar-form navbar-left" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Transacción" id="transaccion" onkeypress="controlarEnter(event)"><button type="submit" onclick="transaccion()" class="btn btn-default">Ir</button>
     </div>
 
-</li>
+</form>
+

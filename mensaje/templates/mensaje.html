@@ -1,24 +1,30 @@
+{% include "jquery.html" %}
+
+<script>
+
 {% if messages %}
 
 {% for message in messages %}
 
-<div ng-controller="AppCtrl" layout-fill layout="column" class="inset" ng-cloak></div>
-<script>
-app.controller('AppCtrl', function($scope, $mdToast, $document) {
-    function toast(type, msg){
-        $mdToast.show({
-            template: '<md-toast class="md-toast ' + type +'" style=" background-color: #323232;z-index:2000;">' + msg + '</md-toast>',
-            hideDelay: 6000,
-            position: 'bottom letf'
-        });
-    }
-    setTimeout(function() {
-        toast('tipo', '{{ message }}');
-    }, 100);
-});
-</script>
+var alerta = $(parent.document.getElementById("mensaje"));
+var tr = $(parent.document.getElementById("tr"+{{obj}}));
+var msj = $(parent.document.getElementsByClassName("msjSuccess"));
+var cerrar = $(parent.document.getElementById("modalCerrar"));
+
+setTimeout(function() {
+    $(cerrar).click();
+    tr.remove();
+    parent.location.href= '{{message.extra_tags}}';
+  }, 1000);
+$(msj).text('{{ message|truncatechars:"40" }}');
+$(alerta).css('opacity', '1');
+setTimeout(function() {
+    $(alerta).css('opacity', '0');
+}, 6000);
 
 {% endfor %}
 
 {% endif %}
+
+</script>
 

@@ -1,4 +1,3 @@
-@import "./_variables.scss";
 @import "../stylesheets/_bootstrap.scss";
 .fixed-panel {
 overflow-y: hidden;
@@ -132,20 +131,25 @@ margin-left: 15px;
   @extend .glyphicon-minus;
 }
 .claseFavorito {
-  border-color: #1CD0A6;
   padding-left: 0;
   list-style: none;
   cursor: default;
   p {
     margin: 0;
     padding: 10px;
+    span {
+      float: left;
+      padding-right: 5px;
+    }
     p:hover {
       background: rgba(0,0,0,0.2);
     }
   }
   li {
     padding-left: 10px;
+    width: 100%;
     p {
+      cursor: default;
       margin: 0;
       padding: 10px;
       background: #EEE;
@@ -189,16 +193,27 @@ margin-left: 15px;
   cursor: default;
   li {
     padding-left: 10px;
+    width: 100%;
+    cursor: default;
+    p {
+      span {
+      float: left;
+      padding-right: 5px;
+    }
+    }
     ul{
       padding: 0;
       list-style: none;
       cursor: default;
+      width: 100%;
       li{
         padding-left: 10px;
+        width: 100%;
         p {
           margin: 0;
           padding: 10px;
           background: #EEE;
+          cursor: default;
         }
         ul {
           padding: 0;

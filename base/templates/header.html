@@ -1,0 +1,39 @@
+<header>
+    <div class="sidebar-wrapper">
+        <span class="headerSidebar">
+            <a class="md-icon-button expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" onclick="nivel2(2);" tabindex="-1">
+                <span title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></span>
+            </a>
+            <a class="md-icon-button expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" onclick="nivel1(1);" tabindex="-1">
+                <span title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></span>
+            </a>
+            <a class="cerrarSidebar menu-toggle" onclick="sidebarBtn(0);" tabindex="-1">
+                <span class="iconoRemover"></span>
+            </a>
+        </span>
+        <ul class="sidebarWidget" id="sidebarWidget">
+
+            {% include "widgets.html" %}
+
+        </ul>
+
+    </div>
+    <nav class="navbarApp">
+        <div>
+            <div>
+                <ul>
+                <a>Mudarte
+                    <span class="glyphicon glyphicon-road"></span>
+                </a>
+                <a href="#">Inicio</a>
+
+                <span class="barDivide"></span>
+
+                {% block acceso_rapido %}{% endblock acceso_rapido %}
+
+                <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(2);" tabindex="-1"></a>
+</ul>
+</div>
+</div>
+</nav>
+</header>

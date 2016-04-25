@@ -4,255 +4,91 @@
 <!DOCTYPE html>
 <html lang="es-AR" >
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
 
-        {% block titulo %}{% endblock titulo %}
+    {% block titulo %}{% endblock titulo %}
 
-    </title>
-    <link rel="stylesheet" href="{% static 'css/material.css' %}">
-    <link rel="stylesheet" href="{% static 'css/material2.css' %}">
+  </title>
 
-    {% include "jquery.html" %}
+  <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/estilos2.css' %}">
 
-    {% block js_superior %}{% endblock js_superior %}
+  {% include "jquery.html" %}
+
+  {% block js_superior %}{% endblock js_superior %}
 
 </head>
-<body ng-app="AppMudarte" onload="controlarAutofiltro(); controlarFiltroRapido();">
-    <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
-        <header>
-            <div ng-controller="ControlSidebar" class="sidebar-wrapper md-whiteframe-20dp">
-                <span class="headerSidebar">
-                    <md-button class="md-icon-button expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="nivel2(2);" tabindex="-1">
-                    <md-icon ng-cloak title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" ng-click="nivel1(1);" tabindex="-1">
-                <md-icon ng-cloak title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button menu-toggle" ng-click="toggleSide(0);" tabindex="-1">
-            <md-icon ng-cloak class="iconoRemover">
-        </md-icon>
-    </md-button>
-</span>
-<ul class="sidebarWidget" id="sidebarWidget">
-    {% include "widgets.html" %}
-</ul>
-<ul class="sidebar-na ">
-    <li class="sidebar-brand">
-        <a href="#" tabindex="-1">
-            <span flex></span>
-        </a>
-    </li>
-</ul>
-</div>
-<nav ng-controller="ControlNavbar" class="navbarApp">
-    <md-toolbar>
-    <div class="md-toolbar-tools">
-        <h2 ng-cloak>
-            <span>Mudarte
-                <span class="glyphicon glyphicon-road"></span>
-            </span>
-        </h2>
-        <span class="divide"></span>
+<body onload="controlarAutofiltro(); controlarFiltroRapido();">
+  <div class="wrapper {% if sidebar == '1' %}toggled{% else %} {% endif %}{% if sidebar == '2' %}toggled nivel2{% else %} {% endif %}">
 
-        {% block acceso_rapido %}{% endblock acceso_rapido %}
-        {% include 'Transacciones.html' %}
-        <span flex></span>
-        <md-button class="md-icon-button menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" ng-click="toggleSide(1);"  aria-label="Favorite" tabindex="-1">
-        <md-icon  class="glyphicon glyphicon-menu-hamburger"></md-icon>
-    </md-button>
-</div>
-</md-toolbar>
-</nav>
-</header>
-<section class="page-content-wrapper">
-    <div class="contenedor">
+    {% block header %}
+
+    <header>
+      <div class="sidebar-wrapper">
+        <span class="headerSidebar">
+          <a class="expandirNivel2 {% if sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(2);" tabindex="-1">
+            <span title="Expandir" name="expandirNivel2"   class="iconoExpandirLeft"></span>
+          </a>
+          <a class="expandirNivel1 {% if sidebar == '1' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1">
+            <span title="Expandir 2" name="expandirNivel1" class="iconoExpandirRight"></span>
+          </a>
+          <a class="cerrarSidebar menu-toggle" onclick="sidebarBtn(0);" tabindex="-1">
+            <span class="iconoRemover"></span>
+          </a>
+        </span>
+        <ul class="sidebarWidget" id="sidebarWidget">
+
+          {% include "widgets.html" %}
+
+        </ul>
+
+      </div>
+      <nav class="navbarApp">
+        <div>
+          <div>
+            <ul>
+              <a>Mudarte
+                <span class="glyphicon glyphicon-road"></span>
+              </a>
+              <a href="/" tabindex="-1">Inicio</a>
+
+              <span class="barDivide"></span>
+
+              {% block acceso_rapido %}{% endblock acceso_rapido %}
+
+              {% include "Transacciones.html" %}
+
+              <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1"></a>
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    {% endblock header %}
+
+    <section class="page-content-wrapper">
+      <div class="contenedor">
         <div class="contenedorFila">
 
-            {% block contenido %}{% endblock contenido %}
+          {% block contenido %}{% endblock contenido %}
 
         </div>
-    </div>
-</section>
-</div>
+      </div>
+    </section>
+  </div>
 
-{% include "script.html" %}
+  {% include "script.html" %}
 
-{% include "mensaje.html" %}
+  {% include "mensaje.html" %}
 
-{% block js_inferior %}{% endblock js_inferior %}
+  {% include "modalEliminar.html" %}
 
-{% block moduloAngular %}
-<script language="javascript">
-app.controller('controlForm',function($scope){
-
-  $(function() {
-
-
-{% for i in w_visble %}
-
-  {% if i.visible == False %}
-
-  document.getElementById('{{i.nombre.split|join:"-"}}').style.display='none';
-
-    {% else %}
-
-  {% endif %}
-
-{% endfor %}
-
-{% for form in formset %}
-var fila =$("#id_form-"+{{forloop.counter0}}+"-numero_de_columna");
-$("#id_form-"+{{forloop.counter0}}+"-numero_de_columna option").remove();
-
-  {% if form.nombre.value == 'Autofiltros' %}
-
-    {% if form.numero_de_columna.value == '1x0' %}
-
-        fila.append('<option value=1x0 selected="selected">minimizado</option>');
-
-      {% else %}
-
-         fila.append('<option value=1x0>minimizado</option>');
-
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '1x1' %}
-        fila.append('<option value=1x1 selected="selected">1x1</option>');
-      {% else %}
-         fila.append('<option value=1x1>1x1</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '2x1' %}
-        fila.append('<option value=2x1 selected="selected">2x1</option>');
-      {% else %}
-         fila.append('<option value=2x1>2x1</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '2x2' %}
-        fila.append('<option value=2x2 selected="selected">2x2</option>');
-      {% else %}
-      fila.append('<option value=2x2>2x2</option>');
-    {% endif %}
-
-  {% elif form.nombre.value == 'Ficha' %}
-
-    {% if form.numero_de_columna.value == '1x0' %}
-        fila.append('<option value=1x0 selected="selected">minimizado</option>');
-      {% else %}
-         fila.append('<option value=1x0>minimizado</option>');
-    {% endif %}
-    {% if form.numero_de_columna.value == '1x3' %}
-        fila.append('<option value=1x3 selected="selected">1x3</option>');
-    {% else %}
-         fila.append('<option value=1x3>1x3</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '2x3' %}
-        fila.append('<option value=2x3 selected="selected">2x3</option>');
-    {% else %}
-      fila.append('<option value=2x3>2x3</option>');
-    {% endif %}
-
-  {% elif form.nombre.value == 'Filtros Rápidos' %}
-
-    {% if form.numero_de_columna.value == '1x0' %}
-        fila.append('<option value=1x0 selected="selected">minimizado</option>');
-      {% else %}
-         fila.append('<option value=1x0>minimizado</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '1x1' %}
-        fila.append('<option value=1x1 selected="selected">1x1</option>');
-      {% else %}
-      fila.append('<option value=1x1>1x1</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '1x2' %}
-        fila.append('<option value=1x2 selected="selected">1x2</option>');
-      {% else %}
-      fila.append('<option value=1x2>1x2</option>');
-    {% endif %}
-
-  {% elif form.nombre.value == 'Menú' %}
-
-    {% if form.numero_de_columna.value == '1x0' %}
-        fila.append('<option value=1x0 selected="selected">minimizado</option>');
-      {% else %}
-         fila.append('<option value=1x0>minimizado</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '1x2' %}
-        fila.append('<option value=1x2 selected="selected">1x2</option>');
-      {% else %}
-      fila.append('<option value=1x2>1x2</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '1x3' %}
-        fila.append('<option value=1x3 selected="selected">1x3</option>');
-    {% else %}
-         fila.append('<option value=1x3>1x3</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '2x3' %}
-        fila.append('<option value=2x3 selected="selected">2x3</option>');
-      {% else %}
-      fila.append('<option value=2x3>2x3</option>');
-    {% endif %}
-
-  {% elif form.nombre.value == 'Tablas Relacionadas' %}
-
-    {% if form.numero_de_columna.value == '1x0' %}
-        fila.append('<option value=1x0 selected="selected">minimizado</option>');
-      {% else %}
-         fila.append('<option value=1x0>minimizado</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '1x2' %}
-        fila.append('<option value=1x2 selected="selected">1x2</option>');
-      {% else %}
-      fila.append('<option value=1x2>1x2</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '1x3' %}
-        fila.append('<option value=1x3 selected="selected">1x3</option>');
-    {% else %}
-         fila.append('<option value=1x3>1x3</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '2x2' %}
-        fila.append('<option value=2x2 selected="selected">2x2</option>');
-      {% else %}
-      fila.append('<option value=2x2>2x2</option>');
-    {% endif %}
-
-    {% if form.numero_de_columna.value == '2x3' %}
-        fila.append('<option value=2x3 selected="selected">2x3</option>');
-      {% else %}
-      fila.append('<option value=2x3>2x3</option>');
-    {% endif %}
-
-  {% else %}
-
-    {% if form.numero_de_columna.value == '1x1' %}
-          fila.append('<option value=1x1 selected="selected">Estandar</option>');
-      {% else %}
-           fila.append('<option value=1x1>1x1</option>');
-    {% endif %}
-
-  {% endif %}
-
-{% endfor %}
-
-});
-
-});
-
-
-</script>
-{% endblock moduloAngular %}
+  {% block js_inferior %}{% endblock js_inferior %}
 
 </body>
 </html>
