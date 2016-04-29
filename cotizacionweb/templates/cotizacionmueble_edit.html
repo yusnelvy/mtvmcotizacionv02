@@ -1,0 +1,110 @@
+{% extends "base_editar.html" %}
+
+{% block titulo_ficha %}
+
+'Ficha de mueble: {{form.especificacion_de_mueble.value|lower}}'
+
+{% endblock titulo_ficha %}
+
+{% block paginacionFicha %}
+
+{% if cotizacionmueble_previous %}
+
+<li class="anterior">
+    <md-button href="{% url 'ucotizacionesweb:edit_cotizacionmueble' cotizacionmueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; anterior</md-button>
+</li>
+
+{% else %}
+
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; anterior</md-button>
+</li>
+
+{% endif %}
+
+{% if cotizacionmueble_next %}
+
+<li class="siguiente">
+    <md-button href="{% url 'ucotizacionesweb:edit_cotizacionmueble' cotizacionmueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">siguiente &rarr;</md-button>
+</li>
+
+{% else %}
+
+<li class="siguienteBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">siguiente &rarr;</md-button>
+</li>
+
+{% endif %}
+
+{% endblock paginacionFicha %}
+
+{% block cuerpo_form %}
+    {{ form.as_p }}
+
+    <table>
+        <tr>
+            <td>
+                <strong>Contenedores</strong>
+            </td>
+            <td>
+                <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_contenedormueble' %}?next={{request.get_full_path}}&mueble={{cotizacionmueble.id}}" class="iconoPlus"></a>
+            </td>
+        </tr>
+
+        {% for contenedor in contenedores %}
+        <tr>
+            <td>
+                {{contetipico}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+              {{contenedor.contenedor}}
+
+            </td>
+            <td>
+                <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucotizacionesweb:eliminar_contenedormueble' contenedor.id %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+    <table>
+        <tr>
+            <td>
+                <strong>Servicios</strong>
+            </td>
+            <td>
+                <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_serviciomueble' %}?next={{request.get_full_path}}&mueble={{cotizacionmueble.id}}" class="iconoPlus"></a>
+            </td>
+        </tr>
+
+        {% for servicio in servicios %}
+        <tr>
+            <td>
+
+              {{servicio.servicio}}
+
+            </td>
+            <td>
+                <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucotizacionesweb:eliminar_serviciomueble' servicio.id %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+
+{% endblock cuerpo_form %}
+
+{% block js_inferior %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+
+});
+</script>
+
+{% endblock js_inferior %}

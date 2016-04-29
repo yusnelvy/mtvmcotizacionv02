@@ -2,12 +2,13 @@
 Docstring documentación pendiente
 
 """
+from django.forms import ModelForm
 from django import forms
 from cotizacionweb.models import TipoDireccion, ConceptoDeCotizacion, \
-    FechaDeCotizacion, CotizacionBitacora
+    FechaDeCotizacion, CotizacionBitacora, CotizacionAmbiente, \
+    CotizacionMueble, CotizacionDireccion, ContenedorMueble, \
+    ServicioMueble
 from cotizador.models import Cotizador
-from djangular.forms import NgModelFormMixin, NgModelForm, NgForm
-from base.forms import BaseFormMd
 
 
 class CotizacionForm(forms.Form):
@@ -19,7 +20,16 @@ class CotizacionForm(forms.Form):
                                   choices=cotizador_choices)
 
 
-class TipoDireccionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class CotizacionDireccionForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = CotizacionDireccion
+        fields = '__all__'
+
+
+class TipoDireccionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -28,7 +38,7 @@ class TipoDireccionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = '__all__'
 
 
-class ConceptoDeCotizacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class ConceptoDeCotizacionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -37,7 +47,7 @@ class ConceptoDeCotizacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = '__all__'
 
 
-class FechaDeCotizacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class FechaDeCotizacionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -46,10 +56,63 @@ class FechaDeCotizacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         fields = '__all__'
 
 
-class CotizacionBitacoraForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class CotizacionBitacoraForm(ModelForm):
     """
     Docstring documentación pendiente
     """
     class Meta:
         model = CotizacionBitacora
         fields = '__all__'
+
+
+class CotizacionAmbienteForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    ch_ambiente = forms.BooleanField(required=False)
+
+    class Meta:
+        model = CotizacionAmbiente
+        fields = '__all__'
+
+
+class CotizacionMuebleForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    def __init__(self, *args, **kwargs):
+        super(CotizacionMuebleForm, self).__init__(*args, **kwargs)
+        self.fields['direccion_destino'] = forms.ModelChoiceField(queryset=CotizacionDireccion.objects.filter(tipo_direccion__tipo_direccion="Destino"))
+
+    class Meta:
+        model = CotizacionMueble
+        fields = '__all__'
+
+
+class ContenedorMuebleForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    def __init__(self, *args, **kwargs):
+        super(ContenedorMuebleForm, self).__init__(*args, **kwargs)
+        self.fields['tipo_de_contenido'].empty_label = None
+
+    ch_contenedor = forms.BooleanField(required=False)
+
+    class Meta:
+        model = ContenedorMueble
+        fields = '__all__'
+
+
+class ServicioMuebleForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+
+    ch_servicio = forms.BooleanField(required=False)
+
+    class Meta:
+        model = ServicioMueble
+        fields = 'cotizacion_mueble', \
+            'servicio', \
+            'descripcion_servicio'

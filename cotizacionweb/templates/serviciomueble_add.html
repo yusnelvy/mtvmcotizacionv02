@@ -1,0 +1,58 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Servicio
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar servicios a el mueble {{ mueble.nombre_especificacion_de_mueble}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+<form action="" method="post" id="myformEdit">
+  {% csrf_token %}
+  <div class="form-group">
+    <table class="table table-bordered table-hover">
+      <tr>
+        <td>
+          mueble {{cantidadservicio}}
+        </td>
+        <td colspan="2">
+          servicio
+        </td>
+        <td></td>
+      </tr>
+      {{ formset.management_form }}
+      {% for form in formset %}
+      <tr id="{{forloop.counter}}">
+        <td>{{form.cotizacion_mueble}}</td>
+        <td>{{form.servicio}}</td>
+        <td>{{form.descripcion_servicio}}</td>
+        <td>{{form.ch_servicio}}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+
+  <button type="submit" class="btn btn-default registrar">Registrar</button>
+  <br>
+
+</form>
+
+{% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+});
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

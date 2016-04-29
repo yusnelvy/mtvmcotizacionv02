@@ -1766,6 +1766,7 @@ class ContactoUpdate(UpdateView):
             item_form = InformacionDeContactoFormSet(instance=self.object)
 
         context['item_form'] = item_form
+        #context['form'].fields['tipo_de_relacion'].queryset = TipoDeRelacion.objects.exclude(tipo_de_relacion='cliente')
         return context
 
     def form_valid(self, form):

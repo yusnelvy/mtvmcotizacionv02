@@ -11,7 +11,14 @@ from cotizacionweb.views import CotizacionDetail, \
     ConceptoDeCotizacionUpdate, ConceptoDeCotizacionDelete, \
     FechaDeCotizacionListView, FechaDeCotizacionView, \
     FechaDeCotizacionUpdate, FechaDeCotizacionDelete, \
-    CotizacionBitacoraView, CotizacionListView
+    CotizacionBitacoraView, CotizacionListView, \
+    CotizacionAmbienteView, CotizacionAmbienteDetail, \
+    CotizacionMuebleView, CotizacionMuebleUpdate, \
+    CotizacionMuebleDelete, CotizacionAmbienteDelete, \
+    ContenedorMuebleDelete, ServicioMuebleDelete, \
+    ContenedorMuebleView, ServicioMuebleView, \
+    CotizacionDireccionDelete
+from cotizacionweb import views
 
 urlpatterns = patterns('',
                        url(r'^$',
@@ -20,6 +27,42 @@ urlpatterns = patterns('',
                        url(r'^cotizacion_ficha/(?P<pk>\d+)/$',
                            CotizacionDetail.as_view(),
                            name='ficha_cotizacion'),
+                       url(r'^cotizacion_direccion/eliminar/(?P<pk>\d+)/$',
+                           CotizacionDireccionDelete.as_view(),
+                           name='eliminar_cotizaciondireccion'),
+                       url(r'^cotizacionambiente_ficha/(?P<pk>\d+)/$',
+                           CotizacionAmbienteDetail.as_view(),
+                           name='ficha_cotizacionambiente'),
+                       url(r'^cotizacion_ambiente/nuevo',
+                           CotizacionAmbienteView.as_view(),
+                           name='add_cotizacionambiente'),
+                       url(r'^cotizacion_ambiente/eliminar/(?P<pk>\d+)/$',
+                           CotizacionAmbienteDelete.as_view(),
+                           name='eliminar_cotizacionambiente'),
+                       url(r'^cotizacion_mueble/nuevo',
+                           CotizacionMuebleView.as_view(),
+                           name='add_cotizacionmueble'),
+                       url(r'^cotizacion_mueble/editar/(?P<pk>\d+)/$',
+                           CotizacionMuebleUpdate.as_view(),
+                           name='edit_cotizacionmueble'),
+                       url(r'^cotizacion_mueble/eliminar/(?P<pk>\d+)/$',
+                           CotizacionMuebleDelete.as_view(),
+                           name='eliminar_cotizacionmueble'),
+                       url(r'^contenedor_mueble/nuevo',
+                           ContenedorMuebleView.as_view(),
+                           name='add_contenedormueble'),
+                       url(r'^contenedor_mueble/eliminar/(?P<pk>\d+)/$',
+                           ContenedorMuebleDelete.as_view(),
+                           name='eliminar_contenedormueble'),
+                       url(r'^servicio_mueble/nuevo',
+                           ServicioMuebleView.as_view(),
+                           name='add_serviciomueble'),
+                       url(r'^servicio_mueble/eliminar/(?P<pk>\d+)/$',
+                           ServicioMuebleDelete.as_view(),
+                           name='eliminar_serviciomueble'),
+                       url(r'^cambiar_estadodedocumento/(?P<pk>\d+)/',
+                           views.CotizacionEstadoDeDocumento,
+                           name='cambiar_estadodedocumento'),
                        url(r'^tipo_direccion/$',
                            TipoDireccionListView.as_view(),
                            name='list_tipodireccion'),

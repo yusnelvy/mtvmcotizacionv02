@@ -184,7 +184,7 @@ class CotizacionAmbiente(models.Model):
     direccion_origen = models.ForeignKey(CotizacionDireccion)
     ambiente = models.ForeignKey(Ambiente)
     nombre = models.CharField(max_length=100)
-    observaciones = models.TextField()
+    observaciones = models.TextField(blank=True)
 
     def __str__(self):
         return str(self.ambiente)
@@ -229,7 +229,7 @@ class CotizacionMueble(models.Model):
     cantidad = models.IntegerField()
     volumen_en_camion = models.IntegerField()
     trasladable = models.BooleanField(default=None)
-    observaciones = models.TextField()
+    observaciones = models.TextField(blank=True)
 
     def __str__(self):
         return u' %s - %s' % (self.cotizacion_ambiente, self.especificacion_de_mueble)
