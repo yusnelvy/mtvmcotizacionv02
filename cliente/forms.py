@@ -3,7 +3,7 @@ Docstring documentación pendiente
 
 """
 
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, RadioSelect, Textarea
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
     TipoDeRelacion, TipoDeInformacionDeContacto, Cliente, \
     Contacto, InformacionDeContacto, ClienteDireccion, \
@@ -95,30 +95,23 @@ class TipoDeInformacionDeContactoForm(NgModelFormMixin, NgModelForm, BaseFormMd)
         }
 
 
-class ClienteForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class ClienteForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+    def __init__(self, *args, **kwargs):
+        super(ClienteForm, self).__init__(*args, **kwargs)
+        self.fields['tipo_de_cliente'].empty_label = None
+
     class Meta:
         model = Cliente
         fields = '__all__'
-
-
-class ContactoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
-    """
-    Docstring documentación pendiente
-    """
-    class Meta:
-        model = Contacto
-        fields = '__all__'
         widgets = {
-            'fecha_nacimiento': InputFecha()
+            'tipo_de_cliente': RadioSelect(attrs={'onclick': 'radioColor();', 'tabindex': '1'}),
+            'observaciones': Textarea(attrs={'cols': '1', 'rows': '1'}),
+            'cuit': TextInput(),
+            'nombre': TextInput()
         }
-
-InformacionDeContactoFormSet = inlineformset_factory(Contacto,
-                                                     InformacionDeContacto,
-                                                     fields=('tipo_de_informacion_de_contacto',
-                                                             'informacion_de_contacto'), extra=1)
 
 
 class InformacionDeContactoForm(ModelForm):
@@ -127,7 +120,53 @@ class InformacionDeContactoForm(ModelForm):
     """
     class Meta:
         model = InformacionDeContacto
+        #exclude = ['tech', 'operator', ]
+        fields = 'tipo_de_informacion_de_contacto', 'informacion_de_contacto'
+        widgets = {
+            'tipo_de_informacion_de_contacto': RadioSelect(attrs={'onclick': 'radioColor();', 'required': 'required'}),
+            'informacion_de_contacto': TextInput(attrs={'required': 'required'})
+        }
+        labels = {
+            'tipo_de_informacion_de_contacto': ('Seleccione el tipo de información de contacto:')
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(InformacionDeContactoForm, self).__init__(*args, **kwargs)
+        self.fields['tipo_de_informacion_de_contacto'].empty_label = None
+
+
+class ContactoForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    def __init__(self, *args, **kwargs):
+        super(ContactoForm, self).__init__(*args, **kwargs)
+        self.fields['sexo'].empty_label = None
+        self.fields['estado_civil'].empty_label = None
+
+    class Meta:
+        model = Contacto
         fields = '__all__'
+        widgets = {
+            'sexo': RadioSelect(attrs={'onclick': 'radioColor();', 'required': 'required'}),
+            'estado_civil': RadioSelect(attrs={'onclick': 'radioColor();'}),
+            'fecha_nacimiento': TextInput(attrs={'required': 'required'}),
+            'observaciones': Textarea(attrs={'cols': '1', 'rows': '1'}),
+            'dni': TextInput(attrs={'required': 'required'})
+        }
+        labels = {
+            'dni': ('DNI del cliente'),
+            'nombre': ('Nombre del cliente'),
+            'sexo': ('Sexo del cliente'),
+            'estado_civil': ('Estado civil del cliente'),
+            'fecha_nacimiento': ('Fecha de nacimiento del cliente'),
+            'tipo_de_relacion': ('Tipo de relación con el cliente')
+        }
+
+InformacionDeContactoFormSet = inlineformset_factory(Contacto,
+                                                     InformacionDeContacto,
+                                                     form=InformacionDeContactoForm,
+                                                     extra=1)
 
 
 class ClienteDireccionForm(ModelForm):
@@ -137,6 +176,16 @@ class ClienteDireccionForm(ModelForm):
     class Meta:
         model = ClienteDireccion
         fields = '__all__'
+        labels = {
+            'calle': ('Calle de la dirección:'),
+            'altura': ('Altura de la dirección:'),
+            'barrio': ('Barrio de la dirección:'),
+            'ciudad': ('Ciudad de la dirección:'),
+            'provincia': ('Provincia de la dirección:'),
+            'pais': ('País de la dirección'),
+            'codigo_postal/zip': ('Código postal / zip de la dirección'),
+            'punto_de_referencia': ('Punto de referencia de la dirección')
+        }
 
 
 class ClienteEstadoDeRegistroForm(ModelForm):

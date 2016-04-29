@@ -2,9 +2,16 @@
  * componentes de crear nuevo y editar
  */
  @import "../stylesheets/_bootstrap.scss";
-.botonRegistrar > button {
+.botonRegistrar {
+  width: 95%;
+  bottom: 0;
+  background: #eee;
+  padding: 10px;
+  button {
     @extend .btn;
     @extend .btn-default;
+    @extend .btn-lg;
+  }
 }
 .botonGuardarf {
   @extend .btn-group;
@@ -36,7 +43,7 @@
 .grupoInput {
   padding: 10px;
   overflow-y: scroll;
-  p {
+  p, .inline{
     @extend .form-group;
     label {
         @extend .control-label;
@@ -50,6 +57,47 @@
         @extend .form-control;
     }
 }
+ul {
+  display: inline-flex;
+  width: 100%;
+  list-style: none;
+  padding-left: 0;
+  li {
+    flex: auto;
+    background: #eee;
+    border: 1px solid #dedede;
+    label {
+      padding: 10px;
+      padding-right: 25px;
+      display: block;
+      height: 100%;
+      margin: 0;
+      text-align: center;
+      font-family: inherit;
+      font: inherit;
+      input {
+        visibility: hidden;
+      }
+      &.hover {
+        background: rgba(255,255,255,0.2);
+      }
+    }
+  }
+}
+}
+.delete-row {
+  @extend .glyphicon;
+  @extend .glyphicon-remove;
+  left: 97%;
+  padding-top: 10px;
+}
+.add-row {
+  @extend .glyphicon;
+  @extend .glyphicon-plus;
+  left: 97%;
+}
+.inline {
+  border-bottom: 1px solid #dedede!important;
 }
 .alertaLista {
   @extend .alert;
@@ -169,6 +217,30 @@
      @extend .glyphicon-sort-by-order-alt;
      @extend .btn-ordenarLista;
 }
+.controlFicha {
+  float: right;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  a {
+  right: 0;
+  top: 0;
+  font-size: 20px;
+  visibility: hidden;
+  padding-right: 50px;
+  color: #000;
+  }
+  span {
+    font-size: 20px;
+    opacity: 1!important;
+  }
+  &:hover a {
+    display: inline-block;
+    visibility: visible;
+    opacity: 1!important;
+  }
+}
 .c_td {
   display: block!important;
   min-width: 0!important;
@@ -181,9 +253,16 @@
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-.c_td a {
+.c_td a.iconoRemover {
   right: 50px;
   top: 10px;
+  font-size: 16px;
+  visibility: hidden;
+  padding-right: 50px;
+}
+.c_td a.iconoEditar {
+  right: 100px;
+  top: 30px;
   font-size: 16px;
   visibility: hidden;
   padding-right: 50px;
@@ -375,6 +454,9 @@ span.barDivide {
     margin-right: -250px;
     height: calc(100% - 50px);
     overflow-y: scroll;
+    .submit {
+      right: 30%;
+    }
 }
 .expandirNivel2, .expandirNivel1 {
     z-index: 1002;
@@ -388,6 +470,9 @@ span.barDivide {
     margin-right: -500px;
     height: calc(100% - 50px);
     overflow-y: scroll;
+    .submit {
+      right: 50%;
+    }
 }
 .wrapper.toggled.nivel2 .sidebar-wrapper {
     width: 500px;
@@ -623,6 +708,28 @@ width: 10px;
 .msj{
   @extend .alert;
   @extend .alert-warning;
+}
+/*!
+ * ficha del cliente
+ */
+.fichaCliente {
+  @extend .panel;
+  @extend .panel-default;
+  div {
+    @extend .panel-body;
+    div {
+      @extend .container-fluid;
+      div {
+        @extend .row;
+      }
+    }
+  }
+}
+legend.legendas {
+  cursor: pointer;
+  &:hover {
+    background: #fff;
+  }
 }
 
 .bootstrap-switch {

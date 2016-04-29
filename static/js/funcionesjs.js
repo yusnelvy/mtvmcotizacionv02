@@ -1,4 +1,7 @@
-
+function radioColor () {
+    $("label:has(input[type=radio])").removeClass('seleccion');
+    $("label:has(input[type=radio]:checked)").addClass('seleccion');
+}
 
 function transaccion()
     {

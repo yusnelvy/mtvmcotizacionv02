@@ -16,16 +16,47 @@ Agregar cliente
 
 {% block cuerpo_form %}
 
-  {{ form.as_md }}
+<div class="col-md-12 col-lg-6" style="background: #fff;">
+
+  {{ form.as_p }}
+
+</div>
 
 {% endblock cuerpo_form %}
-{% block moduloAngular %}
 
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.tipo_de_cliente="{{form.tipo_de_cliente.value}}";
-  });
+{% block js_inferior %}
+<script>
+//$('#id_cuit,#id_nombre,#id_observaciones').parent().css('visibility', 'hidden');
+$('form').removeClass('hidden');
+$('button[name=reg]').text('Siguiente');
+$('#id_tipo_de_cliente').attr('tabindex', '1');
+    $('input[name=tipo_de_cliente]').on('click', function () {
+        //alert($(this).val());
+        $('#id_cuit,#id_nombre,#id_observaciones').parent().css('visibility', 'visible');
+        if ($(this).val() === '1') {
+            $('#id_cuit').parent().css('display', 'none');
+            $('#id_nombre').focus();
+            $('#id_cuit').removeAttr('required');
+        }else{
+            $('#id_cuit').parent().css('display', 'block');
+            $('#id_cuit').focus();
+            $('#id_cuit').attr('required', 'required');
+        }
+    });
+    $(':input').on('keypress', function () {
+       $('button[name=reg]').addClass('btn btn-success');
+    });
+    radioColor();
+    if ($('label:has(input[name=tipo_de_cliente]:checked)').text().trim() === 'Particular' || $('label:has(input[name=tipo_de_cliente]:checked)').text().trim() === 'particular') {
+            $('#id_cuit').parent().css('display', 'none');
+            $('#id_nombre').focus();
+            $('#id_cuit').removeAttr('required');
+        }else{
+            $('#id_cuit').parent().css('display', 'block');
+            $('#id_cuit').focus();
+            $('#id_cuit').attr('required', 'required');
+        }
 </script>
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

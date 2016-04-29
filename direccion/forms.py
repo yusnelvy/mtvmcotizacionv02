@@ -106,7 +106,7 @@ class BarrioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             }
 
 
-class DireccionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class DireccionForm(ModelForm):
     """
     Docstring documentación pendiente
     """

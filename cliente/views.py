@@ -1584,6 +1584,14 @@ class ContactoCreateView(CreateView):
     model = Contacto
     form_class = ContactoForm
 
+    def get_context_data(self, **kwargs):
+        context = super(ContactoCreateView, self).get_context_data(**kwargs)
+        if self.request.GET.get('relacion') != 'cliente':
+            context['form'].fields['tipo_de_relacion'].queryset = TipoDeRelacion.objects.exclude(tipo_de_relacion="cliente")
+        cliente = Cliente.objects.filter(id=self.request.GET.get('cliente'))
+        context['cliente'] = cliente[0].nombre
+        return context
+
     def get_initial(self):
         super(ContactoCreateView, self).get_initial()
         cliente = Cliente.objects.filter(id=self.request.GET.get('cliente'))
@@ -1767,6 +1775,7 @@ class ContactoUpdate(UpdateView):
             item_form = InformacionDeContactoFormSet(instance=self.object)
 
         context['item_form'] = item_form
+        #context['form'].fields['tipo_de_relacion'].queryset = TipoDeRelacion.objects.exclude(tipo_de_relacion="cliente")
         return context
 
     def form_valid(self, form):
