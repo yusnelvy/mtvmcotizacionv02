@@ -15,13 +15,13 @@ from django.forms.widgets import CheckboxFieldRenderer
 from django import forms
 
 
-class TipoDeMuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class TipoDeMuebleForm(ModelForm):
     class Meta:
         model = TipoDeMueble
         fields = '__all__'
         widgets = {
-            'tipo_de_mueble': TextInput(attrs={'required': 'required', 'tabindex':'-1'}),
-            'descripcion': Textarea(attrs={'required': 'required', 'tabindex':'-1'})
+            'tipo_de_mueble': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
             }
         labels = {
             'descripcion': ('Descripción del tipo de mueble'),
@@ -42,7 +42,7 @@ class MuebleForm(ModelForm):
         fields = 'tipo_de_mueble', 'mueble', 'descripcion', 'trasladable'
         widgets = {
             'mueble': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
-            'descripcion': TextInput(attrs={'required': 'required', 'tabindex': '3'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '3', 'cols': '1', 'rows': '1'}),
             'trasladable': Checkbox()
             }
         labels = {
@@ -53,7 +53,7 @@ class MuebleForm(ModelForm):
             }
 
 
-class EspecificacionDeMuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class EspecificacionDeMuebleForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -61,8 +61,9 @@ class EspecificacionDeMuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = EspecificacionDeMueble
         fields = '__all__'
         widgets = {
-            'mueble': SelectMD(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
-            'especificacion_de_mueble': TextInput(attrs={'required': 'required', 'tabindex': '2'})
+            'mueble': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
+            'especificacion_de_mueble': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '3', 'cols': '1', 'rows': '1'}),
         }
         labels = {
             'mueble': ('Nombre del mueble asociado'),

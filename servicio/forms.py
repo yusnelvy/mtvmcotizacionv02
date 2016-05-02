@@ -4,13 +4,15 @@ Docstring documentación pendiente
 """
 from servicio.models import Servicio, ComplejidadServicio, \
     PrecioDeServicio, HerramientasPorServicio
-from base.forms import BaseFormMd, SelectMD
+from base.forms import BaseFormMd, SelectMD, Select, Checkbox
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms.models import inlineformset_factory
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Textarea
+from djangular.forms.widgets import CheckboxChoiceInput
+from django.forms.widgets import CheckboxFieldRenderer
 
 
-class ServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class ServicioForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -22,13 +24,13 @@ class ServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'descripcion': ('Descripción del servicio')
         }
         widgets = {
-            'servicio': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'}),
-            'unidad_de_venta': SelectMD(attrs={'required': 'required', 'tabindex': '1'})
+            'servicio': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            'unidad_de_venta': Select(attrs={'required': 'required', 'tabindex': '3'})
         }
 
 
-class ComplejidadServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class ComplejidadServicioForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -42,11 +44,13 @@ class ComplejidadServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'predefinido': ('¿La complejidad es predefinida del servicio?')
         }
         widgets = {
-            'servicio': SelectMD(attrs={'tabindex': '1'})
+            'servicio': Select(attrs={'tabindex': '1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            'predefinido': Checkbox()
         }
 
 
-class PrecioDeServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class PrecioDeServicioForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -62,9 +66,9 @@ class PrecioDeServicioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'fecha_aprobacion': ('Fecha de aprobación del servicio')
         }
         widgets = {
-            'servicio': SelectMD(attrs={'tabindex': '1'}),
-            'user_preparador': SelectMD(attrs={'tabindex': ''}),
-            'user_aprobador': SelectMD(attrs={'tabindex': ''})
+            'servicio': Select(attrs={'tabindex': '1'}),
+            'user_preparador': Select(attrs={'tabindex': '2'}),
+            'user_aprobador': Select(attrs={'tabindex': '3'})
         }
 
 

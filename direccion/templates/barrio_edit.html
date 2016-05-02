@@ -11,13 +11,13 @@
     {% if barrio_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'udirecciones:edit_barrio' barrio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+            <a href="{% url 'udirecciones:edit_barrio' barrio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% else %}
 
         <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% endif %}
@@ -25,13 +25,13 @@
     {% if barrio_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'udirecciones:edit_barrio' barrio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="{% url 'udirecciones:edit_barrio' barrio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
         <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% endif %}
@@ -40,81 +40,23 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.barrio}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.pais.id_for_label}}">
-
-    {{form.pais.label}}
-
-</label>
-
-{{form.pais}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.provincia.id_for_label}}">
-
-    {{form.provincia.label}}
-
-</label>
-
-    {{form.provincia}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.ciudad.id_for_label}}">
-
-    {{form.ciudad.label}}
-
-</label>
-
-    {{form.ciudad}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.provincia = '{{form.provincia.value}}';
-    $scope.pais = '{{form.pais.value}}';
-    $scope.ciudad = '{{form.ciudad.value}}';
-    $scope.barrio = '{{form.barrio.value}}';
-    $('select').attr('class', 'form-control');
-    $('select').attr('required', 'required');
-    $('label[for=id_pais]').css('display','none');
-    $('label[for=id_provincia]').css('display','none');
-    $('label[for=id_ciudad]').css('display','none');
-      setTimeout(function() {
-        $('select[id=id_pais]').after('<label class="labelSelect" style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_pais">' + $('label[for=id_pais]').text() + '</label>');
-        $('select[id=id_provincia]').after('<label class="labelSelect" style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_provincia">' + $('label[for=id_provincia]').text() + '</label>');
-        $('select[id=id_ciudad]').after('<label class="labelSelect" style="top:-20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:30px;position:absolute;" for="id_ciudad">' + $('label[for=id_ciudad]').text() + '</label>');
-    }, 100);
-      $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.barrio.value}}');
-    //tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.ciudad.value}}');
-    //tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.provincia.value}}');
-    //tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.pais.value}}');
-$scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.mueble = '{{form.pais.value}}';
-        $scope.codigo_telefonico = '{{form.codigo_telefonico.value}}';
-}
-$scope.onChange = function() {
-    controlSubmit(event);
-};
-});
-
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{barrio.ciudad}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{barrio.provincia}}');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{barrio.pais}}');
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

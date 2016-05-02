@@ -33,39 +33,45 @@ Chofer asignado
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% endif %}
 
 {% else %}
 
-
+{% if request.GET.order_by %}
 
 <li class="btn-disabled">
-    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  <a href="#" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
+{% else %}
 
+<li class="btn-disabled">
+  <a href="#" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+</li>
+
+{% endif %}
 
 {% endif %}
 
 {% if request.GET.page == "1" %}
 
 <li class="btn-disabled">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+  <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">Primero...</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+  <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">Primero...</a>
 </li>
 
 {% endif %}
@@ -75,13 +81,13 @@ Chofer asignado
 {% if p == page_obj.number %}
 
 <li class="active">
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+  <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">{{p}}</a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+  <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">{{p}}</a>
 </li>
 
 {% endif %}
@@ -93,13 +99,13 @@ Chofer asignado
 {% if request.GET.page == ultimo %}
 
 <li class="btn-disabled">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+  <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">...Ultimo</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+  <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">...Ultimo</a>
 </li>
 
 {% endif %}
@@ -111,13 +117,13 @@ Chofer asignado
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% endif %}
@@ -127,20 +133,20 @@ Chofer asignado
 {% if request.GET.order_by %}
 
 <li class="btn-disabled">
-    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="#" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% else %}
 
 <li class="btn-disabled">
-    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="#" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% endif %}
 
 {% endif %}
 
-<li><a href="?page=0">Ver todo</a></li>
+<li><a href="?page=0" tabindex="-1">Ver todo</a></li>
 
 {% endif %}
 
@@ -156,13 +162,27 @@ Chofer asignado
 
         {% if request.GET.page %}
 
-        <a href="?order_by=detalle_de_vehiculo&page={{request.GET.page}}" id="detalle_de_vehiculo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-detalle_de_vehiculo&page={{request.GET.page}}" id="-detalle_de_vehiculo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "detalle_de_vehiculo" %}
+
+        <a href="?order_by=-detalle_de_vehiculo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-detalle_de_vehiculo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=detalle_de_vehiculo" id="detalle_de_vehiculo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-detalle_de_vehiculo" id="-detalle_de_vehiculo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=detalle_de_vehiculo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="detalle_de_vehiculo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "detalle_de_vehiculo" %}
+
+        <a href="?order_by=-detalle_de_vehiculo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-detalle_de_vehiculo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=detalle_de_vehiculo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="detalle_de_vehiculo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
@@ -172,39 +192,49 @@ Chofer asignado
 
         {% if request.GET.page %}
 
-        <a href="?order_by=trabajador&page={{request.GET.page}}" id="trabajador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-trabajador&page={{request.GET.page}}" id="-trabajador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "trabajador" %}
+
+        <a href="?order_by=-trabajador&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-trabajador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=trabajador" id="trabajador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-trabajador" id="-trabajador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=trabajador&page={{request.GET.page}}" id="trabajador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "trabajador" %}
+
+        <a href="?order_by=-trabajador{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-trabajador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=trabajador{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="trabajador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
     </th>
-    <th class="controlLista">Editar</th>
-    <th class="controlLista">Eliminar</th>
 </tr>
-
+<tbody>
 {% for i in choferasignados %}
 
-<tr id="tr{{i.pk}}">
-    <td>
+<tr id="tr{{i.pk}}" data-url="{% url 'upremisas:edit_choferasignado' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
+    <td id="td1_{{i.pk}}">
 
         {{ i.detalle_de_vehiculo }}
 
     </td>
-    <td>
+    <td id="td2_{{i.pk}}">
 
         {{ i.trabajador }}
 
     </td>
-    <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:edit_choferasignado' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
-    </td>
-    <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'upremisas:eliminar_choferasignado' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+    <td class="c_td">
+      <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" data-url="{% url 'upremisas:eliminar_choferasignado' i.pk %}?next={{request.get_full_path}}" data-id="{{ i.id }}" data-nombre="{{ i.choferasignados }}" class="iconoRemover btnEliminar" data-toggle="modal" data-target="#modalEliminar" id="eliminar{{i.id}}"></a>
+      <span class="iconoGrupoControl"></span>
     </td>
 </tr>
 
@@ -213,17 +243,9 @@ Chofer asignado
 {% else %}
 
 <tr>
-
     <td> No se encontraron registros </td>
 </tr>
 
 {% endif %}
-
-<script>
-    $(document).on('ready',function(){
-        ocultarASCDesc('detalle_de_vehiculo');
-        ocultarASCDesc('trabajador');
-    })
-</script>
 
 {% endblock lista %}

@@ -3,7 +3,7 @@ Docstring documentación pendiente
 
 """
 
-from django.forms import ModelForm, TextInput, Select
+from django.forms import ModelForm, TextInput, Select, Textarea
 from estadoderegistro.models import Estado, EstadoDeRegistro
 from django.contrib.contenttypes.models import ContentType
 from django import forms
@@ -11,7 +11,7 @@ from djangular.forms import NgModelFormMixin, NgModelForm
 from base.forms import BaseFormMd, SelectMD
 
 
-class EstadoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class EstadoForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -19,17 +19,22 @@ class EstadoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Estado
         fields = '__all__'
         widgets = {
-            'estado': TextInput(attrs={'required': 'required'}),
+            'estado': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'tabindex': '2', 'cols': '1', 'rows': '1'})
+            }
+        labels = {
+            'descripcion': ('Descripción del estado'),
+            'estado': ('Estado')
             }
 
 
-class EstadoDeRegistroForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class EstadoDeRegistroForm(ModelForm):
     """
     Docstring documentación pendiente
     """
     model_choices = [(content.model, content.model) for content in ContentType.objects.all()]
     model = forms.ChoiceField(
-        widget=SelectMD(attrs={'required': 'required'}),
+        widget=Select(attrs={'required': 'required'}),
         label='Seleccione el model',
         choices=model_choices)
 
@@ -37,9 +42,9 @@ class EstadoDeRegistroForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = EstadoDeRegistro
         fields = '__all__'
         widgets = {
-            'estado': SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
-            'descripcion': TextInput(attrs={'required': 'required'}),
-            'observacion': TextInput(),
+            'estado': Select(attrs={'required': 'required', 'tabindex': '1'}),
+            'descripcion': Textarea(attrs={'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            'observacion': Textarea(attrs={'tabindex': '3', 'cols': '1', 'rows': '1'}),
             }
         labels = {
             'estado': ('Seleccione el estado'),

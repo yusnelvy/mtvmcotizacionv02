@@ -10,7 +10,7 @@ Mueble
 
 <h2>Listado de muebles</h2>
 <h6>Cantidad de muebles encontrados:
-  <span class="badge" id="count_reg">
+  <span class="numRegistro" id="count_reg">
 
     {{ muebles.count }}
 
@@ -90,7 +90,6 @@ Mueble
 </li>
 
 {% endif %}
-
 
 {% endfor %}
 
@@ -194,7 +193,6 @@ Mueble
 
     {% if request.GET.order_by == "descripcion" %}
 
-
     <a href="?order_by=-descripcion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
     {% else %}
@@ -262,9 +260,6 @@ Mueble
     <a href="?order_by=tipo_de_mueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="tipo_de_mueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
     {% endif %}
-
-
-
 
     {% else %}
 

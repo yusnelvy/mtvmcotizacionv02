@@ -11,25 +11,25 @@
     {% if servicio_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'uservicios:edit_servicio' servicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+            <a href="{% url 'uservicios:edit_servicio' servicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% else %}
 
-        <li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
+        <li class="anteriorBloqueado"><a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a></li>
 
     {% endif %}
 
     {% if servicio_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'uservicios:edit_servicio' servicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="{% url 'uservicios:edit_servicio' servicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
 <li class="siguienteBloqueado">
-  <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+  <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
     {% endif %}
@@ -38,60 +38,22 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.servicio}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.descripcion.id_for_label}}">
-
-    {{form.descripcion.label}}
-
-</label>
-
-{{form.descripcion}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch" for="{{form.unidad_de_venta.id_for_label}}">
-
-    {{form.unidad_de_venta.label}}
-
-</span>
-
-{{form.unidad_de_venta}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-  $scope.servicio = '{{form.servicio.value}}';
-  $scope.descripcion = '{{form.descripcion.value}}';
-  $scope.unidad_de_venta = '{{form.unidad_de_venta.value}}';
-  $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.servicio = '{{form.servicio.value}}';
-        $scope.descripcion = '{{form.descripcion.value}}';
-        $scope.unidad_de_venta = '{{form.unidad_de_venta.value}}';
-    };
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.servicio.value}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{servicio.unidad_de_venta}}');
-
-});
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

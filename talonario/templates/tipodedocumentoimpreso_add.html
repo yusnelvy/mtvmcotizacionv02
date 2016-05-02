@@ -1,32 +1,25 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Talonario
+'Agregar un tipo de documento impreso'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
+{% block paginacionFicha %}{% endblock paginacionFicha %}
 
-Agregar un tipo de documento impreso
+{% block ficha_basica %}
 
-{% endblock titulo_form %}
+{{ form.as_p }}
 
-{% block nav_lista_form %}{% endblock nav_lista_form %}
+{% endblock ficha_basica %}
 
-{% block cuerpo_form %}
+{% block jsFicha %}
 
-  {{ form.as_md }}
-
-{% endblock cuerpo_form %}
-
-{% block moduloAngular %}
-
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_tipo_de_documento_impreso').focus();
-  });
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
 </script>
+
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

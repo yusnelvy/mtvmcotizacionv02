@@ -3,7 +3,7 @@ Docstring documentación pendiente
 
 """
 
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Textarea
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
     TipoDeRelacion, TipoDeInformacionDeContacto, Cliente, \
     Contacto, InformacionDeContacto, ClienteDireccion, \
@@ -14,7 +14,7 @@ from django import forms
 from django.forms.models import inlineformset_factory
 
 
-class SexoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class SexoForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -22,29 +22,29 @@ class SexoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Sexo
         fields = '__all__'
         widgets = {
-            'sexo': TextInput(attrs={'required': 'required'}),
+            'sexo': TextInput(attrs={'required': 'required', 'tabindex':'1'})
             }
         labels = {
             'sexo': ('Nombre del sexo')
         }
 
 
-class EstadoCivilForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class EstadoCivilForm(ModelForm):
     """
     Docstring documentación pendiente
     """
     class Meta:
         model = EstadoCivil
         fields = '__all__'
+        widgets = {
+            'estado_civil': TextInput(attrs={'required': 'required', 'tabindex':'1'})
+            }
         labels = {
             'estado_civil': ('Nombre del estado civil')
         }
-        widgets = {
-            'estado_civil': TextInput(attrs={'required': 'required'})
-            }
 
 
-class TipoDeClienteForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class TipoDeClienteForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -52,8 +52,8 @@ class TipoDeClienteForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = TipoDeCliente
         fields = '__all__'
         widgets = {
-            'tipo_de_cliente': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'})
+            'tipo_de_cliente': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
             }
         labels = {
             'tipo_de_cliente': ('Nombre del tipo de cliente'),
@@ -61,7 +61,7 @@ class TipoDeClienteForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         }
 
 
-class TipoDeRelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class TipoDeRelacionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -69,8 +69,8 @@ class TipoDeRelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = TipoDeRelacion
         fields = '__all__'
         widgets = {
-            'tipo_de_relacion': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'})
+            'tipo_de_relacion': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
             }
         labels = {
             'tipo_de_relacion': ('Nombre del tipo de relación'),
@@ -78,7 +78,7 @@ class TipoDeRelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         }
 
 
-class TipoDeInformacionDeContactoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class TipoDeInformacionDeContactoForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -86,8 +86,8 @@ class TipoDeInformacionDeContactoForm(NgModelFormMixin, NgModelForm, BaseFormMd)
         model = TipoDeInformacionDeContacto
         fields = '__all__'
         widgets = {
-            'tipo_de_informacion_de_contacto': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'})
+            'tipo_de_informacion_de_contacto': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
             }
         labels = {
             'tipo_de_informacion_de_contacto': ('Nombre del tipo de informacion de contacto'),

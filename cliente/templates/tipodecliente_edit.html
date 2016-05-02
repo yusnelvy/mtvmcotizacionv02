@@ -11,13 +11,13 @@
     {% if tipodecliente_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+            <a href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% else %}
 
         <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% endif %}
@@ -25,13 +25,13 @@
     {% if tipodecliente_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="{% url 'uclientes:edit_tipo_de_cliente' tipodecliente_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
         <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% endif %}
@@ -40,46 +40,21 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.tipo_de_cliente}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.descripcion.id_for_label}}">
-
-    {{form.descripcion.label}}
-
-</label>
-
-{{form.descripcion}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.tipo_de_cliente = '{{form.tipo_de_cliente.value}}';
-    $scope.descripcion = '{{form.descripcion.value}}';
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.tipo_de_cliente = '{{form.tipo_de_cliente.value}}';
-        $scope.descripcion = '{{form.descripcion.value}}';
-    }
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_cliente.value}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
-});
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

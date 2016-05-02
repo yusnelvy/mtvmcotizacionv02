@@ -11,13 +11,13 @@
 {% if tipodemueble_previous %}
 
 <li class="anterior">
-    <md-button ng-href="{% url 'umuebles:edit_tipodemueble' tipodemueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; anterior</md-button>
+    <a href="{% url 'umuebles:edit_tipodemueble' tipodemueble_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; anterior</a>
 </li>
 
 {% else %}
 
 <li class="anteriorBloqueado">
-    <md-button ng-href="#" ng-disabled="true" tabindex="-1">&larr; anterior</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">&larr; anterior</a>
 </li>
 
 {% endif %}
@@ -25,13 +25,13 @@
 {% if tipodemueble_next %}
 
 <li class="siguiente">
- <md-button ng-href="{% url 'umuebles:edit_tipodemueble' tipodemueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">siguienete &rarr;</md-button>
+ <a href="{% url 'umuebles:edit_tipodemueble' tipodemueble_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">siguienete &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button ng-href="#" ng-disabled="true" tabindex="-1">siguienete &rarr;</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">siguienete &rarr;</a>
 </li>
 
 {% endif %}
@@ -40,48 +40,22 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.tipo_de_mueble}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.descripcion.id_for_label}}">
-
-    {{form.descripcion.label}}
-
-</label>
-
-{{form.descripcion}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm', function($scope){
-    $scope.tipo_de_mueble = '{{form.tipo_de_mueble.value}}';
-    $scope.descripcion = '{{form.descripcion.value}}';
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.tipo_de_mueble = '{{form.tipo_de_mueble.value}}';
-        $scope.descripcion = '{{form.descripcion.value}}';
-    }
-    $('input, textarea, h3').hover(function(){
-        $(this).parent().addClass('md-input-focused');
-    }, function(){
-        $(this).parent().removeClass('md-input-focused');
-    });
-    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
-    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
-    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
-    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_mueble.value}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
-});
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+$(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+var pos = $(tr).position();
+tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_mueble.value}}');
+tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
+$(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}
+

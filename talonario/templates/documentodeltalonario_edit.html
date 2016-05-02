@@ -11,13 +11,13 @@
 {% if documentodeltalonario_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
 <li class="anteriorBloqueado">
-    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% endif %}
@@ -25,13 +25,13 @@
 {% if documentodeltalonario_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'utalonarios:edit_documentodeltalonario' documentodeltalonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% endif %}
@@ -40,100 +40,25 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.numero}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.estado.id_for_label}}">
-
-    {{form.estado.label}}
-
-</label>
-
-{{form.estado}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.informacion_de_proceso.id_for_label}}">
-
-    {{form.informacion_de_proceso.label}}
-
-</label>
-
-{{form.informacion_de_proceso}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.informacion_de_beneficiari.id_for_label}}">
-
-    {{form.informacion_de_beneficiari.label}}
-
-</label>
-
-{{form.informacion_de_beneficiari}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.numero_final.id_for_label}}">
-
-    {{form.numero_final.label}}
-
-</label>
-
-{{form.numero_final}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch" for="{{form.talonario.id_for_label}}">
-
-    {{form.talonario.label}}
-
-</span>
-
-{{form.talonario}}
-
-</md-input-container>
-
-
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.numero = '{{form.numero.value}}';
-    $scope.estado = '{{form.estado.value}}';
-    $scope.informacion_de_proceso = '{{form.informacion_de_proceso.value}}';
-    $scope.informacion_de_beneficiari = '{{form.informacion_de_beneficiari.value}}';
-    $scope.numero_final = '{{form.numero_final.value}}';
-    $scope.talonario = '{{form.talonario.value}}';
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.numero = '{{form.numero.value}}';
-        $scope.estado = '{{form.estado.value}}';
-        $scope.informacion_de_proceso = '{{form.informacion_de_proceso.value}}';
-        $scope.informacion_de_beneficiari = '{{form.informacion_de_beneficiari.value}}';
-        $scope.numero_final = '{{form.numero_final.value}}';
-        $scope.talonario = '{{form.talonario.value}}';
-    };
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
-});
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.numero.value}}');
     tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.estado.value}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.informacion_de_proceso.value}}');
     tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.informacion_de_beneficiari.value}}');
     tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.numero_final.value}}');
     tr.children('td[id=td6_{{form.instance.pk}}]').text('{{documentodeltalonario.talonario}}');
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

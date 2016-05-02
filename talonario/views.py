@@ -126,10 +126,12 @@ class TipoDeDocumentoImpresoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de documento impreso '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('utalonarios:list_tipodedocumentoimpreso'))
                 return HttpResponseRedirect(reverse('utalonarios:edit_tipodedocumentoimpreso',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de documento impreso '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect('utalonarios:list_tipodedocumentoimpreso')
 
         return render(request, self.template_name, {'form': form})
@@ -256,13 +258,32 @@ class TipoDeDocumentoImpresoDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Tipo de documento impreso " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app talonario
@@ -418,10 +439,12 @@ class TalonarioView(View):
             agregartrazabilidad.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Talonario '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('utalonarios:list_talonario'))
                 return HttpResponseRedirect(reverse('utalonarios:edit_talonario',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Talonario '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('utalonarios:list_talonario'))
 
         return render(request, self.template_name, {'form': form})
@@ -554,13 +577,32 @@ class TalonarioDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Talonario " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app documento del talonario
@@ -695,10 +737,12 @@ class DocumentoDelTalonarioView(View):
             agregarestado.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Documento del talonario '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('utalonarios:list_documentodeltalonario'))
                 return HttpResponseRedirect(reverse('utalonarios:edit_documentodeltalonario',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Documento del talonario '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('utalonarios:list_documentodeltalonario'))
 
         return render(request, self.template_name, {'form': form})
@@ -825,13 +869,32 @@ class DocumentoDelTalonarioDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Documento del talonario " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app trazabilidad talonario

@@ -11,13 +11,13 @@
     {% if estadoderegistro_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'uestadoderegistros:edit_estadoderegistro' estadoderegistro_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+            <a href="{% url 'uestadoderegistros:edit_estadoderegistro' estadoderegistro_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% else %}
 
         <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% endif %}
@@ -25,13 +25,13 @@
     {% if estadoderegistro_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'uestadoderegistros:edit_estadoderegistro' estadoderegistro_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="{% url 'uestadoderegistros:edit_estadoderegistro' estadoderegistro_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
         <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% endif %}
@@ -40,21 +40,23 @@
 
 {% block ficha_basica %}
 
-{{ form.as_md }}
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.estado = '{{form.estado.value}}';
-    $scope.model = '{{form.model.value}}';
-    $scope.descripcion = '{{form.descripcion.value}}';
-    $scope.observacion = '{{form.observacion.value}}';
-    $('#id_estado').focus();
-    $('#id_estado').parent().addClass('md-input-focused');
-});
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+$(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+var pos = $(tr).position();
+tr.children('td[id=td1_{{form.instance.pk}}]').text('{{estadoderegistro.estado}}');
+tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.model.value}}');
+tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
+tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.observacion.value|truncatechars:"30"}}');
+$(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

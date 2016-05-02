@@ -1,25 +1,25 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Especificación de Inmueble
+'Agregar especificación de inmueble'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
+{% block paginacionFicha %}{% endblock paginacionFicha %}
 
-Agregar especificación de inmueble
+{% block ficha_basica %}
 
-{% endblock titulo_form %}
+{{ form.as_p }}
 
-{% block nav_lista_form %}{% endblock nav_lista_form %}
+{% endblock ficha_basica %}
 
-{% block cuerpo_form %}
+{% block jsFicha %}
 
-  {{ form.as_p }}
-
-<script type="text/javascript">
-document.getElementById('id_tipo_de_inmueble').focus()
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
 </script>
 
-{% endblock cuerpo_form %}
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock jsFicha %}
