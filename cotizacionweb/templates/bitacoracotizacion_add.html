@@ -20,18 +20,11 @@ Agregar un bitácora cotización
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.cotizacion = '{{form.cotizacion.value}}';
-    $scope.usuario_registro = '{{form.usuario_registro.value}}';
-    $scope.origen_de_registro = '{{form.origen_de_registro.value}}';
-    $('#observacion').focus();
-    $('#observacion').parent().addClass('md-input-focused');
-
-  });
+$('form').removeClass('hidden');
 </script>
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

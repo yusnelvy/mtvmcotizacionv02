@@ -28,6 +28,14 @@ app.controller('controlForm',function($scope){
       $('#id_sexo').parent().addClass('md-input-focused');
   });
 </script>
-<style>.paginacionEdit{height: 0;}</style>
 
 {% endblock moduloAngular %}
+{% block js_inferior %}
+
+<script type="text/javascript">
+
+$('form').removeClass('hidden');
+
+</script>
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}

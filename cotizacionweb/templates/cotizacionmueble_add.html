@@ -20,21 +20,9 @@ Agregar un mueble a la cotización
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
-
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_especificacion_de_mueble').focus();
-      $('#id_especificacion_de_mueble').parent().addClass('md-input-focused');
-    });
-
-</script>
-<style>.paginacionEdit{height: 0;}</style>
-
-{% endblock moduloAngular %}
-
 {% block js_inferior %}
 <script>
+$('form').removeClass('hidden');
 $("#id_especificacion_de_mueble").on("change", function() {
     id_especificacion_de_mueble = $("#id_especificacion_de_mueble").val();
     $.get('/cotizacionweb/cotizacion_mueble/nuevo',

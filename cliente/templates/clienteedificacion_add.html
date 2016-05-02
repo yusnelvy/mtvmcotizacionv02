@@ -112,13 +112,10 @@ Agregar edificación
   </fieldset>
 
 {% endblock cuerpo_form %}
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.direccion="{{form.direccion.value}}";
-  });
+$('form').removeClass('hidden');
 </script>
-<style>.paginacionEdit{height: 0;}</style>
-
-{% endblock moduloAngular %}
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}

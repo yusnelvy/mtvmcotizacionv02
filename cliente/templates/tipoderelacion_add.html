@@ -20,14 +20,11 @@ Agregar un tipo de relación
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_tipo_de_relacion').focus();
-      $('#id_tipo_de_relacion').parent().addClass('md-input-focused');
-  });
+$('form').removeClass('hidden');
+$('#id_tipo_de_relacion').focus();
 </script>
-<style>.paginacionEdit{height: 0;}</style>
-
-{% endblock moduloAngular %}
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}

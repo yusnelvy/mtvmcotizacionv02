@@ -41,14 +41,10 @@ Agregar ambientes a la cotización
         </form>
 
 {% endblock cuerpo_form %}
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_concepto').focus();
-      $('#id_concepto').parent().addClass('md-input-focused');
-  });
+$('form').removeClass('hidden');
 </script>
-<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

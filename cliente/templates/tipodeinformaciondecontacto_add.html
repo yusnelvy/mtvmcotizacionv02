@@ -20,14 +20,11 @@ Agregar tipo de información de contacto
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_tipo_de_informacion_de_contacto').focus();
-      $('#id_tipo_de_informacion_de_contacto').parent().addClass('md-input-focused');
-  });
+$('form').removeClass('hidden');
+$('#id_tipo_de_informacion_de_contacto').focus();
 </script>
-<style>.paginacionEdit{height: 0;}</style>
-
-{% endblock moduloAngular %}
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}

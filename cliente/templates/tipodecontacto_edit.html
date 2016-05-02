@@ -44,8 +44,13 @@ Editar el tipo de contacto {{form.tipo_de_relacion.value|lower}}
 
 {{ form.as_p }}
 
+{% endblock cuerpo_form %}
+{% block js_inferior %}
+
 <script type="text/javascript">
+
+$('form').removeClass('hidden');
 document.getElementById('id_tipo_de_relacion').focus()
 </script>
-
-{% endblock cuerpo_form %}
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}

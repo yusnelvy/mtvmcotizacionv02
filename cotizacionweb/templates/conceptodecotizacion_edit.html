@@ -69,9 +69,10 @@
 </md-input-container>
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block js_inferior %}
 
 <script type="text/javascript">
+$('form').removeClass('hidden');
 app.controller('controlForm',function($scope){
     $scope.concepto = '{{form.concepto.value}}';
     $scope.descripcion = '{{form.descripcion.value}}';
@@ -94,4 +95,4 @@ app.controller('controlForm',function($scope){
 });
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock js_inferior %}

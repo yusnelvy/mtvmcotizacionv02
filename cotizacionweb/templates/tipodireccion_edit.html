@@ -60,27 +60,10 @@
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.tipo_direccion = '{{form.tipo_direccion.value}}';
-    $scope.descripcion = '{{form.descripcion.value}}';
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.tipo_direccion = '{{form.tipo_direccion.value}}';
-        $scope.descripcion = '{{form.descripcion.value}}';
-    };
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
-
-    $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
-    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
-    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
-    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_direccion.value}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
-});
+$('form').removeClass('hidden');
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock js_inferior %}

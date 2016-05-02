@@ -20,14 +20,10 @@ Agregar un fecha cotización
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_nombre_fecha').focus();
-      $('#id_nombre_fecha').parent().addClass('md-input-focused');
-  });
+$('form').removeClass('hidden');
 </script>
-<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

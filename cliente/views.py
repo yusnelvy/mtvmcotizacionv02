@@ -1894,6 +1894,7 @@ class ClienteDireccionUpdate(UpdateView):
         redirect_to = self.request.REQUEST.get('next', '')
         order_by = self.request.REQUEST.get('order_by', '')
         page = self.request.REQUEST.get('page', '')
+        clientedireccionget = self.request.GET.get('clientedireccion')
 
         if order_by:
             redirect_to = redirect_to + '&order_by=' + order_by
@@ -1908,6 +1909,8 @@ class ClienteDireccionUpdate(UpdateView):
                 page = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
             elif variable[1].split("=")[0] == 'order_by':
                 order_by = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
+            elif variable[1].split("=")[0] == 'clientedireccion':
+                clientedireccionget = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
 
         if order_by:
             lista_clientedireccion = Direccion.objects.all().order_by(order_by)
@@ -1971,7 +1974,7 @@ class ClienteDireccionUpdate(UpdateView):
         context['clientedireccion_previous'] = clientedireccion_previous
         context['clientedireccion_next'] = clientedireccion_next
 
-        direccion = ClienteDireccion.objects.filter(id=self.request.GET.get('clientedireccion'))
+        direccion = ClienteDireccion.objects.filter(id=clientedireccionget)
         context['titulo'] = direccion[0].titulo_de_direccion
         return context
 
@@ -1981,6 +1984,11 @@ class ClienteDireccionUpdate(UpdateView):
 
         clientedireccion = self.request.GET.get('clientedireccion', '')
         titulo = self.request.POST.get('titulo_de_direccion', '')
+
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+            if variable[1].split("=")[0] == 'clientedireccion':
+                clientedireccion = self.request.REQUEST.get('next', '').split("?")[1].split("=")[1]
 
         clientedireccion = ClienteDireccion.objects.filter(id=clientedireccion)
 

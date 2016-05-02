@@ -20,14 +20,10 @@ Agregar un tipo dirección
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_tipo_direccion').focus();
-      $('#id_tipo_direccion').parent().addClass('md-input-focused');
-  });
+$('form').removeClass('hidden');
 </script>
-<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

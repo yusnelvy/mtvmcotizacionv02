@@ -33,27 +33,20 @@ Agregar inmueble
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope, $http){
-    {% if form.edificacion.value %}
-    $scope.edificacion = '{{form.edificacion.value}}';
-    {% endif %}
-    $scope.pisos_por_escalera = '{{form.pisos_por_escalera.value}}';
-    $scope.numero_de_plantas = '{{form.numero_de_plantas.value}}';
-    $scope.total_m2 = '{{form.total_m2.value}}';
-    $('#id_edificacion').focus();
+$('form').removeClass('hidden');
+$('#id_edificacion').focus();
     $('#id_edificacion').after("<a title='Agregar' data-toggle='tooltip' data-placement='right' href='{% url 'uclientes:add_edificacion' %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoPlus'></a>");
-    $scope.selectChanged = function(){
+$scope.selectChanged = function(){
         id_especificacion_de_inmueble = $scope.especificacion_de_inmueble;
         $http.get("/cliente/inmueble/exchange/"+id_especificacion_de_inmueble+"/")
         .success(function(result) {
             $scope.cantidad_de_ambientes = result.cant_ambiente;
         });
     };
-});
-</script>
-<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+</script>
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}

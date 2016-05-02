@@ -116,28 +116,11 @@ Edificación
 
 {% block contenido_relacionado %}{% endblock contenido_relacionado %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope, $http){
-    $scope.direccion="{{form.direccion.value}}";
-    $scope.nombre_de_edificio="{{form.nombre_de_edificio.value}}";
-    $scope.tipo_de_edificacion="{{form.tipo_de_edificacion.value}}";
-    {% if form.cantidad_de_pisos.value %}
-        $scope.cantidad_de_pisos="{{form.cantidad_de_pisos.value}}";
-    {% endif %}
-    {% if form.cantidad_de_inmuebles_por_piso.value %}
-        $scope.cantidad_de_inmuebles_por_piso="{{form.cantidad_de_inmuebles_por_piso.value}}";
-    {% endif %}
-
-
-    $scope.total_inmuebles="{{form.total_inmuebles.value}}";
-    $scope.rampa={{form.rampa.value|lower}};
-    $scope.distancia_del_vehiculo="{{form.distancia_del_vehiculo.value}}";
-    $scope.escalera_estrecha={{form.escalera_estrecha.value|lower}};
-    $scope.escalera_inclinada={{form.escalera_inclinada.value|lower}};
-    $scope.escalon_grande={{form.escalon_grande.value|lower}};
-    $('.ascensor_set .delete-row').click(function(){
+$('form').removeClass('hidden');
+$('.ascensor_set .delete-row').click(function(){
         id_remove = $(this).parent().children('input[type=hidden]').val();
         if (id_remove!=''){
             $http.get("/cliente/ascensor/delete/"+id_remove+"/")
@@ -159,8 +142,6 @@ app.controller('controlForm',function($scope, $http){
             }
         });
     });
-  });
 </script>
-<style>.paginacionEdit{height: 0;}</style>
-
-{% endblock moduloAngular %}
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}

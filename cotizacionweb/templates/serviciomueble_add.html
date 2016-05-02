@@ -47,12 +47,10 @@ Agregar servicios a el mueble {{ mueble.nombre_especificacion_de_mueble}}
 </form>
 
 {% endblock cuerpo_form %}
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-});
+$('form').removeClass('hidden');
 </script>
-<style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

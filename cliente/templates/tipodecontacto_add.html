@@ -18,8 +18,11 @@ Agregar tipo contacto
 
   {{ form.as_p }}
 
+{% endblock cuerpo_form %}
 <script type="text/javascript">
+
+$('form').removeClass('hidden');
 document.getElementById('id_tipo_de_relacion').focus()
 </script>
-
-{% endblock cuerpo_form %}
+<style>.paginacionEdit{height: 0;display: none;}</style>
+{% endblock js_inferior %}
