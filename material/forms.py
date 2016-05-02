@@ -8,7 +8,7 @@ from base.forms import BaseFormMd
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms.models import inlineformset_factory
 from base.forms import BaseFormMd, SelectMD, Checkbox
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Textarea, Select
 
 class MaterialForm(ModelForm):
     """
@@ -31,11 +31,13 @@ class MaterialForm(ModelForm):
             'cotizable': ('¿El material es cotizable?')
         }
         widgets = {
-            'descripcion': TextInput()
+            'tipo_de_material': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
+            'material': TextInput(attrs={'required': 'required', 'tabindex':'2'}),
+            'descripcion': Textarea(attrs={'tabindex': '3', 'cols': '1', 'rows': '1'}),
             }
 
 
-class TipoDeMaterialForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class TipoDeMaterialForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -46,6 +48,10 @@ class TipoDeMaterialForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'tipo_de_material': ('Nombre del tipo de material'),
             'descripcion': ('Descripción del tipo de material')
         }
+        widgets = {
+            'tipo_de_material': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            }
 
 
 class PrecioDeMaterialForm(NgModelFormMixin, NgModelForm, BaseFormMd):

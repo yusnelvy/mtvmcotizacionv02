@@ -11,25 +11,25 @@
     {% if talonario_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'utalonarios:edit_talonario' talonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+            <a href="{% url 'utalonarios:edit_talonario' talonario_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% else %}
 
-        <li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
+        <li class="anteriorBloqueado"><a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a></li>
 
     {% endif %}
 
     {% if talonario_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'utalonarios:edit_talonario' talonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="{% url 'utalonarios:edit_talonario' talonario_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
 <li class="siguienteBloqueado">
-  <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+  <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
     {% endif %}
@@ -38,145 +38,20 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.talonario}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.descripcion.id_for_label}}">
-
-    {{form.descripcion.label}}
-
-</label>
-
-{{form.descripcion}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.prefijo.id_for_label}}">
-
-    {{form.prefijo.label}}
-
-</label>
-
-{{form.prefijo}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.separador.id_for_label}}">
-
-    {{form.separador.label}}
-
-</label>
-
-{{form.separador}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.numero_desde.id_for_label}}">
-
-    {{form.numero_desde.label}}
-
-</label>
-
-{{form.numero_desde}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.numero_hasta.id_for_label}}">
-
-    {{form.numero_hasta.label}}
-
-</label>
-
-{{form.numero_hasta}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.separado_sufijo.id_for_label}}">
-
-    {{form.separado_sufijo.label}}
-
-</label>
-
-{{form.separado_sufijo}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch" for="{{form.numeracion_correlativa.id_for_label}}">
-
-    {{form.numeracion_correlativa.label}}
-
-</span>
-
-{{form.numeracion_correlativa}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.numero_de_documento.id_for_label}}">
-
-    {{form.numero_de_documento.label}}
-
-</label>
-
-{{form.numero_de_documento}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch"  for="{{form.cantidad_fija.id_for_label}}">
-
-    {{form.cantidad_fija.label}}
-
-</span>
-
-{{form.cantidad_fija}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-  $scope.talonario = '{{form.talonario.value}}';
-  $scope.descripcion = '{{form.descripcion.value}}';
-  $scope.prefijo = '{{form.prefijo.value}}';
-  $scope.separador = '{{form.separador.value}}';
-  $scope.numero_desde = '{{form.numero_desde.value}}';
-  $scope.numero_hasta = '{{form.numero_hasta.value}}';
-  $scope.separado_sufijo = '{{form.separado_sufijo.value}}';
-  $scope.numeracion_correlativa = {{form.numeracion_correlativa.value|lower}};
-  $scope.numero_de_documento = '{{form.numero_de_documento.value}}';
-  $scope.cantidad_fija = {{form.cantidad_fija.value|lower}};
-  $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.talonario = '{{form.talonario.value}}';
-        $scope.descripcion = '{{form.descripcion.value}}';
-        $scope.prefijo = '{{form.prefijo.value}}';
-        $scope.separador = '{{form.separador.value}}';
-        $scope.numero_desde = '{{form.numero_desde.value}}';
-        $scope.numero_hasta = '{{form.numero_hasta.value}}';
-        $scope.separado_sufijo = '{{form.separado_sufijo.value}}';
-        $scope.numeracion_correlativa = {{form.numeracion_correlativa.value|lower}};
-        $scope.numero_de_documento = '{{form.numero_de_documento.value}}';
-        $scope.cantidad_fija = {{form.cantidad_fija.value|lower}};
-    };
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
-    setTimeout(function() {
-        $("input[name='numeracion_correlativa']").bootstrapSwitch();
-        $("input[name='cantidad_fija']").bootstrapSwitch();
-    }, 100);
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.talonario.value}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.prefijo.value}}');
     tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.separador.value}}');
     tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.numero_desde.value}}');
@@ -185,7 +60,8 @@ app.controller('controlForm',function($scope){
     tr.children('td[id=td8_{{form.instance.pk}}]').text('{{form.numeracion_correlativa.value|yesno:"Numeración correlativa,No numeración correlativa"}}');
     tr.children('td[id=td9_{{form.instance.pk}}]').text('{{form.numero_de_documento.value}}');
     tr.children('td[id=td10_{{form.instance.pk}}]').text('{{form.cantidad_fija.value|yesno:"Cantidad fija,No es cantidad fija"}}');
-});
+    tr.children('td[id=td11_{{form.instance.pk}}]').text('{{talonario.tipo_de_documento_impreso}}');
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

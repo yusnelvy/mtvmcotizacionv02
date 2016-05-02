@@ -1,29 +1,23 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Servicio
+'Ficha del precio del servicio: {{form.servicio.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el precio del servicio: {{form.servicio.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
     {% if preciodeservicio_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'uservicios:edit_preciodeservicio' preciodeservicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+            <a href="{% url 'uservicios:edit_preciodeservicio' preciodeservicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% else %}
 
         <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% endif %}
@@ -31,48 +25,51 @@ Editar el precio del servicio: {{form.servicio.value|lower}}
     {% if preciodeservicio_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'uservicios:edit_preciodeservicio' preciodeservicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="{% url 'uservicios:edit_preciodeservicio' preciodeservicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
 <li class="siguienteBloqueado">
-  <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+  <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
     {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+{{ form.as_p }}
 
-{% endblock cuerpo_form %}
+{% endblock ficha_basica %}
 
-{% block moduloAngular %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-  $scope.servicio = '{{form.servicio.value}}';
-  $scope.user_aprobador = '{{form.user_aprobador.value}}';
-  $scope.user_preparador = '{{form.user_preparador.value}}';
-  $scope.fecha_aprobacion = '{{form.fecha_aprobacion.value}}';
-  $scope.aprobado = {{form.aprobado.value|lower}};
-  $scope.infinito = {{form.infinito.value|lower}};
-  $scope.fecha_hasta = '{{form.fecha_hasta.value}}';
-  $scope.fecha_desde = '{{form.fecha_desde.value}}';
-  $scope.redondeo = '{{form.redondeo.value}}';
-  $scope.porcentaje_3 = '{{form.porcentaje_3.value}}';
-  $scope.intervalo_3 = '{{form.intervalo_3.value}}';
-  $scope.porcentaje_2 = '{{form.porcentaje_2.value}}';
-  $scope.intervalo_2 = '{{form.intervalo_2.value}}';
-  $scope.porcentaje_1 = '{{form.porcentaje_1.value}}';
-  $scope.intervalo_1 = '{{form.intervalo_1.value}}';
-  $scope.cantidad_de_gracia = '{{form.cantidad_de_gracia.value}}';
-  $scope.precio_base = '{{form.precio_base.value}}';
-  $('#id_servicio').focus();
-});
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+$(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+var pos = $(tr).position();
+tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.precio_base.value}}');
+tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.cantidad_de_gracia.value}}');
+tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.intervalo_1.value}}');
+tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.porcentaje_1.value}} %');
+tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.intervalo_2.value}}');
+tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.porcentaje_2.value}} %');
+tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.intervalo_3.value}}');
+tr.children('td[id=td8_{{form.instance.pk}}]').text('{{form.porcentaje_3.value}} %');
+tr.children('td[id=td9_{{form.instance.pk}}]').text('{{form.redondeo.value}}');
+tr.children('td[id=td10_{{form.instance.pk}}]').text('{{form.fecha_desde.value}}');
+tr.children('td[id=td11_{{form.instance.pk}}]').text('{{form.fecha_hasta.value}}');
+tr.children('td[id=td12_{{form.instance.pk}}]').text('{{form.infinito.value|yesno:"Infinito,No infinito"}}');
+tr.children('td[id=td13_{{form.instance.pk}}]').text('{{preciodeservicio.user_preparador}}');
+tr.children('td[id=td14_{{form.instance.pk}}]').text('{{preciodeservicio.user_aprobador}}');
+tr.children('td[id=td15_{{form.instance.pk}}]').text('{{form.fecha_aprobacion.value}}');
+tr.children('td[id=td16_{{form.instance.pk}}]').text('{{form.aprobado.value|yesno:"Aprobado,No aprobado"}}');
+tr.children('td[id=td17_{{form.instance.pk}}]').text('{{preciodeservicio.servicio}}');
+$(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

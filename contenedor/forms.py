@@ -3,14 +3,14 @@ Docstring documentación pendiente
 
 """
 
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Textarea
 from contenedor.models import Contenedor, ContenedorTipicoPorMueble, \
     TipoDeContenido
 from djangular.forms import NgModelFormMixin, NgModelForm
 from base.forms import BaseFormMd, SelectMD, Checkbox
 
 
-class ContenedorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class ContenedorForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -18,8 +18,8 @@ class ContenedorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Contenedor
         fields = '__all__'
         widgets = {
-            'contenedor': TextInput(attrs={'required': 'required'}),
-            'descripcion': TextInput(attrs={'required': 'required'})
+            'contenedor': TextInput(attrs={'required': 'required', 'tabindex': '1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
             }
         labels = {
             'descripcion': ('Descripción del contenedor'),

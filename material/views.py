@@ -128,10 +128,12 @@ class TipoDeMaterialView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de materiaal '" + str(id_reg) + "'  agregado con éxito.",
+                                 extra_tags=reverse('umateriales:list_tipodematerial'))
                 return HttpResponseRedirect(reverse('umateriales:edit_tipodematerial',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de materiaal '" + str(id_reg) + "'  agregado con éxito.")
                 return HttpResponseRedirect(reverse('umateriales:list_tipodematerial'))
 
         return render(request, self.template_name, {'form': form})
@@ -258,13 +260,32 @@ class TipoDeMaterialDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Tipo de material " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app material
@@ -410,10 +431,12 @@ class MaterialView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Material agregado con éxito.",
+                                 extra_tags=reverse('umateriales:list_material'))
                 return HttpResponseRedirect(reverse('umateriales:edit_material',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Material '" + str(id_reg) + "'  agregado con éxito.")
                 return HttpResponseRedirect(reverse('umateriales:list_material'))
 
         return render(request, self.template_name, {'form': form})
@@ -540,10 +563,29 @@ class MaterialDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Material eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})

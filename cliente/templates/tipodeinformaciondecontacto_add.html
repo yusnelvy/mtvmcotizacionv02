@@ -1,30 +1,26 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Cliente
+'Agregar tipo de información de contacto'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
+{% block paginacionFicha %}{% endblock paginacionFicha %}
 
-Agregar tipo de información de contacto
+{% block ficha_basica %}
 
-{% endblock titulo_form %}
+{{ form.as_p }}
 
-{% block nav_lista_form %}{% endblock nav_lista_form %}
+{% endblock ficha_basica %}
 
-{% block cuerpo_form %}
+{% block jsFicha %}
 
-  {{ form.as_md }}
-
-{% endblock cuerpo_form %}
-
-{% block js_inferior %}
-
-<script type="text/javascript">
-$('form').removeClass('hidden');
-$('#id_tipo_de_informacion_de_contacto').focus();
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
 </script>
-<style>.paginacionEdit{height: 0;display: none;}</style>
-{% endblock js_inferior %}
+
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock jsFicha %}
+

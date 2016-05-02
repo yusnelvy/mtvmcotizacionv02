@@ -5,10 +5,11 @@ Docstring documentación pendiente
 from trabajador.models import Trabajador, CargoTrabajador
 from base.forms import BaseFormMd
 from djangular.forms import NgModelFormMixin, NgModelForm
-from base.forms import BaseFormMd, SelectMD, Checkbox
+from base.forms import BaseFormMd, SelectMD, Checkbox, Select
+from django.forms import ModelForm, TextInput, Textarea
 
 
-class TrabajadorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class TrabajadorForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -16,7 +17,11 @@ class TrabajadorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Trabajador
         fields = 'cargo_trabajador', 'dni', 'nombre', 'apellido', 'direccion', 'telefono', 'email', 'volumen_en_camion'
         widgets = {
-            'cargo_trabajador': SelectMD(attrs={'tabindex': '1'})
+            'dni': TextInput(attrs={'required': 'required', 'tabindex':'2'}),
+            'nombre': Textarea(attrs={'required': 'required', 'tabindex': '3', 'cols': '1', 'rows': '1'}),
+            'apellido': Textarea(attrs={'required': 'required', 'tabindex': '4', 'cols': '1', 'rows': '1'}),
+            'direccion': Textarea(attrs={'required': 'required', 'tabindex': '5', 'cols': '1', 'rows': '1'}),
+            'cargo_trabajador': Select(attrs={'tabindex': '1'})
             }
         labels = {
             'cargo_trabajador': ('Nombre del cargo del trabajador'),
@@ -30,7 +35,7 @@ class TrabajadorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         }
 
 
-class CargoTrabajadorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class CargoTrabajadorForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -38,7 +43,9 @@ class CargoTrabajadorForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = CargoTrabajador
         fields = 'cargo_padre', 'cargo_trabajador', 'descripcion'
         widgets = {
-            'cargo_padre': SelectMD(attrs={'tabindex': '1'})
+            'cargo_trabajador': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            'cargo_padre': Select(attrs={'tabindex': '3'})
             }
         labels = {
             'cargo_padre': ('Nombre del cargo padre'),

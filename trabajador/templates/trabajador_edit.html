@@ -11,13 +11,13 @@
 {% if trabajador_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'utrabajadores:edit_trabajador' trabajador_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'utrabajadores:edit_trabajador' trabajador_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
 <li class="anteriorBloqueado">
-    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% endif %}
@@ -25,13 +25,13 @@
 {% if trabajador_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'utrabajadores:edit_trabajador' trabajador_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'utrabajadores:edit_trabajador' trabajador_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-  <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+  <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% endif %}
@@ -40,123 +40,26 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.dni}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.nombre.id_for_label}}">
-
-    {{form.nombre.label}}
-
-</label>
-
-{{form.nombre}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.apellido.id_for_label}}">
-
-    {{form.apellido.label}}
-
-</label>
-
-{{form.apellido}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.direccion.id_for_label}}">
-
-    {{form.direccion.label}}
-
-</label>
-
-{{form.direccion}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.telefono.id_for_label}}">
-
-    {{form.telefono.label}}
-
-</label>
-
-{{form.telefono}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.email.id_for_label}}">
-
-    {{form.email.label}}
-
-</label>
-
-{{form.email}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.volumen_en_camion.id_for_label}}">
-
-    {{form.volumen_en_camion.label}}
-
-</label>
-
-{{form.volumen_en_camion}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.cargo_trabajador.id_for_label}}">
-
-    {{form.cargo_trabajador.label}}
-
-</label>
-
-{{form.cargo_trabajador}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-  $scope.cargo_trabajador = '{{form.cargo_trabajador.value}}';
-  $scope.dni = '{{form.dni.value}}';
-  $scope.nombre = '{{form.nombre.value}}';
-  $scope.apellido = '{{form.apellido.value}}';
-  $scope.direccion = '{{form.direccion.value}}';
-  $scope.telefono = '{{form.telefono.value}}';
-  $scope.email = '{{form.email.value}}';
-  $scope.volumen_en_camion = '{{form.volumen_en_camion.value}}';
-  $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.cargo_trabajador = '{{form.cargo_trabajador.value}}';
-        $scope.dni = '{{form.dni.value}}';
-        $scope.nombre = '{{form.nombre.value}}';
-        $scope.apellido = '{{form.apellido.value}}';
-        $scope.direccion = '{{form.direccion.value}}';
-        $scope.telefono = '{{form.telefono.value}}';
-        $scope.email = '{{form.email.value}}';
-        $scope.volumen_en_camion = '{{form.volumen_en_camion.value}}';
-    }
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.dni.value}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.nombre.value|truncatechars:"40"}}');
-    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.apellido.value|truncatechars:"40"}}');
-    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.direccion.value|truncatechars:"40"}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.nombre.value|truncatechars:"30"}}');
+    tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.apellido.value|truncatechars:"30"}}');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.direccion.value|truncatechars:"30"}}');
     tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.telefono.value}}');
     tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.email.value}}');
     tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.volumen_en_camion.value}}');
-});
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

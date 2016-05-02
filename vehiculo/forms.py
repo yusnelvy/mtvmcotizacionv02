@@ -6,9 +6,10 @@ from vehiculo.models import Vehiculo, DetalleDeVehiculo, ChoferAsignado
 from base.forms import BaseFormMd
 from djangular.forms import NgModelFormMixin, NgModelForm
 from base.forms import BaseFormMd, SelectMD, Checkbox
+from django.forms import ModelForm, TextInput, Textarea, Select
 
 
-class VehiculoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class VehiculoForm(ModelForm):
     """
 
     Docstring documentación pendiente
@@ -26,7 +27,7 @@ class VehiculoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         }
 
 
-class DetalleDeVehiculoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class DetalleDeVehiculoForm(ModelForm):
     """
 
     Docstring documentación pendiente
@@ -35,7 +36,8 @@ class DetalleDeVehiculoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = DetalleDeVehiculo
         fields = '__all__'
         widgets = {
-            'vehiculo': SelectMD(attrs={'required': 'required', 'tabindex': '1'})
+            'vehiculo': Select(attrs={'required': 'required', 'tabindex': '1'}),
+            'observacion': Textarea(attrs={'tabindex': '10', 'cols': '1', 'rows': '1'})
             }
         labels = {
             'vehiculo': ('Nombre del vehículo'),

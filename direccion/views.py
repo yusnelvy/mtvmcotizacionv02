@@ -128,7 +128,8 @@ class PaisView(View):
             if 'regEdit' in request.POST:
 
                 # <process form cleaned data>
-                messages.success(self.request, "País '" + str(id_reg) + "' agregado con éxito.")
+                messages.success(self.request, "País '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_pais'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_pais',
                                                     args=(id_reg.id,)))
             else:
@@ -260,14 +261,32 @@ class PaisDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "País '" + str(self.obj) + "' eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Pais " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app provincia
@@ -388,7 +407,8 @@ class ProvinciaView(View):
             if 'regEdit' in request.POST:
 
                 # <process form cleaned data>
-                messages.success(self.request, "Provincia '" + str(id_reg) + "' agregado con éxito.")
+                messages.success(self.request, "Provincia '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_provincia'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_provincia',
                                                     args=(id_reg.id,)))
             else:
@@ -520,14 +540,32 @@ class ProvinciaDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Provincia '" + str(self.object) + "' eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Provincia " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app ciudad
@@ -648,7 +686,8 @@ class CuidadView(View):
             if 'regEdit' in request.POST:
 
                 # <process form cleaned data>
-                messages.success(self.request, "Ciudad '" + str(id_reg) + "' registrado con éxito.")
+                messages.success(self.request, "Ciudad '" + str(id_reg) + "' registrado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_ciudad'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_ciudad',
                                                     args=(id_reg.id,)))
             else:
@@ -780,14 +819,32 @@ class CiudadDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Ciudad '" + str(self.object) + "' eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Ciudad " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app barrio
@@ -910,7 +967,8 @@ class BarrioView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(self.request, "Barrio '" + str(id_reg) + "' registrado con éxito.")
+                messages.success(self.request, "Barrio '" + str(id_reg) + "' registrado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_barrio'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_barrio',
                                                     args=(id_reg.id,)))
             else:
@@ -1042,14 +1100,32 @@ class BarrioDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Barrio '" + str(self.object) + "' eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Barrio " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app direccion
@@ -1257,7 +1333,8 @@ class TipoDeEdificacionView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(self.request, "Tipo de edificación '" + str(id_reg) + "' agregado con éxito.")
+                messages.success(self.request, "Tipo de edificación '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_tipo_de_edificacion'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_tipo_de_edificacion',
                                                     args=(id_reg.id,)))
             else:
@@ -1389,14 +1466,32 @@ class TipoDeEdificacionDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Tipo de edificación '" + str(self.object) + "' eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Tipo de edificación " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app tipo de ascensor
@@ -1511,7 +1606,8 @@ class TipoDeAscensorView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(self.request, "Tipo de ascensor '" + str(id_reg) + "' agregado con éxito.")
+                messages.success(self.request, "Tipo de ascensor '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_tipo_de_ascensor'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_tipo_de_ascensor',
                                                     args=(id_reg.id,)))
             else:
@@ -1643,14 +1739,32 @@ class TipoDeAscensorDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Tipo de ascensor '" + str(self.object) + "' eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Tipo de ascensor " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app tipo de inmueble
@@ -1765,7 +1879,8 @@ class TipoDeInmuebleView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(self.request, "Tipo de inmueble '" + str(id_reg) + "' agregado con éxito.")
+                messages.success(self.request, "Tipo de inmueble '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_tipo_de_inmueble'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_tipo_de_inmueble',
                                                     args=(id_reg.id,)))
             else:
@@ -1897,14 +2012,32 @@ class TipoDeInmuebleDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Tipo de inmueble '" + str(self.object) + "' eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Tipo de inmueble " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app especificacion de inmueble
@@ -2023,10 +2156,12 @@ class EspecificacionDeInmuebleView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Especificación de inmueble '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('udirecciones:list_especificaciondeinmueble'))
                 return HttpResponseRedirect(reverse('udirecciones:edit_especificaciondeinmueble',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Especificación de inmueble '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('udirecciones:list_especificaciondeinmueble'))
 
         return render(request, self.template_name, {'form': form})
@@ -2153,10 +2288,29 @@ class EspecificacionDeInmuebleDelete(DeleteView):
     @transaction.atomic
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Especificación de inmueble " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})

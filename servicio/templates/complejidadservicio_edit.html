@@ -11,25 +11,27 @@
 {% if complejidadservicio_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
-<li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
+<li class="anteriorBloqueado">
+    <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
+</li>
 
 {% endif %}
 
 {% if complejidadservicio_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'uservicios:edit_complejidadservicio' complejidadservicio_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% endif %}
@@ -38,75 +40,21 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.descripcion}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.porcentaje.id_for_label}}">
-
-    {{form.porcentaje.label}}
-
-</label>
-
-{{form.porcentaje}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.servicio.id_for_label}}">
-
-    {{form.servicio.label}}
-
-</label>
-
-{{form.servicio}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch">
-
-{{form.predefinido.label}}
-
-</span >
-
-{{form.predefinido}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.servicio = '{{form.servicio.value}}';
-    $scope.porcentaje = '{{form.porcentaje.value}}';
-    $scope.descripcion = '{{form.descripcion.value}}';
-    $scope.predefinido = {{form.predefinido.value|lower}};
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.servicio = '{{form.servicio.value}}';
-        $scope.porcentaje = '{{form.porcentaje.value}}';
-        $scope.descripcion = '{{form.descripcion.value}}';
-        $scope.predefinido = {{form.predefinido.value|lower}};
-    };
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
-     setTimeout(function() {
-         $("input[name='predefinido']").bootstrapSwitch();
-     }, 100);
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
     tr.children('td[id=td4_{{form.instance.pk}}]').text('{{complejidadservicio.servicio}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
-    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.porcentaje.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.porcentaje.value}} %');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.predefinido.value|yesno:"Predefinido,No predefinido"}}');
-});
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

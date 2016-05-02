@@ -64,6 +64,11 @@
 
 <script type="text/javascript">
 $('form').removeClass('hidden');
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+    $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+    var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_direccion.value}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
 </script>
 
 {% endblock js_inferior %}

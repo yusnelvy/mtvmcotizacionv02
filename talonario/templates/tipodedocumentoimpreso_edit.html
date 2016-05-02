@@ -1,61 +1,58 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Talonario
+'Ficha del tipo de documento impreso: {{form.tipo_de_documento_impreso.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar el tipo de documento impreso: {{form.tipo_de_documento_impreso.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if tipodedocumentoimpreso_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'utalonarios:edit_tipodedocumentoimpreso' tipodedocumentoimpreso_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'utalonarios:edit_tipodedocumentoimpreso' tipodedocumentoimpreso_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
-<li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
+<li class="anteriorBloqueado"><a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a></li>
 
 {% endif %}
 
 {% if tipodedocumentoimpreso_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'utalonarios:edit_tipodedocumentoimpreso' tipodedocumentoimpreso_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'utalonarios:edit_tipodedocumentoimpreso' tipodedocumentoimpreso_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-{{ form.as_md }}
+{{ form.as_p }}
 
-{% endblock cuerpo_form %}
+{% endblock ficha_basica %}
 
-{% block moduloAngular %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.tipo_de_documento_impreso = '{{form.tipo_de_documento_impreso.value}}';
-    $scope.descripcion = '{{form.descripcion.value}}';
-    $('#id_tipo_de_documento_impreso').focus();
-});
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+$(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+var pos = $(tr).position();
+tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_documento_impreso.value}}');
+tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
+$(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

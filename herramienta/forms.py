@@ -6,9 +6,10 @@ Docstring documentación pendiente
 from herramienta.models import Herramienta, DotacionBasicaDeCamion
 from base.forms import BaseFormMd, SelectMD
 from djangular.forms import NgModelFormMixin, NgModelForm
+from django.forms import ModelForm, TextInput, Textarea, Select
 
 
-class HerramientaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class HerramientaForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -16,7 +17,9 @@ class HerramientaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Herramienta
         fields = 'unidad', 'herramienta', 'descripcion', 'volumen_en_camion', 'peso_kg'
         widgets = {
-            'unidad': SelectMD(attrs={'tabindex': '1'})
+            'unidad': Select(attrs={'tabindex': '1'}),
+            'herramienta': TextInput(attrs={'required': 'required', 'tabindex':'2'}),
+            'descripcion': Textarea(attrs={'tabindex': '3', 'cols': '1', 'rows': '1'})
             }
         labels = {
             'unidad': ('Unidad de la herramienta'),
