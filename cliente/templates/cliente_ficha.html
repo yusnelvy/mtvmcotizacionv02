@@ -1,184 +1,214 @@
 {% extends "base.html" %}
+
+{% block acceso_rapido %}
+
+<a title="Volver" class="md-icon-button" href="{% if request.GET.next = None %}../../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
+<span class="iconoVolver"></span>
+</a>
+
+{% endblock acceso_rapido %}
+
 {% block contenido %}
-<div role="tabpanel">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#datos" aria-controls="home" role="tab" data-toggle="tab">Datos del cliente</a></li>
-  </ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="datos">
-      <br>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-            <table class="table table-hover">
-              <tr>
-                <td class="">
-                  <strong> Nombre: </strong>
-                  {{ cliente.nombre }}
-                  <p>
-                    <span>
-                      <strong>CUIT: </strong>
+<br>
+<div class="contenedor animated fadeIn">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="controlFicha">
+        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_cliente' cliente.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+        <span class="iconoGrupoControl"></span>
+      </div>
+      <div class="contenedor">
+        <div class="contenedorFila">
+          <h2>{{cliente.nombre}}</h2>
+          <div class="col-md-12 col-lg-4">
 
-                      {{ cliente.cuit }}
+            {% for i in contacto_cliente %}
 
-                    </span>
+            <p>
+              <small>{{i.tipo_de_informacion_de_contacto}}:</small>
+              {{i.informacion_de_contacto}}
+            </p>
 
-                  </p>
-                  {% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
-                  <p>
-                    <span>
-                      <strong>DNI: </strong>
+            {% endfor %}
 
-                      {{ contacto_cliente.0.contacto.dni }}
+          </div>
+          <div class="col-md-12 col-lg-4">
 
-                    </span>
+            {% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' or cliente.tipo_de_cliente.tipo_de_cliente == 'particular' %}
 
-                  </p>
-                  <p>
-                    <span>
-                      <strong>Sexo: </strong>
+            <p>
+              <strong>DNI: </strong>{{ contacto_cliente.0.contacto.dni }}
+            </p>
+            <p>
+              <strong>Fecha de nacimiento: </strong>{{ contacto_cliente.0.contacto.fecha_nacimiento|date:'m/d/Y' }}
+            </p>
 
-                      {{ contacto_cliente.0.contacto.sexo }}
+            {% else %}
 
-                    </span>
+              <p>
+                <strong>Cuit: </strong>{{ cliente.cuit }}
+              </p>
 
-                  </p>
-                  <p>
-                    <span>
-                      <strong>Estado civil: </strong>
+            {% endif %}
 
-                      {{ contacto_cliente.0.contacto.estado_civil }}
 
-                    </span>
+          </div>
+          <div class="col-md-12 col-lg-4">
 
-                  </p>
-                  {% for i in contacto_cliente %}
+            {% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' or cliente.tipo_de_cliente.tipo_de_cliente == 'particular' %}
 
-                  <p>
-                    <span>
-                      <strong>{{i.tipo_de_informacion_de_contacto}}: </strong>
+            <p>
+              <strong>Sexo: </strong>{{ contacto_cliente.0.contacto.sexo }}
+            </p>
+            <p>
+              <strong>Estado civil: </strong>{{ contacto_cliente.0.contacto.estado_civil }}
+            </p>
 
-                      {{i.informacion_de_contacto}}
+            {% else %}
 
-                    </span>
-                  </p>
-                  {% endfor %}
-                  {% endif %}
-                  <p>
-                    <span>
-                      <strong> Observaciones: </strong>
+            {% endif %}
 
-                      {{ cliente.observaciones }}
+          </div>
+        </div> <strong>Observaciones: </strong>{{ cliente.observaciones }}
+      </div>
+    </div>
+  </div>
+  <legend class="legendas" data-toggle="collapse" href="#contactoCollapse" aria-expanded="false" aria-controls="collapseExample">Personas de contacto de {{cliente.nombre}}.
+  </legend>
 
-                    </span>
+  <div class="collapse {% if contactos %}in{% else %}in{% endif %}" id="contactoCollapse">
 
-                  </p>
-                </td>
+    {% if not contactos %}
 
-                <td>
-                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_cliente' cliente.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
-                </td>
-              </tr>
-              {% if not contactos %}
-              <tr>
-                <td colspan="4">
-                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}" title="Agregar persona de contacto">Agregar persona de contacto
-                </td>
-              </tr>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="contenedor">
+          <div class="contenedorFila">
 
-              {% else %}
+            <a class="btn btn-success hidden-print" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}&next={{request.get_full_path}}" style="float: right;" title="Agregar persona de contacto">Agregar persona de contacto</a>
 
-              <tr>
-                <td class="">
-                  <strong>Persona de contacto: </strong>
-                  {% regroup contactos by contacto as contacto_list %}
-                  <ul>
-                    {% for contacto in contacto_list %}
-                    <li>{{ contacto.grouper }}
-                      <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_contacto' contacto.grouper.id %}?next={{request.get_full_path}}" class="iconoEditar"></a>
-                      <ul>
-                        {% for item in contacto.list %}
-                        <li>{{ item.tipo_de_informacion_de_contacto }}: {{ item.informacion_de_contacto }}</li>
-                        {% endfor %}
-                      </ul>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </td>
-                <td></td>
-                <td></td>
-                <td>
-                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}" class="iconoPlus"></a>
-                </td>
-              </tr>
-              {% endif %}
-              {% if not direcciones %}
-              <tr>
-                <td colspan="4">
-                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cliente.pk}}" title="Agregar dirección">Agregar dirección
-                  </a>
-                </td>
-              </tr>
-
-              {% else %}
-              <tr>
-                <td class="">
-                  <strong>Direcciones: </strong>
-                </td>
-                <td>
-                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cliente.pk}}" class="iconoPlus"></a>
-                </td>
-              </tr>
-              {% for direccion in direcciones %}
-              <tr>
-                <td>
-                {{direccion.direccion.full_direccion}}
-                {% if direccion.edificacion.nombre_de_edificio %}
-                  - {{direccion.edificacion.nombre_de_edificio}}
-                {% endif %}
-                {% if direccion.inmueble.numero_de_inmueble %}
-                  n° {{direccion.inmueble.numero_de_inmueble}}
-                {% endif %}
-
-                </td>
-                <td>
-                  {% if direccion.inmueble.numero_de_inmueble %}
-
-                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_inmueble' direccion.inmueble.pk %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
-
-                  {% else %}
-
-                  <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_inmueble' %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
-
-                  {% endif %}
-                </td>
-
-              {% endfor %}
-              {% endif %}
-            </table>
           </div>
         </div>
       </div>
     </div>
-    <div role="tabpanel" class="tab-pane fade" id="detalle">
-      <br>
-      <div class="panel panel-default">
-        <table class="table table-hover">
-          <tr>
-            <td class="" colspan="2">
-              <strong>Comentario:  </strong>
 
-              {{ cliente.observaciones }}
+    {% else %}
 
-              <a title="Editar" data-toggle="tooltip" data-placement="right" href="../../editar/{{cliente.id}}/" class=""></a>
-            </td>
-          </tr>
-        </table>
+    {% regroup contactos by contacto as contacto_list %}
+
+    {% for contacto in contacto_list %}
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div style="float: right;display" class="controlFicha">
+          <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_contacto' contacto.grouper.id %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+          <span class="iconoGrupoControl"></span>
+        </div>
+        <div class="contenedor">
+          <div class="contenedorFila">
+            <h3>{{ contacto.grouper }}</h3>
+            <div class="col-md-12 col-lg-4">
+              <p>{{contacto.list.0.contacto.tipo_de_relacion}}</p>
+            </div>
+            <div class="col-md-12 col-lg-4">
+
+              {% for item in contacto.list %}
+
+              <p>{{ item.tipo_de_informacion_de_contacto }}: {{ item.informacion_de_contacto }}</p>
+
+              {% endfor %}
+
+            </div>
+            <div class="col-md-12 col-lg-4">
+              <p>Sexo: {{contacto.list.0.contacto.sexo}}</p>
+              <p>Estado civil: {{contacto.list.0.contacto.estado_civil}}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    {% endfor %}
+
+    <legend>
+      <a title="Agregar contacto" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}&next={{request.get_full_path}}" class="iconoPlus" style="left: 97%;"></a>
+    </legend>
+
+    {% endif %}
+
+  </div>
+
+  <legend class="legendas" data-toggle="collapse" href="#direccionesCollapse" aria-expanded="false" aria-controls="collapseExample">
+    Direcciones de {{cliente.nombre}}.
+  </legend>
+  <div id="direccionesCollapse" class="collapse {% if direcciones %}in{% else %}in{% endif %}">
+
+    {% if not direcciones %}
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="contenedor">
+          <div class="contenedorFila">
+
+            <a class="btn btn-success hidden-print" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cliente.pk}}&next={{request.get_full_path}}" title="Agregar dirección" style="float: right;">Agregar dirección</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% else %}
+
+    {% for direccion in direcciones %}
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div style="float: right;display" class="controlFicha">
+
+          {% if direccion.inmueble.numero_de_inmueble %}
+
+          <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_inmueble' direccion.inmueble.pk %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
+
+          {% else %}
+
+          <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_inmueble' %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
+
+          {% endif %}
+
+          <span class="iconoGrupoControl"></span>
+        </div>
+        <div class="contenedor">
+          <div class="contenedorFila">
+
+            <p>{{direccion.direccion.full_direccion}}</p>
+
+            {% if direccion.edificacion.nombre_de_edificio %}
+
+            <p>- {{direccion.edificacion.nombre_de_edificio}}</p>
+
+            {% endif %}
+
+            {% if direccion.inmueble.numero_de_inmueble %}
+
+            <p>n° {{direccion.inmueble.numero_de_inmueble}}</p>
+
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+    <legend>
+      <a title="Agregar dirección" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:add_direccion' %}?cliente={{cliente.pk}}&next={{request.get_full_path}}" class="iconoPlus" style="left: 97%;"></a>
+    </legend>
+
+    {% endif %}
+
   </div>
 </div>
+
 {% endblock contenido %}

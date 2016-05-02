@@ -2,18 +2,18 @@
 
 {% block acceso_rapido %}
 
-<md-button title="Volver" class="md-icon-button" ng-href="../" tabindex="-1">
-<md-icon ng-cloak class="iconoVolver"></md-icon>
-</md-button>
-<md-button title="Nuevo" class="md-icon-button" ng-href="nuevo/" tabindex="-1">
-<md-icon ng-cloak class="iconoPlus"></md-icon>
-</md-button>
-<md-button title="Imprimir" class="md-icon-button" ng-href="#" onclick="window.print();" tabindex="-1">
-<md-icon ng-cloak class="iconoImprimir"></md-icon>
-</md-button>
-<md-button title="Descarga" id ="cmd" class="md-icon-button" ng-href="generar_pdf/">
-    <md-icon ng-cloak class="iconoDescargar"></md-icon>
-</md-button>
+<a title="Volver" class="span-button" ng-href="../" tabindex="-1">
+<span ng-cloak class="iconoVolver"></span>
+</a>
+<a title="Nuevo" class="agregar" data-url="nuevo/" tabindex="-1">
+<span ng-cloak class="iconoPlus"></span>
+</a>
+<a title="Imprimir" class="span-button" ng-href="#" onclick="window.print();" tabindex="-1">
+<span ng-cloak class="iconoImprimir"></span>
+</a>
+<a title="Descarga" id ="cmd" class="span-button" ng-href="generar_pdf/">
+    <span ng-cloak class="iconoDescargar"></span>
+</a>
 
 {% endblock acceso_rapido %}
 
@@ -22,17 +22,20 @@
 <div class="columna12">
     <form method="get" id="frmSearch" action="{{request.get_full_path}}">
         {% csrf_token %}
-        <div ng-controller="buscar">
-            <md-input-container class="buscarEnLista">
-            <label for="search">Buscar...</label>
-            <input ng-model="search" type="search" id="search" name="search" md-autofocus>
-            <md-button type="submit" name="bt-search" style="display: inline-block;position: absolute;top: 20px;right: -15px;" title="Buscar" class="md-icon-button" tabindex="-1" aria-label="User input">
-            <md-icon class="glyphicon glyphicon-search"></md-icon>
-            </md-button>
-            </md-input-container>
+        <div>
+            <div class="buscarEnLista">
+            <label for="search"></label>
+            <input type="search" id="search" name="search" placeholder="Buscar...">
+            <a type="submit" name="bt-search" title="Buscar" class="span-button" tabindex="-1" aria-label="User input">
+            <span class="glyphicon glyphicon-search"></span>
+            </a>
+            </div>
         </div>
     </form>
- 
+    <div class="alertaLista " role="alert" id="mensaje">
+  <button type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <p class="msjSuccess"></p>
+</div>
 {% block titulo_lista %}{% endblock titulo_lista %}
 
 <nav class="paginacionLista">
@@ -55,7 +58,6 @@ function ocultarASCDesc(id){
         $('#-'+id).css('display', 'none');
     }
 }
-document.body.onselectstart = function() { return false; }
 </script>
 </div>
 
@@ -64,11 +66,14 @@ document.body.onselectstart = function() { return false; }
 {% block js_inferior %}
 
 <script>
-    app.controller('buscar',function($scope){
         $('#search').focus();
-        $('#search').parent().addClass('md-input-focused');
-        $scope.search = '{{request.GET.search}}';
-    });
+        {% if request.GET.ficha %}
+
+urlSuccess('{{request.GET.ficha}}');
+sidebarBtn(2);
+actutamanoFrame();
+
+{% endif %}
 </script>
 
 {% endblock js_inferior %}

@@ -68,7 +68,8 @@ class Checkbox(Widget):
         if not (value is True or value is False or value is None or value == ''):
             # Only add the 'value' attribute if a value is non-empty.
             final_attrs['value'] = force_text(value)
-        return format_html('<input{0} />', flatatt(final_attrs))
+        return format_html('<br><input{0}/>', flatatt(final_attrs))
+
 
     def value_from_datadict(self, data, files, name):
         if name not in data:
@@ -111,3 +112,24 @@ class selectSearchMD(Select):
                            option_value,
                            selected_html,
                            force_text(option_label))
+
+class InputFecha(Widget):
+    """
+    Base class for all <input> widgets (except type='checkbox' and
+    type='radio', which are special).
+    """
+    input_type = None  # Subclasses must define this.
+
+    def _format_value(self, value):
+        if self.is_localized:
+            return formats.localize_input(value)
+        return value
+
+    def render(self, name, value, attrs=None):
+        if value is None:
+            value = ''
+        final_attrs = self.build_attrs(attrs)
+        if value != '':
+            # Only add the 'value' attribute if a value is non-empty.
+            final_attrs['value'] = force_text(self._format_value(value))
+        return format_html('<md-datepicker{0} />', flatatt(final_attrs))

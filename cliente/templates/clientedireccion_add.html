@@ -15,21 +15,28 @@ Agregar dirección
 {% block nav_lista_form %}{% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
-  <input id="titulo_de_direccion" name="titulo_de_direccion" type="input" value="titulo dirección">
-  {{ form.as_md }}
+
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-6" style="background: #fff;">
+
+<p>
+    <label for="id_titulo_de_direccion">Titulo de la dirección</label><br>
+    <input id="id_titulo_de_direccion" name="titulo_de_direccion" type="text" value="" required="required">
+</p>
+
+  {{ form.as_p }}
+
+</div>
 
 {% endblock cuerpo_form %}
 
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.pais = '{{form.pais.value}}';
-    $scope.provincia = '{{form.provincia.value}}';
-    $scope.ciudad = '{{form.ciudad.value}}';
-    $('#titulo_de_direccion').focus();
-  });
+$('form').removeClass('hidden');
+    $('#id_titulo_de_direccion').focus();
+
+
 </script>
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

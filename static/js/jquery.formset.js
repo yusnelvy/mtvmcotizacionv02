@@ -66,7 +66,7 @@
                 } else {
                     // Otherwise, just insert the remove button as the
                     // last child element of the form's container:
-                    row.append('<a class="' + options.deleteCssClass + '" href="javascript:void(0)">' + options.deleteText +'</a>');
+                    row.append('<a class="' + options.deleteCssClass + '" href="javascript:void(0)" title="Eliminar" data-toggletooltip="tooltip" data-placement="left">' + options.deleteText +'</a>');
                 }
                 // Check if we're under the minimum number of forms - not to display delete link at rendering
                 if (!showDeleteLinks()){
@@ -184,7 +184,7 @@
                 addButton = buttonRow.find('a');
             } else {
                 // Otherwise, insert it immediately after the last form:
-                $$.filter(':last').after('<a class="' + options.addCssClass + '" href="javascript:void(0)">' + options.addText + '</a>');
+                $$.filter(':last').after('<a class="' + options.addCssClass + '" href="javascript:void(0)" title="Agregar" data-toggletooltip="tooltip" data-placement="left">' + options.addText + '</a>');
                 addButton = $$.filter(':last').next();
                 if (hideAddButton) addButton.hide();
             }
@@ -218,8 +218,8 @@
     $.fn.formset.defaults = {
         prefix: 'form',                  // The form prefix for your django formset
         formTemplate: null,              // The jQuery selection cloned to generate new form instances
-        addText: 'add another',          // Text for the add link
-        deleteText: 'remove',            // Text for the delete link
+        addText: '',          // Text for the add link
+        deleteText: '',            // Text for the delete link
         addCssClass: 'add-row',          // CSS class applied to the add link
         deleteCssClass: 'delete-row',    // CSS class applied to the delete link
         formCssClass: 'dynamic-form',    // CSS class applied to each form in a formset

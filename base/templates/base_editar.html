@@ -8,9 +8,9 @@ Mueble
 
 {% block acceso_rapido %}
 
-<md-button title="Volver" class="md-icon-button" ng-href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
-<md-icon class="iconoVolver"></md-icon>
-</md-button>
+<a title="Volver" class="md-icon-button" href="{% if request.GET.next = None %}../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
+<span class="iconoVolver"></span>
+</a>
 
 {% endblock acceso_rapido %}
 
@@ -23,30 +23,31 @@ Mueble
 
     </h2>
 </div>
-<div class="columna6">
-    <ul class="paginacionEdit">
+<div class="columna12">
+    <ul class="paginacionEdit hidden">
 
         {% block nav_lista_form %}{% endblock nav_lista_form %}
 
     </ul>
-    <form ng-controller="controlForm" action="" method="post" id="myformEdit" ng-cloak>
+    <form action="" method="post" id="myformEdit" class="hidden">
 
         {% csrf_token %}
 
-        <div class="grupoInput">
+        <div class="grupoInput animated fadeIn">
 
             {% block cuerpo_form %}{% endblock cuerpo_form %}
 
         </div>
+        <br>
         <div class="botonRegistrar">
-            <md-button type="submit" name="reg">Registrar</md-button>
-            <md-button type="submit" name="regEdit">Registrar y seguir editando</md-button>
+            <button type="submit" name="reg">Registrar</button>
+            <!-- <button type="submit" name="regEdit">Registrar y seguir editando</button> -->
         </div>
     </form>
     <br>
+ </div>
+<style>.grupoInput{overflow-y: hidden!important;}.page-content-wrapper{}.botonRegistrar{}</style>
 
-    {% block contenido_relacionado %}{% endblock contenido_relacionado %}
-
-</div>
+ {% block contenido_relacionado %}{% endblock contenido_relacionado %}
 
 {% endblock contenido %}

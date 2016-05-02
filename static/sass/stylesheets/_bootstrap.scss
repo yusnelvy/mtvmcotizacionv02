@@ -5,7 +5,7 @@
  */
 
 // Core variables and mixins
-//@import "bootstrap/variables";
+@import "bootstrap/variables";
 @import "bootstrap/mixins";
 
 // Reset and dependencies
@@ -37,26 +37,27 @@
 @import "bootstrap/jumbotron";
 @import "bootstrap/panels";
 @import "bootstrap/alerts";
-/* @import "bootstrap/thumbnails";
+@import "bootstrap/thumbnails";
 
 @import "bootstrap/progress-bars";
 @import "bootstrap/media";
 @import "bootstrap/list-group";
 
 @import "bootstrap/responsive-embed";
-@import "bootstrap/wells"; */
+@import "bootstrap/wells";
 @import "bootstrap/close";
 @import "bootstrap/modals";
 // Components w/ JavaScript
 @import "bootstrap/tooltip";
-/* @import "bootstrap/popovers";
-@import "bootstrap/carousel"; */
+@import "bootstrap/popovers";
+@import "bootstrap/carousel";
 
 // Utility classes
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
 /* @import "material/material";
 @import "material/ripples";
-@import "material/material-wfont";
-@import "_estilos";
-@import "_componentes"; */
+@import "material/material-wfont";*/
+//@import "_estilos";
+//@import "_componentes";
+//@import "../angulaMaterial/componentes2";

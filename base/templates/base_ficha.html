@@ -9,17 +9,15 @@
     <title>
         Ficha
     </title>
-    <link rel="stylesheet" href="{% static 'css/material.css' %}">
-    <link rel="stylesheet" href="{% static 'preBuscador.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 
     {% include "jquery.html" %}
 
     {% block js_superior %}{% endblock js_superior %}
 
-    <script src="{% static 'js/funcionesjsFTB.js' %}"></script>
 </head>
-<body ng-app="AppMudarte" ng-cloak ng-csp>
-    <section  ng-controller="Ctrlmsj" id="toast-container"></section>
+<body>
+
     <div class="contenedorFicha">
 
         <ul class="paginacionEdit">
@@ -28,38 +26,57 @@
 
         </ul>
 
-        <form ng-controller="controlForm" action="" method="post" id="myformEdit" ng-cloak ng-csp>
+        <form action="" method="post" id="myformEdit">
 
             {% csrf_token %}
 
             <span class="msj hidden"></span>
-            <h6>
-                <md-button tabindex="-1" class="md-fab botonGuardar hidden" type="submit" name="regEdit">
-                    <md-icon class="glyphicon glyphicon-ok"></md-icon>
-                    <md-tooltip md-direction="buttom">Guardar</md-tooltip>
-                </md-button>
-                <md-button tabindex="-1" class="md-fab botonCancelar hidden" ng-click="CancelarCambios();">
-                    <md-icon class="iconoRemover"></md-icon>
-                    <md-tooltip md-direction="buttom">Cancelar</md-tooltip>
-                </md-button>
-            </h6>
+            <div class="botonGuardarf">
+                <a tabindex="-1" onclick="restForm('myformEdit');" title="Cancelar" data-toggletooltip="tooltip" data-placement="bottom">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                </a>
+                 <button tabindex="-1" type="submit" name="regEdit" title="Guardar" data-toggletooltip="tooltip" data-placement="bottom">
+                    <span class="glyphicon glyphicon-ok"></span>
+
+                </button>
+            </div>
+            <span>
+                <a href="#"></a>
+            </span>
+
     <div class="grupoInput">
 
         {% block ficha_basica %}{% endblock ficha_basica %}
 
     </div>
+
 </form>
+
 </div>
 
 {% include "script.html" %}
 
 {% include "mensajeFicha.html" %}
 
-{% block moduloAngularFicha %}{% endblock moduloAngularFicha %}
+{% block jsFicha %}{% endblock jsFicha %}
 
-<script src="{% static 'js/scriptTB.js' %}"></script>
 <script>
+{% if messages %}
+
+{% for message in messages %}
+
+{% if message.extra_tags %}
+
+   parent.location.href = '{{message.extra_tags}}?ficha={{request.get_full_path}}?page=0&page=0';
+
+{% endif %}
+
+{% endfor %}
+
+{% endif %}
 var lificha = $(parent.document.getElementById("Ficha"));
+tamanoFicha();
+//removeHandler();
 $(lificha).children('.cabecera-panel').children('.titulo-panel').text(
 
     {% block titulo_ficha %}{% endblock titulo_ficha %}

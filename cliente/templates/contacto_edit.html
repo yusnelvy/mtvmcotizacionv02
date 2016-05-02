@@ -1,5 +1,7 @@
 {% extends "base_editar.html" %}
+
 {% block js_superior %}
+
 <script type="text/javascript">
 $(function() {
         $(".inline.{{ item_form.prefix }}").formset({
@@ -7,7 +9,9 @@ $(function() {
         })
     })
 </script>
+
 {% endblock js_superior %}
+
 {% block titulo %}
 
 Contacto
@@ -25,13 +29,13 @@ Contacto
     {% if contacto_previous %}
 
         <li class="anterior">
-            <md-button href="{% url 'uclientes:edit_contacto' contacto_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+            <a href="{% url 'uclientes:edit_contacto' contacto_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% else %}
 
         <li class="anteriorBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
         </li>
 
     {% endif %}
@@ -39,13 +43,13 @@ Contacto
     {% if contacto_next %}
 
         <li class="siguiente">
-            <md-button href="{% url 'uclientes:edit_contacto' contacto_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="{% url 'uclientes:edit_contacto' contacto_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
     {% else %}
 
         <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
         </li>
 
    {% endif %}
@@ -54,13 +58,20 @@ Contacto
 
 {% block cuerpo_form %}
 
-{{ form.as_md }}
+<div class="col-md-12 col-lg-6" style="background: #fff;">
 
+
+{{ form.as_p }}
+
+</div>
+<div class="col-md-12 col-lg-6" style="background: #fff;border-left: 1px solid #ededed;">
   <fieldset>
     <legend>Información de contacto</legend>
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
+
     {% for form in item_form %}
+
     <div class="inline {{ item_form.prefix }}">
         {{ form.id }}
         {{ form.tipo_de_informacion_de_contacto.errors }}
@@ -70,44 +81,50 @@ Contacto
         {{ form.informacion_de_contacto.label_tag }}
         {{ form.informacion_de_contacto }}
     </div>
+
     {% endfor %}
+
   </fieldset>
+</div>
+
 {% endblock cuerpo_form %}
 
-{% block contenido_relacionado %}{% endblock contenido_relacionado %}
-
-{% block moduloAngular %}
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope, $http){
-    $scope.nombre = '{{form.nombre.value}}';
-    $('#id_nombre').focus();
-    $('#id_nombre').parent().addClass('md-input-focused');
-    $scope.dni = '{{form.dni.value}}';
-    $scope.sexo = '{{form.sexo.value}}';
-    $scope.estado_civil = '{{form.estado_civil.value}}';
-    {% if form.fecha_nacimiento.value %}
-        $scope.fecha_nacimiento = '{{form.fecha_nacimiento.value}}';
-    {% endif %}
 
-    $scope.tipo_de_relacion = '{{form.tipo_de_relacion.value}}';
-    $scope.observaciones = '{{form.observaciones.value}}';
-    $scope.cliente = '{{form.cliente.value}}';
-    $('.delete-row').click(function(){
+$('form').removeClass('hidden');
+$('.contenidoR').removeClass('hidden');
+$('#id_dni').focus();
+if ('{{request.GET.relacion}}' === 'cliente') {
+   $('#id_cliente,#id_nombre,#id_tipo_de_relacion').parent('p').css('display', 'none');
+}else{
+    $('#id_dni,#id_cliente,#id_fecha_nacimiento,#id_observaciones').parent('p').css('display', 'none');
+    $('#id_fecha_nacimiento').removeAttr('required');
+    $('#id_dni').removeAttr('required');
+    $('#id_nombre').focus();
+    $('label[for=id_nombre]').text('Nombre del contacto:');
+    $('p label[for=id_sexo_0]').text('Sexo del contacto');
+}
+radioColor();
+    $(function() {
+        $('.delete-row').click(function(){
         id_remove = $(this).parent().children('input[type=hidden]').val();
         if (id_remove!=''){
-            $http.get("/cliente/informaciondecontacto/delete/"+id_remove+"/")
-            .success(function(result) {});
-        }
+            $.get("/cliente/informaciondecontacto/delete/"+id_remove+"/", {}, function(result){
+
+            });
+            }
     });
-    $(function() {
         $('fieldset .inline input[type=hidden]').each(function(){
             if ($(this).val()==''){
                 $(this).siblings('.delete-row').click();
             }
         });
     });
-});
-</script>
 
-{% endblock moduloAngular %}
+
+</script>
+<style>.paginacionEdit{height: 0;display: none;}</style>
+
+{% endblock js_inferior %}

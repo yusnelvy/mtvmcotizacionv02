@@ -117,9 +117,11 @@ TEMPLATES = [
                 'base.forms.BaseFormMd',
                 'mtvmcotizacionv02.views.sidebar',
                 'mtvmcotizacionv02.views.wVisible',
+                'mtvmcotizacionv02.views.wOrden',
+                'mtvmcotizacionv02.views.porcentaje_FasesDelProceso',
+                'mtvmcotizacionv02.views.fases_FasesDelProceso',
                 'menu.views.lista_Menu',
                 'widget.views.orden_Widgets',
-                'widget.views.cambiar_WidgetOrdenNV',
                 'menu.views.lista_Relacion'
             ]
             # 'allowed_include_roots': [

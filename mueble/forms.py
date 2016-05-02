@@ -29,7 +29,7 @@ class TipoDeMuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             }
 
 
-class MuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class MuebleForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -41,9 +41,8 @@ class MuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Mueble
         fields = 'tipo_de_mueble', 'mueble', 'descripcion', 'trasladable'
         widgets = {
-            'tipo_de_mueble': selectSearchMD(),
             'mueble': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
-            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '3'}),
+            'descripcion': TextInput(attrs={'required': 'required', 'tabindex': '3'}),
             'trasladable': Checkbox()
             }
         labels = {

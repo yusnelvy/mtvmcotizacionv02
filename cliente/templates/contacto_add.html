@@ -1,5 +1,7 @@
 {% extends "base_editar.html" %}
+
 {% block js_superior %}
+
 <script type="text/javascript">
 $(function() {
         $(".inline.{{ item_form.prefix }}").formset({
@@ -7,7 +9,9 @@ $(function() {
         })
     })
 </script>
+
 {% endblock js_superior %}
+
 {% block titulo %}
 
     Contacto
@@ -16,7 +20,16 @@ $(function() {
 
 {% block titulo_form %}
 
-Agregar contacto
+{% if request.GET.relacion == 'cliente' %}
+
+Agregar detalle del cliente: <small>{{ form.nombre.value }}</small>
+
+{% else %}
+
+Agregar contacto del cliente: <small>{{ cliente }}</small>
+
+{% endif %}
+
 
 {% endblock titulo_form %}
 
@@ -24,41 +37,68 @@ Agregar contacto
 
 {% block cuerpo_form %}
 
-  {{ form.as_md }}
-  <fieldset>
-    <legend>Información de contacto</legend>
+<div class="col-md-12 col-lg-6" style="background: #fff;">
+
+{{ form.as_p }}
+
+</div>
+
+<div class="col-md-12 col-lg-6" style="background: #fff;border-left: 1px solid #ededed;">
+
+<fieldset>
+    <legend>Información de contacto del cliente</legend>
+
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
+
     {% for form in item_form %}
+
     {{ form.id }}
+
     <div class="inline {{ item_form.prefix }}">
+
         {{ form.tipo_de_informacion_de_contacto.errors }}
         {{ form.tipo_de_informacion_de_contacto.label_tag }}
         {{ form.tipo_de_informacion_de_contacto }}
         {{ form.informacion_de_contacto.errors }}
         {{ form.informacion_de_contacto.label_tag }}
         {{ form.informacion_de_contacto }}
+
     </div>
+
     {% endfor %}
+
   </fieldset>
 
+</div>
+
+
 {% endblock cuerpo_form %}
-{% block moduloAngular %}
+
+{% block contenido_relacionado %}{% endblock contenido_relacionado %}
+
+{% block js_inferior %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.cliente="{{form.cliente.value}}";
 
-    {% if form.nombre.value %}
-        $scope.nombre="{{form.nombre.value}}";
-    {% endif %}
+radioColor();
+$('form').removeClass('hidden');
+$('ul[id]').attr('tabindex', '1');
+$('.contenidoR').removeClass('hidden');
+$('#id_dni').focus();
+if ('{{request.GET.relacion}}' === 'cliente') {
+   $('#id_cliente,#id_nombre,#id_tipo_de_relacion').parent('p').css('display', 'none');
+}else{
+    $('#id_dni,#id_cliente,#id_fecha_nacimiento,#id_observaciones').parent('p').css('display', 'none');
+    $('#id_fecha_nacimiento').removeAttr('required');
+    $('#id_dni').removeAttr('required');
+    $('#id_nombre').focus();
+    $('label[for=id_nombre]').text('Nombre del contacto:');
+    $('p label[for=id_sexo_0]').text('Sexo del contacto:');
+    $('p label[for=id_estado_civil_0]').text('Estado civil del contacto:');
 
-    {% if form.tipo_de_relacion.value %}
-        $scope.tipo_de_relacion="{{form.tipo_de_relacion.value}}";
-    {% endif %}
-
-  });
+}
 </script>
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock js_inferior %}

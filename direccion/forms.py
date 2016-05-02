@@ -16,7 +16,7 @@ from django.forms.models import inlineformset_factory
 from django import forms
 
 
-class PaisForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class PaisForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -106,7 +106,7 @@ class BarrioForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             }
 
 
-class DireccionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class DireccionForm(ModelForm):
     """
     Docstring documentación pendiente
     """

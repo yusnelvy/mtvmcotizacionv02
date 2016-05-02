@@ -343,9 +343,9 @@
         {{ i.material }}
 
     </td>
-    <td id="td2_{{i.pk}}">
+    <td id="td2_{{i.pk}}" class="btnFicha">
 
-        {{ i.descripcion }}
+        {{ i.descripcion|truncatechars:"40" }}
 
     </td>
     <td id="td3_{{i.pk}}">
@@ -399,6 +399,7 @@
     </td>
 </tr>
 
+
 {% endfor %}
 
 {% else %}
@@ -408,7 +409,11 @@
 </tr>
 
 {% endif %}
-
+<style>
+    .ji{
+        height: 20px;
+    }
+</style>
 <script>
     $(document).on('ready',function(){
         ocultarASCDesc('material');
