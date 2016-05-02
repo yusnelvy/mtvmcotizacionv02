@@ -1,0 +1,69 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Contenedor
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar contenedores a el mueble {{ mueble.nombre_especificacion_de_mueble}}
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+<form action="" method="post" id="myformEdit">
+  {% csrf_token %}
+  <div class="form-group">
+    <table class="table table-bordered table-hover">
+      <tr>
+        <td>
+          mueble
+        </td>
+        <td colspan="2">
+          contenedor
+        </td>
+        <td></td>
+        <td>
+          tipo de contenido
+        </td>
+        <td>
+          cantidad
+        </td>
+      </tr>
+      {{ formset.management_form }}
+      {% for form in formset %}
+      <tr id="{{forloop.counter}}">
+        <td>{{form.cotizacion_mueble}}</td>
+        <td>{{form.contenedor}}</td>
+        <td>{{form.nombre_contenedor}}</td>
+        <td>{{form.ch_contenedor}}</td>
+        <td>{{form.tipo_de_contenido}}</td>
+        <td>{{form.cantidad}}</td>
+
+      </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+
+  <button type="submit" class="btn btn-default registrar">Registrar</button>
+  <br>
+
+</form>
+
+{% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+  $('#id_concepto').focus();
+  $('#id_concepto').parent().addClass('md-input-focused');
+});
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

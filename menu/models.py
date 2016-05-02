@@ -14,7 +14,9 @@ class Menu(models.Model):
     name = models.CharField(max_length=100, blank=True)
     nivel = models.IntegerField()
     padre = models.BooleanField(default=False)
-    menu_padre = models.ForeignKey("self", null=True, blank=True, related_name='nenuchild_set')
+    menu_padre = models.ForeignKey("self", null=True,
+                                   blank=True,
+                                   related_name='nenuchild_set')
 
     def __str__(self):
         return self.menu
@@ -36,7 +38,9 @@ class MenuFavorito(models.Model):
     orden = models.IntegerField()
 
     def __str__(self):
-        return u' %s - %s - %s' % (self.usuario, self.menu, self.grupo)
+        return u' %s - %s - %s' % (self.usuario,
+                                   self.menu,
+                                   self.grupo)
 
     class Meta:
         verbose_name = "Menu favorito"
@@ -54,7 +58,9 @@ class Relacion(models.Model):
     nombre = models.CharField(max_length=250)
 
     def __str__(self):
-        return u' %s - %s - %s' % (self.item_origen, self.item_relacion, self.nombre)
+        return u' %s - %s - %s' % (self.item_origen,
+                                   self.item_relacion,
+                                   self.nombre)
 
     class Meta:
         verbose_name = "Relación"

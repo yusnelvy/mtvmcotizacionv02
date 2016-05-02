@@ -1,14 +1,16 @@
 from django.db import models
-from premisas.models import Unidad
+from almacen.models import Unidad
 from django.contrib.auth.models import User
 from herramienta.models import Herramienta
+from mueble.models import EspecificacionDeMueble
 
 
 # Create your models here.
 class Servicio(models.Model):
     """docstring for Servicio"""
     servicio = models.CharField(max_length=100)
-    unidad_de_venta = models.ForeignKey(Unidad)
+    unidad_de_venta = models.ForeignKey(Unidad, related_name='unidad_de_venta')
+    unidad_de_consumo = models.ForeignKey(Unidad, related_name='unidad_de_consumo')
     descripcion = models.TextField()
 
     def __str__(self):
@@ -40,6 +42,7 @@ class PrecioDeServicio(models.Model):
     """docstring for PrecioDeServicio"""
     servicio = models.ForeignKey(Servicio)
     precio_base = models.DecimalField(max_digits=9, decimal_places=2)
+    precio_marginal = models.DecimalField(max_digits=9, decimal_places=2)
     cantidad_de_gracia = models.DecimalField(max_digits=9, decimal_places=2)
     intervalo_1 = models.DecimalField(max_digits=9, decimal_places=2)
     porcentaje_1 = models.DecimalField(max_digits=9, decimal_places=2)
@@ -79,3 +82,22 @@ class HerramientasPorServicio(models.Model):
         verbose_name = "Herramienta por servicio"
         verbose_name_plural = "Herramientas por servicio"
         ordering = ["servicio", "herramienta"]
+
+
+class ServicioTipicoPorMueble(models.Model):
+    """docstring for ContenedorTipicoPorMueble"""
+    def __init__(self, *args, **kwargs):
+        super(ServicioTipicoPorMueble, self).__init__(*args, **kwargs)
+
+    servicio = models.ForeignKey(Servicio, on_delete=models.PROTECT)
+    especificacion_de_mueble = models.ForeignKey(EspecificacionDeMueble, on_delete=models.PROTECT)
+    cantidad = models.IntegerField()
+    predefinido = models.BooleanField(default=None)
+
+    def __str__(self):
+        return u' %s - %s' % (self.servicio, self.especificacion_de_mueble)
+
+    class Meta:
+        verbose_name = "Servicio tipico por mueble"
+        verbose_name_plural = "Servicios tipicos por Muebles"
+        ordering = ['servicio']

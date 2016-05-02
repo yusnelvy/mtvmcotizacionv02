@@ -1,0 +1,59 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Mueble
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar un mueble a la cotización
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+  {{ form.as_p }}
+
+{% endblock cuerpo_form %}
+
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_especificacion_de_mueble').focus();
+      $('#id_especificacion_de_mueble').parent().addClass('md-input-focused');
+    });
+
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}
+
+{% block js_inferior %}
+<script>
+$("#id_especificacion_de_mueble").on("change", function() {
+    id_especificacion_de_mueble = $("#id_especificacion_de_mueble").val();
+    $.get('/cotizacionweb/cotizacion_mueble/nuevo',
+        {id_especificacion_de_mueble: id_especificacion_de_mueble},
+        function(data) {
+            $("#id_nombre_especificacion_de_mueble").val(data[0].nombremueble);
+            $("#id_ancho").val(data[0].ancho);
+            $("#id_largo").val(data[0].largo);
+            $("#id_alto").val(data[0].alto);
+            $("#id_volumen_en_camion").val(data[0].volumenencamion);
+
+            if (data[0].trasladable == true) {
+                document.getElementById("id_trasladable").checked = true;
+                $('input[name="trasladable"]').bootstrapSwitch('state', true );
+            } else {
+                document.getElementById("id_trasladable").checked = false;
+                $('input[name="trasladable"]').bootstrapSwitch('state', false );
+            }
+        });
+});
+</script>
+{% endblock js_inferior %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block contenido %}
+<div role="tabpanel">
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="datos">
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <table class="table table-hover">
+              <tr>
+                <td>
+                  <strong> {{cotizacionambiente}} </strong>
+                </td>
+                <td>
+                  <form action="" method="post" id="myformEdit">
+                  {% csrf_token %}
+                  <div class="form-group buscadorSelect">
+                    <select name="listaambientes" id="listaambientes" onchange="window.location.href=this.value;">
+                      <option value="0">Seleccione el ambiente</option>
+
+                      {% for ambi in ambientes %}
+                      {% if  ambi.id == cotizacionambiente.id %}
+
+                      <option value="{% url 'ucotizacionesweb:ficha_cotizacionambiente' ambi.id %}?next={{request.GET.next}}" selected="selected">{{ambi.nombre}}
+                      </option>
+
+                      {% else %}
+
+                      <option value="{% url 'ucotizacionesweb:ficha_cotizacionambiente' ambi.id %}?next={{request.GET.next}}">{{ambi.nombre}}
+                      </option>
+
+                      {% endif %}
+
+                      {% endfor %}
+
+                    </select>
+                  </div>
+                  </form>
+                </td>
+              </tr>
+              {% if not muebles %}
+              <tr>
+                <td colspan="2">
+                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_cotizacionmueble' %}?next={{request.get_full_path}}&ambiente={{cotizacionambiente.id}}" title="Agregar dirección">Agregar mueble
+                  </a>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td class="">
+                  <strong>Muebles: </strong>
+                </td>
+                <td>
+                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_cotizacionmueble' %}?next={{request.get_full_path}}&ambiente={{cotizacionambiente.id}}" class="iconoPlus"></a>
+                </td>
+              </tr>
+
+              {% for mueble in muebles %}
+
+              <tr>
+                <td>
+                  {{mueble.nombre_especificacion_de_mueble}}
+                </td>
+                <td>
+                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucotizacionesweb:edit_cotizacionmueble' mueble.id %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+                  <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucotizacionesweb:eliminar_cotizacionmueble' mueble.id %}?next={{request.get_full_path}}" class="iconoRemover"></a>
+                </td>
+              </tr>
+
+              {% endfor %}
+
+              {% endif %}
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}
+

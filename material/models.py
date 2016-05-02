@@ -1,5 +1,5 @@
 from django.db import models
-from premisas.models import Unidad
+from almacen.models import Unidad
 from django.contrib.auth.models import User
 from servicio.models import Servicio
 
@@ -40,7 +40,16 @@ class Material(models.Model):
     cotizable = models.BooleanField(default=None)
 
     def __str__(self):
-        return self.tipo_de_material
+        return self.material
+
+    def _get_volumen(self):
+        return round((self.ancho*self.alto*self.largo)/1000000, 3)
+    volumen = property(_get_volumen)
+
+    def _get_densidad(self):
+        #falta por definir la fórmula
+        return round((self.ancho*self.alto*self.largo)/1000000, 3)
+    densidad = property(_get_densidad)
 
     class Meta:
         verbose_name = "Material "

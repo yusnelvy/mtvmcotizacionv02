@@ -1,10 +1,6 @@
 {% extends "base.html" %}
 {% block contenido %}
 <div role="tabpanel">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#datos" aria-controls="home" role="tab" data-toggle="tab">Cotizacion</a></li>
-  </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
@@ -14,6 +10,41 @@
         <div class="col-md-12">
           <div class="panel panel-default">
             <table class="table table-hover">
+              <tr>
+                <td>
+                  <strong> Nro de cotización: </strong><br>
+                  <p>Estado actual de la cotización: {{estadoactual.0.estado_de_documento.estado_de_documento}}</p>
+                </td>
+                <td>
+                  <strong> Cotizador: </strong>
+                  {{ cotizacion.cotizador.id_trabajador.nombre }}
+                  {{ cotizacion.cotizador.id_trabajador.apellido }} <br>
+                  {% if estadoactual.0.estado_de_documento.orden == 3 %}
+
+                  <button type="button">
+                    <a href="{% url 'ucotizacionesweb:cambiar_estadodedocumento' cotizacion.id %}?estado_orden=4">Iniciar cotización</a>
+                  </button>
+
+                  {% endif %}
+
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <strong>Fechas de la cotización</strong><br>
+                  {% if fechasdecotizacion %}
+                  {% for i in fechasdecotizacion %}
+                    <p>
+                    <span>
+                      <strong>{{ i.nombre_tipo_fecha }}: </strong>
+                      {{ i.fecha }}
+                    </span>
+                    </p>
+                  {% endfor %}
+
+                  {% endif %}
+                </td>
+              </tr>
               <tr>
                 <td class="">
                   Datos del cliente <br>
@@ -26,7 +57,7 @@
                       {{ cotizacion.cliente.cuit }}
 
                     </span>
-</p>
+                  </p>
                   {% if cotizacion.cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
                   <p>
                     <span>
@@ -76,17 +107,28 @@
                     </span>
 
                   </p>
+                  <p>
+                    <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'upromociones:add_fuentedepromocion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}" title="Agregar fuente de promoción">Agregar fuente de promoción
+                  </a>
+                  </p>
                 </td>
 
                 <td>
-                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="" class="iconoEditar"></a>
+                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_cliente' cotizacion.cliente.pk %}?cotizacion={{cotizacion.pk}}" class="iconoEditar"></a>
+                  {% if estadoactual.0.estado_de_documento.orden == 4 %}
+                  <button type="button" class="glyphicon glyphicon-ok">
+                    <a href="{% url 'ucotizacionesweb:cambiar_estadodedocumento' cotizacion.id %}?estado_orden=5">Verificar datos del cliente</a>
+                  </button>
+                  {% endif %}
                 </td>
+
               </tr>
 
             {% if not contactos %}
               <tr>
-                <td colspan="4">
-                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cliente.pk}}" title="Agregar persona de contacto">Agregar persona de contacto
+                <td colspan="2">
+                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}" title="Agregar persona de contacto">Agregar persona de contacto
+                  </a>
                 </td>
               </tr>
 
@@ -100,6 +142,7 @@
                     {% for contacto in contacto_list %}
                     <li>{{ contacto.grouper }}
                       <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_contacto' contacto.grouper.id %}?next={{request.get_full_path}}" class="iconoEditar"></a>
+                      <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:eliminar_contacto' contacto.grouper.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
                       <ul>
                         {% for item in contacto.list %}
                         <li>{{ item.tipo_de_informacion_de_contacto }}: {{ item.informacion_de_contacto }}</li>
@@ -109,8 +152,6 @@
                     {% endfor %}
                   </ul>
                 </td>
-                <td></td>
-                <td></td>
                 <td>
                   <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_contacto' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}" class="iconoPlus"></a>
                 </td>
@@ -118,7 +159,7 @@
               {% endif %}
               {% if not direccion_origen %}
               <tr>
-                <td colspan="4">
+                <td colspan="2">
                   <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Origen" title="Agregar dirección">Agregar dirección de origen
                   </a>
                 </td>
@@ -127,10 +168,15 @@
               {% else %}
               <tr>
                 <td class="">
-                  <strong>Direcciones: </strong>
+                  <strong>Direcciones de origen: </strong>
                 </td>
                 <td>
                   <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Origen" class="iconoPlus"></a>
+                  {% if estadoactual.0.estado_de_documento.orden == 5 %}
+                    <button type="button" class="glyphicon glyphicon-ok">
+                      <a href="{% url 'ucotizacionesweb:cambiar_estadodedocumento' cotizacion.id %}?estado_orden=6">Verificar datos de direcciones</a>
+                    </button>
+                  {% endif %}
                 </td>
               </tr>
               {% for direccion in direccion_origen %}
@@ -148,20 +194,74 @@
                 <td>
                   {% if direccion.clientedireccion.inmueble %}
 
-                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_inmueble' direccion.clientedireccion.inmueble.id %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
-
+                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_inmueble' direccion.clientedireccion.inmueble.id %}?clientedireccion={{direccion.clientedireccion.id}}&cotizacion={{cotizacion.pk}}" class="iconoEditar"></a>
+                  <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:eliminar_cotizaciondireccion' direccion.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
                   {% else %}
 
-                  <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_inmueble' %}?next={{request.get_full_path}}&clientedireccion={{direccion.clientedireccion.id}}" class="iconoEditar"></a>
-
+                  <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_inmueble' %}?clientedireccion={{direccion.clientedireccion.id}}&cotizacion={{cotizacion.pk}}" class="iconoEditar"></a>
+                  <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:eliminar_cotizaciondireccion' direccion.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
                   {% endif %}
                 </td>
               </tr>
-              {% endfor %}
+              {% if estadoactual.0.estado_de_documento.orden == 6 %}
+              <tr>
+                <td colspan="2">
+                  {% if not ambientes %}
+                  <table>
+                    <tr>
+                      <td colspan="2">
+                        <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Origen" title="Agregar dirección">Agregar ambiente
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                  {% else %}
+                  <table>
+                    <tr>
+                      <td class="">
+                        <strong>Ambientes: </strong>
+                      </td>
+
+                      <td>
+                        <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_cotizacionambiente' %}?direccion={{direccion.id}}" class="iconoPlus"></a>
+                      </td>
+                    </tr>
+                    {% for ambiente in ambientes %}
+                    {% if ambiente.direccion_origen.id = direccion.id %}
+                    <tr>
+                      <td>
+                        <strong>{{ambiente}}</strong>
+                        <a title="Ficha" data-toggletooltip="tooltip" data-placement="left" href="{% url 'ucotizacionesweb:ficha_cotizacionambiente' ambiente.pk %}?next={{request.get_full_path}}" class="iconoVerFicha"></a>
+                        <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:eliminar_cotizacionambiente' ambiente.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
+                      </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                  </table>
+                </td>
+              </tr>
               {% endif %}
+              {% endfor %}
+              <tr>
+                <td>
+                  {% if estadoactual.0.estado_de_documento.orden == 6 %}
+                  {% if ambientes %}
+
+                  <button type="button" class="glyphicon glyphicon-ok">
+                  <a href="{% url 'ucotizacionesweb:cambiar_estadodedocumento' cotizacion.id %}?estado_orden=7">Finalizar carga de muebles</a>
+                  </button>
+
+                  {% endif %}
+                  {% endif %}
+
+                </td>
+              </tr>
+              {% endif %}
+
               {% if not direccion_destino %}
               <tr>
-                <td colspan="4">
+                <td colspan="2">
                   <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Destino" title="Agregar dirección">Agregar dirección de Destino
                   </a>
                 </td>
@@ -170,7 +270,7 @@
               {% else %}
               <tr>
                 <td class="">
-                  <strong>Direcciones: </strong>
+                  <strong>Direcciones de destino: </strong>
                 </td>
                 <td>
                   <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_direccion' %}?cliente={{cotizacion.cliente.pk}}&cotizacion={{cotizacion.pk}}&tipo=Destino" class="iconoPlus"></a>
@@ -191,17 +291,76 @@
                 <td>
                   {% if direccion.clientedireccion.inmueble %}
 
-                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_inmueble' direccion.clientedireccion.inmueble.id %}?next={{request.get_full_path}}&clientedireccion={{direccion.id}}" class="iconoEditar"></a>
-
+                  <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_inmueble' direccion.clientedireccion.inmueble.id %}?clientedireccion={{direccion.clientedireccion.id}}&cotizacion={{cotizacion.pk}}" class="iconoEditar"></a>
+                  <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:eliminar_cotizaciondireccion' direccion.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
                   {% else %}
 
-                  <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_inmueble' %}?next={{request.get_full_path}}&clientedireccion={{direccion.clientedireccion.id}}" class="iconoEditar"></a>
-
+                  <a title="Editar" data-toggle="tooltip" data-placement="right" href="{% url 'uclientes:add_inmueble' %}?clientedireccion={{direccion.clientedireccion.id}}&cotizacion={{cotizacion.pk}}" class="iconoEditar"></a>
+                  <a title="Eliminar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:eliminar_cotizaciondireccion' direccion.id %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
                   {% endif %}
                 </td>
               </tr>
               {% endfor %}
               {% endif %}
+
+              {% if not mudanza and not visita %}
+              <tr>
+                <td colspan="2">
+
+                  <form action="" method="post" id="myformEdit">
+
+                    {% csrf_token %}
+
+                    <div class="grupoInput">
+                      {{ form.as_p }}
+                    </div>
+                    <div class="botonRegistrar">
+                      <md-button tabindex="-1" class="md-fab" type="submit" name="regEdit">
+                        <md-icon class="glyphicon glyphicon-ok"></md-icon>
+                        <md-tooltip md-direction="buttom">Guardar</md-tooltip>
+                      </md-button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              {% endif %}
+
+              {% if not bitacora %}
+              <tr>
+                <td colspan="2">
+                  <a class="botonmodalFormulario btn btn-success hidden-print boton-almedio" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_bitacoradecotizacion' %}?cotizacion={{cotizacion.pk}}&origen=M" title="Agregar dirección">Agregar bitácora
+                  </a>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td class="">
+                  <strong>Bitácora: </strong>
+                </td>
+                <td>
+                  <a title="Agregar" data-toggle="tooltip" data-placement="right" href="{% url 'ucotizacionesweb:add_bitacoradecotizacion' %}?cotizacion={{cotizacion.pk}}&origen=M" class="iconoPlus"></a>
+                </td>
+              </tr>
+              {% for i in bitacora %}
+              <tr>
+                <td colspan="2">
+                  <strong>
+                    {{i.origen_de_registro}}
+                  </strong>
+                  {{i.fecha_registro}}
+                  {{i.hora_registro}}
+                  <p>
+                    <span>
+                      {{i.observacion}}
+                    </span>
+                  </p>
+                </td>
+
+              </tr>
+              {% endfor %}
+              {% endif %}
+                </td>
+              </tr>
             </table>
           </div>
         </div>

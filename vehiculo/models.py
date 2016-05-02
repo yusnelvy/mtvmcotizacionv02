@@ -38,7 +38,7 @@ class DetalleDeVehiculo(models.Model):
     ancho_aux = models.DecimalField(max_digits=7, decimal_places=2, blank=True)
     largo_aux = models.DecimalField(max_digits=7, decimal_places=2, blank=True)
     alto_aux = models.DecimalField(max_digits=7, decimal_places=2, blank=True)
-    tara_vehiculo = models.DecimalField(max_digits=7, decimal_places=7)
+    tara_vehiculo = models.DecimalField(max_digits=7, decimal_places=2)
     observacion = models.TextField(blank=True)
 
     def __str__(self):

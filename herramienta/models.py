@@ -1,5 +1,5 @@
 from django.db import models
-from premisas.models import Unidad
+from almacen.models import Unidad
 from vehiculo.models import DetalleDeVehiculo
 
 

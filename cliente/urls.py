@@ -14,7 +14,8 @@ from cliente.views import SexoListView, SexoView, SexoUpdate, \
     TipoDeInformacionDeContactoDelete, ClienteView, ClienteListView, \
     ClienteDetail, ClienteUpdate, ContactoCreateView, ContactoUpdate, \
     ClienteDireccionView, ClienteInmuebleView, EdificacionCreateView,\
-    InmuebleUpdate, ClienteDireccionUpdate, EdificacionUpdate
+    InmuebleUpdate, ClienteDireccionUpdate, EdificacionUpdate, \
+    ClienteDelete, ContactoDelete, ClienteDireccionDelete
 from cliente import views
 
 
@@ -31,12 +32,18 @@ urlpatterns = patterns('',
                        url(r'^cliente_ficha/(?P<pk>\d+)/$',
                            ClienteDetail.as_view(),
                            name='ficha_cliente'),
+                       url(r'^eliminar/(?P<pk>\d+)/$',
+                           ClienteDelete.as_view(),
+                           name='eliminar_cliente'),
                        url(r'^contacto/nuevo',
                            ContactoCreateView.as_view(),
                            name='add_contacto'),
                        url(r'^contacto/editar/(?P<pk>\d+)/$',
                            ContactoUpdate.as_view(),
                            name='edit_contacto'),
+                       url(r'^contacto/eliminar/(?P<pk>\d+)/$',
+                           ContactoDelete.as_view(),
+                           name='eliminar_contacto'),
                        url(r'^sexo/$',
                            SexoListView.as_view(),
                            name='list_sexo'),
@@ -97,12 +104,15 @@ urlpatterns = patterns('',
                        url(r'^tipo_de_informacion_de_contacto/eliminar/(?P<pk>\d+)/$',
                            TipoDeInformacionDeContactoDelete.as_view(),
                            name='eliminar_tipo_de_informacion_de_contacto'),
-                       url(r'^direccion/editar/(?P<pk>\d+)/$',
-                           ClienteDireccionUpdate.as_view(),
-                           name='edit_direccion'),
                        url(r'^direccion/nuevo',
                            ClienteDireccionView.as_view(),
                            name='add_direccion'),
+                       url(r'^direccion/editar/(?P<pk>\d+)/$',
+                           ClienteDireccionUpdate.as_view(),
+                           name='edit_direccion'),
+                       url(r'^direccion/eliminar/(?P<pk>\d+)/$',
+                           ClienteDireccionDelete.as_view(),
+                           name='eliminar_direccion'),
                        url(r'^inmueble/nuevo',
                            ClienteInmuebleView.as_view(),
                            name='add_inmueble'),

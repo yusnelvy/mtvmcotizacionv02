@@ -1,0 +1,54 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Ambiente
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar ambientes a la cotización
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+<form action="" method="post" id="myformEdit">
+{% csrf_token %}
+        <div class="form-group">
+<table class="table table-bordered table-hover">
+        {{ formset.management_form }}
+        {% for form in formset %}
+        <tr id="{{forloop.counter}}">
+            <td>{{form.direccion_origen}}</td>
+            <td>{{form.nombre}}</td>
+            <td>
+                {{form.ambiente}}{{form.ch_ambiente}}
+            </td>
+            <td>{{form.observaciones}}</td>
+
+        </tr>
+        {% endfor %}
+
+</table>
+        </div>
+
+          <button type="submit" class="btn btn-default registrar">Registrar</button>
+            <br>
+
+        </form>
+
+{% endblock cuerpo_form %}
+{% block moduloAngular %}
+
+<script type="text/javascript">
+app.controller('controlForm',function($scope){
+      $('#id_concepto').focus();
+      $('#id_concepto').parent().addClass('md-input-focused');
+  });
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock moduloAngular %}

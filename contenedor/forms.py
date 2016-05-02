@@ -4,7 +4,8 @@ Docstring documentación pendiente
 """
 
 from django.forms import ModelForm, TextInput
-from contenedor.models import Contenedor, ContenedorTipicoPorMueble
+from contenedor.models import Contenedor, ContenedorTipicoPorMueble, \
+    TipoDeContenido
 from djangular.forms import NgModelFormMixin, NgModelForm
 from base.forms import BaseFormMd, SelectMD, Checkbox
 
@@ -38,4 +39,13 @@ class ContenedorTipicoPorMuebleForm(ModelForm):
     """
     class Meta:
         model = ContenedorTipicoPorMueble
+        fields = '__all__'
+
+
+class TipoDeContenidoForm(ModelForm):
+    """
+    Docstring documentación pendiente
+    """
+    class Meta:
+        model = TipoDeContenido
         fields = '__all__'

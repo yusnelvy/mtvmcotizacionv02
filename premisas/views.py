@@ -8,8 +8,7 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.views.generic import ListView, View, UpdateView, DeleteView, \
     CreateView
 from premisas.models import Empresa, PersonalizacionVisual, \
-    VarianteVisual, VarianteVisualDetalle, DatosPrecargado, \
-    Unidad
+    VarianteVisual, VarianteVisualDetalle, DatosPrecargado
 from premisas.forms import EmpresaForm, PersonalizacionVisualForm, \
     VarianteVisualForm, VarianteVisualDetalleFormSet, \
     DatosPrecargadoForm

@@ -95,16 +95,3 @@ class Moneda(models.Model):
     class Meta:
         verbose_name = "Moneda"
         verbose_name_plural = "Monedas"
-
-
-class Unidad(models.Model):
-    """docstring for Unidad"""
-    unidad = models.CharField(max_length=20, unique=True)
-    descripcion = models.TextField()
-
-    def __str__(self):
-        return self.unidad
-
-    class Meta:
-        verbose_name = "Unidad"
-        verbose_name_plural = "Unidades"

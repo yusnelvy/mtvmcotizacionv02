@@ -4,8 +4,7 @@ from django.views.generic import ListView, View, UpdateView, \
     DeleteView, DetailView, CreateView
 from cliente.models import Sexo, EstadoCivil, TipoDeCliente, \
     TipoDeRelacion, TipoDeInformacionDeContacto, Cliente, Contacto, \
-    InformacionDeContacto, ClienteDireccion, ClienteEstadoDeRegistro, \
-    Cliente
+    InformacionDeContacto, ClienteDireccion, ClienteEstadoDeRegistro
 from cliente.forms import SexoForm, EstadoCivilForm, TipoDeClienteForm, \
     TipoDeRelacionForm, TipoDeInformacionDeContactoForm, ClienteForm, \
     ContactoForm, InformacionDeContactoForm, ClienteDireccionForm, \
@@ -1767,6 +1766,7 @@ class ContactoUpdate(UpdateView):
             item_form = InformacionDeContactoFormSet(instance=self.object)
 
         context['item_form'] = item_form
+        #context['form'].fields['tipo_de_relacion'].queryset = TipoDeRelacion.objects.exclude(tipo_de_relacion='cliente')
         return context
 
     def form_valid(self, form):
@@ -1790,6 +1790,22 @@ class ContactoUpdate(UpdateView):
             else:
                 return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
                                                     args=(self.object.cliente.id,)))
+
+
+class ContactoDelete(DeleteView):
+    model = Contacto
+    form_class = ContactoForm
+    template_name = 'server_confirm_delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.obj = self.get_object()
+        self.obj.delete()
+
+        redirect_to = self.request.REQUEST.get('next', '')
+        if redirect_to:
+            return HttpResponseRedirect(redirect_to)
+        else:
+            return render_to_response(self.template_name, self.get_context_data())
 
 
 # app direccion
@@ -1833,18 +1849,16 @@ class ClienteDireccionView(View):
                 return HttpResponseRedirect(reverse('uclientes:edit_direccion',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
                 if cotizacion:
                     tipo = self.request.REQUEST.get('tipo', '')
-                    direccion_cotizacion = add_cotizacion_direccion(cotizacion,
-                                                                    agregarclientedireccion.id,
-                                                                    tipo)
-
-                    messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
+                    add_cotizacion_direccion(cotizacion,
+                                             agregarclientedireccion.id,
+                                             tipo)
                     return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
                                                 "?clientedireccion="+str(agregarclientedireccion.id) +
                                                 "&cotizacion="+str(cotizacion))
                 else:
-                    messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
                     if redirect_to:
                         return HttpResponseRedirect(redirect_to)
                     else:
@@ -1978,6 +1992,22 @@ class ClienteDireccionUpdate(UpdateView):
                 return render_to_response(self.template_name, self.get_context_data())
 
 
+class ClienteDireccionDelete(DeleteView):
+    model = ClienteDireccion
+    form_class = ClienteDireccionForm
+    template_name = 'server_confirm_delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        self.obj = self.get_object()
+        self.obj.delete()
+
+        redirect_to = self.request.REQUEST.get('next', '')
+        if redirect_to:
+            return HttpResponseRedirect(redirect_to)
+        else:
+            return render_to_response(self.template_name, self.get_context_data())
+
+
 class ClienteInmuebleView(View):
     form_class = InmuebleForm
     template_name = 'clienteinmueble_add.html'
@@ -2028,12 +2058,16 @@ class ClienteInmuebleView(View):
             else:
                 messages.success(self.request, "Inmueble:  '" + str(id_reg) + "'  registrado con éxito.")
                 if cotizacion:
-                    cotizaciondireccion = update_cotizacion_direccion(cotizacion, clientedireccion[0].id)
+                    update_cotizacion_direccion(cotizacion, clientedireccion[0].id)
                     return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',
                                                         args=(cotizacion,)))
                 else:
-                    return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
-                                                        args=(clientedireccion[0].cliente.id,)))
+                    redirect_to = self.request.REQUEST.get('next', '')
+                    if redirect_to:
+                        return HttpResponseRedirect(redirect_to)
+                    else:
+                        return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
+                                                            args=(clientedireccion[0].cliente.id,)))
 
         return render(request, self.template_name, {'form': form,
                                                     'direccion': direccion})
@@ -2161,12 +2195,18 @@ class InmuebleUpdate(UpdateView):
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
-            redirect_to = self.request.REQUEST.get('next', '')
-            if redirect_to:
-                messages.success(self.request, "Inmueble '" + str(self.object) + "'  guardado con éxito.")
-                return HttpResponseRedirect(redirect_to)
+            cotizacion = self.request.GET.get('cotizacion', '')
+            if cotizacion:
+                    update_cotizacion_direccion(cotizacion, clientedireccion[0].id)
+                    return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',
+                                                        args=(cotizacion,)))
             else:
-                return render_to_response(self.template_name, self.get_context_data())
+                redirect_to = self.request.REQUEST.get('next', '')
+                if redirect_to:
+                    messages.success(self.request, "Inmueble '" + str(self.object) + "'  guardado con éxito.")
+                    return HttpResponseRedirect(redirect_to)
+                else:
+                    return render_to_response(self.template_name, self.get_context_data())
 
 
 class EdificacionCreateView(CreateView):
