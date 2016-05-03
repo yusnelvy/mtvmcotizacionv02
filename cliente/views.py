@@ -22,6 +22,7 @@ import json
 from django.db.models import Count
 from cotizacionweb.views import add_cotizacion, add_cotizacion_direccion, \
     update_cotizacion_direccion
+from cotizacionweb.models import CotizacionAmbiente
 
 
 # Create your views here.
@@ -2308,6 +2309,10 @@ class InmuebleUpdate(UpdateView):
 
         else:
             cotizacion = self.request.GET.get('cotizacion', '')
+            if self.request.POST.get('cambiarinmueble'):
+                CotizacionAmbiente.objects.filter(direccion_origen__clientedireccion=clientedireccion,
+                                                  direccion_origen__cotizacion=cotizacion).delete()
+
             if cotizacion:
                     update_cotizacion_direccion(cotizacion, clientedireccion[0].id)
                     return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',

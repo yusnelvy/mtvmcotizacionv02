@@ -1744,7 +1744,7 @@ def add_cotizacion_direccion(cotizacion, clientedireccion, tipo):
         estadodedocumento = estado_documento[0].estado_de_documento.orden
 
     if cantOrig > 0 and cantDest > 0 and estadodedocumento == 1:
-        add_cotizacion_detalle(cotizacion, agregarcotizaciondireccion.id)
+        add_cotizacion_detalle(cotizacion, agregarcotizaciondireccion.id, tipo)
         updateestado = CotizacionEstado.objects.filter(cotizacion=cotizacion,
                                                        predefinido=True).exclude(estado_de_documento=None)
         updateestado.update(predefinido=False)
@@ -1758,8 +1758,6 @@ def add_cotizacion_direccion(cotizacion, clientedireccion, tipo):
                                                                    observacion='Cotización lista para cotizar',
                                                                    predefinido=True)
         agregarestadodedocumento.save()
-    elif cantOrig > 0 and cantDest > 0 and tipo == 'Origen':
-        add_cotizacion_detalle(cotizacion, agregarcotizaciondireccion.id)
 
     return(agregarcotizaciondireccion.id)
 
@@ -1850,7 +1848,9 @@ def update_cotizacion_direccion(cotizacion, clientedireccion):
         direccion_origen = CotizacionDireccion.objects.filter(cotizacion=cotizacion,
                                                               tipo_direccion__tipo_direccion='Origen',
                                                               orden='1')
-        add_cotizacion_detalle(cotizacion, direccion_origen[0].id)
+        add_cotizacion_detalle(cotizacion,
+                               direccion_origen[0].id,
+                               cotizacion_direccion[0].tipo_direccion.tipo_direccion)
 
         updateestado = CotizacionEstado.objects.filter(cotizacion=cotizacion,
                                                        predefinido=True).exclude(estado_de_documento=None)
@@ -1865,13 +1865,25 @@ def update_cotizacion_direccion(cotizacion, clientedireccion):
                                                                    observacion='Cotización lista para cotizar',
                                                                    predefinido=True)
         agregarestadodedocumento.save()
+    elif cantOrig > 0 and cantDest > 0 and cotizacion_direccion[0].tipo_direccion.tipo_direccion == 'Origen':
+        cotizacionambiente = CotizacionAmbiente.objects.filter(direccion_origen=cotizacion_direccion[0].id).count()
+        if cotizacionambiente <= 0:
+            add_cotizacion_detalle(cotizacion,
+                                   cotizacion_direccion[0].id,
+                                   cotizacion_direccion[0].tipo_direccion.tipo_direccion)
 
     return(cotizacion_direccion[0].id)
 
 
-def add_cotizacion_detalle(cotizacion, direccionorigen):
+def add_cotizacion_detalle(cotizacion, direccionorigen, tipo):
 
-    direccion_origen = CotizacionDireccion.objects.filter(id=direccionorigen)
+    if tipo == 'Origen':
+        direccion_origen = CotizacionDireccion.objects.filter(id=direccionorigen)
+    else:
+        direccion_origen = CotizacionDireccion.objects.filter(cotizacion=cotizacion,
+                                                              tipo_direccion__tipo_direccion='Origen',
+                                                              orden='1')
+
     direccion_destino = CotizacionDireccion.objects.filter(cotizacion=cotizacion,
                                                            tipo_direccion__tipo_direccion='Destino',
                                                            orden='1')

@@ -17,6 +17,8 @@ Inmueble
 {% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
+<p id="msjtipodeinmuble"></p>
+<input type="text" id="cambiarinmueble" name="cambiarinmueble">
 <p>
     <span>
       <strong>Dirección: </strong>
@@ -36,16 +38,38 @@ Inmueble
 <script type="text/javascript">
 $('form').removeClass('hidden');
 $('#id_numero_de_inmueble').focus();
+function cambiar() {
+  $("#cambiarinmueble").val('si');
+};
+function cambiarno() {
+
+   valor = '{{form.especificacion_de_inmueble.value}}';
+   especificacion_de_inmueble = $("input[name=especificacion_de_inmueble]");
+    for(var i=0; i<especificacion_de_inmueble.length; i++) {
+      if (valor==especificacion_de_inmueble[i].value) {
+        especificacion_de_inmueble[i].selected = true;
+      }
+    }
+
+  console.log(valor);
+
+};
 $('#id_edificacion').after("<a title='Agregar' data-toggle='tooltip' data-placement='right' href='{% url 'uclientes:add_edificacion' %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoPlus'></a>");
 $('#id_edificacion').after("<a title='Editar' data-toggle='tooltip' data-placement='left' href='{% url 'uclientes:edit_edificacion' form.edificacion.value %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoEditar'></a>");
-$scope.selectChanged = function(){
-        id_especificacion_de_inmueble = $scope.especificacion_de_inmueble;
-        $http.get("/cliente/inmueble/exchange/"+id_especificacion_de_inmueble+"/")
-        .success(function(result) {
-            $scope.cantidad_de_ambientes = result.cant_ambiente;
-        });
-    };
 
+  $("#id_especificacion_de_inmueble").on("change", function() {
+    {% if request.GET.cotizacion %}
+    $( "#msjtipodeinmuble" ).append('<span>Si cambia el tipo de inmueble se eliminaran todo los ambientes asociados a esta dirección, Desea eliminar los registros?<button type="button" class="btn btn-default" id="si" onclick="cambiar();">Si</button><button type="button" class="btn btn-default" id="no" onclick="cambiarno();">No</button></span>');
+    {% else %}
+    id_especificacion_de_inmueble = $("#id_especificacion_de_inmueble").val();
+    $.get('/cliente/inmueble/exchange/'+id_especificacion_de_inmueble+'/',
+      function(data) {
+        console.log(data)
+        $("#id_cantidad_de_ambientes").val(data.cant_ambiente);
+      });
+    {% endif %}
+
+  });
 
 </script>
 <style>.paginacionEdit{height: 0;display: none;}</style>

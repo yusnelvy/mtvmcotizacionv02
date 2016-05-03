@@ -285,7 +285,7 @@ Cliente
     </td>
     <td class="c_td">
         <a class="iconoEditar" title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_cliente' i.pk %}?next={{request.get_full_path}}"></a>
-        <a class="iconoRemover" title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:eliminar_tipo_de_cliente' i.pk %}?next={{request.get_full_path}}"></a>
+        <a class="iconoRemover" title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:eliminar_cliente' i.pk %}?next={{request.get_full_path}}"></a>
       <span class="iconoGrupoControl"></span>
     </td>
 </tr>
