@@ -25,7 +25,7 @@
         <div>
             <div class="buscarEnLista">
             <label for="search"></label>
-            <input type="search" id="search" name="search" placeholder="Buscar...">
+            <input type="search" id="search" name="search" placeholder="Buscar..." value='{% if request.GET.search %}{{request.GET.search}}{% endif %}'>
             <a type="submit" name="bt-search" title="Buscar" class="span-button" tabindex="-1" aria-label="User input">
             <span class="glyphicon glyphicon-search"></span>
             </a>

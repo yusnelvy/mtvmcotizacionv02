@@ -159,18 +159,25 @@ def porcentaje_FasesDelProceso(request):
     cotizacion = request.GET.get('cotizacion')
     id_estado = CotizacionEstado.objects.filter(predefinido=True).exclude(estado_de_documento=None)
     # id_estado = CotizacionEstado.objects.filter(predefinido=True, cotizacion=cotizacion).exclude(estado_de_documento=None)
-    ordenActual = id_estado[0].estado_de_documento.orden
+    if id_estado:
+        ordenActual = id_estado[0].estado_de_documento.orden
+    else:
+        ordenActual = 0
     porcentajeString = str(round(incremento*ordenActual))
     porcentaje = porcentajeString + '%'
     return {
         'w_porcentaje': porcentaje,
     }
 
+
 def fases_FasesDelProceso(request):
     """e"""
     id_estado = CotizacionEstado.objects.filter(predefinido=True).exclude(estado_de_documento=None)
     # id_estado = CotizacionEstado.objects.filter(predefinido=True, cotizacion=cotizacion).exclude(estado_de_documento=None)
-    ordenActual = id_estado[0].estado_de_documento.orden
+    if id_estado:
+        ordenActual = id_estado[0].estado_de_documento.orden
+    else:
+        ordenActual = 0
     fasesFaltantes = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden__gt=ordenActual)
     fasesSuperadas = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3).exclude(orden__gt=ordenActual).exclude(orden=ordenActual)
     faseActual = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden=ordenActual)
