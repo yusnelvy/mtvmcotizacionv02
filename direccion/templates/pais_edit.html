@@ -55,6 +55,7 @@
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.pais.value}}');
     tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.codigo_telefonico.value}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_pais').focus();
 </script>
 
 {% endblock jsFicha %}

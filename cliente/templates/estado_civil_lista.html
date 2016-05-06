@@ -165,25 +165,25 @@ Cliente
 
         <a href="?order_by=-estado_civil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-estado_civil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-    {% else %}
+      {% else %}
 
-    <a href="?order_by=estado_civil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="estado_civil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+      <a href="?order_by=estado_civil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="estado_civil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-    {% endif %}
+      {% endif %}
 
-    {% else %}
+      {% else %}
 
-    {% if request.GET.order_by == "estado_civil" %}
+      {% if request.GET.order_by == "estado_civil" %}
 
-    <a href="?order_by=-estado_civil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-estado_civil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+      <a href="?order_by=-estado_civil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-estado_civil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-    {% else %}
+      {% else %}
 
-    <a href="?order_by=estado_civil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="estado_civil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+      <a href="?order_by=estado_civil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="estado_civil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-    {% endif %}
+      {% endif %}
 
-    {% endif %}
+      {% endif %}
 
     </th>
 </tr>

@@ -1,34 +1,25 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Empresa
+'Agregar una empresa'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
+{% block paginacionFicha %}{% endblock paginacionFicha %}
 
-Agregar una empresa
+{% block ficha_basica %}
 
-{% endblock titulo_form %}
+{{ form.as_p }}
 
-{% block nav_lista_form %}{% endblock nav_lista_form %}
+{% endblock ficha_basica %}
 
-{% block cuerpo_form %}
+{% block jsFicha %}
 
-  {{ form.as_md }}
-
-{% endblock cuerpo_form %}
-
-{% block moduloAngular %}
-
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.sitio_web = 'https://';
-      $('#id_codigo').focus();
-      $('label[for=id_logo]').css('transform', 'translate3d(0, 6px, 0) scale(0.75)');
-  });
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
 </script>
+
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

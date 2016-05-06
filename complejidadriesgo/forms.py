@@ -44,6 +44,6 @@ class NivelComplejidadRiesgoForm(ModelForm):
             'nivel_complejidad_riesgo': ('Nombre del nivel complejidad y riesgo'),
             'factor_inicial': ('Factor inicial del nivel de complejidad y riesgo'),
             'factor_final': ('Factor final del nivel de complejidad y riesgo'),
-            'porcentaje': ('Porcentaje del nivel de complejidad y riesgo')
+            'porcentaje': ('Porcentaje del nivel de complejidad y riesgo (%)')
         }
 

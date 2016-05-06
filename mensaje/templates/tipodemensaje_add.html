@@ -1,33 +1,26 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Mensaje
+'Agregar un tipo de mensaje'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
+{% block paginacionFicha %}{% endblock paginacionFicha %}
 
-Agregar un tipo de mensaje
+{% block ficha_basica %}
 
-{% endblock titulo_form %}
+{{ form.as_p }}
 
-{% block nav_lista_form %}{% endblock nav_lista_form %}
+{% endblock ficha_basica %}
 
-{% block cuerpo_form %}
+{% block jsFicha %}
 
-  {{ form.as_md }}
-
-{% endblock cuerpo_form %}
-
-{% block moduloAngular %}
-
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_tipo_de_mensaje').focus();
-      $('#id_tipo_de_mensaje').parent().addClass('md-input-focused');
-  });
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+$('#id_tipo_de_mensaje').focus();
 </script>
+
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

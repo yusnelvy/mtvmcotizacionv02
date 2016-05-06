@@ -57,6 +57,7 @@
     tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.volumen_total_carga.value}}');
     tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.peso_total_carga.value}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_marca').focus();
 </script>
 
 {% endblock jsFicha %}

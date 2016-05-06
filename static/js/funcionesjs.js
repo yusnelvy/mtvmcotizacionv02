@@ -909,7 +909,7 @@ function controlarAutofiltro() {
 
 }
 
-function controlarFiltroRapido() {
+/*function controlarFiltroRapido() {
 
     $('tr[class="active"] th').each(function () {
            var th = $(this).text();
@@ -925,4 +925,4 @@ function controlarFiltroRapido() {
     var valor = document.getElementById("filtro");
     return id;
 
-}
+}*/

@@ -59,6 +59,7 @@
     tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.telefono.value}}');
     tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.email.value}}');
     tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.volumen_en_camion.value}}');
+    tr.children('td[id=td8_{{form.instance.pk}}]').text('{{trabajador.cargo_trabajador}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 

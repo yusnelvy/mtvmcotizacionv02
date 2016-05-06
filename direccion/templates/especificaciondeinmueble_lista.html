@@ -158,7 +158,7 @@ Especificación de inmueble
 
   <tr class="active">
      <th>
-        Tipos de Inmueble
+        Tipo de inmueble asociado
 
         {% if request.GET.page %}
 
@@ -166,25 +166,25 @@ Especificación de inmueble
 
         <a href="?order_by=-tipo_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-tipo_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-      {% else %}
+        {% else %}
 
-      <a href="?order_by=tipo_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="tipo_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=tipo_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="tipo_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-      {% endif %}
+        {% endif %}
 
-      {% else %}
+        {% else %}
 
-      {% if request.GET.order_by == "tipo_de_inmueble" %}
+        {% if request.GET.order_by == "tipo_de_inmueble" %}
 
-      <a href="?order_by=-tipo_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-tipo_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+        <a href="?order_by=-tipo_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-tipo_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-      {% else %}
+        {% else %}
 
-      <a href="?order_by=tipo_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="tipo_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=tipo_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="tipo_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-      {% endif %}
+        {% endif %}
 
-      {% endif %}
+        {% endif %}
 
     </th>
     <th>
@@ -196,55 +196,85 @@ Especificación de inmueble
 
         <a href="?order_by=-especificacion_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-especificacion_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-      {% else %}
+        {% else %}
 
-      <a href="?order_by=especificacion_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="especificacion_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=especificacion_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="especificacion_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-      {% endif %}
+        {% endif %}
 
-      {% else %}
+        {% else %}
 
-      {% if request.GET.order_by == "especificacion_de_inmueble" %}
+        {% if request.GET.order_by == "especificacion_de_inmueble" %}
 
-      <a href="?order_by=-especificacion_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-especificacion_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+        <a href="?order_by=-especificacion_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-especificacion_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-      {% else %}
+        {% else %}
 
-      <a href="?order_by=especificacion_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="especificacion_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=especificacion_de_inmueble&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="especificacion_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-      {% endif %}
+        {% endif %}
 
-      {% endif %}
+        {% endif %}
 
     </th>
     <th>
-        Descripción
+        Descripción de la especificaión de inmueble
 
         {% if request.GET.page %}
 
         {% if request.GET.order_by == "descripcion" %}
 
-      <a href="?order_by=-descripcion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-      {% else %}
+        {% else %}
 
-      <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-      {% endif %}
+        {% endif %}
 
-      {% else %}
+        {% else %}
 
-      {% if request.GET.order_by == "descripcion" %}
+        {% if request.GET.order_by == "descripcion" %}
 
-      <a href="?order_by=-descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+        <a href="?order_by=-descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-      {% else %}
+        {% else %}
 
-      <a href="?order_by=descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-      {% endif %}
+        {% endif %}
 
-      {% endif %}
+        {% endif %}
+
+    </th>
+    <th>
+        ¿Es predeterminada?
+
+        {% if request.GET.page %}
+
+        {% if request.GET.order_by == "predeterminado" %}
+
+        <a href="?order_by=-predeterminado&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-predeterminado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=predeterminado&page={{request.GET.page}}" id="predeterminado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "predeterminado" %}
+
+        <a href="?order_by=-predeterminado{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-predeterminado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=predeterminado{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="predeterminado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% endif %}
 
     </th>
   </tr>
@@ -265,6 +295,11 @@ Especificación de inmueble
     <td id="td3_{{i.pk}}">
 
         {{ i.descripcion|truncatechars:"30" }}
+
+    </td>
+    <td id="td4_{{i.pk}}">
+
+      {{ i.predeterminado|yesno:"Es predeterminada,No es predeterminada" }}
 
     </td>
     <td class="c_td">

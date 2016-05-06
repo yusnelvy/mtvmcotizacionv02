@@ -157,7 +157,7 @@ Complejidad y riesgo
 
 <tr class="active">
     <th>
-        Nivel de complejidad y riesgo
+        Nombre del nivel de complejidad y riesgo
 
         {% if request.GET.page %}
 
@@ -216,7 +216,7 @@ Complejidad y riesgo
 
     </th>
     <th>
-        factor final del nivel de complejidad y riesgo
+        Factor final del nivel de complejidad y riesgo
 
         {% if request.GET.page %}
 
@@ -246,7 +246,7 @@ Complejidad y riesgo
 
     </th>
     <th>
-        porcentaje del nivel de complejidad y riesgo
+        Porcentaje del nivel de complejidad y riesgo (%)
 
         {% if request.GET.page %}
 
@@ -287,17 +287,17 @@ Complejidad y riesgo
     </td>
     <td id="td2_{{i.pk}}">
 
-        {{ i.factor_inicial }} UND
+        {{ i.factor_inicial }}
 
     </td>
     <td id="td3_{{i.pk}}">
 
-        {{ i.factor_final }} UND
+        {{ i.factor_final }}
 
     </td>
         <td id="td4_{{i.pk}}">
 
-        {{ i.porcentaje }} %
+        {{ i.porcentaje }}
 
     </td>
     <td class="c_td">

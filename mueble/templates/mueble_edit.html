@@ -54,8 +54,13 @@ var pos = $(tr).position();
 tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.mueble.value}}');
 tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
 tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.trasladable.value|yesno:"Trasladable,No trasladable"}}');
-tr.children('td[id=td4_{{form.instance.pk}}]').text('{{mueble.tipo_de_mueble}}');
+tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.fragil.value|yesno:"Es fragil,No es fragil"}}');
+tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.pesado.value|yesno:"Es pesado,No es pesado"}}');
+tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.contenido_fragil.value|yesno:"Contenido fragil,Sin contenido fragil"}}');
+tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.contenido_textil.value|yesno:"Contenido textil,Sin contenido textil"}}');
+tr.children('td[id=td8_{{form.instance.pk}}]').text('{{mueble.tipo_de_mueble}}');
 $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+$('#id_mueble').focus();
 </script>
 
 {% endblock jsFicha %}

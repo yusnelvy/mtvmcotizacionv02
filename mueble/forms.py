@@ -39,17 +39,26 @@ class MuebleForm(ModelForm):
 
     class Meta:
         model = Mueble
-        fields = 'tipo_de_mueble', 'mueble', 'descripcion', 'trasladable'
+        fields = '__all__'
         widgets = {
+            'tipo_de_mueble': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
             'mueble': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
             'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '3', 'cols': '1', 'rows': '1'}),
-            'trasladable': Checkbox()
+            'trasladable': Checkbox(attrs={'tabindex': '4'}),
+            'fragil': Checkbox(attrs={'tabindex': '5'}),
+            'pesado': Checkbox(attrs={'tabindex': '6'}),
+            'contenido_fragil': Checkbox(attrs={'tabindex': '7'}),
+            'contenido_textil': Checkbox(attrs={'tabindex': '8'}),
             }
         labels = {
             'tipo_de_mueble': ('Tipo de mueble asociado'),
             'mueble': ('Nombre del mueble'),
             'descripcion': ('Descripción del mueble'),
-            'trasladable': ('¿Mueble trasladable?')
+            'trasladable': ('¿Mueble trasladable?'),
+            'fragil': ('¿Mueble fragil?'),
+            'pesado': ('¿Mueble pesado?'),
+            'contenido_fragil': ('¿Posee contenido fragil?'),
+            'contenido_textil': ('¿Posee contenido textil?')
             }
 
 
@@ -57,6 +66,10 @@ class EspecificacionDeMuebleForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+    def __init__(self, *args, **kwargs):
+        super(EspecificacionDeMuebleForm, self).__init__(*args, **kwargs)
+        self.fields['mueble'].empty_label = 'Seleccione un mueble'
+
     class Meta:
         model = EspecificacionDeMueble
         fields = '__all__'
@@ -64,6 +77,7 @@ class EspecificacionDeMuebleForm(ModelForm):
             'mueble': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
             'especificacion_de_mueble': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
             'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '3', 'cols': '1', 'rows': '1'}),
+            'predefinido': Checkbox(attrs={'tabindex': '8'}),
         }
         labels = {
             'mueble': ('Nombre del mueble asociado'),

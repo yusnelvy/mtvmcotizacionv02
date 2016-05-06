@@ -24,7 +24,7 @@ class EstadoForm(ModelForm):
             }
         labels = {
             'descripcion': ('Descripción del estado'),
-            'estado': ('Estado')
+            'estado': ('Nombre del estado')
             }
 
 
@@ -38,6 +38,10 @@ class EstadoDeRegistroForm(ModelForm):
         label='Seleccione el model',
         choices=model_choices)
 
+    def __init__(self, *args, **kwargs):
+        super(EstadoDeRegistroForm, self).__init__(*args, **kwargs)
+        self.fields['estado'].empty_label = "Seleccione el estado"
+
     class Meta:
         model = EstadoDeRegistro
         fields = '__all__'
@@ -47,7 +51,7 @@ class EstadoDeRegistroForm(ModelForm):
             'observacion': Textarea(attrs={'tabindex': '3', 'cols': '1', 'rows': '1'}),
             }
         labels = {
-            'estado': ('Seleccione el estado'),
-            'descripcion': ('descripción del estado de registro'),
+            'estado': ('Estado asociado'),
+            'descripcion': ('Descripción del estado de registro'),
             'observacion': ('Observación del estado de registro')
-        }
+            }

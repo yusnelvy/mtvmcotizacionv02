@@ -246,6 +246,36 @@ Servicio
         {% endif %}
 
     </th>
+    <th>
+        Unidad de consumo del servicio
+
+        {% if request.GET.page %}
+
+        {% if request.GET.order_by == "unidad_de_consumo" %}
+
+        <a href="?order_by=-unidad_de_consumo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-unidad_de_consumo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=unidad_de_consumo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="unidad_de_consumo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "unidad_de_consumo" %}
+
+        <a href="?order_by=-unidad_de_consumo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-unidad_de_consumo"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=unidad_de_consumo&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="unidad_de_consumo" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% endif %}
+
+    </th>
 </tr>
 <tbody>
 {% for i in servicios %}
@@ -264,6 +294,11 @@ Servicio
     <td id="td3_{{i.pk}}">
 
         {{ i.unidad_de_venta }}
+
+    </td>
+    <td id="td4_{{i.pk}}">
+
+        {{ i.unidad_de_consumo }}
 
     </td>
     <td class="c_td">

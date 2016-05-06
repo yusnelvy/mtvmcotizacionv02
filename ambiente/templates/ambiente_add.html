@@ -1,41 +1,26 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Ambiente
+'Agregar un ambiente'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
+{% block paginacionFicha %}{% endblock paginacionFicha %}
 
-Agregar un ambiente
+{% block ficha_basica %}
 
-{% endblock titulo_form %}
+{{ form.as_p }}
 
-{% block nav_lista_form %}{% endblock nav_lista_form %}
+{% endblock ficha_basica %}
 
-{% block cuerpo_form %}
+{% block jsFicha %}
 
-  {{ form.as_md }}
-
-{% endblock cuerpo_form %}
-
-{% block moduloAngular %}
-
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-      $('#id_ambiente').focus();
-      $('#id_ambiente').parent().addClass('md-input-focused');
-        $('label[for=id_conteo_de_ambientes]').parent().each(function(){
-        $(this).replaceWith( "<p>" + $(this).html() + "</p>" );
-    });
-    $('label[for=id_conteo_de_ambientes]').css('display','none');
-    setTimeout(function() {
-        $("input[name='conteo_de_ambientes']").bootstrapSwitch();
-        $('.bootstrap-switch').after('<label style="margin-left:20px;color:rgba(0,0,0,0.54);transform:translate3d(0, 6px, 0) scale(0.75);margin-bottom:10px;position:absolute;" for="id_conteo_de_ambientes">' + $('label[for=id_conteo_de_ambientes]').text() + '</label>');
-    }, 100);
-  });
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+$('#id_ambiente').focus();
 </script>
+
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

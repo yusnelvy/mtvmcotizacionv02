@@ -13,6 +13,10 @@ class HerramientaForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+    def __init__(self, *args, **kwargs):
+        super(HerramientaForm, self).__init__(*args, **kwargs)
+        self.fields['unidad'].empty_label = "Seleccione la unidad"
+
     class Meta:
         model = Herramienta
         fields = 'unidad', 'herramienta', 'descripcion', 'volumen_en_camion', 'peso_kg'

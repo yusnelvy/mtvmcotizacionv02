@@ -193,27 +193,27 @@ Material
 
         {% if request.GET.order_by == "descripcion" %}
 
-    <a href="?order_by=-descripcion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+        <a href="?order_by=-descripcion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-    {% else %}
+        {% else %}
 
-    <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=descripcion&page={{request.GET.page}}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-    {% endif %}
+        {% endif %}
 
-    {% else %}
+        {% else %}
 
-    {% if request.GET.order_by == "descripcion" %}
+        {% if request.GET.order_by == "descripcion" %}
 
-    <a href="?order_by=-descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+        <a href="?order_by=-descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-descripcion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
-    {% else %}
+        {% else %}
 
-    <a href="?order_by=descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+        <a href="?order_by=descripcion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="descripcion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
-    {% endif %}
+        {% endif %}
 
-    {% endif %}
+        {% endif %}
 
     </th>
 </tr>

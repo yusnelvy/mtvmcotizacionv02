@@ -254,7 +254,7 @@ th {
   font-family: 'Glyphicons Halflings';
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-.glyphicon, .iconoExpandirMax, .iconoExpandirMin, .iconoMinimizar, .iconoCarpetaAbierta, .iconoCarpetaCerrada, .iconoOK, .iconoMinus, .iconoStar {
+.glyphicon, .iconoExpandirMax, .iconoExpandirMin, .iconoMinimizar, .iconoCarpetaAbierta, .iconoCarpetaCerrada, .iconoOK, .iconoMinus, .iconoStar, .iconoReedireccionar, .iconoReloj, .iconoVisto, .iconoNoVisto, .iconoNotificaciones {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -554,7 +554,7 @@ th {
 .glyphicon-arrow-left:before {
   content: "\e091"; }
 
-.glyphicon-arrow-right:before {
+.glyphicon-arrow-right:before, .iconoReedireccionar:before {
   content: "\e092"; }
 
 .glyphicon-arrow-up:before {
@@ -584,10 +584,10 @@ th {
 .glyphicon-fire:before {
   content: "\e104"; }
 
-.glyphicon-eye-open:before {
+.glyphicon-eye-open:before, .iconoVisto:before {
   content: "\e105"; }
 
-.glyphicon-eye-close:before {
+.glyphicon-eye-close:before, .iconoNoVisto:before {
   content: "\e106"; }
 
 .glyphicon-warning-sign:before {
@@ -638,7 +638,7 @@ th {
 .glyphicon-bullhorn:before {
   content: "\e122"; }
 
-.glyphicon-bell:before {
+.glyphicon-bell:before, .iconoNotificaciones:before {
   content: "\e123"; }
 
 .glyphicon-certificate:before {
@@ -692,7 +692,7 @@ th {
 .glyphicon-fullscreen:before {
   content: "\e140"; }
 
-.glyphicon-dashboard:before {
+.glyphicon-dashboard:before, .iconoReloj:before {
   content: "\e141"; }
 
 .glyphicon-paperclip:before {
@@ -5967,12 +5967,12 @@ button.close {
 
 .tamano2x1 {
   height: 200px;
-  width: 475px;
+  width: 460px;
   margin: 5px; }
 
 .tamano2x2 {
   height: 400px;
-  width: 475px;
+  width: 460px;
   margin: 5px; }
 
 .tamano1x3 {
@@ -5982,7 +5982,7 @@ button.close {
 
 .tamano2x3 {
   height: 600px;
-  width: 475px;
+  width: 460px;
   margin: 5px; }
 
 .c_w {
@@ -6079,37 +6079,16 @@ button.close {
       cursor: default;
       width: 100%; }
       .claseMenu li ul li {
-        padding-left: 10px;
-        width: 100%; }
-        .claseMenu li ul li p {
-          margin: 0;
+        padding: 0;
+        padding-left: 30px; }
+        .claseMenu li ul li a {
           padding: 10px;
-          background: #EEE;
-          cursor: default; }
-        .claseMenu li ul li ul {
-          padding: 0;
-          list-style: none;
-          cursor: default; }
-          .claseMenu li ul li ul li.activo {
-            background-color: #7DEAC7;
-            padding-left: 30px; }
-            .claseMenu li ul li ul li.activo a {
-              padding: 10px;
-              padding-left: 5px;
-              width: 100%;
-              display: block;
-              text-decoration: none; }
-          .claseMenu li ul li ul li {
-            padding: 0;
-            padding-left: 30px; }
-            .claseMenu li ul li ul li a {
-              padding: 10px;
-              padding-left: 5px;
-              width: 100%;
-              display: block;
-              text-decoration: none; }
-            .claseMenu li ul li ul li a:hover {
-              background: rgba(0, 0, 0, 0.2); }
+          padding-left: 5px;
+          width: 100%;
+          display: block;
+          text-decoration: none; }
+        .claseMenu li ul li a:hover {
+          background: rgba(0, 0, 0, 0.2); }
 
 .claseTablasRelacionadas {
   border-color: #1CD0A6;

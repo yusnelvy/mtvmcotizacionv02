@@ -69,12 +69,12 @@ margin-left: 15px;
 }
 .tamano2x1{
     height: 200px;
-    width: 475px;
+    width: 460px;
     margin: 5px;
 }
 .tamano2x2{
     height: 400px;
-    width: 475px;
+    width: 460px;
     margin: 5px;
 }
 .tamano1x3{
@@ -84,7 +84,7 @@ margin-left: 15px;
 }
 .tamano2x3{
     height: 600px;
-    width: 475px;
+    width: 460px;
     margin: 5px;
 }
 .c_w {
@@ -206,46 +206,20 @@ margin-left: 15px;
       list-style: none;
       cursor: default;
       width: 100%;
-      li{
-        padding-left: 10px;
-        width: 100%;
-        p {
-          margin: 0;
+        li {
+        padding: 0;
+        padding-left: 30px;
+        a {
           padding: 10px;
-          background: #EEE;
-          cursor: default;
+          padding-left: 5px;
+          width: 100%;
+          display: block;
+          text-decoration: none;
         }
-        ul {
-          padding: 0;
-          list-style: none;
-          cursor: default;
-          li.activo {
-            background-color: #7DEAC7;
-            padding-left: 30px;
-            a {
-              padding: 10px;
-              padding-left: 5px;
-              width: 100%;
-              display: block;
-              text-decoration: none;
-            }
-          }
-          li {
-          padding: 0;
-          padding-left: 30px;
-          a {
-            padding: 10px;
-            padding-left: 5px;
-            width: 100%;
-            display: block;
-            text-decoration: none;
-          }
-          a:hover {
-            background: rgba(0,0,0,0.2);
-          }
-          }
+        a:hover {
+          background: rgba(0,0,0,0.2);
         }
-      }
+        }
     }
   }
 }
@@ -311,4 +285,24 @@ margin-left: 15px;
   width: 100%;
   display: block;
   text-decoration: none;
+}
+.iconoReedireccionar {
+  @extend .glyphicon;
+  @extend .glyphicon-arrow-right;
+}
+.iconoReloj {
+  @extend .glyphicon;
+  @extend .glyphicon-dashboard;
+}
+.iconoVisto {
+  @extend .glyphicon;
+  @extend .glyphicon-eye-open;
+}
+.iconoNoVisto {
+  @extend .glyphicon;
+  @extend .glyphicon-eye-close;
+}
+.iconoNotificaciones {
+  @extend .glyphicon;
+  @extend .glyphicon-bell;
 }

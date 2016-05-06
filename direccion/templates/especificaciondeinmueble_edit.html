@@ -48,9 +48,10 @@ $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion
 var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
 var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
 var pos = $(tr).position();
-tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.especificaciondeinmueble.value}}');
-tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
-tr.children('td[id=td4_{{form.instance.pk}}]').text('{{inmueble.tipo_de_inmueble}}');
+tr.children('td[id=td1_{{form.instance.pk}}]').text('{{especificaciondeinmueble.tipo_de_inmueble}}');
+tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.especificacion_de_inmueble.value}}');
+tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
+tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.predeterminado.value|yesno:"Es predeterminada,No es predeterminada"}}');
 $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 

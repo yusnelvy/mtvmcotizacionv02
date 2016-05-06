@@ -53,7 +53,9 @@
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.servicio.value}}');
     tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{servicio.unidad_de_venta}}');
+     tr.children('td[id=td4_{{form.instance.pk}}]').text('{{servicio.unidad_de_consumo}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_servicio').focus();
 </script>
 
 {% endblock jsFicha %}

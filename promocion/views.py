@@ -126,10 +126,12 @@ class MedioView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Medio '" + str(id_reg) + "'  agregado con éxito.",
+                                 extra_tags=reverse('upromociones:list_medio'))
                 return HttpResponseRedirect(reverse('upromociones:edit_medio',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Medio '" + str(id_reg) + "'  agregado con éxito.")
                 return HttpResponseRedirect(reverse('upromociones:list_medio'))
 
         return render(request, self.template_name, {'form': form})
@@ -256,13 +258,32 @@ class MedioDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Medio " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app medio especifico
@@ -376,10 +397,12 @@ class MedioEspecificoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Medio especifico '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('upromociones:list_medioespecifico'))
                 return HttpResponseRedirect(reverse('upromociones:edit_medioespecifico',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Medio especifico '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('upromociones:list_medioespecifico'))
 
         return render(request, self.template_name, {'form': form})
@@ -506,13 +529,32 @@ class MedioEspecificoDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Medio especifico " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app tipo de referido
@@ -626,10 +668,12 @@ class TipoDeReferidoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Tipo de referido '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('upromociones:list_tipodereferido'))
                 return HttpResponseRedirect(reverse('upromociones:edit_tipodereferido',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Tipo de referido '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('upromociones:list_tipodereferido'))
 
         return render(request, self.template_name, {'form': form})
@@ -756,13 +800,32 @@ class TipoDeReferidoDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Tipo de referido " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app alianza
@@ -890,10 +953,12 @@ class AlianzaView(View):
             agregarestado.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Alianza '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('upromociones:list_alianza'))
                 return HttpResponseRedirect(reverse('upromociones:edit_alianza',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Alianza '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('upromociones:list_alianza'))
 
         return render(request, self.template_name, {'form': form})
@@ -1020,13 +1085,32 @@ class AlianzaDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Alianza " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app institución
@@ -1160,10 +1244,12 @@ class InstitucionView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Institucion '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('upromociones:list_institucion'))
                 return HttpResponseRedirect(reverse('upromociones:edit_institucion',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Institucion '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('upromociones:list_institucion'))
 
         return render(request, self.template_name, {'form': form})
@@ -1290,13 +1376,32 @@ class InstitucionDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Institucion " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app persona aliado
@@ -1430,10 +1535,12 @@ class PersonaAliadoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
+                messages.success(self.request, "Persona aliado '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('upromociones:list_personaaliado'))
                 return HttpResponseRedirect(reverse('upromociones:edit_personaaliado',
                                                     args=(id_reg.id,)))
             else:
+                messages.success(self.request, "Persona aliado '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('upromociones:list_personaaliado'))
 
         return render(request, self.template_name, {'form': form})
@@ -1560,13 +1667,32 @@ class PersonaAliadoDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Persona aliado " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app fuente de promoción

@@ -366,6 +366,36 @@ Trabajador
         {% endif %}
 
     </th>
+    <th>
+        Cargo del trabajador
+
+        {% if request.GET.page %}
+
+        {% if request.GET.order_by == "cargo_trabajador" %}
+
+        <a href="?order_by=-cargo_trabajador&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-cargo_trabajador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=cargo_trabajador&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="cargo_trabajador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "cargo_trabajador" %}
+
+        <a href="?order_by=-cargo_trabajador&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-cargo_trabajador"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=cargo_trabajador&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="cargo_trabajador" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% endif %}
+
+    </th>
 </tr>
 <tbody>
 {% for i in trabajadores %}
@@ -404,6 +434,11 @@ Trabajador
     <td id="td7_{{i.pk}}">
 
         {{ i.volumen_en_camion }}
+
+    </td>
+    <td id="td8_{{i.pk}}">
+
+        {{ i.cargo_trabajador }}
 
     </td>
     <td class="c_td">

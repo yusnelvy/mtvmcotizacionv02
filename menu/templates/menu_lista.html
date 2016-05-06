@@ -10,7 +10,7 @@ Menú
 
 <h2>Listado de menús</h2>
  <h6>Cantidad de menús encontrados:
-    <span class="badge" id="count_reg">
+    <span class="numRegistro" id="count_reg">
 
         {{ menus.count }}
 
@@ -32,13 +32,13 @@ Menú
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% endif %}
@@ -48,13 +48,13 @@ Menú
 {% if request.GET.order_by %}
 
 <li class="btn-disabled">
-    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  <a href="#" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% else %}
 
 <li class="btn-disabled">
-    <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  <a href="#" aria-label="Previous" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% endif %}
@@ -64,13 +64,13 @@ Menú
 {% if request.GET.page == "1" %}
 
 <li class="btn-disabled">
-    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Primero...</a>
+  <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">Primero...</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Primero...</a>
+  <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">Primero...</a>
 </li>
 
 {% endif %}
@@ -80,13 +80,13 @@ Menú
 {% if p == page_obj.number %}
 
 <li class="active">
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{p}}</a>
+  <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">{{p}}</a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{p}}</a>
+  <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">{{p}}</a>
 </li>
 
 {% endif %}
@@ -98,13 +98,13 @@ Menú
 {% if request.GET.page == ultimo %}
 
 <li class="btn-disabled">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">...Ultimo</a>
+  <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">...Ultimo</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">...Ultimo</a>
+  <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" tabindex="-1">...Ultimo</a>
 </li>
 
 {% endif %}
@@ -116,13 +116,13 @@ Menú
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% endif %}
@@ -132,20 +132,20 @@ Menú
 {% if request.GET.order_by %}
 
 <li class="btn-disabled">
-    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="#" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% else %}
 
 <li class="btn-disabled">
-    <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <a href="#" aria-label="Next" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% endif %}
 
 {% endif %}
 
-<li><a href="?page=0">Ver todo</a></li>
+<li><a href="?page=0" tabindex="-1">Ver todo</a></li>
 
 {% endif %}
 
@@ -161,13 +161,27 @@ Menú
 
         {% if request.GET.page %}
 
-        <a href="?order_by=menu&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="menu" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-menu&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "menu" %}
+
+        <a href="?order_by=-menu&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=menu{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="menu" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-menu{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=menu&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="menu" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "menu" %}
+
+        <a href="?order_by=-menu&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=menu&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="menu" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
@@ -177,13 +191,27 @@ Menú
 
         {% if request.GET.page %}
 
-        <a href="?order_by=transaccion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="transaccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-transaccion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-transaccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "transaccion" %}
+
+        <a href="?order_by=-transaccion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-transaccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=transaccion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="transaccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-transaccion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-transaccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=transaccion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="transaccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "transaccion" %}
+
+        <a href="?order_by=-transaccion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-transaccion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=transaccion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="transaccion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
@@ -193,13 +221,27 @@ Menú
 
         {% if request.GET.page %}
 
-        <a href="?order_by=namespace&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="namespace" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-namespace&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-namespace"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "namespace" %}
+
+        <a href="?order_by=-namespace&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-namespace"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=namespace{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="namespace" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-namespace{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-namespace"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=namespace&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="namespace" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "namespace" %}
+
+        <a href="?order_by=-namespace&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-namespace"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=namespace&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="namespace" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
@@ -209,13 +251,27 @@ Menú
 
         {% if request.GET.page %}
 
-        <a href="?order_by=name&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="name" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-name&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-name"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "name" %}
+
+        <a href="?order_by=-name&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-name"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=name{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="name" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-name{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-name"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=name&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="name" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "name" %}
+
+        <a href="?order_by=-name&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-name"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=name&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="name" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
@@ -225,13 +281,27 @@ Menú
 
         {% if request.GET.page %}
 
-        <a href="?order_by=nivel&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="nivel" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-nivel&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nivel"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "nivel" %}
+
+        <a href="?order_by=-nivel&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nivel"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=nivel{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="nivel" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-nivel{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nivel"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=nivel&page={{request.GET.page}}" id="nivel" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "nivel" %}
+
+        <a href="?order_by=-nivel{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nivel"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=nivel{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="nivel" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
@@ -241,13 +311,27 @@ Menú
 
         {% if request.GET.page %}
 
-        <a href="?order_by=padre&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-padre&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "padre" %}
+
+        <a href="?order_by=-padre&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=padre&page={{request.GET.page}}" id="padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "padre" %}
+
+        <a href="?order_by=-padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
@@ -257,19 +341,33 @@ Menú
 
         {% if request.GET.page %}
 
-        <a href="?order_by=menu_padre&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="menu_padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-menu_padre&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu_padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        {% if request.GET.order_by == "menu_padre" %}
+
+        <a href="?order_by=-menu_padre&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu_padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
 
         {% else %}
 
-        <a href="?order_by=menu_padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="menu_padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-menu_padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu_padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
+        <a href="?order_by=menu_padre&page={{request.GET.page}}" id="menu_padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "menu_padre" %}
+
+        <a href="?order_by=-menu_padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-menu_padre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=menu_padre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="menu_padre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
 
         {% endif %}
 
     </th>
 </tr>
-
+<tbody>
 {% for i in menus %}
 
 <tr id="tr{{i.pk}}" data-url="{% url 'umenus:edit_menu' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
@@ -307,7 +405,7 @@ Menú
 
         {% if i.menu_padre %}
 
-            {{i.menu_padre|truncatechars:"25"}}
+            {{i.menu_padre}}
 
         {% else %}
 
@@ -315,8 +413,8 @@ Menú
 
     </td>
     <td class="c_td">
-            <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'umenus:eliminar_menu' i.pk %}?next={{request.get_full_path}}" class="iconoRemover"></a>
-            <span class="iconoGrupoControl"></span>
+      <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" data-url="{% url 'umenus:eliminar_menu' i.pk %}?next={{request.get_full_path}}" data-id="{{ i.id }}" data-nombre="{{ i.menus }}" class="iconoRemover btnEliminar" data-toggle="modal" data-target="#modalEliminar" id="eliminar{{i.id}}"></a>
+      <span class="iconoGrupoControl"></span>
     </td>
 </tr>
 
@@ -329,17 +427,5 @@ Menú
 </tr>
 
 {% endif %}
-
-<script>
-    $(document).on('ready',function(){
-        ocultarASCDesc('menu');
-        ocultarASCDesc('transaccion');
-        ocultarASCDesc('namespace');
-        ocultarASCDesc('name');
-        ocultarASCDesc('nivel');
-        ocultarASCDesc('padre');
-        ocultarASCDesc('menu_padre');
-    });
-</script>
 
 {% endblock lista %}

@@ -61,6 +61,7 @@
     tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.alto.value}}');
     tr.children('td[id=td8_{{form.instance.pk}}]').text('{{form.volumen_en_camion.value}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_contenedor').focus();
 </script>
 
 {% endblock jsFicha %}
