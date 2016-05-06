@@ -5,5 +5,14 @@
 {% endblock titulo %}
 
 {% block contenido %}
-<a target="_blank" href="{% url 'uclientes:add_cliente' %}?next={{request.get_full_path}}&cotizacion=cotizacion">Cotización</a>
+{% if user.is_authenticated  %}
+
+    <a target="_blank" href="{% url 'uclientes:add_cliente' %}?next={{request.get_full_path}}&cotizacion=cotizacion" class="btn btn-default">Cotización</a>
+
+{% else %}
+
+    <a target="_blank" href="{% url 'uclientes:add_cliente' %}?next={{request.get_full_path}}&cotizacion=cotizacion" class="btn btn-default disabled">Cotización</a>
+
+{% endif %}
+
 {% endblock contenido %}

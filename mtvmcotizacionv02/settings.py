@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Redirect when login is correct.
+LOGIN_REDIRECT_URL = "/"
+
+# Redirect when login is not correct.
+LOGIN_URL = '/'
 
 # Application definition
 
@@ -64,6 +69,8 @@ INSTALLED_APPS = (
     'api',
     'corsheaders',
     'rest_framework',
+    'usuario',
+    'notificacion'
 )
 
 MIDDLEWARE_CLASSES = (
