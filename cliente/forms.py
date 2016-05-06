@@ -107,10 +107,15 @@ class ClienteForm(ModelForm):
         model = Cliente
         fields = '__all__'
         widgets = {
-            'tipo_de_cliente': RadioSelect(attrs={'onclick': 'radioColor();', 'tabindex': '1'}),
+            'tipo_de_cliente': RadioSelect(attrs={'onclick': 'radioColor();'}),
             'observaciones': Textarea(attrs={'cols': '1', 'rows': '1'}),
             'cuit': TextInput(),
             'nombre': TextInput()
+        }
+        labels = {
+            'cuit': ('Cuit de la entidad'),
+            'nombre': ('Nombre del cliente'),
+            'tipo_de_cliente': ('Tipo del cliente a registrar')
         }
 
 

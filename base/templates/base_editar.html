@@ -40,13 +40,54 @@ Mueble
         </div>
         <br>
         <div class="botonRegistrar">
-            <button type="submit" name="reg">Registrar</button>
-            <!-- <button type="submit" name="regEdit">Registrar y seguir editando</button> -->
+            <button type="submit" name="reg" class="">Registrar</button>
+            <a type="buttom" onclick="restForm('myformEdit');" tabindex="-1">Cancelar</a>
         </div>
     </form>
     <br>
  </div>
-<style>.grupoInput{overflow-y: hidden!important;}.page-content-wrapper{}.botonRegistrar{}</style>
+<style>.grupoInput{overflow-y: hidden!important;}.page-content-wrapper{height: calc(100% - 115px)!important;}.botonRegistrar{position: fixed;width: 100%;left: 0;padding-right: 50px;border-top: 1px solid #dedede;}</style>
+<script>
+    $(':input').on('keyup', function(){
+    $('.botonRegistrar button[name="reg"]').addClass('btnSuccess');
+  });
+    $('input:text,input:checkbox,input:radio,textarea,input[type=number],select').on('change', function(event){
+    $('.botonRegistrar button[name="reg"]').addClass('btnSuccess');
+});
+
+    $('input[type=radio]:checked').each(function(){
+
+        if ($(this).parent().text().trim() === 'Email') {
+            //alert($(this).parent().text());
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'email');
+        }
+        if ($(this).parent().text().trim() === 'email') {
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'email');
+        }
+        if ($(this).parent().text().trim() === 'Teléfono') {
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'number');
+        }
+        if ($(this).parent().text().trim() === 'teléfono') {
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'number');
+        }
+    });
+
+$('input[type=radio]').click(function(){
+        if ($(this).parent().text().trim() === 'Email') {
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'email');
+        }
+        if ($(this).parent().text().trim() === 'email') {
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'email');
+        }
+        if ($(this).parent().text().trim() === 'Teléfono') {
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'number');
+        }
+        if ($(this).parent().text().trim() === 'teléfono') {
+            $(this).parent().parent().parent().siblings('p').siblings('p').children('input').attr('type', 'number');
+        }
+});
+
+</script>
 
  {% block contenido_relacionado %}{% endblock contenido_relacionado %}
 

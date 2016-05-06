@@ -30,13 +30,19 @@ var vis = $("#divFrame").contents().find("button[name=regEdit]");
     actutamanoFrame();
 });
 });
+$(function() {
+    $( "#id_fecha_nacimiento" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  });
 $('md-input-container').hover(function(){
   $(this).addClass('md-input-focused focusMD');
 //alert('hi');
 }, function(){
   $(this).removeClass('md-input-focused focusMD');
 });
-
+$(function() {
 $('#sidebarWidget').sortable({
    placeholder: "ui-state-highlight",
    update: function(){
@@ -77,6 +83,11 @@ $('#sidebarWidget').sortable({
 
       });
    }
+});
+$('input[type=radio]').on('click', function () {
+         radioColor();
+    });
+radioColor();
 });
 
 $('input:text,input:checkbox,input:radio,textarea,input[type=number],select').on('change', function(event){

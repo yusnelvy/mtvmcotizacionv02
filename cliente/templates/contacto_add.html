@@ -46,7 +46,6 @@ Agregar contacto del cliente: <small>{{ cliente }}</small>
 <div class="col-md-12 col-lg-6" style="background: #fff;border-left: 1px solid #ededed;">
 
 <fieldset>
-    <legend>Información de contacto del cliente</legend>
 
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
@@ -58,11 +57,15 @@ Agregar contacto del cliente: <small>{{ cliente }}</small>
     <div class="inline {{ item_form.prefix }}">
 
         {{ form.tipo_de_informacion_de_contacto.errors }}
+        <p>
         {{ form.tipo_de_informacion_de_contacto.label_tag }}
         {{ form.tipo_de_informacion_de_contacto }}
+        </p>
         {{ form.informacion_de_contacto.errors }}
+        <p>
         {{ form.informacion_de_contacto.label_tag }}
         {{ form.informacion_de_contacto }}
+        </p>
 
     </div>
 
@@ -80,7 +83,14 @@ Agregar contacto del cliente: <small>{{ cliente }}</small>
 {% block js_inferior %}
 
 <script type="text/javascript">
-
+$('input[type=radio]').focus(function() {
+   $(this).parent().parent().parent().addClass('inputFocus');
+   $(this).click();
+   radioColor();
+}).focusout(function() {
+    $(this).parent().parent().parent().removeClass('inputFocus');
+    radioColor();
+  });
 radioColor();
 $('form').removeClass('hidden');
 $('ul[id]').attr('tabindex', '1');

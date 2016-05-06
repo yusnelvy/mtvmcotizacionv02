@@ -7,10 +7,17 @@
   bottom: 0;
   background: #eee;
   padding: 10px;
-  button {
+  float: right!important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  button, a {
     @extend .btn;
     @extend .btn-default;
     @extend .btn-lg;
+    float: right!important;
+    margin-left: 15px!important;
   }
 }
 .botonGuardarf {
@@ -40,6 +47,17 @@
         @extend .next;
     }
 }
+.inputFocus{
+  border: 1px solid #66afe9!important;
+  outline: 0!important;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6)!important;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6)!important;
+}
+.btnSuccess{
+  color: #fff!important;
+  background-color: #5cb85c!important;
+  border-color: #4cae4c!important;
+}
 .grupoInput {
   padding: 10px;
   overflow-y: scroll;
@@ -62,13 +80,14 @@ ul {
   width: 100%;
   list-style: none;
   padding-left: 0;
+  border: 1px solid transparent;
   li {
     flex: auto;
     background: #eee;
     border: 1px solid #dedede;
     label {
       padding: 10px;
-      padding-right: 25px;
+      padding-right: 10px;
       display: block;
       height: 100%;
       margin: 0;
@@ -76,7 +95,8 @@ ul {
       font-family: inherit;
       font: inherit;
       input {
-        visibility: hidden;
+        opacity:0;
+        position:absolute;
       }
       &.hover {
         background: rgba(255,255,255,0.2);
@@ -120,6 +140,20 @@ ul {
   p {
 
   }
+}
+#msjDeNotificacion {
+  z-index: 0!important;
+  bottom: 0!important;
+  position: fixed!important;
+  margin-bottom: 0!important;
+  width: 100%!important;
+}
+.regGuardado {
+  border-color: #3f51b5!important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 /*
  * componentes botones
@@ -447,7 +481,6 @@ span.barDivide {
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-
 .wrapper.toggled .page-content-wrapper {
     width: calc(100% - 250px);
     position: absolute;
@@ -456,6 +489,12 @@ span.barDivide {
     overflow-y: scroll;
     .submit {
       right: 30%;
+    }
+    .botonRegistrar{
+      position: fixed;
+      width: 100%;
+      left: 0;
+      padding-right: 300px;
     }
 }
 .expandirNivel2, .expandirNivel1 {
@@ -472,6 +511,12 @@ span.barDivide {
     overflow-y: scroll;
     .submit {
       right: 50%;
+    }
+    .botonRegistrar{
+      position: fixed;
+      width: 100%;
+      left: 0;
+      padding-right: 550px;
     }
 }
 .wrapper.toggled.nivel2 .sidebar-wrapper {

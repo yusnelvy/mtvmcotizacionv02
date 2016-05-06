@@ -28,3 +28,37 @@ setTimeout(function() {
 
 </script>
 
+
+{% if messages %}
+
+{% for message in messages %}
+
+<div id="msjDeNotificacion" class="alert alert-success animated fadeInUp" role="alert">{{ message }}</div>
+
+<script>
+setTimeout(function(){
+    $('#msjDeNotificacion').addClass('fadeOutDown');
+}, 6000);
+
+// var scroll = $(document.getElementsByClassName("page-content-wrapper"));
+// var element = $('#datosDireccion');
+// var pos = element.position();
+
+// if (element.attr('id').trim() === $('#datosBasicos').attr('id').trim()) {
+// $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+// element.addClass('regGuardado');
+// setTimeout(function(){
+//     element.removeClass('regGuardado');
+// }, 6000);
+// }else{
+// $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+// element.siblings('div.'+element.attr("id").trim()+'').children('.'+3+'').addClass('regGuardado');
+// setTimeout(function(){
+//     element.siblings('div.'+element.attr("id").trim()+'').children('.'+3+'').removeClass('regGuardado');
+// }, 6000);
+// }
+</script>
+
+{% endfor %}
+
+{% endif %}

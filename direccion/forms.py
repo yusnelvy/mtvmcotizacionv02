@@ -5,13 +5,13 @@ Docstring documentación pendiente
 
 
 from django.forms import ModelForm, TextInput, Select, \
-    ModelChoiceField, Textarea
+    ModelChoiceField, Textarea, RadioSelect
 from direccion.models import Pais, Provincia, Ciudad, \
     Barrio, Direccion, TipoDeEdificacion, Edificacion, \
     TipoDeAscensor, Ascensor, TipoDeInmueble, \
     EspecificacionDeInmueble, Inmueble, HorarioDisponible
 from djangular.forms import NgModelFormMixin, NgModelForm
-from base.forms import BaseFormMd, SelectMD, Checkbox
+from base.forms import BaseFormMd, SelectMD, Checkbox, radioSelectPlus
 from django.forms.models import inlineformset_factory
 from django import forms
 
@@ -114,15 +114,19 @@ class DireccionForm(ModelForm):
         model = Direccion
         fields = '__all__'
         labels = {
-            'calle': ('Calle'),
-            'altura': ('Altura'),
-            'barrio': ('Barrio'),
-            'ciudad': ('Ciudad'),
-            'provincia': ('Provincia'),
-            'pais': ('País'),
-            'zip': ('Código postal / Zip'),
-            'adicional': ('Información adicional'),
-            'punto_referencia': ('Punto de referencia')
+            'calle': ('Calle de la dirección'),
+            'altura': ('Altura de la dirección'),
+            'barrio': ('Barrio de la dirección'),
+            'ciudad': ('Ciudad de la dirección'),
+            'provincia': ('Provincia de la dirección'),
+            'pais': ('País de la dirección'),
+            'zip': ('Código postal / Zip de la dirección'),
+            'observacion': ('Información adicional de la dirección'),
+            'punto_referencia': ('Punto de referencia de la dirección')
+        }
+        widgets = {
+            'observacion': Textarea(attrs={'cols': '1', 'rows': '1'}),
+            'punto_referencia': Textarea(attrs={'cols': '1', 'rows': '1'})
         }
 
 
@@ -144,7 +148,7 @@ class TipoDeEdificacionForm(ModelForm):
         }
 
 
-class EdificacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class EdificacionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -241,7 +245,7 @@ class EspecificacionDeInmuebleForm(ModelForm):
             }
 
 
-class InmuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class InmuebleForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -249,6 +253,23 @@ class InmuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         direccion = kwargs.pop('direccion', '')
         super(InmuebleForm, self).__init__(*args, **kwargs)
         self.fields['edificacion'] = forms.ModelChoiceField(queryset=Edificacion.objects.filter(direccion=direccion))
+
+    # PISOS_CHOICES = (
+    #     (1, '1'),
+    #     (2, '2'),
+    #     (3, '3'),
+    #     (4, '4'),
+    #     (5, '5'),
+    #     (6, '6'),
+    #     (7, '7'),
+    #     (8, '8'),
+    #     (9, '9'),
+    #     (False, '+'),
+    # )
+    # numero_de_pisos = forms.ChoiceField(
+    #     label='Numero de Columnas',
+    #     choices=PISOS_CHOICES,
+    #     widget=RadioSelect(),)
 
     class Meta:
         model = Inmueble
@@ -263,5 +284,10 @@ class InmuebleForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             'pisos_escalera': ('N° de pisos a recorrer por escaleras para llegar al inmueble')
         }
         widgets = {
-            'especificacion_de_inmueble': Select(attrs={'ng-change': 'selectChanged()'})
+            'especificacion_de_inmueble': Select(),
+            'baulera': Checkbox(),
+            'numero_de_pisos': radioSelectPlus(),
+            'pisos_por_escalera': radioSelectPlus(),
+            'numero_de_inmueble': radioSelectPlus(),
+            'numero_de_plantas': radioSelectPlus()
         }

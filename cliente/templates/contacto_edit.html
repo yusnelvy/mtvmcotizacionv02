@@ -66,7 +66,6 @@ Contacto
 </div>
 <div class="col-md-12 col-lg-6" style="background: #fff;border-left: 1px solid #ededed;">
   <fieldset>
-    <legend>Información de contacto</legend>
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
 
@@ -75,11 +74,15 @@ Contacto
     <div class="inline {{ item_form.prefix }}">
         {{ form.id }}
         {{ form.tipo_de_informacion_de_contacto.errors }}
+        <p>
         {{ form.tipo_de_informacion_de_contacto.label_tag }}
         {{ form.tipo_de_informacion_de_contacto }}
+        </p>
         {{ form.informacion_de_contacto.errors }}
+        <p>
         {{ form.informacion_de_contacto.label_tag }}
         {{ form.informacion_de_contacto }}
+        </p>
     </div>
 
     {% endfor %}
@@ -92,6 +95,13 @@ Contacto
 {% block js_inferior %}
 
 <script type="text/javascript">
+    $('input[type=radio]').focus(function() {
+   $(this).parent().parent().parent().addClass('inputFocus');
+   radioColor();
+}).focusout(function() {
+    $(this).parent().parent().parent().removeClass('inputFocus');
+    radioColor();
+  });
 
 $('form').removeClass('hidden');
 $('.contenidoR').removeClass('hidden');

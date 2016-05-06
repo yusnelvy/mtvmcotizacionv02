@@ -53,17 +53,24 @@ Cliente
 {% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
+
 <div class="col-md-12 col-lg-6" style="background: #fff;">
+
 {{ form.as_p }}
+
+{% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
+
+{{ contacto.as_p }}
+
+{% endif %}
+
 </div>
 
 <div class="col-md-12 col-lg-6" style="background: #fff;border-left: 1px solid #ededed;">
-{% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
-{{ contacto.as_md }}
 
+{% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
 
 <fieldset>
-    <legend>Información de contacto</legend>
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
     {% for form in item_form %}
@@ -71,11 +78,15 @@ Cliente
     <div class="inline {{ item_form.prefix }}">
         {{ form.id }}
         {{ form.tipo_de_informacion_de_contacto.errors }}
+        <p>
         {{ form.tipo_de_informacion_de_contacto.label_tag }}
         {{ form.tipo_de_informacion_de_contacto }}
+        </p>
         {{ form.informacion_de_contacto.errors }}
+        <p>
         {{ form.informacion_de_contacto.label_tag }}
         {{ form.informacion_de_contacto }}
+        </p>
     </div>
     {% endfor %}
 </fieldset>
@@ -88,9 +99,17 @@ Cliente
 <script type="text/javascript">
     $('#id_nombre').focus();
     $('form').removeClass('hidden');
-
+    $('#id_cliente').parent().css('display', 'none');
+    $('#id_tipo_de_relacion').parent().css('display', 'none');
 
     $(function() {
+                $('input[type=radio]').focus(function() {
+   $(this).parent().parent().parent().addClass('inputFocus');
+   radioColor();
+}).focusout(function() {
+    $(this).parent().parent().parent().removeClass('inputFocus');
+    radioColor();
+  });
         $('.delete-row').click(function(){
         id_remove = $(this).parent().children('input[type=hidden]').val();
         if (id_remove!=''){
