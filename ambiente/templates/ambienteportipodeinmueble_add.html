@@ -15,11 +15,117 @@ Agregar ambiente por tipo de inmueble
 {% block nav_lista_form %}{% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
+<form action="" method="post" id="myformEdit">
+  {% csrf_token %}
+  <div class="form-group">
+{{ambienteportipodeinmueble}} --
+{{inmueble}}
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td>
+                <input type="checkbox" id="ambiente" name="ambiente">
+                <select name="var1" id="var1">
+                    {% for amb in variable1  %}
+                    {% if  amb.id == request.GET.var1 %}
 
-  {{ form.as_p }}
+                    <option value="{{amb.id}}" selected="selected">{{amb.ambiente}}
+                    </option>
 
-<script type="text/javascript">
-document.getElementById('id_ambiente').focus()
-</script>
+                    {% else %}
+
+                    <option value="{{amb.id}}">{{amb.ambiente}}</option>
+
+                    {% endif %}
+
+                    {% endfor %}
+                </select>
+                <select name="var2" id="var2">
+                    {% for item in variable2  %}
+                    {% if  item.id == request.GET.var2 %}
+
+                    <option value="{{item.id}}" selected="selected">{{item.especificacion_de_inmueble}}</option>
+
+                    {% else %}
+
+                    <option value="{{item.id}}">{{item.especificacion_de_inmueble}}</option>
+
+                    {% endif %}
+
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+      <tr>
+        <td>
+          ambiente
+        </td>
+        <td>
+          Especificación de inmueble
+        </td>
+        <td>
+          Predefinido
+        </td>
+        <td>
+            Agregar
+        </td>
+      </tr>
+      {{ formset.management_form }}
+      {% for form in formset %}
+      <tr id="{{forloop.counter}}">
+        <td>{{form.ambiente}}</td>
+        <td>{{form.especificacion_de_inmueble}}</td>
+        <td>{{form.predeterminado}}</td>
+        <td>{{form.ch_agregar}}</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+  </div>
+
+  <button type="submit" class="btn btn-default registrar">Registrar</button>
+  <br>
+
+</form>
 
 {% endblock cuerpo_form %}
+
+{% block js_inferior %}
+
+<script type="text/javascript">
+$('form').removeClass('hidden');
+{% if request.GET.var2 %}
+  $('#var2 option[value={{request.GET.var2}}]').attr('selected','selected');
+{% endif %}
+{% if request.GET.var1 %}
+  $('#var1 option[value={{request.GET.var1}}]').attr('selected','selected');
+{% endif %}
+
+{% if request.GET.ambiente %}
+
+if ('{{request.GET.ambiente}}' == 'on'){
+  document.getElementById("ambiente").checked = true;
+}else{
+  document.getElementById("ambiente").checked = false;
+}
+
+{% endif %}
+
+$("#var2").on("change", function() {
+    $("#ambiente").val('off');
+
+    document.getElementById("ambiente").checked = false;
+    ambiente = $("#ambiente").val();
+    alert('ambiente '+ $("#ambiente").val());
+    var2 = $("#var2").val();
+    location.href='/ambiente/ambiente_por_tipo_de_inmueble/nuevo?var2='+var2
+    $('#var2 option[value='+var2+']').attr('selected','selected');
+});
+$("#var1").on("change", function() {
+    var1 = $("#var1").val();
+    ambiente = $("#ambiente").val();
+
+    location.href='/ambiente/ambiente_por_tipo_de_inmueble/nuevo?var1='+var1+'&ambiente='+ambiente
+      });
+</script>
+
+{% endblock js_inferior %}

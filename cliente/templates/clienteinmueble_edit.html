@@ -28,7 +28,7 @@ Inmueble
 
     </span>
 </p>
-{{ form.as_md }}
+{{ form.as_p }}
 {% endblock cuerpo_form %}
 
 {% block contenido_relacionado %}{% endblock contenido_relacionado %}
@@ -42,14 +42,10 @@ function cambiar() {
   $("#cambiarinmueble").val('si');
 };
 function cambiarno() {
-
+  $('#id_especificacion_de_inmueble > option[value="{{form.especificacion_de_inmueble.value}}"]').attr('selected', 'selected');
    valor = '{{form.especificacion_de_inmueble.value}}';
-   especificacion_de_inmueble = $("input[name=especificacion_de_inmueble]");
-    for(var i=0; i<especificacion_de_inmueble.length; i++) {
-      if (valor==especificacion_de_inmueble[i].value) {
-        especificacion_de_inmueble[i].selected = true;
-      }
-    }
+
+//$("#id_especificacion_de_inmueble").select2("val", "{{form.especificacion_de_inmueble.value}}");
 
   console.log(valor);
 

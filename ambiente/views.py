@@ -10,6 +10,7 @@ from ambiente.models import Ambiente, AmbientePorTipoDeInmueble, \
     AmbienteEstadoDeRegistro
 from ambiente.forms import AmbienteForm, AmbientePorTipoDeInmuebleForm
 from estadoderegistro.models import EstadoDeRegistro
+from direccion.models import EspecificacionDeInmueble
 from mtvmcotizacionv02.views import valor_Personalizacionvisual, get_query
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -21,6 +22,9 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import Table
 
 from io import BytesIO
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import permission_required, login_required
+from django.forms.formsets import formset_factory
 
 
 # Create your views here.
@@ -119,6 +123,7 @@ class AmbienteView(View):
     form_class = AmbienteForm
     template_name = 'ambiente_add.html'
 
+    @method_decorator(login_required)
     def get(self, request, *args, **kwargs):
         """docstring"""
         form = self.form_class()
@@ -135,7 +140,7 @@ class AmbienteView(View):
 
             agregarestado = AmbienteEstadoDeRegistro.objects.create(ambiente=id_reg,
                                                                     estado_de_registro_id=estadoactual[0].id,
-                                                                    usuario_id=2,
+                                                                    usuario_id=self.request.user.id,
                                                                     predefinido=True)
             agregarestado.save()
 
@@ -247,7 +252,7 @@ class AmbienteUpdate(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        id_reg = self.object.save()
+        self.object.save()
 
         if 'regEdit' in self.request.POST:
 
@@ -374,28 +379,118 @@ class AmbientePorTipoDeInmuebleListView(ListView):
 
 
 class AmbientePorTipoDeInmuebleView(View):
-    form_class = AmbientePorTipoDeInmuebleForm
+    form_class_formset = formset_factory(AmbientePorTipoDeInmuebleForm)
     template_name = 'ambienteportipodeinmueble_add.html'
 
     def get(self, request, *args, **kwargs):
         """docstring"""
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form})
+
+        if self.request.GET.get('ambiente'):
+            form_class_formset = formset_factory(AmbientePorTipoDeInmuebleForm,
+                                                 extra=EspecificacionDeInmueble.objects.count(),
+                                                 max_num=EspecificacionDeInmueble.objects.count())
+            ambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(ambiente=self.request.GET.get('var1'))
+            inmueble = EspecificacionDeInmueble.objects.exclude(id__in=ambienteportipodeinmueble.values('especificacion_de_inmueble'))
+            ambiente = Ambiente.objects.none()
+        else:
+            form_class_formset = formset_factory(AmbientePorTipoDeInmuebleForm,
+                                                 extra=Ambiente.objects.count(),
+                                                 max_num=Ambiente.objects.count())
+            ambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(especificacion_de_inmueble=self.request.GET.get('var2'))
+            ambiente = Ambiente.objects.exclude(id__in=ambienteportipodeinmueble.values('ambiente'))
+            inmueble = EspecificacionDeInmueble.objects.none()
+        data = []
+
+        if ambienteportipodeinmueble:
+
+            for item in ambienteportipodeinmueble:
+                data.append({'ambiente': item.ambiente,
+                             'especificacion_de_inmueble': item.especificacion_de_inmueble,
+                             'predeterminado': item.predeterminado,
+                             'ch_agregar': True
+                             })
+        if ambiente:
+            for item in ambiente:
+                data.append({'ambiente': item.id,
+                             'especificacion_de_inmueble': self.request.GET.get('var2')
+                             })
+
+        if inmueble:
+            for item in inmueble:
+                data.append({'ambiente': self.request.GET.get('var1'),
+                             'especificacion_de_inmueble': item.id
+                             })
+
+        if len(data) > 0:
+            formset = self.form_class_formset(initial=data)
+        else:
+            formset = self.form_class_formset()
+
+        return render(request, self.template_name, {'formset': formset,
+                                                    'ambienteportipodeinmueble': ambienteportipodeinmueble,
+                                                    'inmueble': inmueble,
+                                                    'ambiente': ambiente,
+                                                    'variable1': Ambiente.objects.all(),
+                                                    'variable2': EspecificacionDeInmueble.objects.all()})
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        formset = self.form_class_formset(request.POST)
+        if formset.is_valid():
 
-        if form.is_valid():
-            id_reg = form.save()
+            ambiente = self.request.GET.get('ambiente')
+            if ambiente:
+                existeambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(ambiente=self.request.GET.get('var1'))
+                if existecontenedor:
+                    AmbientePorTipoDeInmueble.objects.filter(ambiente=
+                                                             self.request.GET.get('var1')).delete()
+            else:
+                existeambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(especificacion_de_inmueble=self.request.GET.get('var1'))
+                if existecontenedor:
+                    AmbientePorTipoDeInmueble.objects.filter(especificacion_de_inmueble=
+                                                             self.request.GET.get('var1')).delete()
 
-            if 'regEdit' in request.POST:
-                messages.success(request, "Registro guardado.")
-                return HttpResponseRedirect(reverse('uambientes:edit_ambienteportipoinmueble',
-                                                    args=(id_reg.id,)))
+            for form in formset.forms:
+                if form.cleaned_data.get('ch_agregar'):
+
+                    add_ambienteportipodemueble(str(form.cleaned_data['ambiente'].id),
+                                                str(form.cleaned_data['especificacion_de_inmueble'].id),
+                                                str(form.cleaned_data['predeterminado'].id))
+                #form.save()
+
+            # <process form cleaned data>
+            messages.success(self.request, "Registro guardado.")
+            redirect_to = self.request.REQUEST.get('next', '')
+            if redirect_to:
+                return HttpResponseRedirect(redirect_to)
             else:
                 return HttpResponseRedirect(reverse('uambientes:list_ambienteportipoinmueble'))
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'formset': formset})
+
+
+# class AmbientePorTipoDeInmuebleView(View):
+#     form_class = AmbientePorTipoDeInmuebleForm
+#     template_name = 'ambienteportipodeinmueble_add.html'
+
+#     def get(self, request, *args, **kwargs):
+#         """docstring"""
+#         form = self.form_class()
+#         return render(request, self.template_name, {'form': form})
+
+#     def post(self, request, *args, **kwargs):
+#         form = self.form_class(request.POST)
+
+#         if form.is_valid():
+#             id_reg = form.save()
+
+#             if 'regEdit' in request.POST:
+#                 messages.success(request, "Registro guardado.")
+#                 return HttpResponseRedirect(reverse('uambientes:edit_ambienteportipoinmueble',
+#                                                     args=(id_reg.id,)))
+#             else:
+#                 return HttpResponseRedirect(reverse('uambientes:list_ambienteportipoinmueble'))
+
+#         return render(request, self.template_name, {'form': form})
 
 
 class AmbientePorTipoDeInmuebleUpdate(UpdateView):

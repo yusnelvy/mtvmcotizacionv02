@@ -1,0 +1,69 @@
+{% extends "base_ficha.html" %}
+
+{% block titulo_ficha %}
+
+'Ficha de la notificación: {{form.titulo.value|lower}}'
+
+{% endblock titulo_ficha %}
+
+{% block paginacionFicha %}
+
+{% if notificacion_previous %}
+
+<li class="anterior">
+    <md-button href="{% url 'unotificaciones:edit_notificacion' notificacion_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; anterior</md-button>
+</li>
+
+{% else %}
+
+<li class="anteriorBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; anterior</md-button>
+</li>
+
+{% endif %}
+
+{% if notificacion_next %}
+
+<li class="siguiente">
+    <md-button href="{% url 'unotificaciones:edit_notificacion' notificacion_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">siguiente &rarr;</md-button>
+</li>
+
+{% else %}
+
+<li class="siguienteBloqueado">
+    <md-button href="#" ng-disabled="true" tabindex="-1">siguiente &rarr;</md-button>
+</li>
+
+{% endif %}
+
+{% endblock paginacionFicha %}
+
+{% block ficha_basica %}
+
+<md-input-container>
+<h3>
+
+    {{form.origen}}
+
+</h3>
+</md-input-container>
+<md-input-container>
+<label for="{{form.titulo.id_for_label}}">
+
+    {{form.titulo.label}}
+
+</label>
+
+{{form.titulo}}
+
+</md-input-container>
+
+{% endblock ficha_basica %}
+
+{% block moduloAngularFicha %}
+
+<script type="text/javascript">
+
+</script>
+
+{% endblock moduloAngularFicha %}

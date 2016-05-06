@@ -62,6 +62,41 @@
 
               {% include "Transacciones.html" %}
 
+              {% if user.username %}
+
+
+              <a aria-expanded="true" class="navbar-brand dropdown-toggle" data-toggle="dropdown" href="#" title="{% if user.username %}{{ user.username }}{% endif %}" type="button">
+                <span class="glyphicon glyphicon-user"></span>
+                <span class="caret"></span>
+
+                {% if user.username %}
+
+                {{ user.username }}
+
+                {% endif %}
+
+              </a>
+              <a href="{% url 'uusuarios:logout' %}">Salir</a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a href="#">Configuraciones</a>
+                </li>
+                <li>
+                  <a href="{% url 'uusuarios:login' %}">Login</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="{% url 'uusuarios:logout' %}">Salir</a>
+                </li>
+              </ul>
+
+
+              {% else %}
+
+              <a class="navbar-brand" data-target="{% if user.username %}#myModal2{% else %}/login{% endif %}" href="{% url 'uusuarios:login' %}?next={{request.GET.next}}" title="{% if user.username %}{{ user.username }}{% else %}Login{% endif %}" type="button"><span class="glyphicon glyphicon-user"></span>Login</a>
+
+              {% endif %}
+
               <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1"></a>
             </ul>
 

@@ -1,0 +1,30 @@
+{% extends "base_editar.html" %}
+
+{% block titulo %}
+
+Notificación
+
+{% endblock titulo %}
+
+{% block titulo_form %}
+
+Agregar una notificación
+
+{% endblock titulo_form %}
+
+{% block nav_lista_form %}{% endblock nav_lista_form %}
+
+{% block cuerpo_form %}
+
+  {{ form.as_p }}
+
+{% endblock cuerpo_form %}
+
+{% block js_inferior %}
+
+<script type="text/javascript">
+    $('form').removeClass('hidden');
+</script>
+<style>.paginacionEdit{height: 0;}</style>
+
+{% endblock js_inferior %}

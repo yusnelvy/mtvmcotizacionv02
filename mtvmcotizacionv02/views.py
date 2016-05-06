@@ -138,19 +138,25 @@ def sidebar(request):
 
 def wVisible(request):
     """e"""
-    all_categories2 = Widget.objects.values('nombre','visible', 'numero_de_columna').filter(usuario=1)
+    all_categories2 = Widget.objects.values('nombre',
+                                            'visible',
+                                            'numero_de_columna').filter(usuario=1)
 
     return {
         'w_visble': all_categories2,
     }
 
+
 def wOrden(request):
     """e"""
-    all_widgets = Widget.objects.values('nombre','orden', 'visible').filter(usuario=1).order_by('orden')
+    all_widgets = Widget.objects.values('nombre',
+                                        'orden',
+                                        'visible').filter(usuario=1).order_by('orden')
 
     return {
         'w_orden': all_widgets,
     }
+
 
 def porcentaje_FasesDelProceso(request):
     """e"""
@@ -178,9 +184,12 @@ def fases_FasesDelProceso(request):
         ordenActual = id_estado[0].estado_de_documento.orden
     else:
         ordenActual = 0
-    fasesFaltantes = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden__gt=ordenActual)
-    fasesSuperadas = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3).exclude(orden__gt=ordenActual).exclude(orden=ordenActual)
-    faseActual = EstadoDeDocumento.objects.values('estado_de_documento','orden').filter(tipo_de_documento=3, orden=ordenActual)
+    fasesFaltantes = EstadoDeDocumento.objects.values('estado_de_documento',
+                                                      'orden').filter(tipo_de_documento=3, orden__gt=ordenActual)
+    fasesSuperadas = EstadoDeDocumento.objects.values('estado_de_documento',
+                                                      'orden').filter(tipo_de_documento=3).exclude(orden__gt=ordenActual).exclude(orden=ordenActual)
+    faseActual = EstadoDeDocumento.objects.values('estado_de_documento',
+                                                  'orden').filter(tipo_de_documento=3, orden=ordenActual)
     return {
         'w_fasesA': faseActual,
         'w_fasesS': fasesSuperadas,
