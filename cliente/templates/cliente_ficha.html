@@ -2,7 +2,7 @@
 
 {% block acceso_rapido %}
 
-<a title="Volver" class="md-icon-button" href="{% if request.GET.next = None %}../../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
+<a title="Volver" href="{% if request.GET.next = None %}../../{% else %}{{request.GET.next}}{% endif %}" tabindex="-1">
 <span class="iconoVolver"></span>
 </a>
 
@@ -11,8 +11,8 @@
 {% block contenido %}
 
 <br>
-<div class="contenedor animated fadeIn">
-  <div class="panel panel-default">
+<div  class="contenedor animated fadeIn">
+  <div id="datosBasicos" class="panel panel-default">
     <div class="panel-body">
       <div class="controlFicha">
         <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_cliente' cliente.pk %}?next={{request.get_full_path}}" class="iconoEditar"></a>
@@ -74,10 +74,11 @@
       </div>
     </div>
   </div>
-  <legend class="legendas" data-toggle="collapse" href="#contactoCollapse" aria-expanded="false" aria-controls="collapseExample">Personas de contacto de {{cliente.nombre}}.
+
+  <legend id="datosContacto" class="legendas" data-toggle="collapse" href="#contactoCollapse" aria-expanded="false" aria-controls="collapseExample">Personas de contacto de {{cliente.nombre}}.
   </legend>
 
-  <div class="collapse {% if contactos %}in{% else %}in{% endif %}" id="contactoCollapse">
+  <div class="collapse datosContacto {% if contactos %}in{% else %}in{% endif %}" id="contactoCollapse">
 
     {% if not contactos %}
 
@@ -99,7 +100,7 @@
 
     {% for contacto in contacto_list %}
 
-    <div class="panel panel-default">
+    <div class="panel panel-default {{ contacto.grouper.id }}">
       <div class="panel-body">
         <div style="float: right;display" class="controlFicha">
           <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_contacto' contacto.grouper.id %}?next={{request.get_full_path}}" class="iconoEditar"></a>
@@ -139,10 +140,10 @@
 
   </div>
 
-  <legend class="legendas" data-toggle="collapse" href="#direccionesCollapse" aria-expanded="false" aria-controls="collapseExample">
+  <legend id="datosDireccion" class="legendas" data-toggle="collapse" href="#direccionesCollapse" aria-expanded="false" aria-controls="collapseExample">
     Direcciones de {{cliente.nombre}}.
   </legend>
-  <div id="direccionesCollapse" class="collapse {% if direcciones %}in{% else %}in{% endif %}">
+  <div id="direccionesCollapse" class="collapse datosDireccion {% if direcciones %}in{% else %}in{% endif %}">
 
     {% if not direcciones %}
 
@@ -162,7 +163,7 @@
 
     {% for direccion in direcciones %}
 
-    <div class="panel panel-default">
+    <div class="panel panel-default {{direccion.id}}">
       <div class="panel-body">
         <div style="float: right;display" class="controlFicha">
 
@@ -185,13 +186,13 @@
 
             {% if direccion.edificacion.nombre_de_edificio %}
 
-            <p>- {{direccion.edificacion.nombre_de_edificio}}</p>
+            <p><strong>Nombre de edificación: </strong> {{direccion.edificacion.nombre_de_edificio}}</p>
 
             {% endif %}
 
             {% if direccion.inmueble.numero_de_inmueble %}
 
-            <p>n° {{direccion.inmueble.numero_de_inmueble}}</p>
+            <p><strong>Numero de inmueble: </strong> N° {{direccion.inmueble.numero_de_inmueble}}</p>
 
             {% endif %}
 
@@ -210,5 +211,10 @@
 
   </div>
 </div>
-
 {% endblock contenido %}
+
+{% block js_inferior %}
+
+
+
+{% endblock js_inferior %}

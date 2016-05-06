@@ -133,3 +133,105 @@ class InputFecha(Widget):
             # Only add the 'value' attribute if a value is non-empty.
             final_attrs['value'] = force_text(self._format_value(value))
         return format_html('<md-datepicker{0} />', flatatt(final_attrs))
+
+
+class radioSelectPlus(Select):
+
+    def render(self, name, value, attrs=None, choices=()):
+        checked1 = ''
+        checked2 = ''
+        checked3 = ''
+        checked4 = ''
+        checked5 = ''
+        checked6 = ''
+        checked7 = ''
+        checked8 = ''
+        checked9 = ''
+        checked10 = ''
+        if value is None:
+            value = '1'
+
+        if int(value) is 0 or int(value) >= 10:
+            checked10 = 'checked="checked"'
+        elif int(value) is 1:
+            checked1 = 'checked="checked"'
+        elif int(value) is 2:
+            checked2 = 'checked="checked"'
+        elif int(value) is 3:
+            checked3 = 'checked="checked"'
+        elif int(value) is 4:
+            checked4 = 'checked="checked"'
+        elif int(value) is 5:
+            checked5 = 'checked="checked"'
+        elif int(value) is 6:
+            checked6 = 'checked="checked"'
+        elif int(value) is 7:
+            checked7 = 'checked="checked"'
+        elif int(value) is 8:
+            checked8 = 'checked="checked"'
+        elif int(value) is 9:
+            checked9 = 'checked="checked"'
+
+
+        ul = '<ul>\
+                <li>\
+                    <label for="'+name+'1">\
+                        <input id="'+name+'1" '+checked1+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">1\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'2">\
+                        <input id="'+name+'2" '+checked2+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">2\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'3">\
+                        <input id="'+name+'3" '+checked3+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">3\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'4">\
+                        <input id="'+name+'4" '+checked4+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">4\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'5">\
+                        <input id="'+name+'5" '+checked5+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">5\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'6">\
+                        <input id="'+name+'6" '+checked6+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">6\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'7">\
+                        <input id="'+name+'7" '+checked7+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">7\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'8">\
+                        <input id="'+name+'8" '+checked8+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">8\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'9">\
+                        <input id="'+name+'9" '+checked9+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'">9\
+                    </label>\
+                </li>\
+                <li>\
+                    <label for="'+name+'10">\
+                        <input id="'+name+'10" '+checked10+' type="radio" onclick="clickRadioSelect(this);" name="'+name+'a" data-name="'+name+'"/>+\
+                    </label>\
+                </li>\
+            </ul>'
+
+        if value is None:
+            value = '0'
+        final_attrs = self.build_attrs(attrs, name=name)
+        output = [format_html(ul+'<input{} class="form-control hidden" value="'+str(value)+'">', flatatt(final_attrs))]
+        options = self.render_options(choices, [value])
+        if options:
+            output.append(options)
+        output.append('</md-select>')
+        return mark_safe('\n'.join(output))

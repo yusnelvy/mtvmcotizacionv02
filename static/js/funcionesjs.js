@@ -3,6 +3,34 @@ function radioColor () {
     $("label:has(input[type=radio]:checked)").addClass('seleccion');
 }
 
+function clickRadioSelect(element) {
+  var valor = $(element).parent().text().trim();
+  var name = $(element).data("name");
+  var input = $(element).parent().parent().parent().siblings("input[id=id_"+name+"]");
+  $(input).val(valor);
+  $(input).addClass("hidden");
+  if (valor === '+') {
+    $(input).val('');
+    $(input).removeClass("hidden");
+    $(input).addClass("animated fadeIn");
+    $(input).focus().attr("placeholder", "Introduzca un numero");
+  }
+}
+function radioSelectPlus() {
+  $(document).ready(function() {
+    setTimeout(function(){
+      $('ul li label.seleccion').each(function() {
+        var name = $(this).children('input').data("name");
+        var input = $(this).parent().parent().siblings("input[id=id_"+name+"]");
+
+        if ($(this).text().trim() === '+' ) {
+          $(input).removeClass('hidden');
+        }
+      });
+    }, 0);
+  });
+}
+
 function transaccion()
     {
         var variable = document.getElementById("transaccion").value;
@@ -110,6 +138,8 @@ function restForm(name) {
   $('.botonGuardarf button').css('color', '#333');
   $('.botonGuardarf button').css('background-color', '#FFF');
   $('.botonGuardarf button').css('border-color', '#CCC');
+  $('.botonRegistrar button').removeClass('btnSuccess');
+  radioColor();
 }
 function cambiosporGuardar() {
   $('.botonGuardarf button').css('color', '#FFF');
@@ -891,8 +921,8 @@ function controlarFiltroRapido() {
 
     var id = "";
     var elementosSelect = document.getElementsByTagName('select');
-    var seleccionado = elementosSelect[0].value;
-    var valor = document.getElementById("filtro").value;
+    var seleccionado = elementosSelect[0];
+    var valor = document.getElementById("filtro");
     return id;
 
 }
