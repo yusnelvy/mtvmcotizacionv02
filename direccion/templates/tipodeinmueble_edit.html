@@ -55,6 +55,7 @@
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_inmueble.value}}');
     tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_tipo_de_inmueble').focus();
 </script>
 
 {% endblock jsFicha %}

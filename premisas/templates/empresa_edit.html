@@ -1,55 +1,68 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block titulo %}
+{% block titulo_ficha %}
 
-Empresa
+'Ficha de empresa {{form.empresa.value|lower}}'
 
-{% endblock titulo %}
+{% endblock titulo_ficha %}
 
-{% block titulo_form %}
-
-Editar empresa {{form.empresa.value|lower}}
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}
+{% block paginacionFicha %}
 
 {% if empresa_previous %}
 
-<li class="previous">
-    <a href="{% url 'upremisas:edit_empresa' empresa_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">&larr; Anterior</a>
+<li class="anterior">
+    <a href="{% url 'upremisas:edit_empresa' empresa_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
-<li class="previousBloqueado"><a href="#">&larr; Anterior</a></li>
+<li class="anteriorBloqueado">
+  <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
+</li>
 
 {% endif %}
 
 {% if empresa_next %}
 
-<li class="next">
-    <a href="{% url 'upremisas:edit_empresa' empresa_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}">Siguiente &rarr;</a>
+<li class="siguiente">
+    <a href="{% url 'upremisas:edit_empresa' empresa_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
-<li class="nextBloqueado"><a href="#">Siguiente &rarr;</a></li>
+<li class="siguienteBloqueado">
+  <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
+</li>
 
 {% endif %}
 
-{% endblock nav_lista_form %}
+{% endblock paginacionFicha %}
 
-{% block cuerpo_form %}
+{% block ficha_basica %}
 
-<div class="prueba">
+{{ form.as_p }}
 
-{{ form.as_md }}
+{% endblock ficha_basica %}
 
-</div>
+{% block jsFicha %}
 
 <script type="text/javascript">
-document.getElementById('id_codigo').focus()
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
+$(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
+var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+var pos = $(tr).position();
+tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.codigo.value}}');
+tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.empresa.value}}');
+tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.telefonos.value}}');
+tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.direccion.value|truncatechars:"30"}}');
+tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.sitio_web.value|truncatechars:"30"}}');
+tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.correo.value|truncatechars:"30"}}');
+tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.responsable.value}}');
+tr.children('td[id=td8_{{form.instance.pk}}]').text('{{form.cuit.value}}');
+tr.children('td[id=td9_{{form.instance.pk}}]').text('{{form.logo.value}}');
+tr.children('td[id=td10_{{form.instance.pk}}]').text('{{form.telefono_call_center.value}}');
+$(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock cuerpo_form %}
+{% endblock jsFicha %}

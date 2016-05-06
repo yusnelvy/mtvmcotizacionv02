@@ -11,25 +11,25 @@
 {% if tipodereferido_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'upromociones:edit_tipodereferido' tipodereferido_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'upromociones:edit_tipodereferido' tipodereferido_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
-<li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
+<li class="anteriorBloqueado"><a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a></li>
 
 {% endif %}
 
 {% if tipodereferido_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'upromociones:edit_tipodereferido' tipodereferido_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'upromociones:edit_tipodereferido' tipodereferido_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% endif %}
@@ -38,64 +38,22 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.tipo_de_referido}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.descripcion.id_for_label}}">
-
-    {{form.descripcion.label}}
-
-</label>
-
-{{form.descripcion}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch" for="{{form.medio_especifico.id_for_label}}">
-
-    {{form.medio_especifico.label}}
-
-</span>
-
-{{form.medio_especifico}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.medio_especifico = '{{form.medio_especifico.value}}';
-    $scope.tipo_de_referido = '{{form.tipo_de_referido.value}}';
-    $scope.descripcion = '{{form.descripcion.value}}';
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.medio_especifico = '{{form.medio_especifico.value}}';
-        $scope.tipo_de_referido = '{{form.tipo_de_referido.value}}';
-        $scope.descripcion = '{{form.descripcion.value}}';
-    }
-    $scope.onChange = function() {
-        controlSubmit(event);
-    }
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.tipo_de_referido.value}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"40"}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.descripcion.value|truncatechars:"30"}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{tipodereferido.medio_especifico}}');
-    setTimeout(function() {
-    $('#id_medio_especifico').zelect();
-    enterNone('form');
-    $('#id_medio_especifico').on('change', function(event) { controlSubmit(event); })
-}, 1);
-});
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

@@ -216,6 +216,36 @@ Dirección
         {% endif %}
 
     </th>
+    <th>
+        ¿El ambiente es contable?
+
+        {% if request.GET.page %}
+
+        {% if request.GET.order_by == "nombre" %}
+
+        <a href="?order_by=-nombre&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=nombre&page={{request.GET.page}}" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "nombre" %}
+
+        <a href="?order_by=-nombre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-nombre"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=nombre{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="nombre" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% endif %}
+
+    </th>
 </tr>
 <tbody>
 {% for i in tiposdeedificaciones %}

@@ -140,7 +140,8 @@ class TipoDeEdificacionForm(ModelForm):
         }
         widgets = {
             'tipo_de_edificacion': TextInput(attrs={'required': 'required', 'tabindex': '1'}),
-            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'})
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            'nombre': Checkbox(attrs={'tabindex': '3'}),
         }
 
 
@@ -227,17 +228,24 @@ class EspecificacionDeInmuebleForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+    def __init__(self, *args, **kwargs):
+        super(EspecificacionDeInmuebleForm, self).__init__(*args, **kwargs)
+        self.fields['tipo_de_inmueble'].empty_label = "Seleccione el tipo de inmueble"
+
     class Meta:
         model = EspecificacionDeInmueble
         fields = '__all__'
         widgets = {
-            'especificaciondeinmueble': TextInput(attrs={'required': 'required', 'tabindex': '1'}),
-            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'})
+            'tipo_de_inmueble': Select(attrs={'required': 'required', 'tabindex': '1'}),
+            'especificacion_de_inmueble': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
+            'descripcion': Textarea(attrs={'required': 'required', 'tabindex': '3', 'cols': '1', 'rows': '1'}),
+            'predeterminado': Checkbox(attrs={'tabindex': '4'}),
             }
         labels = {
             'tipo_de_inmueble': ('Tipo de inmueble asociado'),
-            'especificaciondeinmueble': ('Nombre del mueble'),
-            'descripcion': ('Descripción del mueble')
+            'especificacion_de_inmueble': ('Especificaión de inmueble'),
+            'descripcion': ('Descripción de la especificaión de inmueble'),
+            'predeterminado': ('¿Es predeterminada?')
             }
 
 

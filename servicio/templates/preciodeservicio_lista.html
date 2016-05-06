@@ -157,7 +157,7 @@ Servicio
 
 <tr class="active">
     <th>
-        precio base del servicio
+        Precio base del servicio
 
         {% if request.GET.page %}
 
@@ -180,6 +180,36 @@ Servicio
         {% else %}
 
         <a href="?order_by=precio_base&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="precio_base" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% endif %}
+
+    </th>
+    <th>
+        Precio margil del servicio
+
+        {% if request.GET.page %}
+
+        {% if request.GET.order_by == "precio_marginal" %}
+
+        <a href="?order_by=-precio_marginal&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-precio_marginal"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=precio_marginal&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="precio_marginal" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "precio_marginal" %}
+
+        <a href="?order_by=-precio_marginal&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-precio_marginal"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=precio_marginal&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="precio_marginal" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
 
         {% endif %}
 
@@ -247,7 +277,7 @@ Servicio
 
     </th>
     <th>
-        Porcentaje 1 del servicio
+        Porcentaje 1 del servicio (%)
 
         {% if request.GET.page %}
 
@@ -307,7 +337,7 @@ Servicio
 
     </th>
     <th>
-        Porcentaje 2 del servicio
+        Porcentaje 2 del servicio (%)
 
         {% if request.GET.page %}
 
@@ -367,7 +397,7 @@ Servicio
 
     </th>
     <th>
-        Porcentaje 3 del servicio
+        Porcentaje 3 del servicio (%)
 
         {% if request.GET.page %}
 
@@ -546,6 +576,36 @@ Servicio
         {% endif %}
     </th>
     <th>
+        Fecha de preparacion del servicio
+
+        {% if request.GET.page %}
+
+        {% if request.GET.order_by == "fecha_preparacion" %}
+
+        <a href="?order_by=-fecha_preparacion&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-fecha_preparacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=fecha_preparacion&page={{request.GET.page}}" id="fecha_preparacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% else %}
+
+        {% if request.GET.order_by == "fecha_preparacion" %}
+
+        <a href="?order_by=-fecha_preparacion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-fecha_preparacion"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+        {% else %}
+
+        <a href="?order_by=fecha_preparacion{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="fecha_preparacion" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+        {% endif %}
+
+        {% endif %}
+
+    </th>
+    <th>
         Usuario aprobador del servicio
 
         {% if request.GET.page %}
@@ -672,84 +732,94 @@ Servicio
 <tr id="tr{{i.pk}}" data-url="{% url 'uservicios:edit_preciodeservicio' i.pk %}?next={{request.get_full_path}}" class="btnFicha">
     <td id="td1_{{i.pk}}">
 
-        {{ i.precio_base }}1
+        {{ i.precio_base }}
 
     </td>
     <td id="td2_{{i.pk}}">
 
-        {{ i.cantidad_de_gracia }}2
+        {{ i.precio_marginal }}
 
     </td>
     <td id="td3_{{i.pk}}">
 
-        {{ i.intervalo_1 }}3
-
-    <td id="td4_{{i.pk}}">
-
-        {{ i.porcentaje_1 }}4
+        {{ i.cantidad_de_gracia }}
 
     </td>
+    <td id="td4_{{i.pk}}">
+
+        {{ i.intervalo_1 }}
+
     <td id="td5_{{i.pk}}">
 
-        {{ i.intervalo_2 }}   mmm5
+        {{ i.porcentaje_1 }}
 
     </td>
     <td id="td6_{{i.pk}}">
 
-        {{ i.porcentaje_2 }}
+        {{ i.intervalo_2 }}
 
     </td>
     <td id="td7_{{i.pk}}">
 
-        {{ i.intervalo_3 }}
+        {{ i.porcentaje_2 }}
 
     </td>
     <td id="td8_{{i.pk}}">
 
-        {{ i.porcentaje_3 }}
+        {{ i.intervalo_3 }}
 
     </td>
     <td id="td9_{{i.pk}}">
 
-        {{ i.redondeo }}
+        {{ i.porcentaje_3 }}
 
     </td>
     <td id="td10_{{i.pk}}">
 
-        {{ i.fecha_desde|date:"d/m/Y" }}
+        {{ i.redondeo }}
 
     </td>
     <td id="td11_{{i.pk}}">
 
-        {{ i.fecha_hasta|date:"d/m/Y" }}
+        {{ i.fecha_desde|date:"d/m/Y" }}
 
     </td>
     <td id="td12_{{i.pk}}">
 
-        {{ i.infinito|yesno:"Infinito,No infinito" }}
+        {{ i.fecha_hasta|date:"d/m/Y" }}
 
     </td>
     <td id="td13_{{i.pk}}">
 
-        {{ i.user_preparador }}
+        {{ i.infinito|yesno:"Infinito,No infinito" }}
 
     </td>
     <td id="td14_{{i.pk}}">
 
-        {{ i.user_aprobador }}
+        {{ i.user_preparador }}
 
     </td>
     <td id="td15_{{i.pk}}">
 
-        {{ i.fecha_aprobacion|date:"d/m/Y" }}
+        {{ i.fecha_preparacion|date:"d/m/Y" }}
 
     </td>
     <td id="td16_{{i.pk}}">
 
-        {{ i.aprobado|yesno:"Aprobado,No aprobado" }}
+        {{ i.user_aprobador }}
 
     </td>
     <td id="td17_{{i.pk}}">
+
+        {{ i.fecha_aprobacion|date:"d/m/Y" }}
+
+    </td>
+    <td id="td18_{{i.pk}}">
+
+        {{ i.aprobado|yesno:"Aprobado,No aprobado" }}
+
+    </td>
+    <td id="td19_{{i.pk}}">
 
         {{ i.servicio }}
 

@@ -134,11 +134,12 @@ class MenuView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(self.request, "Menu '" + str(id_reg) + "'  registrado con éxito.")
-                return HttpResponseRedirect(reverse('umenus:edit_menu',
+                messages.success(self.request, "Menu '" + str(id_reg) + "'  agregado con éxito.",
+                                 extra_tags=reverse('umuebles:list_tipodemueble'))
+                return HttpResponseRedirect(reverse('umuebles:edit_tipodemueble',
                                                     args=(id_reg.id,)))
             else:
-                messages.success(self.request, "Menu '" + str(id_reg) + "'  registrado con éxito.")
+                messages.success(self.request, "Menu '" + str(id_reg) + "'  agregado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_menu'))
 
         return render(request, self.template_name, {'form': form})
@@ -267,14 +268,32 @@ class MenuDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Menu '" + str(self.obj) + "'  eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Menu " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app menu favorito
@@ -388,11 +407,12 @@ class MenuFavoritoView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(self.request, "Menu favorito '" + str(id_reg) + "'  registrado con éxito.")
+                messages.success(self.request, "Menu favorito '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('umenus:list_menufavorito'))
                 return HttpResponseRedirect(reverse('umenus:edit_menufavorito',
                                                     args=(id_reg.id,)))
             else:
-                messages.success(self.request, "Menu favorito '" + str(id_reg) + "'  registrado con éxito.")
+                messages.success(self.request, "Menu favorito '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_menufavorito'))
 
         return render(request, self.template_name, {'form': form})
@@ -521,14 +541,32 @@ class MenuFavoritoDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Menu favorito '" + str(self.obj) + "'  eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Menu favorito " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 # app relación
@@ -642,11 +680,12 @@ class RelacionView(View):
             id_reg = form.save()
 
             if 'regEdit' in request.POST:
-                messages.success(self.request, "Menu relación '" + str(id_reg) + "'  registrado con éxito.")
+                messages.success(self.request, "Menu relación '" + str(id_reg) + "' agregado con éxito.",
+                                 extra_tags=reverse('umenus:list_relacion'))
                 return HttpResponseRedirect(reverse('umenus:edit_relacion',
                                                     args=(id_reg.id,)))
             else:
-                messages.success(self.request, "Menu relación '" + str(id_reg) + "'  registrado con éxito.")
+                messages.success(self.request, "Menu relación '" + str(id_reg) + "' agregado con éxito.")
                 return HttpResponseRedirect(reverse('umenus:list_relacion'))
 
         return render(request, self.template_name, {'form': form})
@@ -775,14 +814,32 @@ class RelacionDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.obj = self.get_object()
-        self.obj.delete()
+        context = self.obj.id
 
-        redirect_to = self.request.REQUEST.get('next', '')
-        if redirect_to:
-            messages.success(self.request, "Menu relación '" + str(self.obj) + "'  eliminado con éxito.")
-            return HttpResponseRedirect(redirect_to)
-        else:
-            return render_to_response(self.template_name, self.get_context_data())
+        order_by = self.request.REQUEST.get('order_by', '')
+        page = self.request.REQUEST.get('page', '')
+        next = self.request.REQUEST.get('next', '')
+        variable = self.request.REQUEST.get('next', '').split("?")
+        if len(variable) > 1:
+
+            if variable[1].split("=")[0] == 'ficha':
+                next = variable[0]
+                if order_by and page:
+                    next = next + '?order_by=' + order_by + '&page='+ page
+                elif order_by:
+                    next = next + '?order_by=' + order_by
+                elif page:
+                    next = next + '?page=' + page
+            elif variable[1].split("=")[0] == 'page':
+                if order_by:
+                    next = next + '&order_by=' + order_by
+            elif variable[1].split("=")[0] == 'order_by':
+                if page:
+                    next = next + '&page=' + page
+
+        self.obj.delete()
+        messages.success(self.request, "Menu relación " + str(self.obj) + " eliminado con éxito.", extra_tags=next)
+        return render(request, '../../mensaje/templates/mensaje.html', {'obj': context})
 
 
 def lista_Relacion(request):

@@ -78,8 +78,6 @@ Menú
                 {% if j.menu_padre.id = i.id %}
 
 
-                <li><p class="nivel_2"><span class="iconoCarpetaCerrada"></span> {{ j.menu }}</p>
-                    <ul class="nivel3">
                         {% for k in nivel3 %}
 
                         {% if k.menu_padre.id = j.id %}
@@ -100,8 +98,7 @@ Menú
                         {% endif %}
                         {% endif %}
                         {% endfor %}
-                    </ul>
-                </li>
+
 
 
                 {% endif %}

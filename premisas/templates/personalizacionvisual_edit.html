@@ -11,13 +11,13 @@
 {% if personalizacionvisual_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
 <li class="anteriorBloqueado">
-    <md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button>
+    <a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% endif %}
@@ -25,13 +25,13 @@
 {% if personalizacionvisual_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'upremisas:edit_personalizacionvisual' personalizacionvisual_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button ng-href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+    <a ng-href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% endif %}
@@ -40,59 +40,22 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-    {{form.tipo}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.usuario.id_for_label}}">
-
-    {{form.usuario.label}}
-
-</label>
-
-{{form.usuario}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch">
-
-{{form.valor.label}}
-
-</span >
-
-{{form.valor}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.usuario = '{{form.usuario.value}}';
-    $scope.tipo = '{{form.tipo.value}}';
-    $scope.valor = '{{form.valor.value}}';
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.usuario = '{{form.usuario.value}}';
-        $scope.tipo = '{{form.tipo.value}}';
-        $scope.valor = '{{form.valor.value}}';
-    };
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{personalizacionvisual.usuario}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.tipo.value|truncatechars:"40"}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.tipo.value|truncatechars:"30"}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.valor.value}}');
-  });
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

@@ -1,14 +1,4 @@
 {% extends "base_ficha.html" %}
-{% block js_superior %}
-<script type="text/javascript">
-$(function() {
-        $(".inline.{{ item_form.prefix }}").formset({
-            prefix: "{{ item_form.prefix }}",
-        })
-    })
-</script>
-{% endblock js_superior %}
-
 
 {% block titulo_ficha %}
 
@@ -21,25 +11,25 @@ $(function() {
 {% if variantevisual_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'upremisas:edit_variantevisual' variantevisual_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'upremisas:edit_variantevisual' variantevisual_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
-<li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
+<li class="anteriorBloqueado"><a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a></li>
 
 {% endif %}
 
 {% if variantevisual_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'upremisas:edit_variantevisual' variantevisual_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'upremisas:edit_variantevisual' variantevisual_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-    <md-button ng-href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+    <a ng-href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% endif %}
@@ -48,80 +38,22 @@ $(function() {
 
 {% block ficha_basica %}
 
-<div class="prueba">
-
-    {{ form.as_md }}
-
-    <fieldset>
-        <legend>Variante Detalle</legend>
-
-        {{ item_form.management_form }}
-        {{ item_form.non_form_errors }}
-
-        {% for form in item_form %}
-
-        <div class="inline {{ item_form.prefix }}">
-            {{ form.id }}
-            {{ form.campo.errors }}
-            {{ form.campo.label_tag }}
-            {{ form.campo }}
-            {{ form.visibilidad.errors }}
-            {{ form.visibilidad.label_tag }}
-            {{ form.visibilidad }}
-        </div>
-
-        {% endfor %}
-
-    </fieldset>
-</div>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope, $http){
-    $scope.usuario = '{{form.usuario.value}}';
-    $scope.nombre = '{{form.nombre.value}}';
-    $scope.model = '{{form.model.value}}';
-    $scope.selectChanged = function(){
-        model = $scope.model;
-        $http.get("/premisas/model/exchange/"+model+"/")
-        .success(function(result) {
-            alert(result);
-        });
-    };
-    $scope.CancelarCambios = function() {
-        removeHandler();
-        $scope.usuario = '{{form.usuario.value}}';
-        $scope.nombre = '{{form.nombre.value}}';
-        $scope.model = '{{form.model.value}}';
-    };
-    $scope.onChange = function() {
-        controlSubmit(event);
-    };
     $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
     $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
     var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+    var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+    var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{variantevisual.usuario}}');
-    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.nombre.value|truncatechars:"40"}}');
+    tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.nombre.value|truncatechars:"30"}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.model.value}}');
-    $('.delete-row').click(function(){
-        id_remove = $(this).parent().children('input[type=hidden]').val();
-        if (id_remove!=''){
-            //falta terminar la funcion delete detalle de variante
-            $http.get("//"+id_remove+"/")
-            .success(function(result) {});
-        }
-    });
-    $(function() {
-        $('fieldset .inline input[type=hidden]').each(function(){
-            if ($(this).val()==''){
-                $(this).siblings('.delete-row').click();
-            }
-        });
-    });
-  });
+    $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

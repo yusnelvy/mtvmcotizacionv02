@@ -11,7 +11,7 @@ from base.forms import BaseFormMd, SelectMD, Checkbox, selectSearchMD
 from django import forms
 
 
-class MenuForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class MenuForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -19,10 +19,10 @@ class MenuForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Menu
         fields = '__all__'
         widgets = {
-            'menu_padre': selectSearchMD(),
-            'menu': TextInput(attrs={'required': 'required'}),
-            'transaccion': TextInput(attrs={'required': 'required'}),
-            'nivel': NumberInput(attrs={'required': 'required'})
+            'menu_padre': Select(attrs={'required': 'required', 'tabindex': '1'}),
+            'menu': TextInput(attrs={'required': 'required', 'tabindex':'2'}),
+            'transaccion': TextInput(attrs={'required': 'required', 'tabindex':'3'}),
+            'nivel': NumberInput(attrs={'required': 'required', 'tabindex':'4'}),
             }
         labels = {
             'menu': ('Nombre del menu'),
@@ -35,7 +35,7 @@ class MenuForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             }
 
 
-class MenuFavoritoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class MenuFavoritoForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -43,10 +43,10 @@ class MenuFavoritoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = MenuFavorito
         fields = '__all__'
         widgets = {
-            'usuario': selectSearchMD(attrs={'required': 'required', 'tabindex': '-1'}),
-            'menu': selectSearchMD(attrs={'required': 'required', 'tabindex': '1'}),
-            'grupo': TextInput(attrs={'required': 'required'}),
-            'orden': NumberInput(attrs={'required': 'required'})
+            'usuario': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
+            'menu': Select(attrs={'required': 'required', 'tabindex': '2', 'ng-change': 'onChange()'}),
+            'grupo': TextInput(attrs={'required': 'required', 'tabindex': '-3'}),
+            'orden': NumberInput(attrs={'required': 'required', 'tabindex': '4'})
             }
         labels = {
             'menu': ('Nombre del menu'),
@@ -56,7 +56,7 @@ class MenuFavoritoForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             }
 
 
-class RelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class RelacionForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -69,9 +69,9 @@ class RelacionForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Relacion
         fields = '__all__'
         widgets = {
-            'item_origen': selectSearchMD(),
-            'item_relacion': selectSearchMD(),
-            'nombre': TextInput(attrs={'required': 'required'})
+            'item_origen': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
+            'item_relacion': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
+            'nombre': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
             }
         labels = {
             'item_origen': ('Menú de origen'),

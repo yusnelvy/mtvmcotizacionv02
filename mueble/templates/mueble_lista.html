@@ -247,6 +247,126 @@ Mueble
 
   </th>
   <th>
+    Mueble fragil
+
+    {% if request.GET.page %}
+
+    {% if request.GET.order_by == "fragil" %}
+
+    <a href="?order_by=-fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-fragil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="fragil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% else %}
+
+    {% if request.GET.order_by == "fragil" %}
+
+    <a href="?order_by=-fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-fragil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="fragil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% endif %}
+
+  </th>
+  <th>
+    Mueble pesado
+
+    {% if request.GET.page %}
+
+    {% if request.GET.order_by == "pesado" %}
+
+    <a href="?order_by=-pesado&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-pesado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=pesado&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="pesado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% else %}
+
+    {% if request.GET.order_by == "pesado" %}
+
+    <a href="?order_by=-pesado&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-pesado"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=pesado&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="pesado" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% endif %}
+
+  </th>
+  <th>
+    Mueble con contenido fragil
+
+    {% if request.GET.page %}
+
+    {% if request.GET.order_by == "contenido_fragil" %}
+
+    <a href="?order_by=-contenido_fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-contenido_fragil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=contenido_fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="contenido_fragil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% else %}
+
+    {% if request.GET.order_by == "contenido_fragil" %}
+
+    <a href="?order_by=-contenido_fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-contenido_fragil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=contenido_fragil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="contenido_fragil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% endif %}
+
+  </th>
+  <th>
+    Mueble con contenido textil
+
+    {% if request.GET.page %}
+
+    {% if request.GET.order_by == "contenido_textil" %}
+
+    <a href="?order_by=-contenido_textil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-contenido_textil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=contenido_textil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="contenido_textil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% else %}
+
+    {% if request.GET.order_by == "contenido_textil" %}
+
+    <a href="?order_by=-contenido_textil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="-contenido_textil"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente" tabindex="-1"></a>
+
+    {% else %}
+
+    <a href="?order_by=contenido_textil&page={{request.GET.page}}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}" id="contenido_textil" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente" tabindex="-1"></a>
+
+    {% endif %}
+
+    {% endif %}
+
+  </th>
+  <th>
     Nombre del tipo de mueble
 
     {% if request.GET.page %}
@@ -297,6 +417,26 @@ Mueble
 
     </td>
     <td id="td4_{{i.pk}}">
+
+      {{i.fragil|yesno:"Es fragil,No es fragil"}}
+
+    </td>
+    <td id="td5_{{i.pk}}">
+
+      {{i.pesado|yesno:"Es pesado,No es pesado"}}
+
+    </td>
+    <td id="td6_{{i.pk}}">
+
+      {{i.contenido_fragil|yesno:"Contenido fragil,Sin contenido fragil"}}
+
+    </td>
+    <td id="td7_{{i.pk}}">
+
+      {{i.contenido_textil|yesno:"Contenido textil,Sin contenido textil"}}
+
+    </td>
+    <td id="td8_{{i.pk}}">
 
       {{ i.tipo_de_mueble }}
 

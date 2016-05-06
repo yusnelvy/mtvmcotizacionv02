@@ -1,101 +1,25 @@
-{% extends "base_editar.html" %}
+{% extends "base_ficha.html" %}
 
-{% block js_superior %}
+{% block titulo_ficha %}
 
-<script type="text/javascript">
-$(function() {
-        $(".inline.{{ item_form.prefix }}").formset({
-            prefix: "{{ item_form.prefix }}",
-        })
-    })
+'Agregar una variante visual'
+
+{% endblock titulo_ficha %}
+
+{% block paginacionFicha %}{% endblock paginacionFicha %}
+
+{% block ficha_basica %}
+
+{{ form.as_p }}
+
+{% endblock ficha_basica %}
+
+{% block jsFicha %}
+
+<script>
+$(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
 </script>
 
-{% endblock js_superior %}
-
-{% block titulo %}
-
-Variante visual
-
-{% endblock titulo %}
-
-{% block titulo_form %}
-
-Agregar una variante visual
-
-{% endblock titulo_form %}
-
-{% block nav_lista_form %}{% endblock nav_lista_form %}
-
-{% block cuerpo_form %}
-
-  <md-input-container>
-<label for="{{form.nombre.id_for_label}}">
-
-    {{form.nombre.label}}
-
-</label>
-
-{{form.nombre}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch">
-
-{{form.model.label}}
-
-</span >
-
-{{form.model}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch">
-
-{{form.usuario.label}}
-
-</span >
-
-{{form.usuario}}
-
-</md-input-container>
-
-<fieldset>
-<legend>Detalle de variante</legend>
-
-{{ item_form.management_form }}
-
-{{ item_form.non_form_errors }}
-
-{% for form in item_form %}
-
-    {{ form.id }}
-
-    <div class="inline {{ item_form.prefix }}">
-
-        {{ form.campo.errors }}
-        {{ form.campo.label }}
-        {{ form.campo }}
-        {{ form.visibilidad.errors }}
-        {{ form.visibilidad.label }}
-        {{ form.visibilidad }}
-
-    </div>
-
-{% endfor %}
-
-</fieldset>
-<script type="text/javascript">
-document.getElementById('id_usuario').focus();
-</script>
-
-{% endblock cuerpo_form %}
-
-{% block moduloAngular %}
-
-<script type="text/javascript">
-app.controller('controlForm',function($scope){
-  });
-</script>
 <style>.paginacionEdit{height: 0;}</style>
 
-{% endblock moduloAngular %}
+{% endblock jsFicha %}

@@ -7,12 +7,12 @@ from premisas.models import Empresa, PersonalizacionVisual, \
 from base.forms import BaseFormMd, SelectMD
 from djangular.forms import NgModelFormMixin, NgModelForm
 from django.forms.models import inlineformset_factory
-from django.forms import Select, ModelChoiceField, TextInput, NumberInput, RadioSelect
+from django.forms import ModelForm, Select, ModelChoiceField, TextInput, NumberInput, RadioSelect, Textarea
 from django.contrib.contenttypes.models import ContentType
 from django import forms
 
 
-class EmpresaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class EmpresaForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -20,9 +20,12 @@ class EmpresaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = Empresa
         fields = '__all__'
         widgets = {
-            'codigo': TextInput(attrs={'required': 'required', 'tabindex': '1'}),
+            'codigo': TextInput(attrs={'required': 'required', 'tabindex':'1'}),
             'empresa': TextInput(attrs={'required': 'required', 'tabindex': '2'}),
             'telefonos': NumberInput(attrs={'required': 'required', 'tabindex': '3'}),
+            'direccion': Textarea(attrs={'tabindex': '4', 'cols': '1', 'rows': '1'}),
+            'sitio_web': Textarea(attrs={'tabindex': '5', 'cols': '1', 'rows': '1'}),
+            'correo': Textarea(attrs={'tabindex': '6', 'cols': '1', 'rows': '1'}),
             'telefono_call_center': NumberInput(attrs={'required': 'required'})
             }
         labels = {
@@ -39,7 +42,7 @@ class EmpresaForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             }
 
 
-class PersonalizacionVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class PersonalizacionVisualForm(ModelForm):
     """
     Docstring documentación pendiente
     """
@@ -47,7 +50,9 @@ class PersonalizacionVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
         model = PersonalizacionVisual
         fields = '__all__'
         widgets = {
-            'usuario': SelectMD(attrs={'required': 'required', 'tabindex': '1'}),
+            'usuario': Select(attrs={'required': 'required', 'tabindex': '1'}),
+            'tipo': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            'valor': TextInput(attrs={'required': 'required', 'tabindex': '3'})
         }
         labels = {
             'usuario': ('Nombre del usuario'),
@@ -56,26 +61,29 @@ class PersonalizacionVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
             }
 
 
-class VarianteVisualForm(NgModelFormMixin, NgModelForm, BaseFormMd):
+class VarianteVisualForm(ModelForm):
     """
     Docstring documentación pendiente
     """
     model_choices = [(content.model, content.model) for content in ContentType.objects.all()]
     model = forms.ChoiceField(
-        widget=SelectMD(attrs={'ng-change': 'selectChanged()'}),
+        widget=Select(attrs={'ng-change': 'selectChanged()'}),
         label='Nombre del model',
         choices=model_choices)
 
     class Meta:
         model = VarianteVisual
         fields = 'nombre', 'model', 'usuario'
+        widgets = {
+            'usuario': Select(attrs={'required': 'required', 'tabindex': '1'}),
+            'nombre': Textarea(attrs={'required': 'required', 'tabindex': '2', 'cols': '1', 'rows': '1'}),
+            'model': TextInput(attrs={'required': 'required', 'tabindex': '3'})
+        }
         labels = {
+            'usuario': ('Usuario'),
             'nombre': ('Nombre de la variante'),
             'model': ('Nombre del model')
-        }
-        widgets = {
-            'usuario': SelectMD()
-        }
+            }
 
 VarianteVisualDetalleFormSet = inlineformset_factory(VarianteVisual,
                                                      VarianteVisualDetalle, widgets={'visibilidad': RadioSelect()} ,

@@ -13,6 +13,11 @@ class TrabajadorForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+
+    def __init__(self, *args, **kwargs):
+        super(TrabajadorForm, self).__init__(*args, **kwargs)
+        self.fields['cargo_trabajador'].empty_label = "Seleccione el cargo del trabajador"
+
     class Meta:
         model = Trabajador
         fields = 'cargo_trabajador', 'dni', 'nombre', 'apellido', 'direccion', 'telefono', 'email', 'volumen_en_camion'
@@ -39,6 +44,11 @@ class CargoTrabajadorForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+
+    def __init__(self, *args, **kwargs):
+        super(CargoTrabajadorForm, self).__init__(*args, **kwargs)
+        self.fields['cargo_padre'].empty_label = "Seleccione el cargo padre"
+
     class Meta:
         model = CargoTrabajador
         fields = 'cargo_padre', 'cargo_trabajador', 'descripcion'

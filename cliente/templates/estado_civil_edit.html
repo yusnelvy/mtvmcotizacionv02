@@ -54,6 +54,7 @@
     var pos = $(tr).position();
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.estado_civil.value}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_estado_civil').focus();
 </script>
 
 {% endblock jsFicha %}

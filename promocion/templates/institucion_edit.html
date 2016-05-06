@@ -11,25 +11,25 @@
 {% if institucion_previous %}
 
 <li class="anterior">
-    <md-button href="{% url 'upromociones:edit_institucion' institucion_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</md-button>
+    <a href="{% url 'upromociones:edit_institucion' institucion_previous.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">&larr; Anterior</a>
 </li>
 
 {% else %}
 
-<li class="anteriorBloqueado"><md-button href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</md-button></li>
+<li class="anteriorBloqueado"><a href="#" ng-disabled="true" tabindex="-1">&larr; Anterior</a></li>
 
 {% endif %}
 
 {% if institucion_next %}
 
 <li class="siguiente">
-    <md-button href="{% url 'upromociones:edit_institucion' institucion_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</md-button>
+    <a href="{% url 'upromociones:edit_institucion' institucion_next.id %}?next={{request.GET.next}}{% if request.GET.page %}&page={{request.GET.page}}{% elif request.GET.order_by %}&order_by={{request.GET.order_by}}{% endif %}" tabindex="-1">Siguiente &rarr;</a>
 </li>
 
 {% else %}
 
 <li class="siguienteBloqueado">
-            <md-button href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</md-button>
+            <a href="#" ng-disabled="true" tabindex="-1">Siguiente &rarr;</a>
         </li>
 {% endif %}
 
@@ -37,138 +37,27 @@
 
 {% block ficha_basica %}
 
-<md-input-container>
-<h3>
-
-  {{form.nombre}}
-
-</h3>
-</md-input-container>
-<md-input-container>
-<label for="{{form.cuit.id_for_label}}">
-
-  {{form.cuit.label}}
-
-</label>
-
-{{form.cuit}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.pagina_web.id_for_label}}">
-
-  {{form.pagina_web.label}}
-
-</label>
-
-{{form.pagina_web}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.persona_contacto.id_for_label}}">
-
-  {{form.persona_contacto.label}}
-
-</label>
-
-{{form.persona_contacto}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.telefono.id_for_label}}">
-
-  {{form.telefono.label}}
-
-</label>
-
-{{form.telefono}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.telefono_movil.id_for_label}}">
-
-  {{form.telefono_movil.label}}
-
-</label>
-
-{{form.telefono_movil}}
-
-</md-input-container>
-<md-input-container>
-<label for="{{form.email.id_for_label}}">
-
-  {{form.email.label}}
-
-</label>
-
-{{form.email}}
-
-</md-input-container>
-<md-input-container>
-<span class="labelSwitch" for="{{form.alianza.id_for_label}}">
-
-  {{form.alianza.label}}
-
-</span>
-
-{{form.alianza}}
-
-</md-input-container>
+{{ form.as_p }}
 
 {% endblock ficha_basica %}
 
-{% block moduloAngularFicha %}
+{% block jsFicha %}
 
 <script type="text/javascript">
-app.controller('controlForm',function($scope){
-    $scope.alianza = '{{form.alianza.value}}';
-    $scope.nombre = '{{form.nombre.value}}';
-    $scope.cuit = '{{form.cuit.value}}';
-    $scope.pagina_web = '{{form.pagina_web.value}}';
-    $scope.persona_contacto = '{{form.persona_contacto.value}}';
-    $scope.telefono = '{{form.telefono.value}}';
-    $scope.telefono_movil = '{{form.telefono_movil.value}}';
-    $scope.email = '{{form.email.value}}';
-    $scope.CancelarCambios = function() {
-    removeHandler();
-    $scope.alianza = '{{form.alianza.value}}';
-    $scope.nombre = '{{form.nombre.value}}';
-    $scope.cuit = '{{form.cuit.value}}';
-    $scope.pagina_web = '{{form.pagina_web.value}}';
-    $scope.persona_contacto = '{{form.persona_contacto.value}}';
-    $scope.telefono = '{{form.telefono.value}}';
-    $scope.telefono_movil = '{{form.telefono_movil.value}}';
-    $scope.email = '{{form.email.value}}';
-  }
-  $scope.onChange = function() {
-    controlSubmit(event);
-  }
-  function enterNone(elemento) {
-    $(elemento).keypress(function(e){
-      if(e.which == 13){
-        return false;
-      }
-    });
-  }
   $(parent.document.getElementsByClassName("btnFicha")).removeClass('seleccion');
   $(parent.document.getElementById("tr"+{{form.instance.pk}})).addClass('seleccion');
   var tr = $(parent.document.getElementById("tr"+{{form.instance.pk}}));
+  var scroll = $(parent.document.getElementsByClassName("page-content-wrapper"));
+  var pos = $(tr).position();
   tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.nombre.value}}');
   tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.cuit.value}}');
-  tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.pagina_web.value}}');
+  tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.pagina_web.value|truncatechars:"30"}}');
   tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.persona_contacto.value}}');
   tr.children('td[id=td5_{{form.instance.pk}}]').text('{{form.telefono.value}}');
   tr.children('td[id=td6_{{form.instance.pk}}]').text('{{form.telefono_movil.value}}');
-  tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.email.value}}');
+  tr.children('td[id=td7_{{form.instance.pk}}]').text('{{form.email.value|truncatechars:"30"}}');
   tr.children('td[id=td8_{{form.instance.pk}}]').text('{{institucion.alianza}}');
-  setTimeout(function() {
-    //$("input[name='trasladable']").bootstrapSwitch();
-    $('#id_alianza').zelect();
-    enterNone('form');
-    $('#id_alianza').on('change', function(event) { controlSubmit(event); })
-
-  }, 100);
-  });
+  $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
 </script>
 
-{% endblock moduloAngularFicha %}
+{% endblock jsFicha %}

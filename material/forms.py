@@ -14,6 +14,13 @@ class MaterialForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+
+    def __init__(self, *args, **kwargs):
+        super(MaterialForm, self).__init__(*args, **kwargs)
+        self.fields['tipo_de_material'].empty_label = "Seleccione el tipo de material"
+        self.fields['unidad_de_consumo'].empty_label = "Seleccione la unidad de consumo"
+        self.fields['unidad_de_venta'].empty_label = "Seleccione la unidad de venta"
+
     class Meta:
         model = Material
         fields = 'tipo_de_material', 'unidad_de_consumo', 'unidad_de_venta', 'material', 'descripcion', 'relacion_consumo_venta', 'ancho', 'largo', 'alto', 'peso_unidad_consumo_kg', 'cotizable'
@@ -32,6 +39,8 @@ class MaterialForm(ModelForm):
         }
         widgets = {
             'tipo_de_material': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
+            'unidad_de_consumo': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
+            'unidad_de_venta': Select(attrs={'required': 'required', 'tabindex': '1', 'ng-change': 'onChange()'}),
             'material': TextInput(attrs={'required': 'required', 'tabindex':'2'}),
             'descripcion': Textarea(attrs={'tabindex': '3', 'cols': '1', 'rows': '1'}),
             }

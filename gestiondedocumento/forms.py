@@ -30,6 +30,11 @@ class EstadoDeDocumentoForm(ModelForm):
     """
     Docstring documentación pendiente
     """
+
+    def __init__(self, *args, **kwargs):
+        super(EstadoDeDocumentoForm, self).__init__(*args, **kwargs)
+        self.fields['tipo_de_documento'].empty_label = "Seleccione el tipo de documento"
+
     class Meta:
         model = EstadoDeDocumento
         fields = '__all__'

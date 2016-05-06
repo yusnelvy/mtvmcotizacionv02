@@ -55,8 +55,9 @@
     tr.children('td[id=td1_{{form.instance.pk}}]').text('{{form.nivel_complejidad_riesgo.value}}');
     tr.children('td[id=td2_{{form.instance.pk}}]').text('{{form.factor_inicial.value}}');
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.factor_final.value}}');
-    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.porcentaje.value}} %');
+    tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.porcentaje.value}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_nivel_complejidad_riesgo').focus();
 </script>
 
 {% endblock jsFicha %}

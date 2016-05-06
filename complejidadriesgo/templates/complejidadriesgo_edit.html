@@ -57,6 +57,7 @@
     tr.children('td[id=td3_{{form.instance.pk}}]').text('{{form.factor_complejidad.value}}');
     tr.children('td[id=td4_{{form.instance.pk}}]').text('{{form.factor_riesgo.value}}');
     $(scroll).animate({ scrollTop: pos.top - 250 }, 1000);
+    $('#id_situacion').focus();
 </script>
 
 {% endblock jsFicha %}
