@@ -12,10 +12,13 @@ Ambiente por Tipo de Inmueble
 
 <h6>Cantidad de Ambientes por tipo de Inmuebles :
     <span class="badge" id="count_reg">
-
-        {{ ambientesportipoinmueble.count }}
-
+        {% if request.GET.ch_var %}
+        {{ lista_ambiente|length }}
+        {% else %}
+        {{ lista_especificaciondeinmueble|length }}
+        {% endif %}
     </span>
+
 </h6>
 
 {% endblock titulo_lista %}
@@ -24,7 +27,7 @@ Ambiente por Tipo de Inmueble
 
 {% if request.GET.page == "0" %}
 
-<li><a href="?page=1">Paginar</a></li>
+<li><a href="?page=1{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">Paginar</a></li>
 
 {% else %}
 
@@ -33,13 +36,14 @@ Ambiente por Tipo de Inmueble
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+
+    <a href="?page={{ page_obj.previous_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
 </li>
 
 {% endif %}
@@ -65,13 +69,13 @@ Ambiente por Tipo de Inmueble
 {% if request.GET.page == "1" %}
 
 <li class="btn-disabled">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">Primero...</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page=1&order_by={{request.GET.order_by}}">Primero...</a>
+    <a href="?page=1&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">Primero...</a>
 </li>
 
 {% endif %}
@@ -81,13 +85,13 @@ Ambiente por Tipo de Inmueble
 {% if p == page_obj.number %}
 
 <li class="active">
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">{{p}}</a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{p}}&order_by={{request.GET.order_by}}">{{p}}</a>
+    <a href="?page={{p}}&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">{{p}}</a>
 </li>
 
 {% endif %}
@@ -99,13 +103,13 @@ Ambiente por Tipo de Inmueble
 {% if request.GET.page == ultimo %}
 
 <li class="btn-disabled">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">...Ultimo</a>
 </li>
 
 {% else %}
 
 <li class="">
-    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}">...Ultimo</a>
+    <a href="?page={{page_obj.paginator.num_pages}}&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">...Ultimo</a>
 </li>
 
 {% endif %}
@@ -117,13 +121,13 @@ Ambiente por Tipo de Inmueble
 {% if request.GET.order_by %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    <a href="?page={{ page_obj.next_page_number }}&order_by={{request.GET.order_by}}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% else %}
 
 <li>
-    <a href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
 </li>
 
 {% endif %}
@@ -146,91 +150,140 @@ Ambiente por Tipo de Inmueble
 
 {% endif %}
 
-<li><a href="?page=0">Ver todo</a></li>
+<li><a href="?page=0{% if request.GET.ch_var %}&ch_var={{request.GET.ch_var}}{% endif %}">Ver todo</a></li>
 
 {% endif %}
 
 {% endblock paginacion_lista %}
 
 {% block lista %}
-
-{% if ambientesportipoinmueble %}
-
-<tr class="active">
-    <th>
-        Ambiente
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=ambiente&page={{request.GET.page}}" id="ambiente" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-ambiente&page={{request.GET.page}}" id="-ambiente"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=ambiente" id="ambiente" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-ambiente" id="-ambiente"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th>
-        Especificación de Inmueble
-
-        {% if request.GET.page %}
-
-        <a href="?order_by=especificacion_de_inmueble&page={{request.GET.page}}" id="especificacion_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"></a>
-        <a href="?order_by=-especificacion_de_inmueble&page={{request.GET.page}}" id="-especificacion_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% else %}
-
-        <a href="?order_by=especificacion_de_inmueble" id="especificacion_de_inmueble" class="ascendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Ascendente"endente></a>
-        <a href="?order_by=-especificacion_de_inmueble" id="-especificacion_de_inmueble"  class="descendenteAlfabetico" data-placement="left" data-toggletooltip="tooltip" title="Descendente"></a>
-
-        {% endif %}
-
-    </th>
-    <th class="controlLista">Editar</th>
-    <th class="controlLista">Eliminar</th>
-</tr>
-
-{% for i in ambientesportipoinmueble %}
-
-<tr id="tr{{i.pk}}">
-    <td>
-
-        {{ i.ambiente }}
-
-    </td>
-    <td>
-
-        {{ i.especificacion_de_inmueble }}
-
-    </td>
-    <td>
-        <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:edit_ambienteportipoinmueble' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-edit"></a>
-    </td>
-    <td>
-        <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uambientes:eliminar_ambiente' i.pk %}?next={{request.get_full_path}}" class="glyphicon glyphicon-remove"></a>
-    </td>
-</tr>
-
-{% endfor %}
-
-{% else %}
-
 <tr>
-    <td>No se encontraron registros</td>
+    <td>
+<input type="checkbox" id="ch_var" name="ch_var">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    {% if request.GET.ch_var %}
+    {% for ambiente in lista_ambiente %}
+
+      <div class="panel panel-default">
+        <div class="panel-heading cursorPointer" role="tab" id="heading{{ambiente.id}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ambiente.id}}" aria-expanded="false" aria-controls="collapse{{ambiente.id}}">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ambiente.id}}" aria-expanded="false" aria-controls="collapse{{ambiente.id}}">
+
+              {{ ambiente.ambiente }}
+
+            </a>
+            <span class="caret hidden-print floatRight"></span>
+          </h4>
+        </div>
+        <div id="collapse{{ambiente.id}}" class="panel-collapse collapse btn-colapsable {% if forloop.first %} in {% endif %}" role="tabpanel" aria-labelledby="heading{{ambiente.id}}">
+          <table class="table table-hover textAlignCenter" id="tabla">
+            <tr class="">
+                <th class="hidden-print">Especificación de inmuebles</th>
+                <th width="80px" class="hidden-print">
+                    <a href="{% url 'uambientes:add_ambienteportipoinmueble' %}?var1={{ambiente.id}}&ch_var={{request.GET.ch_var}}&next={{request.get_full_path}}" class="glyphicon floatRight">Agregar Especificación de inmueble</a>
+                </th>
+            </tr>
+
+            {% for i in ambientesportipoinmueble %}
+
+            {% if i.ambiente == ambiente %}
+
+            <tr id="tr{{i.id}}">
+              <td>{{ i.especificacion_de_inmueble }}</td>
+              <td width="80px" class="hidden-print">
+                <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" data-url="{% url 'uambientes:eliminar_ambienteportipoinmueble' i.pk %}?next={{request.get_full_path}}" data-id="{{ i.id }}" data-nombre="{{ i.especificacion_de_inmueble }}" class="iconoRemover btnEliminar" data-toggle="modal" data-target="#modalEliminar" id="eliminar{{i.id}}"></a>
+              </td>
+
+            </tr>
+
+            {% endif %}
+
+            {% endfor %}
+
+          </table>
+        </div>
+      </div>
+
+      {% endfor %}
+    {% else %}
+    {% for inmueble in lista_especificaciondeinmueble %}
+
+      <div class="panel panel-default">
+        <div class="panel-heading cursorPointer" role="tab" id="heading{{inmueble.id}}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{inmueble.id}}" aria-expanded="false" aria-controls="collapse{{inmueble.id}}">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{inmueble.id}}" aria-expanded="false" aria-controls="collapse{{inmueble.id}}">
+
+              {{ inmueble.especificacion_de_inmueble }}
+
+            </a>
+            <span class="caret hidden-print floatRight"></span>
+          </h4>
+        </div>
+        <div id="collapse{{inmueble.id}}" class="panel-collapse collapse btn-colapsable {% if forloop.first %} in {% endif %}" role="tabpanel" aria-labelledby="heading{{inmueble.id}}">
+          <table class="table table-hover textAlignCenter" id="tabla">
+            <tr class="">
+                <th class="hidden-print">Ambientes</th>
+                <th width="80px" class="hidden-print">
+                    <a href="{% url 'uambientes:add_ambienteportipoinmueble' %}?var2={{inmueble.id}}&next={{request.get_full_path}}" class="glyphicon floatRight">Agregar ambiente</a>
+                </th>
+            </tr>
+
+            {% for i in ambientesportipoinmueble %}
+
+            {% if i.especificacion_de_inmueble == inmueble %}
+
+            <tr id="tr{{i.id}}">
+              <td>{{ i.ambiente }}</td>
+              <td width="80px" class="hidden-print">
+                <a title="Eliminar" data-toggletooltip="tooltip" data-placement="left" data-url="{% url 'uambientes:eliminar_ambienteportipoinmueble' i.pk %}?next={{request.get_full_path}}" data-id="{{ i.id }}" data-nombre="{{ i.especificacion_de_inmueble }}" class="iconoRemover btnEliminar" data-toggle="modal" data-target="#modalEliminar" id="eliminar{{i.id}}"></a>
+                <a title="Eliminar" href="#myModal" role="button" class="glyphicon delete" data-target="#myModal" data-toggle="modal" id="{{i.id}}" data-name="{{i.ambiente}}">Eliminar relación</a>
+              </td>
+
+            </tr>
+
+            {% endif %}
+
+            {% endfor %}
+
+          </table>
+        </div>
+      </div>
+
+      {% endfor %}
+    {% endif %}
+
+</div>
+
+    </td>
 </tr>
 
-{% endif %}
-
-<script>
-    $(document).on('ready',function(){
-        ocultarASCDesc('ambiente');
-        ocultarASCDesc('especificacion_de_inmueble');
-    })
-</script>
 
 {% endblock lista %}
 
+{% block js_inferior %}
 
+<script>
+{% if request.GET.ch_var %}
+
+if ('{{request.GET.ch_var}}' == 'on'){
+  document.getElementById("ch_var").checked = true;
+}else{
+  document.getElementById("ch_var").checked = false;
+}
+
+{% endif %}
+
+$('input[name="ch_var"]').on('switchChange.bootstrapSwitch',
+  function(event, state) {
+    if (state == true) {
+      ch_var = $("#ch_var").val();
+      location.href='/ambiente/ambiente_por_tipo_de_inmueble/?ch_var='+ch_var;
+
+    }else{
+      location.href='/ambiente/ambiente_por_tipo_de_inmueble/';
+    }
+});
+
+</script>
+
+{% endblock js_inferior %}

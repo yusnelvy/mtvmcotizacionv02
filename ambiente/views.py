@@ -4,7 +4,7 @@ Docstring documentación pendiente
 """
 
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.views.generic import ListView, View, UpdateView, DeleteView
 from ambiente.models import Ambiente, AmbientePorTipoDeInmueble, \
     AmbienteEstadoDeRegistro
@@ -25,6 +25,7 @@ from io import BytesIO
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required, login_required
 from django.forms.formsets import formset_factory
+from base.views import paginate_acordeon
 
 
 # Create your views here.
@@ -289,7 +290,7 @@ class AmbienteDelete(DeleteView):
             if variable[1].split("=")[0] == 'ficha':
                 next = variable[0]
                 if order_by and page:
-                    next = next + '?order_by=' + order_by + '&page='+ page
+                    next = next + '?order_by=' + order_by + '&page=' + page
                 elif order_by:
                     next = next + '?order_by=' + order_by
                 elif page:
@@ -308,9 +309,7 @@ class AmbienteDelete(DeleteView):
 
 # app ambientes por tipo de inmueble
 class AmbientePorTipoDeInmuebleListView(ListView):
-    model = AmbientePorTipoDeInmueble
     paginate_by = 10
-    context_object_name = 'ambientesportipoinmueble'
     template_name = 'ambienteportipodeinmueble_lista.html'
 
     def get_paginate_by(self, queryset):
@@ -334,65 +333,80 @@ class AmbientePorTipoDeInmuebleListView(ListView):
         else:
             range_gap = valor_Personalizacionvisual("std", "rangopaginacion")
 
+        if self.request.user.id is not None:
+            nropag = valor_Personalizacionvisual(self.request.user.id, "paginacion")
+        else:
+            nropag = valor_Personalizacionvisual("std", "paginacion")
+
         order_by = self.request.GET.get('order_by')
         search = self.request.GET.get('search')
-        if order_by and search is not None and search != u"":
-            entry_query = get_query(search, ['ambiente__ambiente',
-                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
-            lista_ambiente = AmbientePorTipoDeInmueble.objects.filter(entry_query).order_by(order_by)
-        elif search is not None and search != u"":
-            entry_query = get_query(search, ['ambiente__ambiente',
-                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
-            lista_ambiente = AmbientePorTipoDeInmueble.objects.filter(entry_query)
-        elif order_by:
-            lista_ambiente = AmbientePorTipoDeInmueble.objects.all().order_by(order_by)
-        else:
-            lista_ambiente = AmbientePorTipoDeInmueble.objects.all()
-
-        paginator = Paginator(lista_ambiente, 10)
+        ch_var = self.request.GET.get('ch_var')
         page = self.request.GET.get('page')
-        if page:
 
-            if int(page) > int(range_gap):
-                start = int(page)-int(range_gap)
-            else:
-                start = 1
+        entry_query = get_query(search, ['ambiente__ambiente',
+                                         'especificacion_de_inmueble__especificacion_de_inmueble', ])
+        entry_query2 = get_query(search, ['ambiente', ])
+        entry_query3 = get_query(search, ['especificacion_de_inmueble', ])
 
-            if int(page) < paginator.num_pages-int(range_gap):
-                end = int(page)+int(range_gap)+1
-            else:
-                end = paginator.num_pages+1
+        if order_by and search is not None and search != u"":
+
+            ambientesportipoinmueble = AmbientePorTipoDeInmueble.objects.filter(entry_query).order_by(order_by)
+            lista_ambiente = Ambiente.objects.filter(entry_query2).order_by(order_by)
+            lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.filter(entry_query3).order_by(order_by)
+        elif search is not None and search != u"":
+            ambientesportipoinmueble = AmbientePorTipoDeInmueble.objects.filter(entry_query)
+            lista_ambiente = Ambiente.objects.filter(entry_query2)
+            lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.filter(entry_query3)
+
+        elif order_by:
+            ambientesportipoinmueble = AmbientePorTipoDeInmueble.objects.all().order_by(order_by)
+            lista_ambiente = Ambiente.objects.all().order_by(order_by)
+            lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.all().order_by(order_by)
         else:
-            if 1 > int(range_gap):
-                start = 1-int(range_gap)
-            else:
-                start = 1
+            ambientesportipoinmueble = AmbientePorTipoDeInmueble.objects.all()
+            lista_ambiente = Ambiente.objects.all()
+            lista_especificaciondeinmueble = EspecificacionDeInmueble.objects.all()
 
-            if 1 < paginator.num_pages-int(range_gap):
-                end = 1+int(range_gap)+1
-            else:
-                end = paginator.num_pages+1
+        paginateacordeon = paginate_acordeon(nropag, page, ch_var,
+                                             lista_ambiente,
+                                             lista_especificaciondeinmueble,
+                                             range_gap)
 
-        context['ultimo'] = str(paginator.num_pages)
-        context['page_range2'] = range(start, end)
+        context['ultimo'] = paginateacordeon['ultimo']
+        context['page_range2'] = paginateacordeon['page_range2']
+        context['lista_ambiente'] = paginateacordeon['variables1']
+        context['lista_especificaciondeinmueble'] = paginateacordeon['variables2']
+        context['ambientesportipoinmueble'] = ambientesportipoinmueble
+
         return context
 
     def get_queryset(self):
+        queryset = EspecificacionDeInmueble.objects.all()
 
         order_by = self.request.GET.get('order_by')
         search = self.request.GET.get('search')
-        if order_by and search is not None and search != u"":
-            entry_query = get_query(search, ['ambiente__ambiente',
-                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
-            queryset = AmbientePorTipoDeInmueble.objects.filter(entry_query).order_by(order_by)
-        elif search is not None and search != u"":
-            entry_query = get_query(search, ['ambiente__ambiente',
-                                             'especificacion_de_inmueble__especificacion_de_inmueble', ])
-            queryset = AmbientePorTipoDeInmueble.objects.filter(entry_query)
-        elif order_by:
-            queryset = AmbientePorTipoDeInmueble.objects.all().order_by(order_by)
+        ch_var = self.request.GET.get('ch_var')
+
+        if ch_var:
+            entry_query = get_query(search, ['ambiente', ])
+            if order_by and search is not None and search != u"":
+                queryset = Ambiente.objects.filter(entry_query).order_by(order_by)
+            elif search is not None and search != u"":
+                queryset = Ambiente.objects.filter(entry_query)
+            elif order_by:
+                queryset = Ambiente.objects.all().order_by(order_by)
+            else:
+                queryset = Ambiente.objects.all()
         else:
-            queryset = AmbientePorTipoDeInmueble.objects.all()
+            entry_query = get_query(search, ['especificacion_de_inmueble', ])
+            if order_by and search is not None and search != u"":
+                queryset = EspecificacionDeInmueble.objects.filter(entry_query).order_by(order_by)
+            elif search is not None and search != u"":
+                queryset = EspecificacionDeInmueble.objects.filter(entry_query)
+            elif order_by:
+                queryset = EspecificacionDeInmueble.objects.all().order_by(order_by)
+            else:
+                queryset = EspecificacionDeInmueble.objects.all()
 
         return queryset
 
@@ -404,20 +418,23 @@ class AmbientePorTipoDeInmuebleView(View):
     def get(self, request, *args, **kwargs):
         """docstring"""
 
-        if self.request.GET.get('ambiente'):
-            form_class_formset = formset_factory(AmbientePorTipoDeInmuebleForm,
-                                                 extra=EspecificacionDeInmueble.objects.count(),
-                                                 max_num=EspecificacionDeInmueble.objects.count())
+        if self.request.GET.get('ch_var') and self.request.GET.get('var1'):
             ambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(ambiente=self.request.GET.get('var1'))
             inmueble = EspecificacionDeInmueble.objects.exclude(id__in=ambienteportipodeinmueble.values('especificacion_de_inmueble'))
             ambiente = Ambiente.objects.none()
-        else:
+            extra_max_num = inmueble.count() + ambienteportipodeinmueble.count()
             form_class_formset = formset_factory(AmbientePorTipoDeInmuebleForm,
-                                                 extra=Ambiente.objects.count(),
-                                                 max_num=Ambiente.objects.count())
+                                                 extra=EspecificacionDeInmueble.objects.count(),
+                                                 max_num=EspecificacionDeInmueble.objects.count())
+        else:
             ambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(especificacion_de_inmueble=self.request.GET.get('var2'))
             ambiente = Ambiente.objects.exclude(id__in=ambienteportipodeinmueble.values('ambiente'))
             inmueble = EspecificacionDeInmueble.objects.none()
+            extra_max_num = ambiente.count() + ambienteportipodeinmueble.count()
+            form_class_formset = formset_factory(AmbientePorTipoDeInmuebleForm,
+                                                 extra=extra_max_num,
+                                                 max_num=extra_max_num)
+
         data = []
 
         if ambienteportipodeinmueble:
@@ -446,9 +463,6 @@ class AmbientePorTipoDeInmuebleView(View):
             formset = self.form_class_formset()
 
         return render(request, self.template_name, {'formset': formset,
-                                                    'ambienteportipodeinmueble': ambienteportipodeinmueble,
-                                                    'inmueble': inmueble,
-                                                    'ambiente': ambiente,
                                                     'variable1': Ambiente.objects.all(),
                                                     'variable2': EspecificacionDeInmueble.objects.all()})
 
@@ -459,22 +473,22 @@ class AmbientePorTipoDeInmuebleView(View):
             ambiente = self.request.GET.get('ambiente')
             if ambiente:
                 existeambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(ambiente=self.request.GET.get('var1'))
-                if existecontenedor:
+                if existeambienteportipodeinmueble:
                     AmbientePorTipoDeInmueble.objects.filter(ambiente=
                                                              self.request.GET.get('var1')).delete()
             else:
-                existeambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(especificacion_de_inmueble=self.request.GET.get('var1'))
-                if existecontenedor:
+                existeambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.filter(especificacion_de_inmueble=self.request.GET.get('var2'))
+                if existeambienteportipodeinmueble:
                     AmbientePorTipoDeInmueble.objects.filter(especificacion_de_inmueble=
-                                                             self.request.GET.get('var1')).delete()
+                                                             self.request.GET.get('var2')).delete()
 
             for form in formset.forms:
                 if form.cleaned_data.get('ch_agregar'):
 
                     add_ambienteportipodemueble(str(form.cleaned_data['ambiente'].id),
                                                 str(form.cleaned_data['especificacion_de_inmueble'].id),
-                                                str(form.cleaned_data['predeterminado'].id))
-                #form.save()
+                                                form.cleaned_data['predeterminado'])
+                #for.save()
 
             # <process form cleaned data>
             messages.success(self.request, "Registro guardado.")
@@ -640,6 +654,14 @@ class AmbientePorTipoDeInmuebleDelete(DeleteView):
             return HttpResponseRedirect(redirect_to)
         else:
             return render_to_response(self.template_name, self.get_context_data())
+
+
+def add_ambienteportipodemueble(ambiente, especificaciondeinmueble, predeterminado):
+    agregarambienteportipodeinmueble = AmbientePorTipoDeInmueble.objects.create(ambiente_id=ambiente,
+                                                                                especificacion_de_inmueble_id=especificaciondeinmueble,
+                                                                                predeterminado=predeterminado)
+    agregarambienteportipodeinmueble.save()
+    return(agregarambienteportipodeinmueble)
 
 
 def generar_pdf(request):
