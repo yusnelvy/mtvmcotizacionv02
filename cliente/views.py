@@ -1496,6 +1496,8 @@ class ClienteView(View):
                         if redirect_to:
                             return HttpResponseRedirect(redirect_to)
                         else:
+                            messages.success(self.request, "Cliente " + str(id_reg.id) + "  guardado con éxito.",
+                                             extra_tags='datosBasicos')
                             return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
                                                         args=(id_reg.id,)))
 
@@ -1627,12 +1629,15 @@ class ClienteUpdate(UpdateView):
 
         if 'regEdit' in self.request.POST:
 
-            messages.success(self.request, "Cliente " + str(self.object) + "  guardado con éxito.")
+            messages.success(self.request, "Cliente " + str(self.object) + "  guardado con éxito.",
+                             extra_tags='datosBasicos')
             return HttpResponseRedirect(self.request.get_full_path())
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
+                messages.success(self.request, "Cliente " + str(self.object) + "  guardado con éxito.",
+                                 extra_tags='datosBasicos')
                 return HttpResponseRedirect(redirect_to)
             else:
                 return render_to_response(self.template_name, self.get_context_data())
@@ -1668,6 +1673,7 @@ class ClienteDetail(DetailView):
                                                                            contacto__tipo_de_relacion__tipo_de_relacion='cliente')
         context['contactos'] = InformacionDeContacto.objects.filter(contacto__cliente=self.object.pk).exclude(contacto__tipo_de_relacion__tipo_de_relacion='cliente')
         context['direcciones'] = ClienteDireccion.objects.filter(cliente=self.object.pk)
+        context['ascensores'] = Ascensor.objects.filter(edificacion__clientedireccion__cliente=self.object.pk)
 
         return context
 
@@ -1755,6 +1761,12 @@ class ContactoCreateView(CreateView):
                 return HttpResponseRedirect(reverse('ucotizacionesweb:ficha_cotizacion',
                                                     args=(cotizacion,)))
             else:
+                if str(self.object.tipo_de_relacion) == 'cliente':
+                    messages.success(self.request, "Persona de contacto " + str(self.object) + "  guardado con éxito.",
+                                     extra_tags='datosBasicos')
+                else:
+                    messages.success(self.request, "Persona de contacto " + str(self.object) + "  guardado con éxito.",
+                                     extra_tags='contacto'+str(self.object.id))
                 return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
                                                     args=(self.object.cliente.id,)))
 
@@ -1889,7 +1901,8 @@ class ContactoUpdate(UpdateView):
 
         else:
             redirect_to = self.request.REQUEST.get('next', '')
-            messages.success(self.request, "Persona de contacto " + str(self.object) + "  guardado con éxito.")
+            messages.success(self.request, "Persona de contacto " + str(self.object) + "  guardado con éxito.",
+                             extra_tags='contacto'+str(self.object.id))
             if redirect_to:
                 return HttpResponseRedirect(redirect_to)
             else:
@@ -1954,7 +1967,7 @@ class ClienteDireccionView(View):
                 return HttpResponseRedirect(reverse('uclientes:edit_direccion',
                                                     args=(id_reg.id,)))
             else:
-                messages.success(self.request, "Dirección:  '" + str(id_reg) + "'  registrado con éxito.")
+                messages.success(self.request, "Dirección: '" + str(id_reg) + "' registrado con éxito.")
                 if cotizacion:
                     tipo = self.request.REQUEST.get('tipo', '')
                     add_cotizacion_direccion(cotizacion,
@@ -1965,6 +1978,8 @@ class ClienteDireccionView(View):
                                                 "&cotizacion="+str(cotizacion))
                 else:
                     if redirect_to:
+                        messages.success(self.request, "Dirección " + str(id_reg) + "  guardado con éxito.",
+                                         extra_tags='direccion'+str(id_reg.id))
                         return HttpResponseRedirect(redirect_to)
                     else:
                         return HttpResponseRedirect(reverse('uclientes:add_inmueble') +
@@ -2098,7 +2113,8 @@ class ClienteDireccionUpdate(UpdateView):
         else:
             redirect_to = self.request.REQUEST.get('next', '')
             if redirect_to:
-                messages.success(self.request, "Dirección '" + str(self.object) + "'  guardado con éxito.")
+                messages.success(self.request, "Dirección '" + str(self.object) + "'  guardado con éxito.",
+                                 extra_tags='contacto'+str(self.object.id))
                 return HttpResponseRedirect(redirect_to +
                                             "&clientedireccion="+str(clientedireccion[0].id))
             else:
@@ -2177,8 +2193,12 @@ class ClienteInmuebleView(View):
                 else:
                     redirect_to = self.request.REQUEST.get('next', '')
                     if redirect_to:
+                        messages.success(self.request, "Dirección " + str(id_reg) + "  guardado con éxito.",
+                                         extra_tags='direccion'+str(clientedireccion[0].id))
                         return HttpResponseRedirect(redirect_to)
                     else:
+                        messages.success(self.request, "Dirección " + str(id_reg) + "  guardado con éxito.",
+                                         extra_tags='direccion'+str(id_reg.id))
                         return HttpResponseRedirect(reverse('uclientes:ficha_cliente',
                                                             args=(clientedireccion[0].cliente.id,)))
 
@@ -2320,7 +2340,8 @@ class InmuebleUpdate(UpdateView):
             else:
                 redirect_to = self.request.REQUEST.get('next', '')
                 if redirect_to:
-                    messages.success(self.request, "Inmueble '" + str(self.object) + "'  guardado con éxito.")
+                    messages.success(self.request, "Inmueble '" + str(self.object) + "'  guardado con éxito.",
+                                     extra_tags='direccion'+str(clientedireccion[0].id))
                     return HttpResponseRedirect(redirect_to)
                 else:
                     return render_to_response(self.template_name, self.get_context_data())

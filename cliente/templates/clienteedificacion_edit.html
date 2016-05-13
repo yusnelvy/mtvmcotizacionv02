@@ -1,5 +1,7 @@
 {% extends "base_editar.html" %}
+
 {% block js_superior %}
+
 <script type="text/javascript">
 $(function() {
         $(".inline.{{ itemascensor_form.prefix }}").formset({
@@ -10,7 +12,9 @@ $(function() {
         })
     })
 </script>
+
 {% endblock js_superior %}
+
 {% block titulo %}
 
 Edificación
@@ -29,12 +33,17 @@ Edificación
 
 {% block cuerpo_form %}
 
-{{ form.as_md }}
+<div class="blockForm">
+
+{{ form.as_p }}
+
   <fieldset>
-    <legend>Ascensor</legend>
+    <legend>Ascensor de la edificación</legend>
     {{ itemascensor_form.management_form }}
     {{ itemascensor_form.non_form_errors }}
+
     {% for form in itemascensor_form %}
+
     <div class="inline {{ itemascensor_form.prefix }}">
         {{ form.id }}
         {{ form.tipo_de_ascensor.errors }}
@@ -62,14 +71,18 @@ Edificación
         {{ form.capacidad_carga.label_tag }}
         {{ form.capacidad_carga }}
     </div>
+
     {% endfor %}
+
   </fieldset>
 
   <fieldset>
-    <legend>Horarios Disponibles</legend>
+    <legend>Horarios disponibles de la edificación</legend>
     {{ itemhorariodisponible_form.management_form }}
     {{ itemhorariodisponible_form.non_form_errors }}
+
     {% for form in itemhorariodisponible_form %}
+
     <div class="inline {{ itemhorariodisponible_form.prefix }}">
         {{ form.id }}
         {{ form.lunes.errors }}
@@ -110,8 +123,12 @@ Edificación
         {{ form.observacion }}
 
     </div>
+
     {% endfor %}
+
   </fieldset>
+</div>
+
 {% endblock cuerpo_form %}
 
 {% block contenido_relacionado %}{% endblock contenido_relacionado %}
@@ -120,6 +137,11 @@ Edificación
 
 <script type="text/javascript">
 $('form').removeClass('hidden');
+$('#id_nombre_de_edificio').focus();
+$('input[name=cantidad_de_pisosa], input[name=cantidad_de_inmuebles_por_pisoa]').on('change', function() {
+    operacionX($('#id_cantidad_de_pisos').val(),$('#id_cantidad_de_inmuebles_por_piso').val(),$('#id_total_inmuebles'));
+});
+operacionX($('#id_cantidad_de_pisos').val(),$('#id_cantidad_de_inmuebles_por_piso').val(),$('#id_total_inmuebles'));
 $('.ascensor_set .delete-row').click(function(){
         id_remove = $(this).parent().children('input[type=hidden]').val();
         if (id_remove!=''){
@@ -142,6 +164,22 @@ $('.ascensor_set .delete-row').click(function(){
             }
         });
     });
+$('#id_volumen_baulera').parent().css('opacity', '0');
+$('input[id=id_baulera]').on('switchChange.bootstrapSwitch', function(event, state) {
+  if (state === true) {
+    $('#id_volumen_baulera').parent().css('opacity', '1');
+    $('#id_volumen_baulera').focus();
+  }else{
+    $('#id_volumen_baulera').parent().css('opacity', '0');
+  }
+});
+radioSelectPlus();
+$("#id_direccion").prop("disabled", true);
+$('#myformEdit').submit(function() {
+    $("#id_direccion").prop("disabled", false);
+    operacionX($('#id_cantidad_de_pisos').val(),$('#id_cantidad_de_inmuebles_por_piso').val(),$('#id_total_inmuebles'));
+});
 </script>
 <style>.paginacionEdit{height: 0;display: none;}</style>
+
 {% endblock js_inferior %}

@@ -8,7 +8,7 @@ Inmueble
 
 {% block titulo_form %}
 
-  Editar el inmueble: {{form.numero_de_inmueble.value|lower}}
+  Editar el inmueble: {{inmueble.especificacion_de_inmueble|lower}}
 
 {% endblock titulo_form %}
 
@@ -17,18 +17,25 @@ Inmueble
 {% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
+
+<div class="blockForm">
 <p id="msjtipodeinmuble"></p>
-<input type="text" id="cambiarinmueble" name="cambiarinmueble">
+<input type="text" id="cambiarinmueble" name="cambiarinmueble" class="hidden">
 <p>
     <span>
-      <strong>Dirección: </strong>
+      <strong>Dirección de la edificación: </strong>
 
       {{direccion.0.full_direccion}}
-      <a title='Editar' data-toggle='tooltip' data-placement='left' href="{% url 'uclientes:edit_direccion' direccion.0.id %}?next={{request.get_full_path}}" class='iconoEditar'></a>
-
+<p class="botonesCampos">
+      <a title='Editar' data-toggle='tooltip' data-placement='left' href="{% url 'uclientes:edit_direccion' direccion.0.id %}?next={{request.get_full_path}}" class='iconoEditar n1' tabindex='-1'></a>
+</p>
     </span>
 </p>
+
 {{ form.as_p }}
+
+</div>
+
 {% endblock cuerpo_form %}
 
 {% block contenido_relacionado %}{% endblock contenido_relacionado %}
@@ -37,6 +44,7 @@ Inmueble
 
 <script type="text/javascript">
 $('form').removeClass('hidden');
+$("#id_cantidad_de_ambientes").parent().css('display', 'none');
 $('#id_numero_de_inmueble').focus();
 function cambiar() {
   $("#cambiarinmueble").val('si');
@@ -50,8 +58,8 @@ function cambiarno() {
   console.log(valor);
 
 };
-$('#id_edificacion').after("<a title='Agregar' data-toggle='tooltip' data-placement='right' href='{% url 'uclientes:add_edificacion' %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoPlus'></a>");
-$('#id_edificacion').after("<a title='Editar' data-toggle='tooltip' data-placement='left' href='{% url 'uclientes:edit_edificacion' form.edificacion.value %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoEditar'></a>");
+
+$('#id_edificacion').after("<p class='botonesCampos'><a tabindex='-1' title='Editar' data-toggle='tooltip' data-placement='left' href='{% url 'uclientes:edit_edificacion' form.edificacion.value %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoEditar n1'></a><a tabindex='-1' title='Agregar' data-toggle='tooltip' data-placement='right' href='{% url 'uclientes:add_edificacion' %}?next={{request.get_full_path}}&clientedireccion={{request.GET.clientedireccion}}' class='iconoPlus n2'></a></p>");
 
   $("#id_especificacion_de_inmueble").on("change", function() {
     {% if request.GET.cotizacion %}
@@ -67,6 +75,26 @@ $('#id_edificacion').after("<a title='Editar' data-toggle='tooltip' data-placeme
 
   });
 
+{% if baulera == True %}
+
+  $('#id_volumen_baulera').parent().css('opacity', '1');
+
+  {% else %}
+
+  $('#id_volumen_baulera').parent().css('opacity', '0');
+
+{% endif %}
+
+$('input[id=id_baulera]').on('switchChange.bootstrapSwitch', function(event, state) {
+  if (state === true) {
+    $('#id_volumen_baulera').parent().css('opacity', '1');
+    $('#id_volumen_baulera').focus();
+  }else{
+    $('#id_volumen_baulera').parent().css('opacity', '0');
+    $('#id_volumen_baulera').val('');
+  }
+});
+radioSelectPlus();
 </script>
 <style>.paginacionEdit{height: 0;display: none;}</style>
 {% endblock js_inferior %}

@@ -1561,7 +1561,7 @@ pre {
   .row:after, .contenedorFila:after, .fichaCliente div div div:after {
     clear: both; }
 
-.col-xs-1, .col-sm-1, .col-md-1, .columna1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .columna2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .columna3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .columna4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .columna5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .columna6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .columna7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .columna8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .columna9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .columna10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .columna11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .columna12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .columna1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .columna2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .columna3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .columna4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .columna5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .columna6, .col-lg-6, .blockForm, .col-xs-7, .col-sm-7, .col-md-7, .columna7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .columna8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .columna9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .columna10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .columna11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .blockForm, .columna12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -1880,7 +1880,7 @@ pre {
   .col-sm-offset-12 {
     margin-left: 100%; } }
 @media (min-width: 992px) {
-  .col-md-1, .columna1, .col-md-2, .columna2, .col-md-3, .columna3, .col-md-4, .columna4, .col-md-5, .columna5, .col-md-6, .columna6, .col-md-7, .columna7, .col-md-8, .columna8, .col-md-9, .columna9, .col-md-10, .columna10, .col-md-11, .columna11, .col-md-12, .columna12 {
+  .col-md-1, .columna1, .col-md-2, .columna2, .col-md-3, .columna3, .col-md-4, .columna4, .col-md-5, .columna5, .col-md-6, .columna6, .col-md-7, .columna7, .col-md-8, .columna8, .col-md-9, .columna9, .col-md-10, .columna10, .col-md-11, .columna11, .col-md-12, .blockForm, .columna12 {
     float: left; }
 
   .col-md-1, .columna1 {
@@ -1916,7 +1916,7 @@ pre {
   .col-md-11, .columna11 {
     width: 91.66667%; }
 
-  .col-md-12, .columna12 {
+  .col-md-12, .blockForm, .columna12 {
     width: 100%; }
 
   .col-md-pull-0 {
@@ -2036,7 +2036,7 @@ pre {
   .col-md-offset-12 {
     margin-left: 100%; } }
 @media (min-width: 1200px) {
-  .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
+  .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .blockForm, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12 {
     float: left; }
 
   .col-lg-1 {
@@ -2054,7 +2054,7 @@ pre {
   .col-lg-5 {
     width: 41.66667%; }
 
-  .col-lg-6 {
+  .col-lg-6, .blockForm {
     width: 50%; }
 
   .col-lg-7 {
@@ -6660,31 +6660,34 @@ a.badge:hover, a.numRegistro:hover, a.badge:focus, a.numRegistro:focus {
   .panel-danger > .panel-footer + .panel-collapse > .panel-body, .fichaCliente .panel-danger > .panel-footer + .panel-collapse > div {
     border-bottom-color: #ebccd1; }
 
-.alert, .alertaLista, .msj {
+.alert, .alertaLista, .errorlist, .msj {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px; }
-  .alert h4, .alertaLista h4, .msj h4 {
+  .alert h4, .alertaLista h4, .errorlist h4, .msj h4 {
     margin-top: 0;
     color: inherit; }
-  .alert .alert-link, .alertaLista .alert-link, .msj .alert-link {
+  .alert .alert-link, .alertaLista .alert-link, .errorlist .alert-link, .msj .alert-link {
     font-weight: bold; }
-  .alert > p, .alertaLista > p, .msj > p,
+  .alert > p, .alertaLista > p, .errorlist > p, .msj > p,
   .alert > ul,
   .alertaLista > ul,
+  .errorlist > ul,
   .msj > ul {
     margin-bottom: 0; }
-  .alert > p + p, .alertaLista > p + p, .msj > p + p {
+  .alert > p + p, .alertaLista > p + p, .errorlist > p + p, .msj > p + p {
     margin-top: 5px; }
 
 .alert-dismissable,
 .alert-dismissible,
-.alertaLista {
+.alertaLista,
+.errorlist {
   padding-right: 35px; }
   .alert-dismissable .close, .alert-dismissable .alertaLista button, .alertaLista .alert-dismissable button,
   .alert-dismissible .close,
   .alertaLista .close,
+  .errorlist .close,
   .alert-dismissible .alertaLista button,
   .alertaLista .alert-dismissible button,
   .alertaLista button {
@@ -6720,13 +6723,13 @@ a.badge:hover, a.numRegistro:hover, a.badge:focus, a.numRegistro:focus {
   .alert-warning .alert-link, .msj .alert-link {
     color: #66512c; }
 
-.alert-danger {
+.alert-danger, .errorlist {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #a94442; }
-  .alert-danger hr {
+  .alert-danger hr, .errorlist hr {
     border-top-color: #e4b9c0; }
-  .alert-danger .alert-link {
+  .alert-danger .alert-link, .errorlist .alert-link {
     color: #843534; }
 
 .thumbnail {
@@ -7956,10 +7959,31 @@ button.close, .alertaLista button {
 
 .regGuardado {
   border-color: #3f51b5 !important;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease; }
+  opacity: 1 !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26) !important;
+  -webkit-transition: all 0.5s ease !important;
+  -moz-transition: all 0.5s ease !important;
+  -o-transition: all 0.5s ease !important;
+  transition: all 0.5s ease !important; }
+
+.blockForm {
+  background: #fff; }
+  .blockForm.sub {
+    border-left: 10px solid #ededed; }
+
+.botonesCampos {
+  border-bottom: 1px solid #dedede;
+  margin-top: 5px; }
+  .botonesCampos a.n1 {
+    left: 97%; }
+  .botonesCampos a.n2 {
+    left: 86%; }
+  .botonesCampos a.n3 {
+    left: 82%; }
+
+.errorlist li {
+  background: transparent !important;
+  border: transparent !important; }
 
 /*
  * componentes botones

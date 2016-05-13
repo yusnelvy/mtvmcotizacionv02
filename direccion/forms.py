@@ -157,6 +157,26 @@ class EdificacionForm(ModelForm):
     class Meta:
         model = Edificacion
         fields = '__all__'
+        widgets = {
+            'cantidad_de_pisos': radioSelectPlus(),
+            'cantidad_de_inmuebles_por_piso': radioSelectPlus(),
+            #'total_inmuebles': radioSelectPlus(),
+            'rampa': Checkbox(),
+            'escalera_estrecha': Checkbox(),
+            'escalera_inclinada': Checkbox(),
+            'escalon_grande': Checkbox()
+        }
+        labels = {
+            'nombre_de_edificio': ('Nombre del edificio'),
+            'tipo_de_edificacion': ('Tipo de edificación'),
+            'cantidad_de_pisos': ('cantidad de pisos de la edificación'),
+            'total_inmuebles': ('Total de inmuebles de la edificación'),
+            'rampa': ('¿Tiene rampa la edificación?'),
+            'distancia_del_vehiculo': ('Distancia del vehículo de carga al inmueble (m):'),
+            'escalera_estrecha': ('¿Tiene escalera estrecha la edificación?'),
+            'escalera_inclinada': ('¿Tiene escalera inclinada la edificación?'),
+            'escalon_grande': ('¿Tiene escalón Grande la edificación?')
+        }
 
 AscensorFormSet = inlineformset_factory(Edificacion,
                                         Ascensor,
@@ -167,7 +187,17 @@ AscensorFormSet = inlineformset_factory(Edificacion,
                                                 'ancho',
                                                 'largo',
                                                 'alto',
-                                                'capacidad_carga'), extra=1)
+                                                'capacidad_carga'), extra=1,
+                                        # widgets={'cantidad': radioSelectPlus(),
+                                        #          'piso_ascensor': radioSelectPlus()},
+                                        labels={'cantidad': ('Cantidad de ascensor:'),
+                                                'piso_ascensor': ('Cantidad de pisos por el ascensor:'),
+                                                'velocidad_por_piso': ('Velocidad por piso del ascensor:'),
+                                                'ancho': ('Ancho del ascensor (cm)'),
+                                                'largo': ('Largo del ascensor (cm)'),
+                                                'alto': ('Alto del ascensor (cm)'),
+                                                'capacidad_carga': ('Capacidad de carga del ascensor (Kg):')})
+
 HorarioDisponibleFormSet = inlineformset_factory(Edificacion,
                                                  HorarioDisponible,
                                                  fields=('lunes',
@@ -181,7 +211,21 @@ HorarioDisponibleFormSet = inlineformset_factory(Edificacion,
                                                          'hora_hasta',
                                                          'edificio',
                                                          'ascensor',
-                                                         'observacion'), extra=1)
+                                                         'observacion'), extra=1,
+                                                 widgets={'lunes': Checkbox(),
+                                                          'martes': Checkbox(),
+                                                          'miercoles': Checkbox(),
+                                                          'jueves': Checkbox(),
+                                                          'viernes': Checkbox(),
+                                                          'sabado': Checkbox(),
+                                                          'domingo': Checkbox(),
+                                                          'edificio': Checkbox(),
+                                                          'ascensor': Checkbox(),
+                                                          'observacion': Textarea(attrs={'cols': '1', 'rows': '1'})},
+                                                 labels={'hora_desde': ('Disponible desde la hora (H):'),
+                                                         'hora_hasta': ('Disponible hasta la hora (H):'),
+                                                         'edificio': ('¿Horarios disponibles para el edificio?'),
+                                                         'ascensor': ('¿Horarios disponibles para el ascensor?')})
 
 
 class TipoDeAscensorForm(ModelForm):
@@ -262,34 +306,22 @@ class InmuebleForm(ModelForm):
         super(InmuebleForm, self).__init__(*args, **kwargs)
         self.fields['edificacion'] = forms.ModelChoiceField(queryset=Edificacion.objects.filter(direccion=direccion))
 
-    # PISOS_CHOICES = (
-    #     (1, '1'),
-    #     (2, '2'),
-    #     (3, '3'),
-    #     (4, '4'),
-    #     (5, '5'),
-    #     (6, '6'),
-    #     (7, '7'),
-    #     (8, '8'),
-    #     (9, '9'),
-    #     (False, '+'),
-    # )
-    # numero_de_pisos = forms.ChoiceField(
-    #     label='Numero de Columnas',
-    #     choices=PISOS_CHOICES,
-    #     widget=RadioSelect(),)
-
     class Meta:
         model = Inmueble
         fields = '__all__'
         labels = {
             'inmueble': ('Nombre del inmueble'),
-            'especificacion_de_inmueble': ('Tipo de inmueble'),
+            'especificacion_de_inmueble': ('Tipo de inmueble de la edificación'),
             'nombre_del_piso': ('Nombre del piso del inmueble'),
-            'numero_de_pisos': ('N° del piso del inmueble'),
+            'numero_de_pisos': ('N° del piso donde se encuentra el inmueble'),
             'cantidad_de_ambientes': ('N° de ambientes'),
             'numero_de_plantas': ('N° de pisos internos del inmueble'),
-            'pisos_escalera': ('N° de pisos a recorrer por escaleras para llegar al inmueble')
+            'pisos_por_escalera': ('N° de pisos a recorrer por escaleras para llegar al inmueble'),
+            'total_m2': ('Total de metros cuadrado del inmueble (m2)'),
+            'baulera': ('¿Tiene baulera el inmueble?'),
+            'volumen_baulera': ('Volumen de la baulera (m3)'),
+            'edificacion': ('Nombre de la edificación'),
+            'numero_de_inmueble': ('Numero de inmuebles en la edificación')
         }
         widgets = {
             'especificacion_de_inmueble': Select(),

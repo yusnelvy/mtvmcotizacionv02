@@ -68,7 +68,7 @@ class Checkbox(Widget):
         if not (value is True or value is False or value is None or value == ''):
             # Only add the 'value' attribute if a value is non-empty.
             final_attrs['value'] = force_text(value)
-        return format_html('<br><input{0}/>', flatatt(final_attrs))
+        return format_html('<br><input{0}/><br>', flatatt(final_attrs))
 
 
     def value_from_datadict(self, data, files, name):
@@ -229,7 +229,7 @@ class radioSelectPlus(Select):
         if value is None:
             value = '0'
         final_attrs = self.build_attrs(attrs, name=name)
-        output = [format_html(ul+'<input{} class="form-control hidden" value="'+str(value)+'">', flatatt(final_attrs))]
+        output = [format_html(ul+'<input{} type="number" class="form-control hidden" value="'+str(value)+'">', flatatt(final_attrs))]
         options = self.render_options(choices, [value])
         if options:
             output.append(options)

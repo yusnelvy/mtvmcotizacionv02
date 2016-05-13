@@ -43,6 +43,29 @@ $('md-input-container').hover(function(){
   $(this).removeClass('md-input-focused focusMD');
 });
 $(function() {
+  $('input[type=radio]').focus(function() {
+   $(this).parent().parent().parent().addClass('inputFocus');
+   radioColor();
+}).focusout(function() {
+    $(this).parent().parent().parent().removeClass('inputFocus');
+    radioColor();
+  });
+ $('input[type=text],input[type=number],input[type=radio],input[type=email],select,textarea').focus(function() {
+   var pos = $(this).position();
+   var scroll = $(document.getElementsByClassName("page-content-wrapper"));
+   $(scroll).animate({ scrollTop: pos.top - 100 }, 250);
+    console.log(pos.top);
+ });
+
+// $('input[type=checkbox]').focus(function() {
+//   var pos = $(this).parent().parent().position();
+//   var scroll = $(document.getElementsByClassName("page-content-wrapper"));
+//   $(scroll).animate({ scrollTop: pos.top - 100 }, 500);
+//   console.log(pos);
+// });
+
+
+
 $('#sidebarWidget').sortable({
    placeholder: "ui-state-highlight",
    update: function(){

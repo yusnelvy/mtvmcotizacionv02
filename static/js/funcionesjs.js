@@ -2,7 +2,16 @@ function radioColor () {
     $("label:has(input[type=radio])").removeClass('seleccion');
     $("label:has(input[type=radio]:checked)").addClass('seleccion');
 }
-
+function actualizarCheckbox() {
+  setTimeout(function(){
+$("input[type='checkbox']").bootstrapSwitch();
+$("select").select2();
+  }, 0);
+}
+function operacionX(var1, var2, var3){
+  var resultado = var1 * var2;
+  $(var3).val(resultado);
+}
 function clickRadioSelect(element) {
   var valor = $(element).parent().text().trim();
   var name = $(element).data("name");
@@ -688,6 +697,13 @@ function eliminarSubmit() {
           "focus.bootstrapSwitch": (function(_this) {
             return function(e) {
               e.preventDefault();
+              // modificado para agregar componente de experiencia de usuario.
+              var pos = _this.$wrapper.position().top;
+              var scroll = $(document.getElementsByClassName("page-content-wrapper"));
+              _this.$wrapper.attr('data-posicion', pos);
+              $(scroll).animate({ scrollTop: pos - 100 }, 250);
+              //console.log(pos);
+              // -------------------by: {Yohandri}>
               return _this.$wrapper.addClass(_this.options.baseClass + "-focused");
             };
           })(this),
@@ -909,8 +925,8 @@ function controlarAutofiltro() {
 
 }
 
-/*function controlarFiltroRapido() {
-
+function controlarFiltroRapido() {
+/*
     $('tr[class="active"] th').each(function () {
            var th = $(this).text();
            var col = $(this).index() + 1;
@@ -924,5 +940,5 @@ function controlarAutofiltro() {
     var seleccionado = elementosSelect[0];
     var valor = document.getElementById("filtro");
     return id;
-
-}*/
+*/
+}

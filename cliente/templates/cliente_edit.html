@@ -1,5 +1,7 @@
 {% extends "base_editar.html" %}
+
 {% block js_superior %}
+
 <script type="text/javascript">
 $(function() {
         $(".inline{% if item_form.prefix %}.{{ item_form.prefix }} {% else %}{% endif %}").formset({
@@ -7,7 +9,9 @@ $(function() {
         })
     })
 </script>
+
 {% endblock js_superior %}
+
 {% block titulo %}
 
 Cliente
@@ -54,7 +58,7 @@ Cliente
 
 {% block cuerpo_form %}
 
-<div class="col-md-12 col-lg-6" style="background: #fff;">
+<div class="blockForm">
 
 {{ form.as_p }}
 
@@ -64,15 +68,12 @@ Cliente
 
 {% endif %}
 
-</div>
-
-<div class="col-md-12 col-lg-6" style="background: #fff;border-left: 1px solid #ededed;">
-
 {% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
 
 <fieldset>
     {{ item_form.management_form }}
     {{ item_form.non_form_errors }}
+
     {% for form in item_form %}
 
     <div class="inline {{ item_form.prefix }}">
@@ -88,10 +89,15 @@ Cliente
         {{ form.informacion_de_contacto }}
         </p>
     </div>
+
     {% endfor %}
+
 </fieldset>
+
 {% endif %}
+
 </div>
+
 {% endblock cuerpo_form %}
 
 {% block js_inferior %}
@@ -103,13 +109,7 @@ Cliente
     $('#id_tipo_de_relacion').parent().css('display', 'none');
 
     $(function() {
-                $('input[type=radio]').focus(function() {
-   $(this).parent().parent().parent().addClass('inputFocus');
-   radioColor();
-}).focusout(function() {
-    $(this).parent().parent().parent().removeClass('inputFocus');
-    radioColor();
-  });
+
         $('.delete-row').click(function(){
         id_remove = $(this).parent().children('input[type=hidden]').val();
         if (id_remove!=''){
@@ -146,4 +146,5 @@ $('input[name=tipo_de_cliente]').on('click', function () {
     });
 </script>
 <style>.paginacionEdit{height: 0;display: none;}</style>
+
 {% endblock js_inferior %}

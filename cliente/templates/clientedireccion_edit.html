@@ -8,7 +8,7 @@ Dirección
 
 {% block titulo_form %}
 
-  Editar el dirección: {{titulo}}
+  Editar la dirección: {{ titulo }}
 
 {% endblock titulo_form %}
 
@@ -17,8 +17,16 @@ Dirección
 {% endblock nav_lista_form %}
 
 {% block cuerpo_form %}
-<input id="titulo_de_direccion" name="titulo_de_direccion" type="input" value="{{titulo}}">
+
+<div class="blockForm">
+<p>
+    <label for="id_titulo_de_direccion">Titulo de la dirección</label><br>
+    <input id="id_titulo_de_direccion" name="titulo_de_direccion" type="text" value="{{titulo}}">
+</p>
+
 {{ form.as_p }}
+
+</div>
 
 {% endblock cuerpo_form %}
 
@@ -28,7 +36,8 @@ Dirección
 
 <script type="text/javascript">
 $('form').removeClass('hidden');
-$('#id_calle').focus();
+$('#id_titulo_de_direccion').focus();
 </script>
 <style>.paginacionEdit{height: 0;display: none;}</style>
+
 {% endblock js_inferior %}

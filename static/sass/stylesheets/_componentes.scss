@@ -149,11 +149,43 @@ ul {
   width: 100%!important;
 }
 .regGuardado {
-  border-color: #3f51b5!important;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  border-color: $brand-primary!important;
+  opacity: 1!important;
+  box-shadow: $sombra!important;
+  -webkit-transition: all 0.5s ease!important;
+  -moz-transition: all 0.5s ease!important;
+  -o-transition: all 0.5s ease!important;
+  transition: all 0.5s ease!important;
+}
+.blockForm {
+  @extend .col-md-12;
+  @extend .col-lg-6;
+  background: #fff;
+  &.sub {
+    border-left: 10px solid #ededed;
+  }
+}
+.botonesCampos {
+  border-bottom: 1px solid #dedede;
+  margin-top: 5px;
+  a.n1 {
+    left: 97%;
+  }
+  a.n2 {
+    left: 86%;
+  }
+  a.n3 {
+    left: 82%;
+  }
+}
+.errorlist {
+  @extend .alert;
+  @extend .alert-danger;
+  @extend .alert-dismissible;
+  li {
+    background: transparent!important;
+    border: transparent!important;
+  }
 }
 /*
  * componentes botones

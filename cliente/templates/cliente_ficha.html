@@ -26,7 +26,7 @@
             {% for i in contacto_cliente %}
 
             <p>
-              <small>{{i.tipo_de_informacion_de_contacto}}:</small>
+              <strong>{{i.tipo_de_informacion_de_contacto}}:</strong>
               {{i.informacion_de_contacto}}
             </p>
 
@@ -37,12 +37,22 @@
 
             {% if cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' or cliente.tipo_de_cliente.tipo_de_cliente == 'particular' %}
 
+            {% if contacto_cliente.0.contacto.dni %}
+
             <p>
               <strong>DNI: </strong>{{ contacto_cliente.0.contacto.dni }}
             </p>
-            <p>
-              <strong>Fecha de nacimiento: </strong>{{ contacto_cliente.0.contacto.fecha_nacimiento|date:'m/d/Y' }}
-            </p>
+
+            {% endif %}
+
+            {% if contacto_cliente.0.contacto.fecha_nacimiento %}
+
+              <p>
+                <strong>Fecha de nacimiento: </strong>{{ contacto_cliente.0.contacto.fecha_nacimiento|date:'m/d/Y' }}
+              </p>
+
+            {% endif %}
+
 
             {% else %}
 
@@ -100,7 +110,7 @@
 
     {% for contacto in contacto_list %}
 
-    <div class="panel panel-default {{ contacto.grouper.id }}">
+    <div class="panel panel-default" id="contacto{{ contacto.grouper.id }}">
       <div class="panel-body">
         <div style="float: right;display" class="controlFicha">
           <a title="Editar" data-toggletooltip="tooltip" data-placement="left" href="{% url 'uclientes:edit_contacto' contacto.grouper.id %}?next={{request.get_full_path}}" class="iconoEditar"></a>
@@ -116,14 +126,14 @@
 
               {% for item in contacto.list %}
 
-              <p>{{ item.tipo_de_informacion_de_contacto }}: {{ item.informacion_de_contacto }}</p>
+              <p><strong>{{ item.tipo_de_informacion_de_contacto }}</strong>: {{ item.informacion_de_contacto }}</p>
 
               {% endfor %}
 
             </div>
             <div class="col-md-12 col-lg-4">
-              <p>Sexo: {{contacto.list.0.contacto.sexo}}</p>
-              <p>Estado civil: {{contacto.list.0.contacto.estado_civil}}</p>
+              <p><strong>Sexo</strong>: {{contacto.list.0.contacto.sexo}}</p>
+              <p><strong>Estado civil</strong>: {{contacto.list.0.contacto.estado_civil}}</p>
             </div>
           </div>
         </div>
@@ -163,7 +173,7 @@
 
     {% for direccion in direcciones %}
 
-    <div class="panel panel-default {{direccion.id}}">
+    <div class="panel panel-default" id="direccion{{ direccion.id }}">
       <div class="panel-body">
         <div style="float: right;display" class="controlFicha">
 
@@ -182,21 +192,70 @@
         <div class="contenedor">
           <div class="contenedorFila">
 
-            <p>{{direccion.direccion.full_direccion}}</p>
+            <h4>{{direccion.direccion.full_direccion}}</h4>
+            <div class="col-md-12 col-lg-4">
 
-            {% if direccion.edificacion.nombre_de_edificio %}
+              {% if direccion.edificacion.nombre_de_edificio %}
 
-            <p><strong>Nombre de edificación: </strong> {{direccion.edificacion.nombre_de_edificio}}</p>
+            <p><strong>{{direccion.edificacion.tipo_de_edificacion}}: </strong>{{direccion.edificacion.nombre_de_edificio}}</p>
 
             {% endif %}
 
             {% if direccion.inmueble.numero_de_inmueble %}
 
-            <p><strong>Numero de inmueble: </strong> N° {{direccion.inmueble.numero_de_inmueble}}</p>
+            <p><strong>Numero del inmueble: </strong> N° {{direccion.inmueble.numero_de_inmueble}}</p>
 
             {% endif %}
 
-          </div>
+            {% if direccion.inmueble.numero_de_pisos > "1" %}
+
+            <p><strong>Numero de pisos del inmueble: </strong> N° {{direccion.inmueble.numero_de_pisos}}</p>
+
+            {% endif %}
+
+            {% if direccion.inmueble.especificacion_de_inmueble %}
+
+            <p><strong>Tipo de inmueble: </strong>{{direccion.inmueble.especificacion_de_inmueble}}</p>
+
+            {% endif %}
+
+            </div>
+            <div class="col-md-12 col-lg-4">
+
+              {% if direccion.edificacion.cantidad_de_pisos > 1 %}
+
+            <p><strong>Cantidad de pisos de la edificación: </strong>{{direccion.edificacion.cantidad_de_pisos}} Pisos</p>
+
+            {% else %}
+
+             <p><strong>Cantidad de piso de la edificación: </strong>{{direccion.edificacion.cantidad_de_pisos}} piso</p>
+
+            {% endif %}
+
+            {% if direccion.edificacion.distancia_del_vehiculo %}
+
+            <p><strong>Distancia del vehiculo a la edificación: </strong>{{direccion.edificacion.distancia_del_vehiculo}} (m)</p>
+
+            {% endif %}
+
+            {% for i in ascensores %}
+
+            {% if i.edificacion == direccion.edificacion %}
+
+              <p><strong>Ascensor: </strong>{{i.cantidad}} {{i.tipo_de_ascensor|lower}} con capacidad de carga de {{ i.capacidad_carga}} (Kg)</p>
+
+            {% endif %}
+
+            {% endfor %}
+
+            </div>
+            <div class="col-md-12 col-lg-4">
+
+            </div>
+
+
+
+          </div><strong>Observaciones: </strong>
         </div>
       </div>
     </div>
@@ -215,6 +274,42 @@
 
 {% block js_inferior %}
 
+{% if messages %}
 
+{% for message in messages %}
+
+{% if forloop.last %}
+
+<div id="msjDeNotificacion" class="alert alert-success animated fadeInUp" role="alert">{{message}}</div>
+<script>
+setTimeout(function(){
+    $('#msjDeNotificacion').addClass('fadeOutDown');
+}, 6000);
+
+var scroll = $(document.getElementsByClassName("page-content-wrapper"));
+var id = '{{message.extra_tags}}';
+var element = $('#'+id);
+var pos = element.position();
+
+if (id === 'datosBasicos') {
+$(scroll).animate({ scrollTop: 0 - 250 }, 750);
+element.addClass('regGuardado');
+setTimeout(function(){
+    element.removeClass('regGuardado');
+}, 6000);
+}else{
+$(scroll).animate({ scrollTop: pos.top - 150 }, 750);
+element.addClass('regGuardado').css('opacity', '1');
+setTimeout(function(){
+    element.removeClass('regGuardado');
+}, 6000);
+}
+</script>
+
+{% endif %}
+
+{% endfor %}
+
+{% endif %}
 
 {% endblock js_inferior %}

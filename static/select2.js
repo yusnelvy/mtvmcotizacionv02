@@ -5364,7 +5364,7 @@ S2.define('select2/core',[
   };
 
   Select2.prototype.hasFocus = function () {
-    return this.$container.hasClass('select2-container--focus');
+        return this.$container.hasClass('select2-container--focus');
   };
 
   Select2.prototype.focus = function (data) {
@@ -5372,9 +5372,14 @@ S2.define('select2/core',[
     if (this.hasFocus()) {
       return;
     }
-
+    // modificado para agregar componente de experiencia de usuario.
+    var pos = this.$container.position().top;
+    var scroll = $(document.getElementsByClassName("page-content-wrapper"));
+    this.$container.attr('data-posicion', pos);
+    $(scroll).animate({ scrollTop: pos - 100 }, 250);
+    // -------------------by: {Yohandri}>
     this.$container.addClass('select2-container--focus');
-    this.trigger('focus', {});
+    this.trigger('focus',{});
   };
 
   Select2.prototype.enable = function (args) {

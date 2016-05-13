@@ -16,7 +16,7 @@ Agregar cliente
 
 {% block cuerpo_form %}
 
-<div class="col-md-12 col-lg-6" style="background: #fff;">
+<div class="blockForm">
 
   {{ form.as_p }}
 
@@ -42,11 +42,13 @@ $('input[type=radio]').focus(function() {
         $('#id_cuit,#id_nombre,#id_observaciones').parent().css('visibility', 'visible');
         if ($(this).val() === '1') {
             $('#id_cuit').parent().css('display', 'none');
+            $('#id_observaciones').parent().css('display', 'none');
             $('#id_nombre').focus();
             $('#id_cuit').removeAttr('required');
             $('label[for=id_nombre]').text('Nombre del cliente');
         }else{
             $('#id_cuit').parent().css('display', 'block');
+            $('#id_observaciones').parent().css('display', 'block');
             $('#id_cuit').focus();
             $('#id_cuit').attr('required', 'required');
             $('label[for=id_nombre]').text('Nombre de la entidad');
@@ -55,11 +57,13 @@ $('input[type=radio]').focus(function() {
     radioColor();
     if ($('label:has(input[name=tipo_de_cliente]:checked)').text().trim() === 'Particular' || $('label:has(input[name=tipo_de_cliente]:checked)').text().trim() === 'particular') {
             $('#id_cuit').parent().css('display', 'none');
+            $('#id_observaciones').parent().css('display', 'none');
             $('#id_nombre').focus();
             $('#id_cuit').removeAttr('required');
             $('label[id=id_nombre]').text('Nombre del cliente');
         }else{
             $('#id_cuit').parent().css('display', 'block');
+            $('#id_observaciones').parent().css('display', 'block');
             $('#id_cuit').focus();
             $('#id_cuit').attr('required', 'required');
             $('label[for=id_nombre]').text('Nombre de la entidad');

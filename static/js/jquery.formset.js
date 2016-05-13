@@ -184,7 +184,7 @@
                 addButton = buttonRow.find('a');
             } else {
                 // Otherwise, insert it immediately after the last form:
-                $$.filter(':last').after('<a class="' + options.addCssClass + '" href="javascript:void(0)" title="Agregar" data-toggletooltip="tooltip" data-placement="left" tabindex="-1">' + options.addText + '</a>');
+                $$.filter(':last').after('<a class="' + options.addCssClass + '" href="javascript:void(0)" title="Agregar" data-toggletooltip="tooltip" data-placement="left" tabindex="-1" onclick="actualizarCheckbox();">' + options.addText + '</a>');
                 addButton = $$.filter(':last').next();
                 if (hideAddButton) addButton.hide();
             }

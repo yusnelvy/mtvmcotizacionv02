@@ -157,7 +157,7 @@ class ContactoForm(ModelForm):
             'estado_civil': RadioSelect(attrs={'onclick': 'radioColor();'}),
             'fecha_nacimiento': TextInput(attrs={'required': 'required'}),
             'observaciones': Textarea(attrs={'cols': '1', 'rows': '1'}),
-            'dni': TextInput(attrs={'required': 'required'})
+            'dni': TextInput()
         }
         labels = {
             'dni': ('DNI del cliente'),

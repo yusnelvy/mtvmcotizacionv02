@@ -54,7 +54,7 @@
               <a>Mudarte
                 <span class="glyphicon glyphicon-road"></span>
               </a>
-              <a href="/" tabindex="-1">Inicio</a>
+              <a href="/" tabindex="-1" class="glyphicon glyphicon-home" title="Inicio"></a>
 
               <span class="barDivide"></span>
 
@@ -62,31 +62,32 @@
 
               {% include "Transacciones.html" %}
 
+              <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1"></a>
+
               {% if user.username %}
 
 
-              <a aria-expanded="true" class="navbar-brand dropdown-toggle" data-toggle="dropdown" href="#" title="{% if user.username %}{{ user.username }}{% endif %}" type="button">
+              <a style="float: right;" aria-expanded="true" class="navbar-brand dropdown-toggle" data-toggle="dropdown" href="#" title="{% if user.username %}{{ user.username }}{% endif %}" type="button">
                 <span class="glyphicon glyphicon-user"></span>
                 <span class="caret"></span>
 
                 {% if user.username %}
 
-                {{ user.username }}
+                {{ user.username|truncatechars:"6" }}
 
                 {% endif %}
 
               </a>
-              <a href="{% url 'uusuarios:logout' %}">Salir</a>
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <a href="#">Configuraciones</a>
+                  <a style="color:#777;" href="#">Configuraciones</a>
                 </li>
                 <li>
-                  <a href="{% url 'uusuarios:login' %}">Login</a>
+                  <a style="color:#777;" href="{% url 'uusuarios:login' %}">Login</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="{% url 'uusuarios:logout' %}">Salir</a>
+                  <a style="color:#777;" href="{% url 'uusuarios:logout' %}">Salir</a>
                 </li>
               </ul>
 
@@ -97,7 +98,6 @@
 
               {% endif %}
 
-              <a class="menuSidebar {% if sidebar == '1' or sidebar == '2' %}hidden{% else %} {% endif %}" onclick="sidebarBtn(1);" tabindex="-1"></a>
             </ul>
 
           </div>

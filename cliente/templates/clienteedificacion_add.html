@@ -1,5 +1,7 @@
 {% extends "base_editar.html" %}
+
 {% block js_superior %}
+
 <script type="text/javascript">
 $(function() {
         $(".inline.{{ itemascensor_form.prefix }}").formset({
@@ -10,7 +12,9 @@ $(function() {
         })
     })
 </script>
+
 {% endblock js_superior %}
+
 {% block titulo %}
 
     Edificación
@@ -27,7 +31,10 @@ Agregar edificación
 
 {% block cuerpo_form %}
 
+<div class="blockForm">
+
   {{ form.as_p }}
+
   <fieldset>
     <legend>Ascensor</legend>
     {{ itemascensor_form.management_form }}
@@ -60,14 +67,18 @@ Agregar edificación
         {{ form.capacidad_carga.label_tag }}
         {{ form.capacidad_carga }}
     </div>
+
     {% endfor %}
+
   </fieldset>
 
   <fieldset>
     <legend>Horarios Disponibles</legend>
     {{ itemhorariodisponible_form.management_form }}
     {{ itemhorariodisponible_form.non_form_errors }}
+
     {% for form in itemhorariodisponible_form %}
+
     {{ form.id }}
     <div class="inline {{ itemhorariodisponible_form.prefix }}">
         {{ form.lunes.errors }}
@@ -108,14 +119,30 @@ Agregar edificación
         {{ form.observacion }}
 
     </div>
+
     {% endfor %}
+
   </fieldset>
+</div>
 
 {% endblock cuerpo_form %}
+
 {% block js_inferior %}
 
 <script type="text/javascript">
 $('form').removeClass('hidden');
+$('input[name=cantidad_de_pisosa], input[name=cantidad_de_inmuebles_por_pisoa]').on('change', function() {
+    operacionX($('#id_cantidad_de_pisos').val(),$('#id_cantidad_de_inmuebles_por_piso').val(),$('#id_total_inmuebles'));
+});
+operacionX($('#id_cantidad_de_pisos').val(),$('#id_cantidad_de_inmuebles_por_piso').val(),$('#id_total_inmuebles'));
+$("#id_direccion").prop("disabled", true);
+$('#id_nombre_de_edificio').focus();
+radioSelectPlus();
+$('#myformEdit').submit(function() {
+    $("#id_direccion").prop("disabled", false);
+    operacionX($('#id_cantidad_de_pisos').val(),$('#id_cantidad_de_inmuebles_por_piso').val(),$('#id_total_inmuebles'));
+});
 </script>
 <style>.paginacionEdit{height: 0;display: none;}</style>
+
 {% endblock js_inferior %}
