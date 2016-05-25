@@ -45,18 +45,3 @@ class AmbientePorTipoDeInmuebleForm(ModelForm):
     class Meta:
         model = AmbientePorTipoDeInmueble
         fields = '__all__'
-
-
-class AmbientePorTipoDeInmuebleForm2(forms.Form):
-    """
-    Docstring documentación pendiente
-    """
-    ambiente_choices = [(ambiente.id, ambiente.ambiente) for ambiente in Ambiente.objects.all()]
-    inmueble_choices = [(inmueble.id, inmueble.especificacion_de_inmueble) for inmueble in EspecificacionDeInmueble.objects.all()]
-
-    ch_agregar = forms.BooleanField(required=False)
-    ambiente = forms.ChoiceField(label='Ambiente',
-                                 choices=ambiente_choices)
-    especificacion_de_inmueble = forms.ChoiceField(label='Especificación de inmueble',
-                                                   choices=inmueble_choices)
-    predeterminado = forms.BooleanField(required=False)
