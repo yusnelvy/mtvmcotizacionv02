@@ -266,7 +266,8 @@ th {
   font-family: 'Glyphicons Halflings';
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
   src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
-.glyphicon, .delete-row, .add-row, .ascendenteAlfabetico, .descendenteAlfabetico, .ascendenteNumerico, .descendenteNumerico, .iconoPlus, .iconoVolver, .iconoImprimir, .iconoEditar, .iconoRemover, .iconoVerFicha, .iconoDescargar, .iconoCarpetaAbierta, .iconoExpandirLeft, .iconoExpandirRight, .iconoExpandirFull, .iconoGrupoControl, .menuSidebar {
+.glyphicon, .delete-row, .add-row, .ascendenteAlfabetico, .descendenteAlfabetico, .ascendenteNumerico, .descendenteNumerico, .legendas
+.iconoPlus, .iconoVolver, .iconoImprimir, .iconoEditar, .iconoRemover, .iconoVerFicha, .iconoDescargar, .iconoCarpetaAbierta, .iconoExpandirLeft, .iconoExpandirRight, .iconoExpandirFull, .iconoGrupoControl, .iconoUp, .legendas span.btnToggle, .iconoDown, .legendas.collapsed span.btnToggle, .menuSidebar {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -280,7 +281,8 @@ th {
 .glyphicon-asterisk:before {
   content: "\002a"; }
 
-.glyphicon-plus:before, .add-row:before, .iconoPlus:before {
+.glyphicon-plus:before, .add-row:before, .legendas
+.iconoPlus:before {
   content: "\002b"; }
 
 .glyphicon-euro:before,
@@ -620,10 +622,10 @@ th {
 .glyphicon-magnet:before {
   content: "\e112"; }
 
-.glyphicon-chevron-up:before {
+.glyphicon-chevron-up:before, .iconoUp:before, .legendas span.btnToggle:before {
   content: "\e113"; }
 
-.glyphicon-chevron-down:before {
+.glyphicon-chevron-down:before, .iconoDown:before, .legendas.collapsed span.btnToggle:before {
   content: "\e114"; }
 
 .glyphicon-retweet:before {
@@ -8115,9 +8117,9 @@ button.close, .alertaLista button {
 .seleccion .c_td a, .seleccion .c_td span {
   color: #fff !important; }
 
-/*
- * iconos
- */
+.btnToggle {
+  float: right; }
+
 .iconoGrupoControl {
   cursor: default; }
 
@@ -8396,6 +8398,12 @@ legend.legendas {
   cursor: pointer; }
   legend.legendas:hover {
     background: #fff; }
+
+.legendas {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
 
 .bootstrap-switch {
   display: inline-block;

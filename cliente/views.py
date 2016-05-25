@@ -1674,6 +1674,7 @@ class ClienteDetail(DetailView):
         context['contactos'] = InformacionDeContacto.objects.filter(contacto__cliente=self.object.pk).exclude(contacto__tipo_de_relacion__tipo_de_relacion='cliente')
         context['direcciones'] = ClienteDireccion.objects.filter(cliente=self.object.pk)
         context['ascensores'] = Ascensor.objects.filter(edificacion__clientedireccion__cliente=self.object.pk)
+        context['horarios'] = HorarioDisponible.objects.filter(edificacion__clientedireccion__cliente=self.object.pk)
 
         return context
 

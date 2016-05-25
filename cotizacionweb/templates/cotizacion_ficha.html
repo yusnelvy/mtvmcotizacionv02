@@ -1,5 +1,112 @@
 {% extends "base.html" %}
+
 {% block contenido %}
+
+<br>
+<div id="datosBasicos" class="panel panel-default">
+  <div class="panel-body">
+    <div class="controlFicha">
+      <a title="Editar" data-toggletooltip="tooltip" data-placement="left"  class="iconoEditar"></a>
+      <span class="iconoGrupoControl"></span>
+    </div>
+    <div class="contenedor">
+      <div class="contenedorFila">
+        <h3>{{ cotizacion.cliente.nombre }}</h3>
+        <div class="col-md-12 col-lg-3">
+
+          {% if cotizacion.cliente.cuit %}
+
+          <p>
+            <span>
+              <strong>CUIT: </strong>
+
+              {{ cotizacion.cliente.cuit }}
+
+            </span>
+          </p>
+
+          {% endif %}
+
+          {% if cotizacion.cliente.tipo_de_cliente.tipo_de_cliente == 'Particular' %}
+
+          {% if contacto_cliente.0.contacto.dni %}
+
+          <p>
+            <span>
+              <strong>DNI: </strong>
+
+              {{ contacto_cliente.0.contacto.dni }}
+
+            </span>
+
+          </p>
+
+          {% endif %}
+
+        </div>
+        <div class="col-md-12 col-lg-3">
+
+          <p>
+            <span>
+              <strong>Sexo: </strong>
+
+              {{ contacto_cliente.0.contacto.sexo }}
+
+            </span>
+
+          </p>
+          <p>
+            <span>
+              <strong>Estado civil: </strong>
+
+              {{ contacto_cliente.0.contacto.estado_civil }}
+
+            </span>
+
+          </p>
+        </div>
+        <div class="col-md-12 col-lg-3">
+
+          {% for i in contacto_cliente %}
+
+          <p>
+            <span>
+              <strong>{{i.tipo_de_informacion_de_contacto}}: </strong>
+
+              {{i.informacion_de_contacto}}
+
+            </span>
+          </p>
+
+          {% endfor %}
+
+          {% endif %}
+
+        </div>
+        <div class="col-md-12 col-lg-3">
+          <p>
+            <strong> Nro de cotización: </strong> C0001
+          </p>
+
+          <p><strong>Estado:</strong> {{estadoactual.0.estado_de_documento.estado_de_documento}}</p>
+
+        </div>
+      </div> <p>
+      <span>
+        <strong> Observaciones: </strong>
+
+        {{ cliente.observaciones }}
+
+      </span>
+
+    </p>
+  </div>
+</div>
+</div>
+
+
+
+
 <div role="tabpanel">
 
   <!-- Tab panes -->

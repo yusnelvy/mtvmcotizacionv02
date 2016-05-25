@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <legend id="datosContacto" class="legendas" data-toggle="collapse" href="#contactoCollapse" aria-expanded="false" aria-controls="collapseExample">Personas de contacto de {{cliente.nombre}}.
+  <legend id="datosContacto" class="legendas" data-toggle="collapse" href="#contactoCollapse" aria-expanded="false" aria-controls="collapseExample">Personas de contacto de {{cliente.nombre}}. <span class="btnToggle"></span>
   </legend>
 
   <div class="collapse datosContacto {% if contactos %}in{% else %}in{% endif %}" id="contactoCollapse">
@@ -151,7 +151,7 @@
   </div>
 
   <legend id="datosDireccion" class="legendas" data-toggle="collapse" href="#direccionesCollapse" aria-expanded="false" aria-controls="collapseExample">
-    Direcciones de {{cliente.nombre}}.
+    Direcciones de {{cliente.nombre}}. <span class="btnToggle"></span>
   </legend>
   <div id="direccionesCollapse" class="collapse datosDireccion {% if direcciones %}in{% else %}in{% endif %}">
 
@@ -222,6 +222,8 @@
             </div>
             <div class="col-md-12 col-lg-4">
 
+              {% if direccion.edificacion.cantidad_de_pisos  %}
+
               {% if direccion.edificacion.cantidad_de_pisos > 1 %}
 
             <p><strong>Cantidad de pisos de la edificación: </strong>{{direccion.edificacion.cantidad_de_pisos}} Pisos</p>
@@ -229,6 +231,8 @@
             {% else %}
 
              <p><strong>Cantidad de piso de la edificación: </strong>{{direccion.edificacion.cantidad_de_pisos}} piso</p>
+
+            {% endif %}
 
             {% endif %}
 
@@ -250,12 +254,81 @@
 
             </div>
             <div class="col-md-12 col-lg-4">
+              <p>
 
+              {% for i in horarios %}
+
+              {% if i.edificacion == direccion.edificacion %}
+
+                <strong>Horario disponible para el {{i.edificio|yesno:"edificio,"}}{{i.ascensor|yesno:"ascensor,"}}: </strong>
+
+              {{i.lunes|yesno:"Lunes,"}}
+
+              {% if i.lunes %}
+              ,
+              {% endif %}
+
+               {{i.martes|yesno:"Martes,"}}
+
+               {% if i.martes %}
+                 ,
+               {% endif %}
+
+                {{i.miercoles|yesno:"Miercoles,"}}
+
+                {% if i.miercoles %}
+                  ,
+                {% endif %}
+
+                 {{i.jueves|yesno:"Jueves,"}}
+
+                 {% if i.jueves %}
+                   ,
+                 {% endif %}
+
+                  {{i.viernes|yesno:"Viernes,"}}
+
+                  {% if i.viernes %}
+                    ,
+                  {% endif %}
+
+                   {{i.sabado|yesno:"Sabado,"}}
+
+                   {% if i.sabado %}
+                   ,
+                   {% endif %}
+
+                    {{i.domingo|yesno:"Domingo,"}}
+
+                    {% if i.domingo %}
+                      .
+                    {% endif %}
+
+                            desde las
+          {{i.hora_desde}}  hasta las  {{i.hora_hasta}} <br>
+
+          {% endif %}
+
+            {% endfor %}
+              </p>
             </div>
+          </div><p>
 
+          {% for i in horarios %}
 
+          {% if i.observacion %}
 
-          </div><strong>Observaciones: </strong>
+          {% if i.edificacion == direccion.edificacion %}
+
+          <strong>Observaciones del {{i.edificio|yesno:"edificio,"}}{{i.ascensor|yesno:"ascensor,"}}:  </strong> {{i.observacion}} <br>
+
+          {% endif %}
+
+          {% endif %}
+
+          {% endfor %}
+
+        </p>
         </div>
       </div>
     </div>
@@ -270,6 +343,7 @@
 
   </div>
 </div>
+
 {% endblock contenido %}
 
 {% block js_inferior %}

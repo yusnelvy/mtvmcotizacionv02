@@ -94,7 +94,7 @@
 
               {% else %}
 
-              <a class="navbar-brand" data-target="{% if user.username %}#myModal2{% else %}/login{% endif %}" href="{% url 'uusuarios:login' %}?next={{request.GET.next}}" title="{% if user.username %}{{ user.username }}{% else %}Login{% endif %}" type="button"><span class="glyphicon glyphicon-user"></span>Login</a>
+              <a style="float: right;" class="navbar-brand" data-target="{% if user.username %}#myModal2{% else %}/login{% endif %}" href="{% url 'uusuarios:login' %}?next={{request.GET.next}}" title="{% if user.username %}{{ user.username }}{% else %}Login{% endif %}" type="button"><span class="glyphicon glyphicon-user"></span>Login</a>
 
               {% endif %}
 

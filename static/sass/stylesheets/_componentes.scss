@@ -372,6 +372,9 @@ ul {
 .seleccion .c_td a, .seleccion .c_td span {
   color: #fff!important;
 }
+.btnToggle {
+  float: right;
+}
 /*
  * iconos
  */
@@ -423,6 +426,14 @@ ul {
   @extend .glyphicon;
   @extend .glyphicon-option-horizontal;
   cursor: default;
+}
+.iconoUp {
+  @extend .glyphicon;
+  @extend .glyphicon-chevron-up;
+}
+.iconoDown {
+  @extend .glyphicon;
+  @extend .glyphicon-chevron-down;
 }
 
 /*!
@@ -808,7 +819,21 @@ legend.legendas {
     background: #fff;
   }
 }
+.legendas {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  span.btnToggle {
+    @extend .iconoUp;
+  }
+  &.collapsed {
+    span.btnToggle {
+    @extend .iconoDown;
+   }
+  }
 
+}
 .bootstrap-switch {
   display: inline-block;
   direction: ltr;
